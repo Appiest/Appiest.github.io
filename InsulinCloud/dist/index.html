@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en-us">
+
+    <head style="background-color: #be4dda;">
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+
+        <title>Insulin Cloud</title>
+        <meta name="description" content="">
+
+        <!-- The compiled CSS file -->
+        <link rel="stylesheet" href="css/production.css">
+
+        <!-- Web fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Karla:400,700" rel="stylesheet">
+
+        <!-- favicon.ico. Place these in the root directory. -->
+        <link rel="shortcut icon" href="favicon.ico">
+
+    </head>
+
+    <style>
+        /* Style the filters */        
+        .filters {
+            overflow: hidden;
+            border-bottom-right-radius: 25px;
+            border-bottom-left-radius: 25px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Style the buttons that are used for the filters */
+        .filters button {
+            background-color: inherit;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            border-radius: 25px;
+            border: 0px;
+        }
+
+        /* Change background color of buttons on hover */
+        .filters button:hover {
+            background-color: #cb98f7;
+        }
+        
+        /* Create an active/current filters class */
+        .filters button.active {
+            background-color: #cb98f7;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            border-bottom-right-radius: 25px;
+            border-bottom-left-radius: 25px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Style the buttons that are used to open the tab content */
+        .tab button {
+            background-color: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            border-radius: 25px;
+            border: 0px;
+        }
+        
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #cb98f7;
+        }
+        
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #cb98f7;
+        }
+        
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            border-top: none;
+            border-radius: 25px;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        /* Style the container modules */
+        .module {
+            display: block;
+            border-radius: 25px;
+            border: 1px solid rgba(149, 157, 165, 0.2);
+            margin-top: 40px;
+            margin-bottom: 40px;
+            width: 100%;
+            height: 150px; 
+            text-align: center;
+            background-color: #ffffff;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            position: relative;
+        }
+        
+        .round {
+            border-radius: 25px;
+            border: 2px solid #e476ff;
+            padding: 20px; 
+            width: 200px;
+            height: 150px;  
+        }
+
+        .helpBubble {
+            border-radius: 250px; 
+            margin-top: 25px; 
+            margin-bottom: 25px;
+            margin-left: 50px;
+            margin-right: 50px;
+            border: 0px; 
+            background-color: #cb98f7; 
+            width: 300px; 
+            height: 300px;
+            padding: 10px 10px 10px 10px;
+        }
+
+        .helpPage {
+            text-align: center;
+        }
+
+        .helpPage button:hover {
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        }
+
+        .connectMed:hover h3 {
+            display: none;
+        } 
+
+        .connectGenHelp:hover h3 {
+            display: none;
+        }
+
+        .connectOther:hover h3 {
+            display: none;
+        }
+
+        .connectMed:hover:before {
+            content: "Call: +1 111-111-1111!";
+        }
+
+        .connectGenHelp:hover:before {
+            content: "Call: +1 222-222-2222!";
+        }
+
+        .connectOther:hover:before {
+            content: "Call: +1 333-333-3333!";
+        }
+
+        body {
+            background-image: url('img/background.png');
+        }
+    </style>
+
+    <body class="has-animations">
+
+    <!-- Header -->
+    <header class="pt2 pb1 align--center">
+        <div class="container">
+            <img src="img/fullLogo2.png" style="text-align: left; position: absolute; top: 30px; left: 30px; width: 150px; height: 150px">
+            <p>Welcome to</p>
+            <h1 title="Insulin Cloud">Insulin Cloud</h1>
+            <p>Insulin info up to date for you.</p>
+        </div>
+    </header>
+
+    <!-- Body -->
+    <main>
+        
+        <div class="container">
+
+            <!-- Tab links -->
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'Insulin');" id="defaultOpen">Insulin</button>
+                <button class="tablinks" onclick="openCity(event, 'helpPage');">Help</button>
+            </div>
+            
+            <!-- Insulin tab content -->
+            <div id="Insulin" class="tabcontent">
+                <div class="filters">
+                    <button class="filter" onclick="filterSelection('all');">Show All</button>
+                    <button class="filter" onclick="filterSelection('rapidActing');">Rapid Acting</button>
+                    <button class="filter" onclick="filterSelection('shortActing');">Short Acting</button>
+                    <button class="filter" onclick="filterSelection('intermediateActing');">Intermediate Acting</button>
+                    <button class="filter" onclick="filterSelection('longActing');">Long Acting</button>
+                    <button class="filter" onclick="filterSelection('mixed');">Mixed</button>
+                </div>
+
+                <div class="module shortActing intermediateActing" id="256">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $25.58 for 10mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $2.56/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Short/Intermediate Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Novolin N ReliOn vial <br>(isophane)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 10mL
+                    </p>
+                </div>
+                <div class="module longActing" id="1257">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $125.73 for 10mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $12.57/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Long Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Seemglee vial <br>(glargine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 10mL
+                    </p>
+                </div>
+                <div class="module longActing" id="1267">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $190.16 for 15mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $12.67/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Long Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Seemglee pen <br>(glargine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens 3mL each
+                    </p>
+                </div>
+                <div class="module mixed" id="1846">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $184.64 for 10mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $18.46/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Mixed
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humalog 70/30 vial <br>(isophane/human)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 10mL
+                    </p>
+                </div>
+                <div class="module shortActing intermediateActing" id="1850">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $185.04 for 10mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $18.50/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Short/Intermediate Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humulin N vial <br>(isophane)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 10mL
+                    </p>
+                </div>
+                <div class="module mixed" id="1886">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $56.58 for 3mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $18.86/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Mixed
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humalog 70/30 vial <br>(isophane/human)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 3mL
+                    </p>
+                </div>
+                <div class="module mixed" id="2191">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $328.69 for 15mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $21.91/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Mixed
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Insulin lispro 75/25 KwikPen <br>(lispro/lispro protamine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens 3mL each
+                    </p>
+                </div>
+                <div class="module shortActing intermediateActing" id="2407">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $361.09 for 15 mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $24.07/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Short/Intermediate Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humulin R FlexPen<br>(human)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens 3mL each
+                    </p>
+                </div>
+                <div class="module rapidActing" id="2722">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $408.29 for 15mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $27.22/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Rapid Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Admelog SoloStar pen <br>(lispro/lispro protamine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens 3mL each
+                    </p>
+                </div>
+                <div class="module mixed" id="3603">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $360.25 for 10mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $36.03/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Mixed
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humalog 75/25 vial<br>(lispro/lispro protamine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 10mL
+                    </p>
+                </div>
+                <div class="module rapidActing" id="3356">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $335.62 for 10mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $33.56/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Rapid Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humalog vial<br>(lispro/lispro protamine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 10mL
+                    </p>
+                </div>
+                <div class="module shortActing intermediateActing" id="3928">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $589.27 for 15mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $39.28/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Short/Intermediate Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humulin N KwikPen <br>(isophane)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens each 3mL
+                    </p>
+                </div>
+                <div class="module mixed" id="3930">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $393.00 for 10mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $39.90/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Mixed
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humalog 50/50 vial<br>(lispro/lispro protamine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 10mL
+                    </p>
+                </div>
+                <div class="module longActing" id="3947">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $394.71 for 10mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $39.47/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Long Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Levemir vial<br>(detemir)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 10mL
+                    </p>
+                </div>
+                <div class="module mixed" id="3981">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $119.42 for 3mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $39.81/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Mixed
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Insulin lispro 70/30 KwikPen <br>(isophane/human)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 pen 3mL
+                    </p>
+                </div>
+                <div class="module rapidActing" id="4332">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $649.81 for 15mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $43.32/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Rapid Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Fiasp PenFill cartridges <br>(aspart)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 cartridgese 3mL each
+                    </p>
+                </div>
+                <div class="module rapidActing" id="4377">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $656.61 for 15mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $43.77/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Rapid Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Lyumjev KwikPen <br>(lispro)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens 3mL each
+                    </p>
+                </div>
+                <div class="module mixed" id="4728">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $709.19 for 10mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $47.28/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Mixed
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humalog 75/25 KwikPen vial<br>(lispro/lispro protamine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens 3mL each
+                    </p>
+                </div>
+                <div class="module mixed" id="4766">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $714.87 for 15mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $47.66/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Mixed
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humalog 50/50 KwikPen<br>(lispro/lispro protamine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens 3mL each
+                    </p>
+                </div>
+                <div class="module rapidActing" id="4960">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $744.05 for 15mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $49.60/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Rapid Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Apidra SoloStar pen <br>(glulisine)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens 3mL each
+                    </p>
+                </div>
+                <div class="module longActing" id="8349">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $751.44 for 9mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $83.49/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Long Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Tesiba FlexTouch pen<br>(degludec)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        3 pens 3mL each
+                    </p>
+                </div>
+                <div class="module shortActing intermediateActing" id="9188">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $1,837.62 for 20 mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $91.88/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Short/Intermediate Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humulin R vial<br>(human)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        1 vial 20mL
+                    </p>
+                </div>
+                <div class="module longActing" id="9217">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $1,382.54 for 15 mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $92.17/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Long Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Xultophy pen<br>(degludec)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        5 pens 3mL each
+                    </p>
+                </div>
+                <div class="module shortActing intermediateActing" id="12012">
+                    <h3 style="position: absolute; top: 15px; right: 20px; text-align:right;">
+                        $720.73 for 6mL
+                    </h3>
+                    <p style="position: absolute; top: 40px; right: 20px; text-align:right;">
+                        $120.12/mL
+                    </p>
+                    <p style="position: absolute; bottom: 15px; right: 20px; text-align:right;">
+                        Short/Intermediate Acting
+                    </p>
+                    <h3 style="position: absolute; margin-top:20px; margin-bottom: 20px; left: 20px; text-align:left;">
+                        Humulin R KwikPen<br>(human)
+                    </h3>
+                    <p style="position: absolute; bottom: 15px; left: 20px; text-align:right;">
+                        2 pens 3mL each
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Help tab content -->
+            <div id="helpPage" class="tabcontent helpPage">
+                <div>
+                    <button class="helpBubble connectMed" style="text-align: center" onclick=""><h3>Connect With a <br>Medical Professional</h3></button>
+                    <button class="helpBubble connectGenHelp" style="text-align: center" onclick=""><h3>Connect to the General Help Line</h3></button>
+                </div>
+                <div>
+                    <button class="helpBubble connectOther" style="text-align: center" onclick=""><h3>Other Questions?</h3></button>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pt2 pb2">
+        <div class="container align--center">
+            <p>Copyright Insulin Cloud 2022</p>
+        </div>
+    </footer>
+
+    <!-- Scroll reveal -->
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+
+    <!-- The compiled JavaScript file -->
+    <script src="js/production.js"></script>
+
+    <!-- Custom scripts -->
+    <script>
+        document.getElementById("defaultOpen").click();
+
+        // Switch tabs 
+        function openCity(evt, cn) {
+            var i, tbc, tbls;
+            
+            if (cn == 'Insulin') {
+                document.getElementById('helpPage').style.display = "none";
+            } else {
+                document.getElementById('Insulin').style.display = "none";
+            }
+
+            tbls = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tbls.length; i++) {
+                tbls[i].className = tbls[i].className.replace(" active", "");
+            }
+
+            document.getElementById(cn).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        
+        // Filter insulin products
+        function filterSelection(c) {
+            var tbc, i;
+            tbc = document.getElementsByClassName("module");
+            if (c == 'all') {
+                c = "";
+            }
+
+            for (i = 0; i < tbc.length; i++) {
+                tbc[i].style.display = "none";
+                
+                if (tbc[i].className.indexOf(c) > -1) {
+                    tbc[i].style.display = "block";
+                }
+            }
+            sortDivs();
+        }
+
+        // Add active class to the current button (highlight it)
+        var btns = document.getElementById("filters").btnContainer.getElementsByClassName("filter");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function(){
+                var current = document.getElementsByClassName("active");
+                for (var j = 0; j < current.length; j++) {
+                    if (current[j].className.indexOf("filter") > -1) current[j].className = current[j].className.replace(" active", "");
+                }
+                this.className += " active";
+            });
+        }
+
+        // Sort Insulin by price (using IDs)
+        function sortDivs() {
+            var par = document.getElementByID("Insulin")
+            var tbc = par.getElementsByClassName("modules");
+            
+            var ids=[], obj;
+            for (var i = 0; i < tbc.length; i++) {
+                obj = {};
+                obj.element = tbc[i];
+                obj.idNum = parseInt(tbc[i].id, 10);
+                ids.push(obj);
+            }
+
+            listitems.sort(function(a, b) {
+                return (a.idNum - b.idNum);
+            });
+            for (i = 0; i < ids.length; i++) {
+                par.appendChild(ids[i]);
+            }
+        }
+    </script>
+
+    </body>
+</html>
