@@ -19,10 +19,16 @@
 }
 
 @theme inline {
-  --font-sans: "Mona Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Rosarivo", ui-serif, Georgia, serif;
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
   --color-ink: var(--ink);
   --color-ink-muted: var(--ink-muted);
   --color-accent: var(--accent);
+}
+
+@layer base {
+  html {
+    font-synthesis-weight: none;
+  }
 }
