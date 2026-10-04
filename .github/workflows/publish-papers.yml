@@ -1,0 +1,70 @@
+name: Publish papers
+
+# The daily papers task only has to push a new papers/content/day-NN.md.
+# This merges claude/* branches into main (cloud sessions may only be allowed
+# to push those), rebuilds the papers pages, commits them and starts a Pages build.
+on:
+  push:
+    branches: [main, "claude/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: publish-papers
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Start from main
+        run: |
+          git checkout main
+          git pull --ff-only origin main
+
+      - name: Merge the claude branch
+        if: startsWith(github.ref_name, 'claude/')
+        run: git merge --no-edit "origin/${GITHUB_REF_NAME}"
+
+      - name: Build papers pages
+        run: node papers/build.mjs
+
+      - name: Commit regenerated pages
+        run: |
+          git add papers
+          git diff --cached --quiet || git commit -m "Rebuild papers pages"
+
+      - name: Push main
+        id: push
+        run: |
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            git push origin main
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Pushes made with GITHUB_TOKEN don't start a Pages build on their own.
+      - name: Request a Pages build
+        if: steps.push.outputs.pushed == 'true'
+        run: gh api -X POST "repos/${GITHUB_REPOSITORY}/pages/builds"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Delete the merged claude branch
+        if: startsWith(github.ref_name, 'claude/')
+        run: git push origin --delete "${GITHUB_REF_NAME}"

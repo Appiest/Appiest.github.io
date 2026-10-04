@@ -15,6 +15,8 @@ git commit -m "Add day NN: Short title"
 git push origin main
 ```
 
+If you can't push to `main`, push the same commit to a branch named `claude/<anything>` instead. The `Publish papers` workflow (`.github/workflows/publish-papers.yml`) runs on every push to `main` or `claude/*`. It merges the branch into `main`, runs the build, commits any pages that were missing or out of date, starts a GitHub Pages build and deletes the branch. So a pushed content file goes live even if the build step was skipped. If the build fails, the workflow fails, nothing is merged, and the branch stays for a fix.
+
 The build needs Node 18 or newer and nothing else. Don't run `npm install`, and it never touches the network. It deletes and rewrites `papers/day/` on every run, so a removed content file also removes its page. Running it twice gives identical output.
 
 ## File name
