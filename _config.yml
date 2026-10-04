@@ -1,0 +1,12 @@
+# GitHub Pages builds this repo with Jekyll. Keep it from rendering the papers
+# sources, so a brief containing {{ or {% can never break the site deploy.
+exclude:
+  - papers/content
+  - papers/lib
+  - papers/build.mjs
+  - papers/styles.css
+  - papers/package.json
+  - papers/package-lock.json
+  - papers/README.md
+  - papers/node_modules
+  - landing/node_modules

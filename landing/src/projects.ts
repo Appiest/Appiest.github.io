@@ -1,5 +1,5 @@
 import type { Icon } from "@phosphor-icons/react";
-import { BaseballCap, Dog, Eyeglasses, Metronome, VectorTwo } from "@phosphor-icons/react/ssr";
+import { Article, BaseballCap, Dog, Eyeglasses, Metronome, VectorTwo } from "@phosphor-icons/react/ssr";
 
 export type Project = {
   name: string;
@@ -14,6 +14,12 @@ export const projects: Project[] = [
     description: "Short animated lessons and notes that walk through a full linear algebra course, one concept per day.",
     path: "/teach-linalg/",
     icon: VectorTwo,
+  },
+  {
+    name: "AI research, one paper a morning",
+    description: "Daily plain-English briefs on the papers that built modern AI, then the frontier.",
+    path: "/papers/",
+    icon: Article,
   },
   {
     name: "Understudy",

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 9: Attention Is All You Need</title>
+<meta name="description" content="Drop recurrence entirely and let every word look at every other word at once, and translation gets better and much faster to train.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:62.04%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:62.04%">2017</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Attention Is All You Need</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">9 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Vaswani et al.</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2017</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/1706.03762" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Drop recurrence entirely and let every word look at every other word at once, and translation gets better and much faster to train.</p>
+<div class="notes mt-10">
+<h2 id="the-problem">The problem</h2>
+<p>In 2017 the best translation systems read a sentence one word at a time with recurrent networks. Each step had to wait for the step before it, so training couldn&#39;t use the full parallel power of a GPU, and information from early words had to survive a long chain of updates to reach later ones.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="self-attention-replaces-recurrence">Self-attention replaces recurrence</h3>
+<p>Every word builds a query, a key and a value. A word&#39;s query is compared with every word&#39;s key, the scores are turned into weights with a softmax, and the word&#39;s new representation is the weighted sum of the values. Every position is processed at the same time, so a whole sentence becomes a few matrix multiplications.</p>
+
+<h3 id="many-heads-look-for-different-things">Many heads look for different things</h3>
+<p>The model runs eight attention operations side by side, each with its own learned projections. One head can track which noun a pronoun refers to while another tracks word order, and their outputs are concatenated.</p>
+
+<h3 id="position-has-to-be-added-back-in">Position has to be added back in</h3>
+<p>Attention by itself ignores word order. The authors add a positional encoding, built from sine and cosine waves of different frequencies, to each word&#39;s embedding so the model can tell &quot;dog bites man&quot; from &quot;man bites dog&quot;.</p>
+
+<h2 id="walkthrough-one-attention-step">Walkthrough: one attention step</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Take the sentence &quot;the cat sat&quot;. Each word&#39;s embedding is multiplied by three learned matrices to get its query, key and value vectors.</p>
+<ol>
+<li>For &quot;sat&quot;, take the dot product of its query with the keys of &quot;the&quot;, &quot;cat&quot; and &quot;sat&quot;.</li>
+<li>Divide each score by the square root of the key length, which keeps the softmax from saturating when vectors are long.</li>
+<li>Apply a softmax so the three weights add up to 1. Suppose &quot;cat&quot; gets most of the weight.</li>
+<li>The new vector for &quot;sat&quot; is the weighted sum of the three value vectors, so it now carries information about who sat.</li>
+</ol>
+</div>
+</details>
+<h2 id="why-it-mattered">Why it mattered</h2>
+<p>The Transformer reached 28.4 BLEU on WMT 2014 English to German, beating every earlier model including ensembles, and trained in 3.5 days on eight GPUs. Its design became the base for BERT, GPT and almost every large language model that followed.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Attention</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A weighted average where the weights come from how well a query matches each key.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Self-attention</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Attention where the queries, keys and values all come from the same sequence.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Multi-head attention</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Several attention operations run in parallel with different learned projections.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Positional encoding</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A vector added to each embedding that tells the model where the word sits in the sequence.</p>
+</dd></div></dl>
+</div>
+</article>
+
+</main>
+</body>
+</html>
