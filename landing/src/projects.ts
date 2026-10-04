@@ -1,5 +1,5 @@
 import type { Icon } from "@phosphor-icons/react";
-import { Eyeglasses, Metronome, VectorTwo } from "@phosphor-icons/react/ssr";
+import { Dog, Eyeglasses, Metronome, VectorTwo } from "@phosphor-icons/react/ssr";
 
 export type Project = {
   name: string;
@@ -26,5 +26,11 @@ export const projects: Project[] = [
     description: "A weekly music practice planner that syncs between James’s phone and laptop.",
     path: "/james/",
     icon: Metronome,
+  },
+  {
+    name: "Real or Scam? with Biscuit",
+    description: "A Duolingo-style lesson concept for a USC class, where Biscuit the golden retriever learns to spot scam texts in 10 questions.",
+    path: "/duolingo-if/",
+    icon: Dog,
   },
 ];
