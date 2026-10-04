@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 5: Sequence to Sequence Learning with Neural Networks</title>
+<meta name="description" content="One network reads a sentence into a single vector and a second network writes the translation out of it, and this simple setup matched phrase-based translation systems.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:46.56%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:46.56%">2014</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Sequence to Sequence Learning with Neural Networks</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">5 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Sutskever et al.</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2014</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/1409.3215" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">One network reads a sentence into a single vector and a second network writes the translation out of it, and this simple setup matched phrase-based translation systems.</p>
+<div class="notes mt-10">
+<h2 id="the-problem">The problem</h2>
+<p>Deep networks had become very good at mapping a fixed-size input to a fixed-size output, such as an image to a label. Translation doesn&#39;t fit that shape: the input and output are sequences of different lengths, and the words don&#39;t line up one to one. The best translation systems were phrase-based pipelines with many hand-built parts.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="an-encoder-and-a-decoder">An encoder and a decoder</h3>
+<p>One LSTM, the encoder, reads the source sentence one word at a time and ends with a single fixed-size vector. A second LSTM, the decoder, starts from that vector and generates the translation one word at a time, feeding each word it produces back in as the next input, until it outputs an end-of-sentence token.</p>
+
+<h3 id="lstms-remember-across-long-gaps">LSTMs remember across long gaps</h3>
+<p>A plain recurrent network forgets early inputs quickly, because its gradients shrink as they pass back through many steps. A Long Short-Term Memory unit has gates that decide what to keep, what to overwrite and what to output, so information can survive across a whole sentence. The authors used deep LSTMs with four layers each.</p>
+
+<h3 id="reverse-the-source-sentence">Reverse the source sentence</h3>
+<p>The most surprising trick is to feed the source sentence in backwards. The first words of the source then sit close to the first words of the translation, which creates many short-range dependencies and makes the optimization much easier. The abstract says this improved performance markedly.</p>
+
+<h3 id="search-for-the-best-output">Search for the best output</h3>
+<p>At each step the decoder keeps a small number of the most likely partial translations and extends each one, instead of committing to its single best guess. This is called beam search.</p>
+
+<h2 id="walkthrough-translating-one-sentence">Walkthrough: translating one sentence</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Take the English sentence &quot;I am happy&quot; going to French.</p>
+<ol>
+<li>Reverse it to &quot;happy am I&quot; and feed those words into the encoder one at a time.</li>
+<li>The encoder&#39;s final state is a vector that has to hold everything the decoder needs to know about the sentence.</li>
+<li>The decoder starts from that vector and predicts the first French word, &quot;je&quot;.</li>
+<li>It feeds &quot;je&quot; back in and predicts &quot;suis&quot;, then feeds &quot;suis&quot; back in and predicts &quot;heureux&quot;.</li>
+<li>It predicts the end-of-sentence token and stops, giving &quot;je suis heureux&quot;.</li>
+</ol>
+</div>
+</details>
+<h2 id="why-it-mattered">Why it mattered</h2>
+<p>On the WMT&#39;14 English to French test set the LSTM scored 34.8 BLEU, against 33.3 for a phrase-based system. Using the LSTM to rerank the phrase-based system&#39;s top 1,000 candidates raised the score to 36.5. The encoder and decoder pattern became the template for neural translation, summarization and speech recognition. Squeezing a whole sentence into one vector was also its weak point. Attention, which Bahdanau, Cho and Bengio introduced for translation the same year, lets the decoder look back at every source word instead, and Day 9 builds an entire model out of it.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Encoder</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The network that reads the input sequence and compresses it into a vector.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Decoder</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The network that generates the output sequence from that vector, one token at a time.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">LSTM</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Long Short-Term Memory, a recurrent unit with gates that control what it remembers.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">BLEU</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A translation score that measures how many word sequences in the output also appear in human reference translations.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Beam search</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Decoding that keeps several of the best partial outputs at each step instead of only one.</p>
+</dd></div></dl>
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/4/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 4</span>
+<span class="mt-1 block font-semibold">word2vec</span>
+</a>
+<a href="/papers/day/6/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line text-right sm:col-start-2">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted">Day 6 <svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:translate-x-0.5"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<span class="mt-1 block font-semibold">DQN</span>
+</a>
+</nav>
+</main>
+</body>
+</html>

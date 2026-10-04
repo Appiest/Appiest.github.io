@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 7: Generative Adversarial Nets</title>
+<meta name="description" content="Train a forger and a detective against each other, and the forger learns to produce samples that look like the real data.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:46.56%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:46.56%">2014</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Generative Adversarial Nets</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">7 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Goodfellow et al.</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2014</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/1406.2661" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Train a forger and a detective against each other, and the forger learns to produce samples that look like the real data.</p>
+<div class="notes mt-10">
+<h2 id="the-problem">The problem</h2>
+<p>Deep networks were good at telling things apart, such as cat versus dog. Generating new examples was much harder. Generative models of the time needed slow sampling procedures like Markov chains, or approximations of probabilities that couldn&#39;t be computed exactly, and they produced blurry results.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="two-networks-with-opposite-goals">Two networks with opposite goals</h3>
+<p>The generator G takes random noise and turns it into a sample, such as an image. The discriminator D looks at a sample and outputs the probability that it came from the real training data rather than from G. D is trained to tell real from fake. G is trained to make D wrong. The paper compares G to a team of counterfeiters and D to the police.</p>
+
+<h3 id="a-game-with-a-known-answer">A game with a known answer</h3>
+<p>The two networks play a minimax game: D tries to maximize the same objective that G tries to minimize. The authors prove that, if both networks are flexible enough, the game has a unique solution. At that point G&#39;s samples follow exactly the same distribution as the real data, and D can do no better than a coin flip, outputting 1/2 for everything.</p>
+
+<h3 id="only-backpropagation-needed">Only backpropagation needed</h3>
+<p>When G and D are ordinary neural networks, the whole system trains with backpropagation from Day 2. Generating a sample is a single forward pass through G, with no Markov chain and no inference step.</p>
+
+<h3 id="a-practical-fix-for-early-training">A practical fix for early training</h3>
+<p>Early on, G&#39;s samples are obviously fake and D rejects them with total confidence. In that situation the original objective gives G almost no gradient to learn from. The paper suggests training G to maximize the log of D(G(z)) instead, which has the same end point but much stronger gradients at the start.</p>
+
+<h2 id="walkthrough-one-round-of-training">Walkthrough: one round of training</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li>Draw a batch of real images from the training set and a batch of random noise vectors.</li>
+<li>Run the noise through G to get a batch of fake images.</li>
+<li>Update D to output values near 1 for the real batch and near 0 for the fake batch.</li>
+<li>Draw fresh noise, run it through G, and pass the results to D.</li>
+<li>Update G, holding D fixed, so that D&#39;s outputs for these fakes move toward 1.</li>
+<li>Repeat. As D gets better at spotting fakes, G has to get better at making them.</li>
+</ol>
+</div>
+</details>
+<h2 id="why-it-mattered">Why it mattered</h2>
+<p>The paper&#39;s own samples, on handwritten digits, faces and small photos, were modest. The idea took off: within a few years GAN variants were generating photorealistic faces, and for most of the late 2010s GANs were the leading way to generate images. Diffusion models (Day 12) later overtook them, partly because adversarial training is notoriously unstable. The idea of training one network against another to judge quality still appears throughout modern AI.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Generator</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The network that turns random noise into synthetic samples.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Discriminator</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The network that estimates whether a sample is real or generated.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Minimax game</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A two-player setup where one player maximizes the objective the other minimizes.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Latent noise</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The random input vector the generator starts from. Different noise gives different samples.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Mode collapse</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A common failure where the generator produces only a few kinds of output that fool the discriminator.</p>
+</dd></div></dl>
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/6/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 6</span>
+<span class="mt-1 block font-semibold">DQN</span>
+</a>
+<a href="/papers/day/8/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line text-right sm:col-start-2">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted">Day 8 <svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:translate-x-0.5"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<span class="mt-1 block font-semibold">ResNet</span>
+</a>
+</nav>
+</main>
+</body>
+</html>

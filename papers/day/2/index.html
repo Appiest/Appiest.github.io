@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 2: Learning Representations by Back-propagating Errors</title>
+<meta name="description" content="By sending the output error backward through a network with the chain rule, you can train the hidden layers too, and they learn useful features on their own.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:18.35%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:18.35%">1986</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Learning Representations by Back-propagating Errors</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">2 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Rumelhart, Hinton &amp; Williams</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">1986</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://doi.org/10.1038/323533a0" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">By sending the output error backward through a network with the chain rule, you can train the hidden layers too, and they learn useful features on their own.</p>
+<div class="notes mt-10">
+<h2 id="the-problem">The problem</h2>
+<p>Single-layer networks like the perceptron can only learn simple input-to-output rules, and they famously can&#39;t learn XOR. Adding hidden layers between input and output would fix that, but nobody had a practical, widely used way to decide how each hidden unit&#39;s weights should change. The training data says what the output should be. It says nothing about what a hidden unit should do.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="measure-the-error-at-the-output">Measure the error at the output</h3>
+<p>The network runs forward and produces an output. The error is the sum of squared differences between that output and the desired output. Training means nudging every weight in the direction that makes this error smaller.</p>
+
+<h3 id="send-the-error-backward">Send the error backward</h3>
+<p>The chain rule from calculus says how a small change in any weight affects the final error. The paper computes this one layer at a time, starting at the output and moving back toward the input. Each hidden unit receives a share of the blame in proportion to how strongly it connects to the units that got things wrong. One forward pass and one backward pass give the gradient for every weight in the network.</p>
+
+<h3 id="hidden-units-invent-their-own-features">Hidden units invent their own features</h3>
+<p>The most important result is what the hidden units end up doing. In one experiment the network learned family trees for two families, one English and one Italian. Nobody told it about nationality or generation, yet individual hidden units came to encode exactly those features, because they helped predict the answers.</p>
+
+<h3 id="momentum-smooths-the-path">Momentum smooths the path</h3>
+<p>Each weight update adds a fraction of the previous update. This keeps training moving through flat regions and damps oscillation across narrow valleys in the error surface.</p>
+
+<h2 id="walkthrough-one-weight-update">Walkthrough: one weight update</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Take a tiny network with one input x, one hidden unit h and one output y, with weights w1 (input to hidden) and w2 (hidden to output).</p>
+<ol>
+<li>Forward pass: h = f(w1 · x) and y = f(w2 · h), where f is the S-shaped logistic function.</li>
+<li>Compare: the error is E = ½ (y − target)².</li>
+<li>Backward through the output: the gradient for w2 is (y − target) · f′ · h. If y overshot, w2 moves down in proportion to how active h was.</li>
+<li>Backward through the hidden unit: the blame passed to h is (y − target) · f′ · w2. Multiply by h&#39;s own slope and by x to get the gradient for w1.</li>
+<li>Update both weights a small step against their gradients, then repeat on the next example.</li>
+</ol>
+</div>
+</details>
+<h2 id="why-it-mattered">Why it mattered</h2>
+<p>The general technique had appeared earlier, in work by Seppo Linnainmaa (1970) and Paul Werbos (1974). This paper made it famous by showing that the hidden layers learn meaningful internal representations. Every network in this series, up to and including today&#39;s language models, is trained with backpropagation.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Hidden unit</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A neuron that is neither an input nor an output. Its job is learned rather than specified.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Gradient</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The direction and size of the change in each weight that would most quickly increase the error. Training steps the opposite way.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Chain rule</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The calculus rule for the derivative of a function of a function. Backpropagation applies it layer by layer.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Momentum</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Carrying part of the previous weight change into the next one, so training builds up speed in a consistent direction.</p>
+</dd></div></dl>
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/1/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 1</span>
+<span class="mt-1 block font-semibold">The imitation game</span>
+</a>
+<a href="/papers/day/3/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line text-right sm:col-start-2">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted">Day 3 <svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:translate-x-0.5"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<span class="mt-1 block font-semibold">AlexNet</span>
+</a>
+</nav>
+</main>
+</body>
+</html>

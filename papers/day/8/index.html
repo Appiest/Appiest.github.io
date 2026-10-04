@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 8: Deep Residual Learning for Image Recognition</title>
+<meta name="description" content="Let each block of layers learn only a correction added to its own input, and networks can grow to 152 layers and keep getting better.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:51.72%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:51.72%">2015</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Deep Residual Learning for Image Recognition</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">8 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">He et al.</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2015</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/1512.03385" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Let each block of layers learn only a correction added to its own input, and networks can grow to 152 layers and keep getting better.</p>
+<div class="notes mt-10">
+<h2 id="the-problem">The problem</h2>
+<p>Deeper networks should be at least as good as shallower ones. A deep network could, in principle, copy the shallow one and make its extra layers do nothing. In practice, adding layers past a point made results worse, and not because of overfitting. On CIFAR-10, a plain 56-layer network had higher error than a 20-layer one on the training set itself. The authors called this the degradation problem: the optimizer couldn&#39;t find good settings for very deep stacks.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="learn-the-residual">Learn the residual</h3>
+<p>A block of layers normally has to learn the whole mapping from its input x to its output. A residual block instead learns F(x) and outputs F(x) + x. If the best thing a block can do is nothing, it only has to push F toward zero, which is much easier than learning to copy its input exactly through several layers.</p>
+
+<h3 id="shortcut-connections-cost-nothing">Shortcut connections cost nothing</h3>
+<p>The + x is a shortcut that skips around the block. It adds no parameters and almost no computation. It also gives gradients a direct path back to earlier layers during backpropagation, so the signal doesn&#39;t fade over dozens of layers.</p>
+
+<h3 id="bottleneck-blocks-for-very-deep-networks">Bottleneck blocks for very deep networks</h3>
+<p>For the 50, 101 and 152-layer versions, each block first shrinks the number of channels with a 1×1 convolution, does a 3×3 convolution on the smaller representation, then expands back with another 1×1 convolution. This keeps very deep networks affordable.</p>
+
+<h2 id="walkthrough-why-the-shortcut-helps">Walkthrough: why the shortcut helps</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li>Suppose a 20-layer network already works well, and you add 10 more layers on top.</li>
+<li>In a plain network, those 10 layers have to learn the identity function, passing their input through unchanged, before they can stop hurting. That turns out to be hard to learn.</li>
+<li>In a residual network, each new block outputs F(x) + x. If F&#39;s weights are near zero, the block already passes x through unchanged.</li>
+<li>Training then starts from &quot;the extra layers do no harm&quot; and only has to find useful corrections, so the deeper network can only match or improve on the shallower one.</li>
+</ol>
+</div>
+</details>
+<h2 id="why-it-mattered">Why it mattered</h2>
+<p>The 152-layer network is 8 times deeper than VGG, the previous year&#39;s standout, yet needs less computation. An ensemble of residual networks reached 3.57% top-5 error on ImageNet and won the 2015 classification challenge, along with first place in ImageNet detection and localization and in COCO detection and segmentation. Residual connections are now everywhere. Every layer of the Transformer (Day 9) wraps its attention and feed-forward steps in exactly this kind of shortcut.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Residual block</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A few layers whose output is added to the block&#39;s own input, so they learn a correction rather than a full mapping.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Shortcut connection</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The path that carries the input around the block unchanged.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Degradation problem</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Deeper plain networks getting worse training error than shallower ones.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Identity mapping</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A function that returns its input unchanged.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Bottleneck block</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A residual block that shrinks, processes and re-expands the channels to save computation.</p>
+</dd></div></dl>
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/7/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 7</span>
+<span class="mt-1 block font-semibold">GANs</span>
+</a>
+<a href="/papers/day/9/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line text-right sm:col-start-2">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted">Day 9 <svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:translate-x-0.5"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<span class="mt-1 block font-semibold">Transformer</span>
+</a>
+</nav>
+</main>
+</body>
+</html>

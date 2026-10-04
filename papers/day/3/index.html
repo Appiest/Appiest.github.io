@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 3: ImageNet Classification with Deep Convolutional Neural Networks</title>
+<meta name="description" content="A big convolutional network trained on two gaming GPUs cut the ImageNet error rate from 26% to 15%, and computer vision switched to deep learning almost overnight.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:36.24%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:36.24%">2012</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">ImageNet Classification with Deep Convolutional Neural Networks</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">3 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Krizhevsky et al.</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2012</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">A big convolutional network trained on two gaming GPUs cut the ImageNet error rate from 26% to 15%, and computer vision switched to deep learning almost overnight.</p>
+<div class="notes mt-10">
+<h2 id="the-problem">The problem</h2>
+<p>ImageNet&#39;s 2012 challenge asked systems to sort 1.2 million training photos into 1,000 categories, from container ships to specific dog breeds. The leading systems used features that people designed by hand, such as edge and texture statistics, fed into a separate classifier. Neural networks that learned their own features were believed to be too slow to train at this scale and too prone to memorizing the training set.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="go-big-and-deep">Go big and deep</h3>
+<p>The network has five convolutional layers and three fully connected layers, with 60 million parameters and 650,000 neurons. Convolutional layers slide the same small filters across the whole image, so a filter that detects an edge in one corner also detects it everywhere else. Early layers learned edge and color detectors, and deeper layers learned combinations of them.</p>
+
+<h3 id="use-relu-instead-of-s-shaped-activations">Use ReLU instead of S-shaped activations</h3>
+<p>Each neuron outputs max(0, x), now called a rectified linear unit. Its gradient doesn&#39;t shrink toward zero for large inputs the way the logistic and tanh curves do. On a small test, a four-layer network with ReLUs reached 25% training error on CIFAR-10 six times faster than the same network with tanh.</p>
+
+<h3 id="train-on-gpus">Train on GPUs</h3>
+<p>The authors wrote fast GPU code for convolution and split the network across two NVIDIA GTX 580 cards with 3 GB of memory each. Training took five to six days. Without GPUs, a network this size would have taken months.</p>
+
+<h3 id="fight-overfitting">Fight overfitting</h3>
+<p>With 60 million parameters and 1.2 million images, the network could easily memorize. Two tricks held it back. Data augmentation trained on random crops, mirror images and slight color shifts of each photo. Dropout switched off each hidden neuron in the first two fully connected layers with probability 0.5 on every training step, so no neuron could rely on any particular partner.</p>
+
+<h2 id="why-it-mattered">Why it mattered</h2>
+<p>On the 2012 test set the network&#39;s top-5 error was 15.3%, against 26.2% for the second-best entry. The gap was so large that within two years nearly every competitive vision system was a deep convolutional network. The recipe of a big network, lots of labelled data and GPUs is the starting point for everything in the rest of this series.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Convolutional layer</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A layer that applies the same small set of learned filters at every position in the image.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">ReLU</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The rectified linear unit, max(0, x). It trains faster than S-shaped activations because its gradient doesn&#39;t fade for large inputs.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Dropout</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Randomly switching off neurons during training so the network can&#39;t depend on any single one.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Data augmentation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Making extra training examples by cropping, flipping or recoloring the originals.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Top-5 error</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The share of test images whose correct label is missing from the model&#39;s five most confident guesses.</p>
+</dd></div></dl>
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/2/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 2</span>
+<span class="mt-1 block font-semibold">Backpropagation</span>
+</a>
+<a href="/papers/day/4/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line text-right sm:col-start-2">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted">Day 4 <svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:translate-x-0.5"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<span class="mt-1 block font-semibold">word2vec</span>
+</a>
+</nav>
+</main>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 6: Human-level Control through Deep Reinforcement Learning</title>
+<meta name="description" content="One network, seeing only the screen pixels and the score, learned to play 49 different Atari games, many of them at or above the level of a professional human tester.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:51.72%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:51.72%">2015</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Human-level Control through Deep Reinforcement Learning</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">6 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Mnih et al.</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2015</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://doi.org/10.1038/nature14236" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">One network, seeing only the screen pixels and the score, learned to play 49 different Atari games, many of them at or above the level of a professional human tester.</p>
+<div class="notes mt-10">
+<h2 id="the-problem">The problem</h2>
+<p>Reinforcement learning trains an agent by trial and error. The agent acts, gets rewards, and learns which actions pay off. It had worked on small problems where the state could be described with a few hand-picked numbers. Combining it with a neural network that reads raw pixels was known to be unstable: training would often diverge instead of improving.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="learn-the-value-of-each-action">Learn the value of each action</h3>
+<p>The agent learns a Q-function: for the current screen, an estimate of the total future score for each possible action. It plays by picking the action with the highest estimate, and sometimes picks a random one so it keeps exploring.</p>
+
+<h3 id="read-the-screen-with-a-convolutional-network">Read the screen with a convolutional network</h3>
+<p>The input is the last four frames of the game, shrunk to 84 by 84 pixels in grayscale, so the network can see motion. A convolutional network like Day 3&#39;s turns these frames into one Q-value for each joystick action.</p>
+
+<h3 id="experience-replay">Experience replay</h3>
+<p>The agent stores each step it plays (screen, action, reward, next screen) in a large memory, and trains on random samples from that memory. This breaks up the strong correlation between consecutive frames and lets each experience be learned from many times.</p>
+
+<h3 id="a-target-network-that-changes-slowly">A target network that changes slowly</h3>
+<p>The training target for each Q-value depends on the network&#39;s own predictions, which makes the target move every time the network updates. DQN computes the targets with a frozen copy of the network and refreshes that copy only every few thousand steps. That gives the learner a stable target to aim at.</p>
+
+<h2 id="walkthrough-one-q-learning-update">Walkthrough: one Q-learning update</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Say the agent is in Breakout, moves the paddle left, and the ball breaks a brick worth 1 point.</p>
+<ol>
+<li>Store the step: the screen before, the action &quot;left&quot;, reward 1, and the screen after.</li>
+<li>Later, sample this step from memory along with a batch of other random steps.</li>
+<li>Ask the frozen target network for the best Q-value on the screen after. Suppose it&#39;s 4.</li>
+<li>The training target is the reward plus the discounted future: 1 + 0.99 × 4 = 4.96.</li>
+<li>If the main network currently predicts 3.5 for &quot;left&quot; on the screen before, nudge it toward 4.96.</li>
+</ol>
+</div>
+</details>
+<h2 id="why-it-mattered">Why it mattered</h2>
+<p>The same architecture and settings, trained separately on each of 49 games, worked across all of them, and on more than half of them it reached at least 75% of a professional tester&#39;s score. It showed that deep learning and reinforcement learning could be combined, and DeepMind&#39;s AlphaGo combined the two again a year later. The idea of a reward signal driving a neural network returns on Day 16, where it&#39;s used to make language models follow instructions.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Reinforcement learning</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Learning which actions to take from rewards, rather than from labelled examples.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Q-value</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The expected total future reward from taking a given action in a given state and playing well afterward.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Experience replay</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Storing past experiences and training on random samples of them.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Target network</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A periodically updated copy of the network used to compute stable training targets.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Discount factor</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A number just below 1 that makes rewards further in the future count for less.</p>
+</dd></div></dl>
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/5/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 5</span>
+<span class="mt-1 block font-semibold">Seq2seq</span>
+</a>
+<a href="/papers/day/7/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line text-right sm:col-start-2">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted">Day 7 <svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:translate-x-0.5"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<span class="mt-1 block font-semibold">GANs</span>
+</a>
+</nav>
+</main>
+</body>
+</html>
