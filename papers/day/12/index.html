@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 12: Denoising Diffusion Probabilistic Models</title>
+<meta name="description" content="Teach a network to remove a little noise from an image, then start from pure static and let it remove noise 1,000 times in a row: what comes out is a brand new, realistic image.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:77.52%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:77.52%">2020</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Denoising Diffusion Probabilistic Models</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">12 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Ho, Jain &amp; Abbeel</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2020</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/2006.11239" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Teach a network to remove a little noise from an image, then start from pure static and let it remove noise 1,000 times in a row: what comes out is a brand new, realistic image.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>You can generate realistic images by training a network to do one small, boring job, &quot;look at a noisy picture and guess the noise&quot;, and then running that job about 1,000 times in a row starting from pure static.</p>
+
+<h2 id="how-it-builds-on-day-11">How it builds on Day 11</h2>
+<p>GPT-3 creates text by building it up one small step (one token) at a time; DDPM brings the same &quot;many small steps&quot; idea to images, except each step is not &quot;add the next word&quot; but &quot;make the whole picture slightly less noisy&quot;.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>In 2020 the best image generators were GANs (Day 7): a generator and a critic locked in a contest. GANs made sharp images but were notoriously fiddly to train. The contest could collapse, and a GAN often learned to make only a few kinds of images well (called <strong>mode collapse</strong>) instead of covering the full variety of the training data. The alternatives had their own problems. <strong>VAEs</strong> (variational autoencoders, which squeeze an image into a compact code and rebuild it) were stable but tended to give blurry results. <strong>Autoregressive</strong> models like PixelCNN, which paint an image one pixel at a time, were stable and principled but slow and not as visually impressive. A 2015 paper by Sohl-Dickstein and colleagues had proposed &quot;diffusion probabilistic models&quot;, inspired by physics, and a 2019 line of work by Yang Song and Stefano Ermon had made progress with a related idea called score matching. But nobody had shown that diffusion could produce images as good as the best GANs. That is what this paper did.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-the-forward-process-destroy-an-image-on-purpose-slowly">1. The forward process: destroy an image on purpose, slowly</h3>
+<p><strong>What it is.</strong> The <strong>forward process</strong> is a fixed recipe for wrecking an image. You take a real photo and add a tiny amount of random static, then a bit more, then more, for <strong>T = 1,000 steps</strong>, until nothing is left but pure static. The static is <strong>Gaussian noise</strong>: random values drawn from a bell curve, like the snow on an old analog TV.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Start with a real image, call it x0 (the zero means &quot;no noise yet&quot;).</li>
+<li>At each step t, shrink the image very slightly toward gray and add a small dose of fresh noise. How big that dose is at each step is set by a list of numbers called the <strong>noise schedule</strong> (the paper calls them betas). In DDPM the dose grows in a straight line from 0.0001 at step 1 to 0.02 at step 1,000. So the early steps barely touch the image and the late steps are rough.</li>
+<li>After 1,000 steps the result, x1000, is statistically indistinguishable from pure static. All trace of the original is gone.</li>
+</ol>
+<p><strong>The handy shortcut.</strong> You never actually have to run 1,000 steps to get a noisy image. Because adding bell-curve noise many times just gives you bigger bell-curve noise, there is a formula that jumps straight to any step: noisy image = (a signal amount) x original + (a noise amount) x random static. The schedule decides both amounts. This shortcut is what makes training fast.</p>
+<p>Nothing in this process is learned. It is just a fixed, known way to go from &quot;photo&quot; to &quot;static&quot;.</p>
+<p><strong>Analogy.</strong> Think of a drop of ink spreading in a glass of water. That spreading is literally called diffusion in physics, which is where the name comes from. Going forward is easy and automatic. The hard and interesting question is whether you can run the film backward.</p>
+
+<h3 id="2-the-reverse-process-learn-to-undo-one-step-at-a-time">2. The reverse process: learn to undo one step at a time</h3>
+<p><strong>What it is.</strong> The <strong>reverse process</strong> is the learned part. A neural network is trained to take a noisy image at step t and produce a slightly cleaner version, as if stepping from t back to t minus 1. Chain 1,000 of these small cleanups together and you can start from static and end with an image.</p>
+<p><strong>Why tiny steps matter.</strong> Turning static into a cat in one leap is an impossibly hard problem: there are infinitely many possible cats. But removing a sliver of noise from an almost-clean cat is easy, and removing a sliver of noise from almost-pure static is also manageable, because each step only has to make a small, local guess. The paper relies on a mathematical fact: when each forward step adds only a little noise, each reverse step can be well described by a simple bell curve too. So the network only has to predict where the center of that bell curve is.</p>
+<p><strong>What the network is.</strong> DDPM uses a <strong>U-Net</strong>, an image-to-image network shaped like a U: it shrinks the image down to capture the big picture, then expands it back up to full size, with shortcut connections that carry fine detail across. (This is a cousin of the skip connections in ResNet, Day 8.) The network is also told which step t it is on, so it knows how noisy the input is supposed to be. The CIFAR-10 model had about 36 million parameters.</p>
+<p><strong>Analogy.</strong> A film restorer cleaning a badly damaged reel. Nobody can repaint the whole film in one pass, but a skilled restorer can always make any single frame a little cleaner. Repeat enough passes and the picture emerges. The twist in diffusion is that the restorer starts from a reel that is 100% damage and still ends up with a convincing film, one that never existed before.</p>
+
+<h3 id="3-the-key-simplification-just-predict-the-noise">3. The key simplification: just predict the noise</h3>
+<p>This is the paper&#39;s most important contribution and the reason diffusion took off.</p>
+<p><strong>The problem.</strong> The &quot;proper&quot; way to train this model, inherited from the 2015 paper, uses a complicated objective called a <strong>variational bound</strong> (a mathematical stand-in for &quot;how likely does the model think real images are?&quot;). It works, but it is messy and the resulting images were not great.</p>
+<p><strong>The insight.</strong> The authors rewrote the problem so that, instead of predicting the cleaner image directly, the network predicts <strong>the noise that was added</strong>. Once you know the noise, you can subtract it out. They showed that this choice connects diffusion to Song and Ermon&#39;s score matching work: predicting the noise is mathematically the same as learning which direction makes an image &quot;more realistic&quot; at every noise level, and the sampling procedure then looks like a well-known physics method called <strong>Langevin dynamics</strong> (take a step in the &quot;more realistic&quot; direction, plus a little randomness).</p>
+<p><strong>The training recipe, which is shockingly simple.</strong></p>
+<ol>
+<li>Pick a real image from the dataset.</li>
+<li>Pick a random step t between 1 and 1,000.</li>
+<li>Generate random static.</li>
+<li>Use the shortcut formula to make the noisy image for step t.</li>
+<li>Ask the network: &quot;what noise was added?&quot;</li>
+<li>Score it by the squared difference between its guess and the true noise. Nudge the weights to do better (backpropagation, Day 2).</li>
+</ol>
+<p>That&#39;s it. The paper calls this loss <strong>L_simple</strong>. It deliberately throws away some of the weighting the &quot;proper&quot; math would require, which means the model cares less about the near-clean steps and more about the harder, noisier ones. In their tests, this &quot;wrong&quot; simple loss gave clearly better images than the theoretically correct one.</p>
+<p><strong>Analogy.</strong> Instead of asking a student &quot;draw the original photo&quot;, you ask &quot;circle the scratches&quot;. Spotting damage is a much easier, better-defined task, and if you can find the damage you can remove it.</p>
+
+<h3 id="4-a-side-discovery-images-are-built-coarse-to-fine">4. A side discovery: images are built coarse to fine</h3>
+<p>When the authors watched the reverse process run, they saw that the big structure of an image (overall layout, colors, the rough shape of a face) appears in the early, very noisy steps, and fine details like hair texture and skin pores are only filled in near the end. They framed this as a kind of <strong>progressive decoding</strong>, similar to how a slow image loads blurry first and sharpens. They also found that most of the model&#39;s &quot;information budget&quot; goes to details too small for people to see, which helps explain why its sample quality was excellent even though it scored worse on the strict likelihood metric (see Limitations). This coarse-to-fine behavior is also why later tools can do things like &quot;keep the composition, change the style&quot;: you can step in partway through.</p>
+
+<h2 id="worked-example-one-image-forward-and-back">Worked example: one image, forward and back</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Here is what the actual DDPM noise schedule does to a picture. &quot;Signal&quot; is how much of the original remains; &quot;noise&quot; is how much static has been mixed in.</p>
+<table>
+<thead>
+<tr>
+<th>Step t</th>
+<th>Signal</th>
+<th>Noise</th>
+<th>What you&#39;d see</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1.00</td>
+<td>0.01</td>
+<td>Looks identical to the photo</td>
+</tr>
+<tr>
+<td>100</td>
+<td>0.95</td>
+<td>0.32</td>
+<td>Clearly grainy, subject obvious</td>
+</tr>
+<tr>
+<td>250</td>
+<td>0.72</td>
+<td>0.69</td>
+<td>Heavy grain, subject still recognizable</td>
+</tr>
+<tr>
+<td>500</td>
+<td>0.28</td>
+<td>0.96</td>
+<td>Mostly static, faint shapes</td>
+</tr>
+<tr>
+<td>750</td>
+<td>0.06</td>
+<td>1.00</td>
+<td>Static with the barest ghost</td>
+</tr>
+<tr>
+<td>1000</td>
+<td>0.01</td>
+<td>1.00</td>
+<td>Pure static</td>
+</tr>
+</tbody></table>
+<p><strong>Training on one example.</strong> Take a photo of a dog. Pick t = 250. Mix 0.72 x dog with 0.69 x fresh static. Hand that to the U-Net along with the number 250 and ask, &quot;what was the static?&quot; Compare its answer to the real static and adjust. Do this hundreds of thousands of times with random photos and random steps.</p>
+<p><strong>Generating a new image.</strong></p>
+<ol>
+<li>Start with pure random static at step 1,000.</li>
+<li>Ask the network to predict the noise in it.</li>
+<li>Remove a step&#39;s worth of that predicted noise, then add back a small amount of fresh randomness (this keeps results varied and helps the process stay on track).</li>
+<li>You now have a step 999 image. Repeat for 998, 997, all the way down to 1.</li>
+<li>Around step 700 to 500 a rough layout starts to show. By step 100 it is a recognizable scene. At step 0 you have a clean, brand new image that is not a copy of any training photo.</li>
+</ol>
+<p>Different starting static gives a different image. That is where the variety comes from.</p>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<ul>
+<li><strong>Best-in-class image quality on CIFAR-10.</strong> CIFAR-10 is a standard dataset of small 32 by 32 pixel images of things like planes, cars, birds and cats. Quality was measured with <strong>FID</strong> (Frechet Inception Distance: how statistically similar a pile of generated images is to real ones, as judged by another neural network; lower is better). DDPM scored an FID of 3.17, the best reported for an unconditional model at the time (unconditional means you can&#39;t ask for a particular class, it just makes something), with an Inception Score of 9.46. This beat or matched the best GANs, without any adversarial contest.</li>
+<li><strong>Large, realistic images.</strong> On 256 by 256 photos of bedrooms, churches and cats (the LSUN datasets) the results were comparable to ProgressiveGAN, a leading GAN of that era, and the paper also showed strong 256 by 256 celebrity faces (CelebA-HQ).</li>
+<li><strong>The simple loss mattered.</strong> Their comparisons showed that predicting the noise with L_simple gave much better images than the alternatives they tried, including predicting the cleaner image directly or training on the full &quot;proper&quot; bound.</li>
+<li><strong>Stable training.</strong> No balancing act between two networks, no mode collapse. You just minimize one loss and it improves.</li>
+</ul>
+<p>Why it was convincing: diffusion went from a curiosity to beating the reigning champion on a standard benchmark, with a training recipe a grad student could write in an afternoon. Why it was surprising: the theoretically &quot;worse&quot; simplified loss is what made it work.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Very slow to generate.</strong> Making one image means running the network 1,000 times, one after another. The follow-up DDIM paper measured that sampling 50,000 tiny 32 by 32 images from a DDPM took about 20 hours on an Nvidia 2080 Ti GPU, versus under a minute for a GAN. This was the biggest practical obstacle.</li>
+<li><strong>Worse on likelihood.</strong> On the strict statistical measure of how well a model &quot;explains&quot; the data (log-likelihood, reported in bits per dimension), DDPM was competitive with some models but behind the best autoregressive models. The authors argued that this is because likelihood rewards modeling invisible details, while their model focused on what people can see.</li>
+<li><strong>No control.</strong> The paper&#39;s models are unconditional. You couldn&#39;t type &quot;a dog on a skateboard&quot;. Text control came later.</li>
+<li><strong>Pixel space is expensive.</strong> Running 1,000 steps over every pixel of a big image is costly, which capped the resolution in practice.</li>
+<li><strong>Hand-picked choices.</strong> The linear noise schedule and fixed step variance were chosen by hand. Follow-up work found better schedules and learned versions.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Almost all modern image and video generation is diffusion or its direct descendant.</strong> OpenAI&#39;s February 2024 Sora report states plainly that &quot;Sora is a diffusion model&quot;: given noisy patches of video, it is trained to predict the clean ones. It is also a &quot;diffusion transformer&quot;, meaning the U-Net was swapped for a Transformer (Day 9).</li>
+<li><strong>Stable Diffusion.</strong> The 2022 &quot;Latent Diffusion&quot; paper (Rombach et al.) ran the DDPM idea inside a compressed version of the image (a <strong>latent space</strong>) instead of on raw pixels, which made it cheap enough to run on consumer GPUs and add text prompts. That became Stable Diffusion.</li>
+<li><strong>The DDPM recipe is literally still in the toolbox.</strong> Hugging Face&#39;s widely used Diffusers library ships a <code>DDPMScheduler</code> whose defaults are the paper&#39;s exact settings: 1,000 steps, betas from 0.0001 to 0.02, linear schedule.</li>
+<li><strong>Beyond images.</strong> Robotics: Diffusion Policy (Columbia and collaborators, 2023) generates robot arm movements by denoising them, and reported an average 46.9% improvement over prior methods across 12 manipulation tasks. Biology: AlphaFold 3 (Nature, 2024) uses a diffusion module that starts with noisy atom positions and denoises them into a 3D molecular structure. Text: Google DeepMind showed an experimental Gemini Diffusion language model in 2025 that generates whole blocks of text by refining noise, reported at around 1,500 tokens per second, though it was a demo with a waitlist rather than a mainstream product.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Nobody runs 1,000 sampling steps anymore.</strong> DDIM (late 2020) reused the same trained models but sampled 10 to 50 times faster. Today&#39;s systems typically use somewhere from a few to around 50 steps, and distilled models can go even lower.</li>
+<li><strong>&quot;Predict the noise&quot; is giving way to flow matching.</strong> Stable Diffusion 3 (2024) uses <strong>rectified flow</strong>, which connects data and noise along a straight line and trains the model to follow that path. Black Forest Labs&#39; FLUX.1 (12 billion parameters, August 2024) is built on flow matching, which its creators describe as including diffusion as a special case. Same family, cleaner math, fewer steps.</li>
+<li><strong>The U-Net is mostly replaced by Transformers</strong> at the frontier (Sora, SD3, FLUX).</li>
+<li><strong>Pixel-space diffusion is rare.</strong> Nearly everything now diffuses in a compressed latent space.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Physics-inspired diffusion (2015) + score matching (2019) -&gt; DDPM&#39;s &quot;predict the noise&quot; recipe (2020) -&gt; faster samplers, text guidance and latent diffusion (Stable Diffusion, 2022) -&gt; diffusion transformers and flow matching (Sora, SD3, FLUX) -&gt; the AI image and video tools you use today.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Generative video and your filmmaking.</strong> Every AI video tool you might use on a set or in post (text to video, extending a shot, restyling footage) sits on this paper&#39;s idea. Understanding the coarse-to-fine behavior explains practical things you&#39;ll notice: why &quot;image to video&quot; and &quot;strength&quot; sliders exist (you start partway through the denoising instead of from pure static), why the same prompt with a different &quot;seed&quot; (the starting static) gives a different shot, and why fast &quot;turbo&quot; modes trade some detail for speed (fewer denoising steps).</li>
+<li><strong>Robotics.</strong> Diffusion Policy shows that &quot;denoise your way to an answer&quot; works for robot actions, not just pixels. That&#39;s useful context for Day 21 (RT-2) and for any robotics or XR idea where a system has to choose among many valid ways to move.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Diffusion model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A generator that learns to reverse a gradual noising process, turning random static into data step by step.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Forward process</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The fixed, unlearned recipe that adds noise to a real image over many steps until it is pure static.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Reverse process</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The learned recipe that removes noise one step at a time, used to generate new images.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Noise schedule</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The list of how much noise is added at each step (in DDPM, a straight line from 0.0001 to 0.02 over 1,000 steps).</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">U-Net</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A U-shaped image-to-image network that shrinks an image to see the big picture and then expands it back, keeping detail through shortcut connections.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">FID</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Frechet Inception Distance, a score of how similar generated images are to real ones overall; lower is better.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Look at <strong>Figure 2</strong> (the diagram of the forward and reverse chains) and <strong>Algorithms 1 and 2</strong> in Section 3, which are the entire training and sampling procedures in about ten lines total. Then look at the sample grids and the <strong>progressive generation figure in Section 4</strong>, which shows images forming coarse to fine. Skip the derivations in Sections 2 and 3 and the appendix unless you want the math.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>A diffusion model never copies a training image, yet everything it makes is built from patterns it absorbed from them. For a filmmaker, where is the line between &quot;a new image&quot; and &quot;a remix of other people&#39;s work&quot;, and does the step-by-step way these images are made change your answer?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2006.11239">Ho, Jain and Abbeel, Denoising Diffusion Probabilistic Models, on arXiv</a></li>
+<li><a href="https://ar5iv.arxiv.org/html/2006.11239">DDPM paper, HTML version on ar5iv</a></li>
+<li><a href="https://theorempath.com/papers/denoising-diffusion-probabilistic-models">TheoremPath breakdown of DDPM (schedule, L_simple, sampling)</a></li>
+<li><a href="https://ar5iv.arxiv.org/html/2010.02502">Song, Meng and Ermon, Denoising Diffusion Implicit Models (DDIM), sampling time comparison</a></li>
+<li><a href="https://huggingface.co/docs/diffusers/v0.35.1/api/schedulers/ddpm">Hugging Face Diffusers: DDPMScheduler documentation</a></li>
+<li><a href="https://openai.com/index/video-generation-models-as-world-simulators/">OpenAI, Video generation models as world simulators (Sora)</a></li>
+<li><a href="https://arxiv.org/abs/2112.10752v1">Rombach et al., High-Resolution Image Synthesis with Latent Diffusion Models, on arXiv</a></li>
+<li><a href="https://stability.ai/news/stable-diffusion-3-research-paper">Stability AI, Stable Diffusion 3 research paper (rectified flow, MMDiT)</a></li>
+<li><a href="https://bfl.ai/blog/24-08-01-bfl">Black Forest Labs, FLUX.1 announcement</a></li>
+<li><a href="https://diffusion-policy.cs.columbia.edu/">Diffusion Policy project page (Columbia)</a></li>
+<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11168924">Abramson et al., AlphaFold 3, Nature 2024 (PMC)</a></li>
+<li><a href="https://the-decoder.com/gemini-diffusion-could-be-googles-most-important-i-o-news-that-slipped-under-the-radar/">The Decoder on Gemini Diffusion</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/11/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 11</span>
+<span class="mt-1 block font-semibold">GPT-3</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
