@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 11: Language Models are Few-Shot Learners</title>
+<meta name="description" content="Make a next-word predictor big enough (175 billion parameters) and it can pick up new tasks from a few examples written into its prompt, with no retraining at all.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:77.52%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:77.52%">2020</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Language Models are Few-Shot Learners</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">11 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Brown et al.</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2020</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/2005.14165" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Make a next-word predictor big enough (175 billion parameters) and it can pick up new tasks from a few examples written into its prompt, with no retraining at all.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>If you make a next-word-predicting Transformer enormous (175 billion parameters) and train it on a large slice of the internet, you can teach it a new task just by showing it a few examples in its prompt, with no retraining.</p>
+
+<h2 id="how-it-builds-on-day-10">How it builds on Day 10</h2>
+<p>BERT showed that one pre-trained model could handle many tasks, but each task still needed a fine-tuned copy and a labeled dataset; GPT-3 asks whether you can skip fine-tuning entirely and just describe the task in plain text.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>After BERT, the standard recipe was &quot;pre-train, then fine-tune&quot;: take a big model, then train a copy on thousands of labeled examples for each job. That worked, but it had three problems. First, you need a labeled dataset for every new task, which is slow and costly. Second, fine-tuned models can latch onto quirks of their narrow dataset and look better on the benchmark than they really are. Third, it is nothing like how people learn: a person can do a new task after reading one instruction and seeing two examples. OpenAI&#39;s earlier GPT-2 (2019, 1.5 billion parameters) had hinted that a big enough language model could do some tasks with zero examples, but the results were mostly far behind fine-tuned systems.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-in-context-learning-the-prompt-is-the-lesson">1. In-context learning: the prompt is the lesson</h3>
+<p><strong>What it is.</strong> <strong>In-context learning</strong> means the model &quot;learns&quot; a task from text placed in its input (its <strong>context</strong>, the text it can see at once), without any change to its internal weights. A <strong>prompt</strong> is that input text.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>You write a short task description, like &quot;Translate English to French:&quot;.</li>
+<li>You optionally add a few worked examples: &quot;sea otter =&gt; loutre de mer&quot;, &quot;cheese =&gt; fromage&quot;.</li>
+<li>You add the new case with the answer left blank: &quot;peppermint =&gt;&quot;.</li>
+<li>The model does the only thing it was ever trained to do: predict the most likely next words. Given the pattern above it, the most likely continuation is the French word.</li>
+</ol>
+<p>Nothing is saved. Close the prompt and the model has learned nothing permanent. The &quot;learning&quot; lives entirely in what it&#39;s reading right now.</p>
+<p><strong>The three settings the paper tests.</strong></p>
+<ul>
+<li><strong>Zero-shot</strong>: only the instruction, no examples.</li>
+<li><strong>One-shot</strong>: the instruction plus one example.</li>
+<li><strong>Few-shot</strong>: the instruction plus as many examples as fit, usually 10 to 100. GPT-3 could read 2,048 tokens at once (a token is a word or word piece), which is roughly 1,500 words.</li>
+</ul>
+<p><strong>Analogy.</strong> Handing a talented session musician a lead sheet with two bars written out and saying &quot;keep going in this style&quot;. They don&#39;t go back to music school; they pattern-match on the spot from everything they already know.</p>
+<p><strong>Why it&#39;s surprising.</strong> The model was never trained on &quot;follow the examples&quot;. It was trained only to continue internet text. The authors&#39; interpretation is that during pre-training the model saw so many repeated patterns inside documents (lists, Q and A pages, translations side by side) that it picked up a general skill of continuing patterns, which shows up at test time as learning from examples.</p>
+
+<h3 id="2-scale-is-the-main-ingredient">2. Scale is the main ingredient</h3>
+<p><strong>What it is.</strong> GPT-3 uses essentially the same design as GPT-2 (a decoder-only Transformer, meaning it reads left to right and predicts the next token, the opposite of BERT&#39;s fill-in-the-blank) but makes it more than 100 times bigger.</p>
+<p><strong>The numbers.</strong> The largest model has 175 billion <strong>parameters</strong> (the adjustable numbers inside the network), 96 layers, and was trained on about 300 billion tokens. The training text was a weighted mix: a filtered version of Common Crawl (a huge public scrape of the web) made up about 60% of what the model saw, with the rest from a curated web set called WebText2, two book collections and English Wikipedia. Higher-quality sources were sampled more often than their size alone would suggest.</p>
+<p><strong>The experiment design.</strong> Crucially, the team trained eight models of increasing size, from 125 million to 175 billion parameters, on the same data. That lets them draw a curve: for each task, how does performance change as the model grows?</p>
+<p><strong>What the curves showed.</strong> For most tasks, performance rose smoothly with size, and the gap between zero-shot and few-shot widened as models got bigger. In other words, bigger models aren&#39;t just better; they are better at learning from the prompt. This connects to OpenAI&#39;s &quot;scaling laws&quot; paper from earlier in 2020 (several of the same authors), which found that a language model&#39;s error falls predictably as you add parameters, data and compute.</p>
+<p><strong>Analogy.</strong> Like film resolution: the same camera design, but each jump in sensor size reveals detail that simply wasn&#39;t visible before.</p>
+
+<h3 id="3-one-model-no-fine-tuning-measured-honestly">3. One model, no fine-tuning, measured honestly</h3>
+<p><strong>What it is.</strong> The paper deliberately evaluates a single frozen model on more than two dozen benchmarks without fine-tuning on any of them. The point is to measure general ability, not how well the model can be tuned to each test.</p>
+<p><strong>How it works.</strong> For each benchmark, examples are drawn from the training split and pasted into the prompt, then the model answers the test question. For multiple choice, they compare how likely the model thinks each answer is. For free answers, they let it write and compare the text.</p>
+<p><strong>The catch they had to deal with: contamination.</strong> Because GPT-3 trained on so much of the web, some benchmark test questions might have been in its training data, which would be like seeing the exam beforehand. The authors tried to filter overlaps, found that a bug meant some were missed, and couldn&#39;t afford to retrain. So they built &quot;clean&quot; versions of each benchmark with overlapping items removed and checked whether scores dropped. For most benchmarks the effect was small, and they flagged the ones where it might matter.</p>
+
+<h2 id="worked-example-a-few-shot-prompt">Worked example: a few-shot prompt</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Suppose you want GPT-3 to fix grammar, and you&#39;ve never trained it to. You write:</p>
+<pre><code>Poor English input: I eated the purple berries.
+Good English output: I ate the purple berries.
+Poor English input: Thank you for picking me as your designer. I&#39;d appreciate it.
+Good English output: Thank you for choosing me as your designer. I appreciate it.
+Poor English input: The patient was died.
+Good English output:
+</code></pre>
+<ol>
+<li>The model reads all of it at once, attending over every token, like the Transformer from Day 9.</li>
+<li>It notices the repeated structure: a flawed sentence, then a corrected one.</li>
+<li>It predicts the next token after the final &quot;Good English output:&quot;. The most likely continuation, given the pattern and everything it absorbed about English, is &quot;The patient died.&quot;</li>
+<li>It keeps predicting tokens until it hits a line break, which matches the pattern&#39;s ending.</li>
+</ol>
+<p>That&#39;s the whole trick. Change the examples and the same model becomes a translator, a classifier or a formatter. This is the ancestor of every prompt you&#39;ve written for a chatbot.</p>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<ul>
+<li><strong>Some tasks matched or beat fine-tuned systems.</strong> On TriviaQA (trivia questions with no reference document), few-shot GPT-3 scored 71.2%, matching or beating the best systems at the time that were fine-tuned for open-domain questions. On LAMBADA (predict the last word of a paragraph, which needs long-range understanding) it hit 86.4% few-shot, more than 18 points above the previous record.</li>
+<li><strong>Some were close but not there.</strong> On SuperGLUE, a tough suite of understanding tests, few-shot GPT-3 scored around 71.8, a bit above a fine-tuned BERT-Large but far below the best fine-tuned systems at about 89. On CoQA (conversational questions about a passage) it reached 85.0 F1, a few points short of the fine-tuned record.</li>
+<li><strong>New skills appeared with size.</strong> Small models were useless at arithmetic. The 175B model, few-shot, got two-digit addition essentially perfect and three-digit addition right about 80% of the time. It could also unscramble letters in words and use a made-up word in a sentence after one definition.</li>
+<li><strong>Translation without training on translation pairs.</strong> Few-shot, it beat earlier unsupervised translation systems when translating into English, though it was weaker translating out of English.</li>
+<li><strong>Fake news articles were hard to spot.</strong> Human judges trying to tell real news articles from ones GPT-3 wrote (given only a title and subtitle) were right only about 52% of the time for the largest model, close to a coin flip.</li>
+</ul>
+<p>Why it was convincing: the clean, steady improvement across eight sizes and dozens of tasks made it hard to dismiss as a fluke. Why it was surprising: nobody had shown that you could get competitive results on so many tasks without any task-specific training at all.</p>
+
+<h2 id="limitations">Limitations</h2>
+<p>The authors were unusually frank, and critics added more:</p>
+<ul>
+<li><strong>Weak on some reasoning tasks.</strong> GPT-3 was near chance on WiC (does a word mean the same thing in two sentences?) and struggled on ANLI (adversarially designed logic questions) and some reading comprehension sets like RACE and QuAC. The authors suspected the left-to-right design hurt on tasks that need comparing two passages, exactly where BERT&#39;s bidirectionality helps.</li>
+<li><strong>Loses the thread in long text.</strong> Generated passages could repeat themselves, contradict themselves, or drift off topic.</li>
+<li><strong>No grounding in the world.</strong> It only knows text. It has no notion of whether what it writes is true, and it states falsehoods confidently.</li>
+<li><strong>Cost.</strong> Training took an enormous amount of compute. One outside estimate put it at roughly $4.6 million and 355 years if done on a single GPU. Running it was also expensive, so only a few organizations could build such models.</li>
+<li><strong>Unclear what &quot;learning&quot; is happening.</strong> The authors admit they can&#39;t tell whether the model truly learns new tasks from the prompt or mostly recognizes tasks it already saw during training.</li>
+<li><strong>Bias and misuse.</strong> The paper&#39;s own analysis found gender, race and religion biases in the outputs (for example, associating certain religions with violence). It also warned that convincing generated text could be used for spam, phishing and misinformation.</li>
+<li><strong>Undertrained, as it turned out.</strong> DeepMind&#39;s 2022 Chinchilla paper found that for the compute spent, GPT-3 was too big for too little data, and that a smaller model trained on more tokens does better.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Prompting is how everyone uses AI now.</strong> The idea that you steer a model by writing instructions and examples in its input, rather than retraining it, is the foundation of every chatbot and AI API. &quot;Few-shot prompting&quot; is still a standard technique in production apps.</li>
+<li><strong>The GPT-3 line led to ChatGPT.</strong> OpenAI opened GPT-3 through a paid API in June 2020, which kicked off a wave of startups built on someone else&#39;s model. In September 2020 Microsoft got an exclusive license to the underlying model, while others could still use the API. In January 2022 the default API model became InstructGPT, a GPT-3 variant further trained with human feedback to follow instructions. In November 2022 OpenAI launched ChatGPT on what it called the GPT-3.5 series, a direct descendant.</li>
+<li><strong>Scale as a strategy.</strong> GPT-3 is the paper that convinced the industry that making models bigger keeps paying off, which drove the race of the following years across OpenAI, Anthropic, Google, Meta and others.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>The original models are retired.</strong> OpenAI shut down the original GPT-3 API models (davinci, curie, babbage, ada and the text-davinci series) on January 4, 2024.</li>
+<li><strong>Raw next-word prediction is no longer the product.</strong> Pure GPT-3 needed careful prompt crafting and often went off the rails. Today&#39;s assistants add instruction tuning and reinforcement learning from human feedback on top of pre-training, so you can just ask instead of setting up a pattern.</li>
+<li><strong>&quot;Just make it bigger&quot; got refined.</strong> After Chinchilla, labs trained smaller models on far more data. Newer progress also comes from techniques like reasoning models that think before answering and tool use, not raw parameter count alone.</li>
+<li><strong>The 2,048 token window is tiny by today&#39;s standards.</strong> Current frontier models read hundreds of thousands of tokens or more, which makes in-context learning far more powerful (you can paste in whole documents as &quot;examples&quot;).</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Transformer decoder (Day 9) -&gt; GPT and GPT-2 -&gt; GPT-3&#39;s scale plus in-context learning -&gt; InstructGPT and human feedback -&gt; ChatGPT, Claude, Gemini and the prompt-driven apps you use today.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Unstall, Amelia and memory startups.</strong> In-context learning is why &quot;memory&quot; for an AI product can be as simple as putting the right past facts into the prompt. A chief of staff that remembers a client&#39;s preferences, or Amelia recalling what a specific person said last week, mostly works by retrieving the relevant notes and placing them in the model&#39;s context at the moment of the request. Day 10 (BERT-style search) finds the notes; Day 11 (in-context learning) is how the model uses them without retraining.</li>
+<li><strong>Arbor.</strong> If agents bid in an auction based on context, each agent&#39;s behavior is largely defined by what&#39;s in its prompt: its goals, constraints and examples of good bids. This paper is the reason that works at all, and its limitations (confident errors, sensitivity to how examples are phrased) are exactly the failure modes a marketplace protocol has to guard against.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Decoder-only model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A Transformer that reads left to right and generates text one token at a time by predicting the next one.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">In-context learning</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Picking up a task from instructions and examples in the prompt, with no change to the model&#39;s weights.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Zero-shot, one-shot, few-shot</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Giving the model zero, one, or several worked examples in the prompt.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Parameters</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The adjustable numbers inside a neural network; GPT-3 has 175 billion.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Data contamination</dt><dd class="mt-3 [&>*+*]:mt-3"><p>When test questions leaked into the training data, which can make scores look better than they should.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Scaling</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Making the model, data and compute bigger, and studying how performance changes as you do.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read <strong>Section 1 (Introduction)</strong>, especially <strong>Figures 1.1 to 1.3</strong>, which explain in-context learning and show the key curves of performance rising with model size and number of examples. Then skim <strong>Section 5 (Limitations)</strong>, which is short and honest. Skip the many per-benchmark subsections in Section 3; the figures summarize them.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>GPT-3 &quot;learns&quot; a task from a few examples but forgets it the moment the prompt is gone. Is that a weakness to fix with permanent memory, or a feature (privacy, control, no lasting side effects), and how would your answer change for a product that holds people&#39;s relationship history?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2005.14165">Brown et al., Language Models are Few-Shot Learners, on arXiv</a></li>
+<li><a href="https://huggingface.co/papers/2005.14165">GPT-3 paper on Hugging Face Papers</a></li>
+<li><a href="https://ar5iv.labs.arxiv.org/html/2005.14165">GPT-3 paper, HTML version on ar5iv</a></li>
+<li><a href="https://en.wikipedia.org/wiki/GPT-3">Wikipedia: GPT-3 (API launch, Microsoft license, GPT-3.5 lineage, criticisms)</a></li>
+<li><a href="https://community.openai.com/t/psa-older-openai-models-will-be-shut-down-in-1-week/574580">OpenAI Developer Community: older OpenAI models shut down January 4, 2024</a></li>
+<li><a href="https://arxiv.org/abs/2203.15556">Hoffmann et al., Training Compute-Optimal Large Language Models (Chinchilla), on arXiv</a></li>
+<li><a href="https://arxiv.org/abs/2203.02155">Ouyang et al., Training language models to follow instructions with human feedback (InstructGPT), on arXiv</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/10/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 10</span>
+<span class="mt-1 block font-semibold">BERT</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
