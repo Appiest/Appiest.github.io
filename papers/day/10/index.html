@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 10: BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</title>
+<meta name="description" content="Teach one Transformer to understand language by filling in hidden words using context from both sides, then lightly retrain that same model for almost any language task and beat specialized systems.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:67.2%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-1/2" style="left:67.2%">2018</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">10 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Devlin et al.</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2018</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/1810.04805" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Teach one Transformer to understand language by filling in hidden words using context from both sides, then lightly retrain that same model for almost any language task and beat specialized systems.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Train one big Transformer to fill in blanked-out words using the words on both sides of each blank, then reuse that same model, with a tiny add-on, for nearly any language task, and it beats systems that were custom-built for each task.</p>
+
+<h2 id="how-it-builds-on-day-9">How it builds on Day 9</h2>
+<p>BERT takes the encoder half of yesterday&#39;s Transformer (the part that reads a sentence with self-attention) and throws away the decoder, then finds a new way to train it on huge amounts of unlabeled text.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>In 2018, every language task (answering questions, spotting names, judging whether one sentence follows from another) mostly needed its own model trained on its own labeled dataset, and labeled data is slow and expensive to make. People had started to &quot;pre-train&quot; on raw text first. ELMo learned word meanings in context, and OpenAI&#39;s first GPT pre-trained a Transformer by predicting the next word. But both had a blind spot: they read text in one direction. GPT only ever looked left, at the words already seen. ELMo glued a left-to-right reader to a separate right-to-left reader, but the two never looked at each other while forming their understanding. Real understanding often needs both sides at once. In &quot;she went to the bank to deposit her check&quot;, you need &quot;deposit&quot; (to the right) to know which &quot;bank&quot; is meant.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-masked-language-modeling-fill-in-the-blank">1. Masked language modeling: fill in the blank</h3>
+<p><strong>What it is.</strong> A pre-training game where the model hides some words and learns to guess them back. The authors call it a &quot;masked language model&quot;, inspired by the old &quot;cloze test&quot; that teachers use (a passage with blanks).</p>
+<p><strong>Why it was needed.</strong> You can&#39;t simply let a Transformer look at both sides while predicting the next word, because then each word could &quot;see itself&quot; through the layers and the task becomes trivial cheating. Hiding the word removes the answer from view, so the model is free to look in both directions.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Take a sentence from Wikipedia or a book.</li>
+<li>Pick 15% of its tokens at random. (A <strong>token</strong> is a word or a piece of a word; BERT splits rare words into common pieces with a method called WordPiece, using a vocabulary of about 30,000 pieces.)</li>
+<li>Of those picked tokens, replace 80% with a special <code>[MASK]</code> symbol, swap 10% for a random word, and leave 10% unchanged. The mix matters: later, when BERT is used on real tasks, there are no <code>[MASK]</code> symbols, so the model must not learn to only pay attention when it sees one.</li>
+<li>Feed the whole sentence through the Transformer encoder. Every word attends to every other word, left and right, at every layer.</li>
+<li>At each picked position, the model outputs a guess over the whole vocabulary. It is scored on how much probability it gave the true word, and its weights are nudged to do better next time.</li>
+</ol>
+<p><strong>Analogy.</strong> Think of a script supervisor reading a scene with a few lines blacked out. To fill in a missing line, they use what came before and what the other character says after. Practicing this millions of times forces deep knowledge of how dialogue, grammar and the world fit together.</p>
+<p><strong>Mental picture.</strong> &quot;The man went to the <code>[MASK]</code> to buy a gallon of <code>[MASK]</code>.&quot; To guess &quot;store&quot; and &quot;milk&quot;, the model has to use &quot;buy a gallon&quot; (to the right of the first blank) and &quot;store&quot; (to the left of the second). A left-to-right model would have to guess the first blank before ever seeing &quot;gallon&quot;.</p>
+
+<h3 id="2-next-sentence-prediction-learning-how-sentences-relate">2. Next sentence prediction: learning how sentences relate</h3>
+<p><strong>What it is.</strong> A second, simpler pre-training game. The model is shown two chunks of text, A and B, and must say whether B really came right after A in the original document.</p>
+<p><strong>How it works.</strong> Half the time B is the true next sentence, half the time it is a random sentence from elsewhere in the corpus. A special <code>[CLS]</code> (&quot;classification&quot;) token is placed at the very start of the input, and a <code>[SEP]</code> (&quot;separator&quot;) token marks the boundary between A and B. The model&#39;s final output at the <code>[CLS]</code> position is used to answer &quot;next&quot; or &quot;not next&quot;.</p>
+<p><strong>Why.</strong> Many real tasks are about pairs of sentences: does this answer fit this question, does this sentence contradict that one. The authors wanted the model to practice relating two pieces of text, not just single words.</p>
+<p><strong>Analogy.</strong> An editor shuffling two shots and asking: do these cut together, or is the second one from a different scene?</p>
+<p>(Spoiler from later research: this second game turned out to matter less than the paper suggested. See Limitations.)</p>
+
+<h3 id="3-one-model-many-jobs-fine-tuning-with-almost-no-new-parts">3. One model, many jobs: fine-tuning with almost no new parts</h3>
+<p><strong>What it is.</strong> <strong>Fine-tuning</strong> means taking the already pre-trained model and continuing to train all of it, briefly, on a small labeled dataset for one specific task.</p>
+<p><strong>How it works.</strong> BERT&#39;s input format is the same for every task: <code>[CLS] sentence A [SEP] sentence B [SEP]</code>. To adapt it:</p>
+<ul>
+<li><strong>Classification</strong> (is this review positive?): feed the text, then put one small new layer on top of the <code>[CLS]</code> output that picks a label.</li>
+<li><strong>Sentence pairs</strong> (does sentence B follow logically from A?): feed both, again classify from <code>[CLS]</code>.</li>
+<li><strong>Question answering</strong> (find the answer span in a paragraph): feed question as A and paragraph as B, and add two tiny vectors that score every paragraph token as the likely &quot;start&quot; and &quot;end&quot; of the answer.</li>
+<li><strong>Tagging</strong> (which words are person or place names?): put a small classifier on each token&#39;s output.</li>
+</ul>
+<p>Everything else stays identical. Fine-tuning took at most about an hour on one Google Cloud TPU (a TPU is Google&#39;s custom AI chip) for each benchmark task in the paper, versus days to pre-train.</p>
+<p><strong>Analogy.</strong> Pre-training is film school: years of general craft. Fine-tuning is a week of prep for a specific shoot. You don&#39;t rebuild the director; you brief them.</p>
+
+<h3 id="4-bigger-is-better-even-for-small-tasks">4. Bigger is better, even for small tasks</h3>
+<p>The paper released two sizes. <strong>BERT-Base</strong>: 12 layers, 110 million <strong>parameters</strong> (the adjustable numbers inside the network). <strong>BERT-Large</strong>: 24 layers, 340 million parameters. Large beat Base on every task, including tasks with only a few thousand labeled examples. Before this, people feared that big models would just memorize small datasets. BERT showed that if the model is pre-trained well, size helps even when your own labeled data is tiny. That idea sets up tomorrow&#39;s paper.</p>
+
+<h2 id="worked-example-answering-a-question-with-bert">Worked example: answering a question with BERT</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Suppose a fine-tuned BERT gets:</p>
+<ul>
+<li>Question: &quot;Where did the Lakers move from?&quot;</li>
+<li>Paragraph: &quot;The Lakers began in Minneapolis and moved to Los Angeles in 1960.&quot;</li>
+</ul>
+<ol>
+<li>The input becomes <code>[CLS] where did the lakers move from ? [SEP] the lakers began in minneapolis and moved to los angeles in 1960 . [SEP]</code>.</li>
+<li>All tokens pass through 24 layers of self-attention. In each layer, every token blends in information from every other token, so &quot;minneapolis&quot; ends up carrying information like &quot;this is the place where something began&quot; and &quot;the question asks about an origin&quot;.</li>
+<li>For each paragraph token, the &quot;start&quot; scorer gives a score. &quot;minneapolis&quot; scores highest.</li>
+<li>The &quot;end&quot; scorer also gives &quot;minneapolis&quot; the highest score.</li>
+<li>The answer is the span from start to end: &quot;Minneapolis&quot;.</li>
+</ol>
+<p>Nothing in the core model was designed for questions. Only the two little start and end scorers are new.</p>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p>The authors pre-trained on BooksCorpus (about 800 million words) and English Wikipedia (about 2.5 billion words), then fine-tuned on eleven standard tasks. BERT set new records on all eleven:</p>
+<ul>
+<li><strong>GLUE</strong>, a suite of nine language understanding tests, rose to 80.5, a 7.7 point jump. Benchmarks usually move by one or two points a year, so this was a leap.</li>
+<li><strong>MultiNLI</strong> (does sentence B follow from, contradict, or have nothing to do with sentence A?) rose to 86.7% accuracy, up 4.6 points.</li>
+<li><strong>SQuAD v1.1</strong> (find the answer span in a Wikipedia paragraph) reached 93.2 F1, up 1.5 points, ahead of the human performance figure reported on the leaderboard at the time. F1 is a score that balances getting the right words against including wrong ones.</li>
+<li><strong>SQuAD v2.0</strong>, a harder version where some questions have no answer in the paragraph, reached 83.1 F1, up 5.1 points.</li>
+<li><strong>SWAG</strong> (pick the most sensible next event in a scene) also jumped well past previous systems.</li>
+</ul>
+<p>Why it was convincing: the same model, with trivially small add-ons, beat many separately engineered systems at once. The paper also ran <strong>ablations</strong> (experiments that remove one ingredient to see what it contributed). A left-to-right version of the same model did clearly worse, especially on question answering, which supported the core claim that seeing both sides matters.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>It can&#39;t write.</strong> BERT is an encoder: it produces understanding, not text. It cannot generate a paragraph or hold a conversation. That&#39;s a different design, which tomorrow&#39;s paper pushes to the extreme.</li>
+<li><strong>Short reading window.</strong> Inputs are capped at 512 tokens, roughly a page or two. Long documents had to be chopped up.</li>
+<li><strong>Next sentence prediction was oversold.</strong> Follow-up work, notably RoBERTa from Facebook AI in 2019, found that dropping it and simply training longer on more data did as well or better.</li>
+<li><strong>Mask mismatch.</strong> The <code>[MASK]</code> symbol appears in training but never in real use. The 80/10/10 trick softens this but doesn&#39;t remove it. ELECTRA (2020) later proposed a more efficient game that avoids it.</li>
+<li><strong>Still needs labeled data per task.</strong> You fine-tune a separate copy for each job. That&#39;s cheap, but it&#39;s not &quot;just ask it&quot;, which is the gap GPT-3 attacks.</li>
+<li><strong>Bias.</strong> Like any model trained on web and book text, BERT absorbs the social biases in that text, a problem later papers documented in detail.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Google Search.</strong> Google announced in October 2019 that BERT was helping with about 1 in 10 English searches in the US, with examples like understanding that &quot;to&quot; matters in &quot;2019 brazil traveler to usa need a visa&quot;. By the Search On event in 2020, Google said BERT was used on almost every English query. Google has layered newer models on since, and how much of the original BERT remains inside Search today isn&#39;t public.</li>
+<li><strong>Still one of the most downloaded models anywhere.</strong> In December 2024 Hugging Face and Answer.AI reported that BERT was the second most downloaded model on the Hugging Face Hub, with more than 68 million downloads a month, and that encoder-only models together topped a billion monthly downloads, about three times more than decoder-only (GPT-style) models. These numbers are from late 2024; I couldn&#39;t verify a newer figure.</li>
+<li><strong>Search, retrieval and classification behind the scenes.</strong> The BERT design (encoder, masked-word pre-training, <code>[CLS]</code> summary vector) is the basis of many embedding models and rerankers used in retrieval-augmented generation, spam and content filters, and entity extraction. They&#39;re used because they are small, fast and cheap compared with chatbot-scale models.</li>
+<li><strong>ModernBERT (Answer.AI and LightOn, December 2024)</strong> is a direct descendant: same encoder idea and masked-word training, but with an 8,192 token window (16 times BERT&#39;s), newer architecture parts, a higher masking rate (30% instead of 15%), and 2 trillion training tokens including code.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Not for chat or generation.</strong> The assistants you use (ChatGPT, Claude, Gemini) are decoder-only models trained to predict the next word, in the GPT line, not BERT&#39;s fill-in-the-blank line.</li>
+<li><strong>Next sentence prediction is gone.</strong> Most successors dropped it.</li>
+<li><strong>&quot;Fine-tune a copy per task&quot; lost ground.</strong> For many tasks, people now just prompt a large generative model instead. Fine-tuned encoders survive where speed, cost or privacy matter.</li>
+<li><strong>Original BERT checkpoints are dated.</strong> For new projects, people usually pick a newer encoder (RoBERTa, DeBERTa, ModernBERT or a dedicated embedding model) rather than the 2018 weights.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Transformer encoder (Day 9) -&gt; BERT&#39;s fill-in-the-blank pre-training plus fine-tuning -&gt; RoBERTa, DeBERTa, sentence embedding models -&gt; ModernBERT and the embedding and reranking models inside today&#39;s search and RAG systems.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Arbor and AI startups built on memory.</strong> Any system that has to find &quot;the relevant past context&quot; (which listing, which earlier conversation, which agent offer matches this request) usually does it by turning text into vectors with a BERT-style encoder and comparing them. When you hear &quot;embeddings&quot; or &quot;semantic search&quot; in a RAG pipeline, this paper is the root. Knowing that encoders are cheap and fast, while generative models are slow and expensive, is a real product design lever.</li>
+<li><strong>Unstall and Amelia.</strong> Sorting voice-transcribed requests into intents (&quot;schedule a showing&quot;, &quot;send comps&quot;), or pulling out names, addresses and dates from a transcript, is exactly the classification and tagging work fine-tuned encoders still do well, often on-device or at a fraction of the cost of calling a big model for each sentence.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Encoder</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The part of a Transformer that reads input and turns each token into a context-aware vector; it doesn&#39;t generate text.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Bidirectional</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Using words on both the left and right of a position at the same time.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Masked language model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A model trained to guess hidden words from their surroundings.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Pre-training</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A long, general training phase on unlabeled text, done once.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Fine-tuning</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A short extra training phase on a small labeled dataset to specialize the model for one task.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">[CLS] token</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A special token at the start of the input whose final vector is used as a summary of the whole input.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read <strong>Section 3.1 (Pre-training BERT)</strong>, which explains the masked word game and the 80/10/10 trick in about a page, and look at <strong>Figure 1</strong>, which shows pre-training and fine-tuning side by side. Skip the detailed per-task setups in Section 4 and the appendix on hyperparameters.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>BERT learned grammar, facts and some reasoning from nothing but a fill-in-the-blank game. What does that suggest about how much &quot;understanding&quot; is hiding in the simple statistics of what words tend to appear together, and where do you think that approach would break down?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/1810.04805">Devlin et al., BERT, on arXiv</a></li>
+<li><a href="https://aclanthology.org/N19-1423/">BERT in the ACL Anthology (NAACL 2019)</a></li>
+<li><a href="https://huggingface.co/papers/1810.04805">BERT abstract on Hugging Face Papers</a></li>
+<li><a href="https://blog.google/products/search/search-language-understanding-bert/">Google: Understanding searches better than ever before (October 2019)</a></li>
+<li><a href="https://searchengineland.com/google-bert-used-on-almost-every-english-query-342193">Search Engine Land: Google says BERT is now used on almost every English query (2020)</a></li>
+<li><a href="https://huggingface.co/blog/modernbert">Hugging Face: Finally, a Replacement for BERT: Introducing ModernBERT (December 2024)</a></li>
+<li><a href="https://www.answer.ai/posts/2024-12-19-modernbert.html">Answer.AI: ModernBERT announcement</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/9/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 9</span>
+<span class="mt-1 block font-semibold">Transformer</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
