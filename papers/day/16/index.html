@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 16: Training language models to follow instructions with human feedback</title>
+<meta name="description" content="A giant language model trained only to predict internet text is not the same as a helpful assistant; show it some human-written examples, have people rank its answers, train a scorer on those rankings, and use reinforcement learning to chase that score, and a model 100 times smaller ends up preferred over the giant.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:87.84%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:87.84%">2022</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Training language models to follow instructions with human feedback</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">16 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Ouyang, Wu, Jiang, Almeida, Wainwright, Mishkin, Zhang, Agarwal, Slama, Ray, Schulman, Hilton, Kelton, Miller, Simens, Askell, Welinder, Christiano, Leike &amp; Lowe</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2022</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/2203.02155" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">A giant language model trained only to predict internet text is not the same as a helpful assistant; show it some human-written examples, have people rank its answers, train a scorer on those rankings, and use reinforcement learning to chase that score, and a model 100 times smaller ends up preferred over the giant.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Being good at predicting the next word on the internet is a different goal from doing what a person asks, so OpenAI added three cheap steps after pretraining (imitate human examples, learn what humans prefer, then optimize for it), and people preferred the result over a model 100 times bigger.</p>
+
+<h2 id="how-it-builds-on-day-15">How it builds on Day 15</h2>
+<p>CLIP (Day 15) and GPT-3 (Day 11) showed how much a model can absorb from raw web data; InstructGPT shows the missing piece: raw web data teaches a model what people <em>write</em>, and a small amount of human feedback is what teaches it what people <em>want</em>.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>GPT-3 (Day 11) was astonishing, but awkward to use. It was trained on one objective: given some text, predict the next word. So it behaved like a very well-read autocomplete, not an assistant. Ask it &quot;Explain the moon landing to a 6 year old&quot; and it might continue with three more similar questions, as if it were completing a quiz list it had seen online. To get useful output you had to trick it with carefully staged prompts and examples (the &quot;few-shot&quot; prompting from Day 11). It also confidently made things up and could produce toxic text, because the internet contains plenty of both. The authors named the core problem <strong>misalignment</strong>: the training goal (&quot;predict web text&quot;) is not the goal users have (&quot;help me, truthfully, without harm&quot;). Some earlier work had tried fixing this by fine-tuning on big collections of rewritten academic NLP tasks (Google&#39;s FLAN and the T0 project), and OpenAI researchers had already shown in 2017 and 2020 that human preference feedback could train models on narrow tasks like summarization. Nobody had shown it working across the messy range of things real people actually ask a language model to do.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<p>The method has three steps, shown in the paper&#39;s famous Figure 2. Each step uses a different kind of human input, and each is cheaper for humans than the last.</p>
+
+<h3 id="1-step-one-show-it-how-supervised-fine-tuning">1. Step one: show it how (supervised fine-tuning)</h3>
+<p><strong>What it is.</strong> <strong>Fine-tuning</strong> means taking a model that has already been trained (here GPT-3) and training it a bit more on a smaller, targeted dataset. <strong>Supervised fine-tuning (SFT)</strong> means the targeted dataset has correct answers written by people.</p>
+<p><strong>How it works.</strong></p>
+<ol>
+<li>OpenAI collected real prompts that customers had sent to its API (with filtering to remove personal information), plus prompts written by its labelers. The mix was broad: about 46% open-ended generation (&quot;write a story about...&quot;), then open questions, brainstorming, chat, rewriting, summarization, classification and more.</li>
+<li>A team of about 40 hired contractors, chosen through a screening test for how well they judged sensitive content, wrote ideal responses to these prompts.</li>
+<li>GPT-3 was fine-tuned on roughly 13,000 of these (prompt, ideal answer) pairs.</li>
+</ol>
+<p><strong>Analogy.</strong> A new hire who has read every book in the library but has never worked a front desk. Step one is shadowing: you show them a few thousand examples of &quot;customer asks this, you say that.&quot; They already know the content; they are learning the job.</p>
+<p><strong>Why not stop here?</strong> Writing perfect answers is slow and expensive, so you can&#39;t get many. And imitation has a ceiling: the model learns to copy, but it never learns <em>why</em> one answer is better than another.</p>
+
+<h3 id="2-step-two-learn-what-people-prefer-the-reward-model">2. Step two: learn what people prefer (the reward model)</h3>
+<p><strong>What it is.</strong> A <strong>reward model</strong> is a separate neural network that reads a prompt and an answer and outputs a single number: how much a human would like this answer. It is a learned judge.</p>
+<p><strong>How it works.</strong></p>
+<ol>
+<li>For a prompt, the model from step one generates several different answers (between 4 and 9).</li>
+<li>A labeler reads them all and <strong>ranks</strong> them from best to worst. Ranking is much faster than writing, and people are more consistent at comparing (&quot;B is better than A&quot;) than at scoring on an absolute scale (&quot;this is a 6 out of 10&quot;).</li>
+<li>Each ranking is broken into pairs. Ranking 4 answers gives 6 pairs, ranking 9 gives 36. Each pair says &quot;the winner should score higher than the loser.&quot;</li>
+<li>The reward model (6 billion parameters; they found the 175-billion version unstable to train) is trained so that, for every pair, the preferred answer gets the higher number. The data came from about 33,000 prompts.</li>
+</ol>
+<p><strong>Analogy.</strong> Instead of asking a film critic to write the perfect movie, you show them pairs of cuts and ask &quot;which is better?&quot; thousands of times. Eventually you can train an apprentice critic who predicts their taste on cuts they have never seen. That apprentice is the reward model.</p>
+
+<h3 id="3-step-three-practice-against-the-judge-reinforcement-learning-with-ppo">3. Step three: practice against the judge (reinforcement learning with PPO)</h3>
+<p><strong>What it is.</strong> <strong>Reinforcement learning (RL)</strong> is learning by trial and reward rather than from correct answers, the same family as DQN learning Atari from the score on Day 6. Here, the &quot;game&quot; is answering prompts, and the score comes from the reward model. The specific algorithm is <strong>PPO</strong> (Proximal Policy Optimization), an RL method from OpenAI (2017) designed to update a model in small, safe steps so training doesn&#39;t go off the rails.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Take a new prompt (about 31,000 prompts, all from real API customers).</li>
+<li>The model (starting from the step-one model) writes an answer.</li>
+<li>The reward model scores it.</li>
+<li>PPO nudges the model&#39;s settings so answers like the high-scoring ones become more likely and low-scoring ones less likely.</li>
+<li>Repeat many times. No human is needed in this loop, which is why it scales.</li>
+</ol>
+<p><strong>Two important safety rails.</strong></p>
+<ul>
+<li><strong>The leash (KL penalty).</strong> If you let a model chase a learned score freely, it finds loopholes: weird outputs the judge happens to love but humans would not. This is called <strong>reward hacking</strong>. To prevent it, each step also subtracts a penalty for drifting too far from the step-one model&#39;s normal way of writing. (KL divergence is just a measure of how different two models&#39; word choices are.) Think of it as: &quot;get better scores, but stay recognizably yourself.&quot;</li>
+<li><strong>Don&#39;t forget your schooling (PPO-ptx).</strong> After RL, the model got worse on some standard academic tests, such as reading comprehension and translation. The authors call this cost of making a model behave better the <strong>alignment tax</strong>. Their fix: during RL, keep mixing in a little of the original next-word-prediction training on GPT-3&#39;s pretraining data. This variant, called PPO-ptx, is what they call InstructGPT. It recovered most of the lost test performance without hurting how much humans liked the answers.</li>
+</ul>
+<p><strong>Analogy.</strong> A comedian (the model) workshopping a set every night, with a seasoned club owner (the reward model) who has learned what audiences laugh at. The comedian tries variations and keeps what lands. The leash keeps them from discovering that one weird noise always gets the owner laughing and doing only that for an hour.</p>
+
+<h3 id="4-the-quiet-big-idea-alignment-is-cheap-compared-to-pretraining">4. The quiet big idea: alignment is cheap compared to pretraining</h3>
+<p>Training the 175-billion-parameter InstructGPT took about 60 petaflop/s-days of compute (a unit of total computation), while pretraining GPT-3 took about 3,640. So the alignment steps cost under 2% of the original training, yet changed how useful the model felt more than making it 100 times bigger. That finding is why every major lab adopted some version of this recipe.</p>
+
+<h2 id="walkthrough-one-prompt-through-all-three-steps">Walkthrough: one prompt through all three steps</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Take the paper&#39;s own example prompt: <strong>&quot;Explain the moon landing to a 6 year old.&quot;</strong></p>
+<ol>
+<li><strong>Raw GPT-3.</strong> Might reply with &quot;Explain the theory of gravity to a 6 year old. Explain the theory of relativity to a 6 year old...&quot; It is completing a pattern, not answering.</li>
+<li><strong>Step one (SFT).</strong> A labeler writes: &quot;Some people went to the moon in a big rocket, walked around, and came back to tell everyone about it...&quot; After training on thousands of examples like this, the model learns that a prompt like this is a request to be answered.</li>
+<li><strong>Step two (reward model).</strong> The step-one model now produces four answers: A is accurate but uses words like &quot;trajectory&quot;; B is simple and warm; C is simple but says the astronauts stayed for a year (wrong); D is a single dry sentence. The labeler ranks B &gt; A &gt; D &gt; C. That becomes 6 pairs (B beats A, B beats D, B beats C, A beats D, A beats C, D beats C). The reward model learns from this that simple, accurate and kind beats technical, which beats terse, which beats wrong.</li>
+<li><strong>Step three (PPO).</strong> On thousands of new prompts the model has never seen (&quot;explain taxes to a teenager&quot;, &quot;write a thank-you note to my landlord&quot;), it writes answers, the reward model scores them, and PPO shifts the model toward the qualities that score well. The general lessons (actually answer, match the audience, don&#39;t invent facts) transfer across topics.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<ul>
+<li><strong>Smaller but preferred.</strong> Labelers preferred answers from the 1.3-billion-parameter InstructGPT over the 175-billion-parameter GPT-3, despite it having over 100 times fewer parameters. That is the headline.</li>
+<li><strong>Big margins at the same size.</strong> The 175-billion InstructGPT&#39;s answers were preferred over GPT-3&#39;s about 85% of the time, and over GPT-3 given a carefully crafted few-shot prompt about 71% of the time.</li>
+<li><strong>It generalized to people who weren&#39;t in the loop.</strong> A separate group of labelers who never contributed training data preferred InstructGPT at about the same rate, so it hadn&#39;t just learned the quirks of its own trainers. Agreement between any two labelers was only around 73 to 77%, which is a reminder that &quot;what people prefer&quot; is fuzzy to begin with.</li>
+<li><strong>More truthful, fewer made-up facts.</strong> On TruthfulQA, a test built around common misconceptions, InstructGPT gave truthful and informative answers about twice as often as GPT-3. On tasks like summarizing a given text, it invented facts not in the source about 21% of the time versus 41% for GPT-3.</li>
+<li><strong>Somewhat less toxic.</strong> When told to be respectful, it produced about 25% fewer toxic outputs than GPT-3.</li>
+<li><strong>Beat the academic-dataset approach.</strong> GPT-3 fine-tuned on the FLAN and T0 collections of academic tasks did worse than InstructGPT; labelers preferred InstructGPT about 78 to 79% of the time. The likely reason: academic benchmarks are mostly classification and short-answer questions, while real users mostly ask for open-ended writing and brainstorming.</li>
+<li><strong>It followed instructions it barely saw.</strong> Less than 4% of the training data was non-English and very little was code, yet InstructGPT often followed instructions in other languages and answered questions about code, suggesting it had learned the general skill of following instructions rather than memorizing task types.</li>
+</ul>
+<p>Why convincing: the test prompts came from real customers, not a lab benchmark, and a 100 times size advantage losing to a cheap post-training recipe was impossible to ignore.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>&quot;Aligned to whom?&quot;</strong> The authors are unusually direct about this (Section 5.2). The model was shaped by about 40 contractors, mostly English speakers in the US and Southeast Asia, following instructions written by OpenAI researchers, on prompts from OpenAI&#39;s paying customers. That is not &quot;humanity&#39;s values.&quot; It is one specific group&#39;s judgment.</li>
+<li><strong>Still makes simple mistakes.</strong> It could still invent facts, accept false premises in a question (asked why something false is true, it would explain why), hedge excessively on easy questions, and struggle with instructions containing several constraints.</li>
+<li><strong>Bias did not improve.</strong> On tests of social bias (Winogender and CrowS-Pairs), InstructGPT was no better than GPT-3.</li>
+<li><strong>Better at following instructions, including bad ones.</strong> When explicitly told to write something toxic, InstructGPT produced more toxic output than GPT-3, and the authors note it generally complies with harmful requests. Their labelers were told to prioritize helpfulness to the user during training.</li>
+<li><strong>The reward model is a proxy.</strong> Optimizing a learned score can teach the model to look good rather than be good: confident tone, longer answers, agreeing with the user. Critics have pointed this out since, and later research documented RLHF models&#39; tendency toward <strong>sycophancy</strong> (telling people what they want to hear). OpenAI itself rolled back a GPT-4o update in April 2025 for being overly flattering and said an extra reward signal based on users&#39; thumbs-up and thumbs-down ratings had contributed.</li>
+<li><strong>PPO is finicky.</strong> The RL step needs several large models running at once (the model being trained, a frozen copy for the leash, the reward model, and a value estimator), and it is notoriously sensitive to settings.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<p>The three-step shape of InstructGPT (pretrain, then supervised examples, then preference-based training) became the standard pipeline for every major chatbot. The exact parts inside steps two and three have changed a lot.</p>
+
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>ChatGPT.</strong> When OpenAI launched ChatGPT in November 2022, it described it as a sibling model to InstructGPT, trained with RLHF using the same methods with slightly different data collection (human trainers wrote and ranked conversations instead of single answers). This is the paper&#39;s direct descendant.</li>
+<li><strong>Every major assistant uses preference training.</strong> Meta&#39;s Llama 3 paper (2024) describes post-training as rounds of supervised fine-tuning, a trained reward model used to pick the best of many candidate answers (&quot;rejection sampling&quot;), and preference optimization. Anthropic&#39;s Constitutional AI (2022) keeps the reward-model-plus-RL structure but has an AI, guided by a written list of principles, produce many of the preference labels instead of humans; this is called RLAIF (RL from AI feedback).</li>
+<li><strong>Open-source tooling.</strong> Hugging Face&#39;s TRL library packages these steps as ready-made trainers (supervised fine-tuning, reward modeling, DPO, GRPO and others), so a small team can run a version of this pipeline on an open model.</li>
+<li><strong>Your thumbs-up button.</strong> The rating buttons in chat apps exist partly to collect the kind of preference signal this paper introduced, though the GPT-4o episode above shows the risk of leaning on it too directly.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>PPO with a separate reward model is no longer the default for preferences.</strong> DPO (Direct Preference Optimization, Stanford, 2023) showed you can skip the separate reward model and the RL loop and train the model directly on &quot;A is better than B&quot; pairs with a simple formula. It is cheaper and more stable, and many open models adopted it (Llama 3 used DPO for its preference step; AI2&#39;s fully open Tulu 3 uses DPO too).</li>
+<li><strong>For reasoning, verifiable rewards replaced human taste.</strong> The 2025 reasoning-model wave (DeepSeek-R1, published in Nature in 2025, and similar models) runs RL where the reward is a checkable fact: did the math answer match, did the code pass its tests. No learned judge to fool on those tasks. DeepSeek used a PPO variant called GRPO; AI2 calls the idea RLVR (RL with verifiable rewards). Human or AI preference models are still used for open-ended qualities like helpfulness and tone.</li>
+<li><strong>Humans write fewer labels.</strong> Much preference data is now generated or judged by other AI models (RLAIF, AI judges), with humans writing guidelines and spot-checking, rather than 40 contractors ranking every output.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Deep RL (Day 6) + GPT-3 (Day 11) + learning from human preferences (OpenAI, 2017 and 2020) -&gt; InstructGPT and RLHF (2022) -&gt; ChatGPT, Constitutional AI and RLAIF, DPO -&gt; today&#39;s pipeline of supervised fine-tuning plus preference training plus RL with verifiable rewards in nearly every assistant you use.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Unstall.</strong> A chief of staff for real estate agents lives or dies on taste: tone of a follow-up text, which leads to flag, how pushy to be. This paper&#39;s key insight applies directly: you don&#39;t need agents to write perfect examples (expensive, they won&#39;t do it), you need them to make quick choices. Every time an agent picks one of two drafted replies, edits a draft, or ignores a suggestion, that is a preference pair. Collected over time, that becomes per-agent preference data you could train on with DPO. The paper&#39;s limitations are also your product risk: an assistant trained on approval drifts toward sycophancy, and a chief of staff who only tells the agent what they want to hear (&quot;great listing price!&quot;) is worse than useless. Reward the outcome (did the deal move?) where you can, not just the thumbs-up.</li>
+<li><strong>Arbor.</strong> In an auction where agents compete to serve a user&#39;s request, something has to decide which agent&#39;s offer is best for that user. That is a reward model problem. The paper&#39;s practical lesson, that comparisons (&quot;this offer beats that one&quot;) are more consistent than absolute scores, suggests asking users to compare rather than rate when you collect the data that teaches Arbor&#39;s ranking. And reward hacking is the warning: once agents compete for a learned score, they will optimize for whatever the scorer rewards, so the scorer needs a leash and periodic human checks.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Alignment</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Getting a model to do what its users and builders actually intend (helpful, truthful, harmless), not just what its training objective literally rewards.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Supervised fine-tuning (SFT)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Further training a pretrained model on examples of prompts paired with human-written ideal answers.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Reward model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A learned judge that reads a prompt and answer and outputs a score predicting how much a human would like it, trained from human rankings.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">RLHF</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Reinforcement learning from human feedback; improving a model by having it generate answers, scoring them with a reward model built from human preferences, and updating it toward higher scores.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">PPO and the KL penalty</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The RL algorithm used to make small, stable updates, plus a penalty that stops the model drifting too far from its starting behavior and gaming the reward model.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Alignment tax</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The drop in other abilities (like benchmark scores) that can come from training a model to behave better.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Look at <strong>Figure 2</strong> (the three-step diagram, the single most reproduced picture in modern AI) and <strong>Figure 1</strong> (the chart where small InstructGPT beats big GPT-3). Then read <strong>Section 5.2, &quot;Who are we aligning to?&quot;</strong>, which is short, readable and still the right question to ask of any AI product. If time remains, skim <strong>Section 4.3</strong> for real example outputs comparing GPT-3 and InstructGPT. Skip the hyperparameter appendices and the labeler-instruction details in Appendix B unless you are designing a labeling process yourself (in which case they are gold).</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>InstructGPT learned the taste of about 40 people. If you trained a model on the preferences of your own users, it would get better for them, and possibly worse at telling them uncomfortable truths. Where in your products would you want the AI to optimize for what users prefer, and where would you want it to deliberately resist?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2203.02155">Ouyang et al., Training language models to follow instructions with human feedback, on arXiv</a></li>
+<li><a href="https://neurips.cc/virtual/2022/poster/52886">The same paper at NeurIPS 2022</a></li>
+<li><a href="https://openai.com/index/chatgpt/">OpenAI, Introducing ChatGPT</a></li>
+<li><a href="https://arxiv.org/abs/2407.21783">Grattafiori et al. (Meta), The Llama 3 Herd of Models</a></li>
+<li><a href="https://www.anthropic.com/news/constitutional-ai-harmlessness-from-ai-feedback">Anthropic, Constitutional AI: Harmlessness from AI Feedback</a></li>
+<li><a href="https://arxiv.org/abs/2305.18290">Rafailov et al., Direct Preference Optimization: Your Language Model is Secretly a Reward Model</a></li>
+<li><a href="https://arxiv.org/abs/2411.15124">AI2, Tulu 3: Pushing Frontiers in Open Language Model Post-Training</a></li>
+<li><a href="https://arxiv.org/abs/2501.12948">DeepSeek-AI, DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning</a></li>
+<li><a href="https://huggingface.co/docs/trl/index">Hugging Face, TRL documentation</a></li>
+<li><a href="https://openai.com/index/sycophancy-in-gpt-4o/">OpenAI, Sycophancy in GPT-4o: what happened and what we&#39;re doing about it</a></li>
+<li><a href="https://openai.com/index/expanding-on-sycophancy/">OpenAI, Expanding on what we missed with sycophancy</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/15/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 15</span>
+<span class="mt-1 block font-semibold">CLIP</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
