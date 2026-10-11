@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 17: Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</title>
+<meta name="description" content="If the examples in your prompt show a model working through a problem step by step before giving the answer, a big enough language model will write out its own steps too, and that alone roughly triples its accuracy on grade-school math without changing the model at all.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:87.84%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:87.84%">2022</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">17 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Wei, Wang, Schuurmans, Bosma, Ichter, Xia, Chi, Le &amp; Zhou</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2022</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/2201.11903" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">If the examples in your prompt show a model working through a problem step by step before giving the answer, a big enough language model will write out its own steps too, and that alone roughly triples its accuracy on grade-school math without changing the model at all.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Show a large language model a few examples where the answer comes after a short written-out line of reasoning, and it starts reasoning out loud on new problems too, which makes it dramatically better at multi-step questions; no retraining, just a better prompt.</p>
+
+<h2 id="how-it-builds-on-day-16">How it builds on Day 16</h2>
+<p>InstructGPT (Day 16) made models more useful by <em>training</em> them on human feedback; chain-of-thought makes them smarter at hard problems without touching the model at all, by changing only what goes in the prompt (building directly on the few-shot prompting from GPT-3, Day 11).</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>By early 2022, scaling up language models had worked wonders on many tasks: writing, translation, trivia. But one family of tasks stubbornly refused to improve much with size: problems that need several steps in a row. Grade-school math word problems were the classic example. A model would read &quot;The cafeteria had 23 apples, used 20 for lunch and bought 6 more&quot; and blurt out &quot;27,&quot; because it was trying to jump straight from question to answer in a single guess. The two known fixes were both expensive. One was to train a model from scratch or fine-tune it on thousands of problems with hand-written solutions (OpenAI&#39;s GSM8K work did this, adding a separate &quot;verifier&quot; model to check answers). The other was to bolt on special-purpose tools. Few-shot prompting (Day 11), where you show a model a handful of question and answer examples, was cheap and flexible, but on these problems it barely beat guessing, and making the model bigger didn&#39;t help much. The curve was flat.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-the-chain-of-thought-put-the-reasoning-in-the-examples">1. The chain of thought: put the reasoning in the examples</h3>
+<p><strong>What it is.</strong> A <strong>chain of thought</strong> is a series of short, plain-language intermediate steps that lead to an answer, the way you would show your work on a math test. <strong>Chain-of-thought prompting</strong> means that in the few-shot examples you put in the prompt, each answer includes these steps before the final answer.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>You write a prompt with a few worked examples. The paper usually uses <strong>eight</strong>. Each example is a triple: question, chain of thought, answer.</li>
+<li>You add the new question at the end, with no answer.</li>
+<li>The model continues the text. Because every example it just saw &quot;showed its work,&quot; the most natural continuation is to show its work too, and then state the answer.</li>
+<li>You read off the final answer (each example ends with &quot;The answer is ...&quot;, so it&#39;s easy to find).</li>
+</ol>
+<p>The paper&#39;s Figure 1 makes the whole idea fit on one screen.</p>
+<p><em>Standard prompt, one example:</em></p>
+<blockquote>
+<p>Q: Roger has 5 tennis balls. He buys 2 more cans of tennis balls. Each can has 3 tennis balls. How many tennis balls does he have now?
+A: The answer is 11.</p>
+</blockquote>
+<p>New question: &quot;The cafeteria had 23 apples. If they used 20 to make lunch and bought 6 more, how many apples do they have?&quot; The model answers <strong>27</strong>. Wrong.</p>
+<p><em>Chain-of-thought prompt, same example with the reasoning written in:</em></p>
+<blockquote>
+<p>A: Roger started with 5 balls. 2 cans of 3 tennis balls each is 6 tennis balls. 5 + 6 = 11. The answer is 11.</p>
+</blockquote>
+<p>Same new question. The model now writes: &quot;The cafeteria had 23 apples originally. They used 20 to make lunch. So they had 23 - 20 = 3. They bought 6 more apples, so they have 3 + 6 = 9. The answer is 9.&quot; <strong>Correct.</strong></p>
+<p>Nothing about the model changed. Only the examples did.</p>
+<p><strong>Why it helps, in plain terms.</strong> A language model produces text one word (technically one <strong>token</strong>, a word or piece of a word) at a time, and each token gets roughly the same fixed amount of computation. Forcing the answer to appear immediately means the model has to do all the work in that one step. Writing out steps does two things: it breaks the problem into small pieces, each easy enough to get right in one step, and it lets the model &quot;read&quot; its own earlier steps as it goes, like scratch paper. The authors list four benefits: it splits a problem into steps, it gives you a window into how the model got its answer (and where it went wrong), it works for any task a person could solve by explaining it in words, and it needs no training, just a prompt.</p>
+<p><strong>Analogy.</strong> Asking someone to multiply 47 by 23 in their head and say the answer instantly, versus handing them a pencil. Same person, same knowledge. The pencil lets them use it.</p>
+
+<h3 id="2-it-only-works-on-big-models-an-emergent-ability">2. It only works on big models (an &quot;emergent&quot; ability)</h3>
+<p><strong>What it is.</strong> An ability is called <strong>emergent</strong> when it is essentially absent in smaller models and then appears, fairly suddenly, once models pass some size. This paper is one of the best-known examples.</p>
+<p><strong>How it showed up.</strong> The authors tested five model families at many sizes: GPT-3 (OpenAI, up to 175 billion <strong>parameters</strong>, the adjustable numbers inside a model that roughly measure its size), LaMDA (Google, up to 137 billion), PaLM (Google, up to 540 billion), and two smaller ones, UL2 and Codex. For models below roughly <strong>100 billion parameters</strong>, chain-of-thought prompting did not help and sometimes hurt. Small models wrote steps that sounded fluent but were illogical, then followed their own nonsense to a wrong answer. Above that size, the gains were large, and they got larger with scale.</p>
+<p><strong>Analogy.</strong> Telling a beginner &quot;talk me through your thinking&quot; while they play chess doesn&#39;t make them better, because they don&#39;t have the moves to talk through. Telling a strong player to do it can catch blunders. The prompt doesn&#39;t add skill; it unlocks skill that is already there.</p>
+<p><strong>Why it matters.</strong> This changed how people saw model scaling. The flat curve on math wasn&#39;t because big models <em>couldn&#39;t</em> do it. It was because the standard way of asking hid what they could do.</p>
+
+<h3 id="3-it-s-the-reasoning-that-matters-not-just-the-extra-words">3. It&#39;s the reasoning that matters, not just the extra words</h3>
+<p>A skeptic could say: maybe the model just needed more tokens to &quot;think,&quot; or maybe the examples simply reminded it of relevant knowledge. The authors tested this directly with three <strong>ablations</strong> (experiments where you remove or change one ingredient to see if it was doing the work):</p>
+<ul>
+<li><strong>Equation only.</strong> The examples show just the math (&quot;5 + 2 x 3 = 11&quot;), no words. This helped on easy one- or two-step problems but did little on the harder GSM8K problems. The plain-language steps were doing real work in translating the story into math.</li>
+<li><strong>Variable compute only.</strong> The examples contain a row of dots as long as the equation would be, so the model gets the extra tokens but no content. This performed about the same as having no chain of thought. Extra length alone is not the trick.</li>
+<li><strong>Reasoning after the answer.</strong> The examples give the answer first and the explanation afterward. Also about the same as no chain of thought. So the steps help only when they come <em>before</em> the answer, which is the order you&#39;d need for them to actually be used to get there.</li>
+</ul>
+<p><strong>Analogy.</strong> Students who show their work score better not because the page has more ink on it, and not because they wrote the explanation after copying the answer from a neighbor. They score better because they did the steps in order.</p>
+
+<h3 id="4-one-trick-many-kinds-of-problems">4. One trick, many kinds of problems</h3>
+<p>The idea isn&#39;t limited to math. The authors applied the same recipe to three families of tasks:</p>
+<ul>
+<li><strong>Arithmetic reasoning</strong>: math word problems (GSM8K, SVAMP, ASDiv, AQuA, MAWPS).</li>
+<li><strong>Commonsense reasoning</strong>: questions needing everyday knowledge combined over steps, such as StrategyQA (&quot;Would a pear sink in water?&quot; requires knowing a pear&#39;s density is less than water&#39;s) and a sports-plausibility test (&quot;Joao Moutinho caught the screen pass in the NFC championship&quot; is implausible because he&#39;s a soccer player).</li>
+<li><strong>Symbolic reasoning</strong>: toy rule-following tasks like &quot;take the last letter of each word in <em>Amy Brown</em> and join them&quot; (answer: &quot;yn&quot;) or tracking whether a coin is still heads up after several people flip or don&#39;t flip it.</li>
+</ul>
+<p>The symbolic tasks showed something extra: <strong>length generalization</strong>. The examples in the prompt used only 2-word names or 2 coin flips, yet big models with chain of thought handled 3 and 4, a bit like a student who learned the method instead of memorizing answers.</p>
+
+<h2 id="walkthrough-building-a-chain-of-thought-prompt">Walkthrough: building a chain-of-thought prompt</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Say you want a model to answer: &quot;A rental listing costs $2,400 a month. The tenant pays first and last month plus a deposit equal to half a month. How much is due at signing?&quot;</p>
+<ol>
+<li><strong>Write a few worked examples of similar problems</strong> (the paper used eight; even a few helps), each in the form question, steps, &quot;The answer is X.&quot;
+<em>Example:</em> &quot;Q: A gym costs $50 a month plus a $30 signup fee. What do you pay in the first month? A: The monthly fee is $50. The signup fee is $30. 50 + 30 = 80. The answer is $80.&quot;</li>
+<li><strong>Append your real question</strong> with &quot;A:&quot; and nothing after it.</li>
+<li><strong>The model continues the pattern:</strong> &quot;First month is $2,400. Last month is $2,400. Half a month deposit is 2,400 / 2 = 1,200. Total is 2,400 + 2,400 + 1,200 = 6,000. The answer is $6,000.&quot;</li>
+<li><strong>Read the steps, not just the answer.</strong> If it got it wrong, you can see where (for example, it forgot the deposit), which you can&#39;t with a bare number.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<ul>
+<li><strong>Math, the headline result.</strong> On GSM8K, a benchmark of about 8,500 grade-school word problems, PaLM 540B went from about <strong>18% correct with standard prompting to about 57% with chain-of-thought prompting</strong>, using just eight examples. That beat the previous best result (about 55%), which came from fine-tuning GPT-3 175B on thousands of solved problems and adding a trained verifier model. A prompt beat a purpose-built training pipeline. GPT-3 175B showed a similar jump, from about 16% to about 47%.</li>
+<li><strong>Bigger gains on harder problems.</strong> Improvements were largest on GSM8K, the hardest math set, and small or nonexistent on the easiest single-step sets, where there was nothing to break down.</li>
+<li><strong>Commonsense.</strong> PaLM 540B with chain of thought set a new best on StrategyQA (about 76% versus a previous 69%) and scored about 95% on sports understanding, higher than the roughly 84% of an unaided sports enthusiast the authors used as a reference.</li>
+<li><strong>Robust to who wrote the examples.</strong> Three different authors wrote their own chains of thought in different styles, and the authors also tried examples drawn from GSM8K&#39;s own training set written by other people. All versions clearly beat standard prompting, though accuracy did vary by example set, so prompt wording still matters.</li>
+<li><strong>The errors were readable.</strong> The authors hand-checked LaMDA 137B&#39;s work on GSM8K. When it got the answer right, the reasoning was almost always right too. When it got it wrong, about half the mistakes were small (an arithmetic slip, one missing step) and the rest were bigger misunderstandings. Simply running a calculator over the written equations fixed some of the slips, and moving from PaLM 62B to 540B fixed many of the &quot;missing step&quot; and misunderstanding errors.</li>
+</ul>
+<p>Why it was convincing: it was simple enough that anyone with API access could reproduce it the same afternoon, and the size of the jump on the hardest benchmark was hard to argue with.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Is it really reasoning?</strong> The authors say plainly that the model <em>imitates</em> the form of reasoning and that the paper does not settle whether it is &quot;actually reasoning.&quot; Steps can look right and still lead to a wrong answer, or (more worrying) look reasonable while not being what actually drove the answer.</li>
+<li><strong>Only for huge models.</strong> In 2022, the benefit appeared only above about 100 billion parameters, which were expensive to run. (Smaller models have since been trained to reason step by step, but plain prompting alone didn&#39;t do it.)</li>
+<li><strong>Correct steps aren&#39;t guaranteed.</strong> Nothing checks the reasoning. Arithmetic slips and confident wrong steps still happen.</li>
+<li><strong>You still have to write examples.</strong> Hand-writing good chains of thought is easy for a few prompts but adds up, and results shift depending on which examples you choose.</li>
+<li><strong>Faithfulness, the big later critique.</strong> Follow-up research found that the written reasoning doesn&#39;t always reflect the model&#39;s real process. A 2023 study by Turpin and colleagues showed models could be nudged by hidden biases in a prompt (for example, the correct answer always being &quot;(A)&quot; in the examples) and then write an explanation that never mentioned that bias. Anthropic&#39;s 2025 study of reasoning models found that when models were slipped a hint that changed their answer, they admitted using it only a minority of the time (about 25% for Claude 3.7 Sonnet and 39% for DeepSeek R1).</li>
+<li><strong>Costs time and money.</strong> More words out means more computation, more latency, more cost.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>It became built into the models themselves.</strong> This is the biggest legacy. OpenAI&#39;s o1 (September 2024) was introduced as a model trained with reinforcement learning to produce a long chain of thought before answering; OpenAI keeps the raw chain hidden and shows a summary. DeepSeek-R1 (January 2025) published how it did something similar, using RL that rewards correct final answers so the model learns on its own to write longer, self-checking reasoning. Anthropic&#39;s Claude offers <strong>extended thinking</strong>, where developers set a &quot;thinking budget&quot; for how much the model may reason before answering, and Google&#39;s Gemini models have a similar thinking setting with a budget. In each case, the &quot;show your work&quot; behavior is trained in, not prompted in.</li>
+<li><strong>&quot;Let&#39;s think step by step.&quot;</strong> A few months after this paper, Kojima and colleagues showed you could skip the hand-written examples entirely: adding the single line &quot;Let&#39;s think step by step&quot; before the answer gave big gains on its own (with OpenAI&#39;s text-davinci-002 model, one math benchmark went from about 18% to 79%). This &quot;zero-shot chain of thought&quot; became the most-copied line in prompt engineering.</li>
+<li><strong>A family of follow-up techniques.</strong> Self-consistency (Wang et al., 2022, partly the same Google team) samples many chains of thought and takes the majority-vote answer, which pushed PaLM 540B to about 74% on GSM8K. Tree of Thoughts explores several branches of reasoning. And ReAct, tomorrow&#39;s paper, mixes reasoning steps with actions like searching or calling tools, which is the basic loop inside most AI agents today.</li>
+<li><strong>Safety monitoring.</strong> Because reasoning models write their thinking in plain language, labs read it to catch problems such as a model planning to cheat on a task. A July 2025 paper co-signed by researchers from OpenAI, Google DeepMind, Anthropic and others called this &quot;chain of thought monitorability&quot; a valuable but fragile safety opportunity and urged developers not to train models in ways that would make their reasoning less readable.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Hand-written few-shot chains are mostly obsolete for top models.</strong> Today&#39;s reasoning models already think step by step, so writing eight worked examples (or even adding &quot;let&#39;s think step by step&quot;) usually adds little. A 2025 Wharton report tested this across models and found that explicitly asking for chain of thought gave only small average gains for non-reasoning models (sometimes making answers less consistent) and very little benefit for reasoning models, while adding time and cost. Model makers&#39; own guides now tell developers to give reasoning models a clear goal and let them work out the steps themselves.</li>
+<li><strong>&quot;Emergent only at 100 billion parameters&quot; no longer holds.</strong> Distillation and RL training have produced much smaller models (DeepSeek released small &quot;distilled&quot; versions of R1, for example) that reason step by step well. The threshold was a fact about prompting untrained models in 2022, not a law.</li>
+<li><strong>Visible reasoning isn&#39;t always the real reasoning.</strong> As the faithfulness studies above show, treating the chain of thought as a reliable explanation of <em>why</em> a model did something turned out to be too optimistic.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Few-shot prompting (GPT-3, Day 11) -&gt; chain-of-thought prompting (2022) -&gt; &quot;let&#39;s think step by step,&quot; self-consistency, ReAct -&gt; reasoning models trained with RL to think before answering (o1, DeepSeek-R1, Claude extended thinking, Gemini thinking) -&gt; the &quot;thinking...&quot; pause you see in chat apps today.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Unstall.</strong> A real estate chief of staff constantly faces multi-step judgment calls: &quot;This buyer toured three homes, mentioned a school district, and hasn&#39;t replied in a week; what should the agent do next?&quot; Asking a model to first lay out the facts, then the options, then the recommendation (or using a model with a thinking mode for those calls) is the practical form of this paper. The visible steps also give you something product-shaped: a short &quot;why I&#39;m suggesting this&quot; line the agent can glance at and trust or correct. Just remember the faithfulness finding: treat that explanation as helpful, not as proof.</li>
+<li><strong>Arbor.</strong> Agents bidding in an auction need to reason over several constraints at once (price, deadline, the user&#39;s stated context). Chain-of-thought reasoning before a bid makes those decisions better and auditable: if an agent overbids, you can read where its logic went wrong. And tomorrow&#39;s paper, ReAct, is exactly the step from &quot;reason, then answer&quot; to &quot;reason, act, observe, repeat,&quot; which is how an agent in a marketplace actually operates.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Chain of thought</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A series of short, plain-language intermediate steps a model writes before its final answer.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Few-shot prompting</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Putting a handful of worked examples in the prompt so the model copies the pattern on a new input, with no retraining.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Emergent ability</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A skill that is basically absent in smaller models and appears once models pass a certain size.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Ablation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An experiment that removes or swaps out one ingredient to test whether it was responsible for the result.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Faithfulness</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Whether a model&#39;s written reasoning actually reflects the process that produced its answer.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Reasoning model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A model trained (usually with reinforcement learning) to produce its own chain of thought before answering, such as o1, DeepSeek-R1 or Claude with extended thinking.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Look at <strong>Figure 1</strong> (the tennis balls versus cafeteria apples example; it is the whole idea in one picture) and <strong>Figure 4</strong> (the curves showing chain of thought helping only once models get big). Then read <strong>Section 3.3, the ablation study</strong>, which is short and teaches you how researchers prove <em>why</em> something works. If you have time, skim the example outputs in the appendix tables to see real chains of thought, good and bad. Skip the per-benchmark tables in Sections 4 and 5 and the detailed model list; the pattern is the same everywhere.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If a model&#39;s written reasoning can sound convincing without being the real reason for its answer, how much should your products show users that reasoning, and what would you need to check before letting someone act on it?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2201.11903">Wei et al., Chain-of-Thought Prompting Elicits Reasoning in Large Language Models, on arXiv</a></li>
+<li><a href="https://proceedings.neurips.cc/paper/2022/hash/8bb0d291acd4acf06ef112099c16f326-Abstract-Conference.html">Kojima et al., Large Language Models are Zero-Shot Reasoners (NeurIPS 2022)</a></li>
+<li><a href="https://arxiv.org/abs/2203.11171">Wang et al., Self-Consistency Improves Chain of Thought Reasoning in Language Models</a></li>
+<li><a href="https://openai.com/index/learning-to-reason-with-llms/">OpenAI, Learning to Reason with LLMs</a></li>
+<li><a href="https://simonwillison.net/2024/Sep/12/openai-o1/">Simon Willison, Notes on OpenAI&#39;s new o1 chain-of-thought models</a></li>
+<li><a href="https://arxiv.org/abs/2501.12948">DeepSeek-AI, DeepSeek-R1: Incentivizing Reasoning Capability in LLMs via Reinforcement Learning</a></li>
+<li><a href="https://platform.claude.com/docs/en/build-with-claude/extended-thinking">Anthropic, Extended thinking documentation</a></li>
+<li><a href="https://firebase.google.com/docs/ai-logic/thinking">Google, Thinking in Gemini models (Firebase AI Logic docs)</a></li>
+<li><a href="https://www.anthropic.com/research/reasoning-models-dont-say-think">Anthropic, Reasoning models don&#39;t always say what they think</a></li>
+<li><a href="https://arxiv.org/abs/2507.11473">Korbak et al., Chain of Thought Monitorability: A New and Fragile Opportunity for AI Safety</a></li>
+<li><a href="https://arxiv.org/abs/2506.07142">Wharton Generative AI Labs, Prompting Science Report 2: The Decreasing Value of Chain of Thought in Prompting</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/16/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 16</span>
+<span class="mt-1 block font-semibold">InstructGPT (RLHF)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
