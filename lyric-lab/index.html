@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Study how Noah Kahan's songs are built: song breakdowns, a map of recurring techniques, and a lab that maps sections, rhymes and syllables in lyrics you paste in.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<title>Lyric Anatomy Lab</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* Layout: stick-season palette (birch, slate, pine). Three views: song studies (list + detail), a technique map (songs x moves grid), and a paste-in breakdown lab. */
+:root{
+  --bg:#E8EAE7; --paper:#F6F7F5; --ink:#1E2524; --muted:#5E6966; --line:#C7CDCA;
+  --accent:#2F5D4E; --accent-soft:#D3E2DB;
+  --r1:#B4532A; --r2:#2F6DA3; --r3:#7A5BA8; --r4:#3D8A57; --r5:#A8862A; --r6:#B03E6A;
+  --verse:#8FA39C; --chorus:#2F5D4E; --pre:#A8862A; --bridge:#7A5BA8; --other:#B9C1BE;
+  --display:"Young Serif", Georgia, serif;
+  --body:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121716; --paper:#1A2120; --ink:#DDE4E1; --muted:#93A09B; --line:#2E3936;
+  --accent:#7FC0A6; --accent-soft:#1F3830;
+  --r1:#E58A5E; --r2:#76AEE0; --r3:#B49AE0; --r4:#7FCB95; --r5:#DCC06A; --r6:#E57FA6;
+  --verse:#5F7570; --chorus:#7FC0A6; --pre:#DCC06A; --bridge:#B49AE0; --other:#3C4845; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121716; --paper:#1A2120; --ink:#DDE4E1; --muted:#93A09B; --line:#2E3936;
+  --accent:#7FC0A6; --accent-soft:#1F3830;
+  --r1:#E58A5E; --r2:#76AEE0; --r3:#B49AE0; --r4:#7FCB95; --r5:#DCC06A; --r6:#E57FA6;
+  --verse:#5F7570; --chorus:#7FC0A6; --pre:#DCC06A; --bridge:#B49AE0; --other:#3C4845; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;padding:0 16px 64px}
+.wrap{max-width:1180px;margin:0 auto}
+header{padding-block:30px 8px;display:grid;gap:8px}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(32px,6vw,52px);line-height:1.02;margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:0;max-width:66ch}
+nav.views{display:flex;gap:4px;margin-top:18px;border-bottom:1px solid var(--line);overflow-x:auto;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+nav.views button{font:inherit;font-family:var(--display);font-size:18px;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:12px 14px 9px;cursor:pointer;white-space:nowrap}
+nav.views button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+button:focus-visible,textarea:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+section.view{padding-top:22px}
+h2{font-family:var(--display);font-weight:400;font-size:28px;margin:0 0 6px;text-wrap:balance}
+h3{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 8px;color:var(--muted);font-weight:600}
+a{color:var(--accent)}
+
+/* studies */
+.studies{display:grid;grid-template-columns:280px minmax(0,1fr);gap:28px;align-items:start}
+.songlist{display:grid;gap:2px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 60px)}
+.songlist button{font:inherit;text-align:left;background:none;border:0;border-left:3px solid transparent;padding:8px 12px;cursor:pointer;color:var(--ink);display:grid;gap:0}
+.songlist button small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.songlist button[aria-current="true"]{border-left-color:var(--accent);background:var(--paper)}
+.detail{min-width:0;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:22px 24px;display:grid;gap:20px}
+.meta{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.about{margin:0;max-width:65ch;font-size:18px}
+.shape{display:grid;gap:8px}
+.shape-bar{display:flex;gap:3px;height:34px}
+.shape-bar span{flex:1;border-radius:3px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--paper);overflow:hidden;white-space:nowrap}
+.shape p{margin:0;color:var(--muted);font-size:15px;max-width:65ch}
+.moves{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.move{border-top:2px solid var(--accent);padding-top:10px;min-width:0}
+.move b{font-family:var(--display);font-weight:400;font-size:19px;display:block;margin-bottom:4px}
+.move p{margin:0;font-size:15px}
+.steal{background:var(--accent-soft);border-radius:4px;padding:14px 16px}
+.steal p{margin:0;max-width:65ch}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:11px;padding:3px 9px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:none;cursor:pointer}
+.tag:hover{border-color:var(--accent);color:var(--ink)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font-family:var(--mono);font-size:13px;padding:9px 14px;border-radius:4px;border:1px solid var(--accent);background:var(--accent);color:var(--paper);cursor:pointer;text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;color:var(--accent)}
+
+/* map */
+.mapwrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+table.map{border-collapse:collapse;width:100%;min-width:760px;font-size:14px}
+table.map th,table.map td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:center}
+table.map thead th{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;vertical-align:bottom;cursor:pointer}
+table.map thead th.on{color:var(--accent)}
+table.map tbody th{text-align:left;font-weight:600;white-space:nowrap;cursor:pointer}
+table.map tbody th:hover{color:var(--accent)}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--accent)}
+.dot.off{background:transparent;border:1px solid var(--line);width:8px;height:8px}
+table.map td.hl,table.map thead th.on{background:var(--accent-soft)}
+.movedef{margin-top:16px;max-width:70ch;min-height:3em}
+.movedef b{font-family:var(--display);font-weight:400;font-size:20px}
+.primer{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:28px}
+.primer div{border-left:4px solid var(--c);padding:2px 0 2px 12px}
+.primer b{font-family:var(--display);font-weight:400;font-size:18px;display:block}
+.primer p{margin:0;font-size:14.5px;color:var(--muted)}
+
+/* lab */
+.lab{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:24px;align-items:start}
+.lab textarea{width:100%;min-height:440px;font-family:var(--mono);font-size:13.5px;line-height:1.6;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:14px;resize:vertical}
+.lab .help{font-size:14px;color:var(--muted);margin:8px 0 0}
+.out{min-width:0;display:grid;gap:16px}
+.paste textarea{width:100%;min-height:260px;font-family:var(--mono);font-size:13.5px;line-height:1.6;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:14px;resize:vertical}
+.paste .help{font-size:14px;color:var(--muted);margin:8px 0 0}
+.bd-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.songlist .ready{color:var(--accent)}
+.strip{display:flex;gap:2px;height:40px;border-radius:4px;overflow:hidden}
+.strip span{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--paper);overflow:hidden;white-space:nowrap;min-width:6px;cursor:pointer}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.stats{display:flex;flex-wrap:wrap;gap:22px;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.stats b{display:block;font-family:var(--display);font-weight:400;font-size:24px;color:var(--ink);font-variant-numeric:tabular-nums}
+.block{background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--c);border-radius:4px;padding:12px 14px}
+.block-h{display:flex;justify-content:space-between;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:6px;flex-wrap:wrap}
+.ln{display:grid;grid-template-columns:2.2em minmax(0,1fr) 1.6em;gap:8px;align-items:baseline;padding:1px 0}
+.ln .n{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+.ln .t{min-width:0;overflow-wrap:anywhere}
+.ln .t.rep{text-decoration:underline dotted var(--muted);text-underline-offset:4px}
+.ln .rl{font-family:var(--mono);font-size:12px;font-weight:600;text-align:center}
+.end{font-weight:600;border-bottom:2px solid currentColor}
+.notes{font-size:15px;margin:0;padding-left:18px;display:grid;gap:4px}
+@media (max-width:860px){.studies,.lab{grid-template-columns:minmax(0,1fr)}.songlist{position:static;grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.lab textarea{min-height:260px}}
+@media (prefers-reduced-motion:no-preference){.detail,.out{animation:fade .25s ease}@keyframes fade{from{opacity:.4}to{opacity:1}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Songwriting study &middot; Noah Kahan</div>
+    <h1>How the songs are built</h1>
+    <p class="sub">Break songs down into their parts and the moves that make them work. Read each study, paste the song's lyrics into it to see its sections, rhymes and meter laid out, and use the technique map to compare songs.</p>
+  </header>
+
+  <nav class="views" role="tablist">
+    <button role="tab" data-v="studies" id="v-studies">Song studies</button>
+    <button role="tab" data-v="map" id="v-map">Technique map</button>
+    <button role="tab" data-v="lab" id="v-lab">Breakdown lab</button>
+  </nav>
+
+  <section class="view" id="studies">
+    <div class="studies">
+      <div class="songlist" id="songlist"></div>
+      <article class="detail" id="detail"></article>
+    </div>
+  </section>
+
+  <section class="view" id="map" hidden>
+    <h2>The moves he keeps coming back to</h2>
+    <p class="sub">Click a column to see what the move is and which songs use it. Click a song to open its study.</p>
+    <div class="mapwrap" style="margin-top:14px"><table class="map" id="maptable"></table></div>
+    <div class="movedef" id="movedef"></div>
+    <h2 style="margin-top:34px">What each section is for</h2>
+    <div class="primer">
+      <div style="--c:var(--verse)"><b>Verse</b><p>Moves the story. New information every time: who, where, what happened. Specific nouns live here.</p></div>
+      <div style="--c:var(--pre)"><b>Pre-chorus</b><p>The ramp. Shorter lines, rising tension, a feeling that something has to be said.</p></div>
+      <div style="--c:var(--chorus)"><b>Chorus</b><p>The thesis. Repeated, so it has to survive repetition. The best ones mean more each time they return.</p></div>
+      <div style="--c:var(--bridge)"><b>Bridge</b><p>A new angle. A different speaker, a confession, a time jump. It earns the last chorus.</p></div>
+      <div style="--c:var(--other)"><b>Outro</b><p>Release or echo. Kahan often uses it as the biggest, loudest moment instead of a fade.</p></div>
+    </div>
+  </section>
+
+  <section class="view" id="lab" hidden>
+    <div class="lab">
+      <div>
+        <h3><label for="lyrics">Paste lyrics</label></h3>
+        <textarea id="lyrics" spellcheck="false"></textarea>
+        <p class="help">Put a blank line between sections. Labels like [Verse], [Chorus] or [Bridge] are optional; blocks that repeat are marked as the chorus automatically. Lyrics you paste stay in this browser.</p>
+        <div class="row" style="margin-top:10px">
+          <button class="btn ghost" id="loadSample" type="button">Load the example</button>
+          <button class="btn ghost" id="clear" type="button">Clear</button>
+        </div>
+      </div>
+      <div class="out" id="out"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const MOVES = {
+  place:{name:"Place as feeling", def:"A real, local detail (a regional word, a road, a town) carries the emotion so he never has to name it. The more specific the place, the more universal the feeling reads."},
+  humor:{name:"Jokes on the wound", def:"A self-deprecating or absurd line sits right next to the saddest one. The laugh lowers your guard so the next line lands harder."},
+  talk:{name:"Talking-speed lines", def:"Long, crowded lines with the rhythm of someone ranting to a friend. Many syllables, internal rhymes, little polish. It sounds unrehearsed even when it's carefully built."},
+  story:{name:"Escalating story", def:"Each verse raises the stakes on the last. The chorus stays the same while the situation around it gets worse, so the chorus changes meaning."},
+  you:{name:"Second-person address", def:"The whole song is spoken to one person. Every line becomes an action toward them: a warning, a promise, an apology."},
+  contra:{name:"Holding a contradiction", def:"Two opposite feelings stated together and never resolved: love and resentment, wanting to leave and needing to stay. The song lives in the tension."},
+  build:{name:"The long build", def:"The song starts small and keeps adding weight until the ending is the loudest, most cathartic part. The outro is the payoff, not a fade."},
+  title:{name:"Title as metaphor", def:"The title is a compact image that explains the whole song. Once you know the phrase, every line points back to it."},
+  zoom:{name:"Zoom tiny to cosmic", def:"Jumps between the smallest physical detail and the end of the world, and treats both as equally serious."}
+};
+const MOVE_KEYS = Object.keys(MOVES);
+
+const SONGS = [
+ {id:"stick", title:"Stick Season", album:"Stick Season", year:2022,
+  about:"Stuck in his home state during the bleak stretch after the leaves fall and before the snow, after someone he loved moved on to somewhere else. He copes badly, and jokes about how badly.",
+  shape:[["V","verse"],["C","chorus"],["V","verse"],["C","chorus"],["V","verse"],["C","chorus"]],
+  shapeNote:"Barely leaves its loop. Verses and choruses trade off over a fast, relentless strum, which mirrors being stuck. Shape is approximate; listen for where it breaks the pattern.",
+  moves:[["place","The title is a real regional name for that gray in-between season. The season does the emotional work: he doesn't have to say he is depressed and stuck, the landscape says it."],
+         ["humor","Bitter, funny lines about himself sit inside a breakup song, which keeps it from being self-pitying."],
+         ["talk","The verses are dense and conversational, closer to someone venting at a bar than to a polished poem."]],
+  steal:"What is the local name for an in-between time where you live or walk? A season, an hour, a stretch of road. Give your walk song a place word only someone from there would know.",
+  tags:["place","humor","talk","title"]},
+ {id:"northern", title:"Northern Attitude", album:"Stick Season", year:2022,
+  about:"A warning to someone getting close: he is guarded and cold in the way people from his corner of New England are raised to be. Underneath the warning is a request to stay anyway.",
+  shape:[["V","verse"],["C","chorus"],["V","verse"],["C","chorus"],["B","bridge"],["C","chorus"]],
+  shapeNote:"A conventional verse-chorus frame. The chorus states the thesis plainly so the verses can stay specific. A later version features Hozier.",
+  moves:[["place","A regional trait becomes a personal flaw. Where he's from is the reason he is how he is."],
+         ["you","Spoken directly to someone, so every line is a move in the relationship: a warning that is also an invitation."],
+         ["contra","He pushes the person away and asks them to stay at the same time."]],
+  steal:"Your whale and narwhal motifs work like this. What is your version of a 'northern attitude', the trait you'd warn someone about? Write a verse that warns them and invites them in the same breath.",
+  tags:["place","you","contra"]},
+ {id:"homesick", title:"Homesick", album:"Stick Season", year:2022,
+  about:"Complaining about his small hometown and everyone in it, while admitting he can't leave and probably doesn't want to.",
+  shape:[["V","verse"],["C","chorus"],["V","verse"],["C","chorus"],["B","bridge"],["C","chorus"]],
+  shapeNote:"Verse-chorus with a list-like energy in the verses: grievance after grievance, each one secretly a sign of love.",
+  moves:[["contra","Love and resentment for the same place, never resolved. The title itself is ironic and sincere at once."],
+         ["humor","The complaints are funny, which makes the affection underneath sneak up on you."],
+         ["place","Small-town specifics instead of general statements about home."]],
+  steal:"Your 'flutter bird' verse wants to fly far from this town. That's a Homesick setup. Add the turn: what would that bird miss? Put one thing you love about the place inside the complaint.",
+  tags:["contra","humor","place"]},
+ {id:"dial", title:"Dial Drunk", album:"Stick Season", year:2022,
+  about:"A story song about one bad night: drunk-calling an ex, and things spiraling far enough to get him in trouble with the police.",
+  shape:[["V","verse"],["C","chorus"],["V","verse"],["C","chorus"],["V","verse"],["C","chorus"]],
+  shapeNote:"Built like a short film. Each verse is a new scene, and the chorus returns as the same mistake getting worse. A later version features Post Malone.",
+  moves:[["story","Clear escalation. You always want to know what happens next, which is narrative drive in its purest form."],
+         ["humor","The situation is pathetic and funny, and the sadness comes through the comedy, not around it."],
+         ["talk","Lines read like someone retelling the night the next morning."]],
+  steal:"As a filmmaker, outline your walk song as scenes before writing lines: stop one, stop two, stop three. Make each stop raise the stakes on the one before.",
+  tags:["story","humor","talk"]},
+ {id:"callmom", title:"Call Your Mom", album:"Stick Season", year:2022,
+  about:"Spoken to a friend going through something very dark. He promises to stay with them, keep driving, keep showing up. A later version features Lizzy McAlpine.",
+  shape:[["V","verse"],["C","chorus"],["V","verse"],["C","chorus"],["B","bridge"],["C","chorus"]],
+  shapeNote:"A simple frame on purpose. The plainness makes the promises believable.",
+  moves:[["you","Entirely second person. The song is an act of care, not a description of one."],
+         ["contra","Fear and steadiness in the same voice: he is scared for them and refuses to show it."],
+         ["build","The emotion rises as the promises get more concrete."]],
+  steal:"Your journal says you long to genuinely care for another. That's this song's whole engine. Try writing your bridge as a direct promise to one specific person.",
+  tags:["you","contra","build"]},
+ {id:"everywhere", title:"Everywhere, Everything", album:"Stick Season", year:2022,
+  about:"A love song set against decay: aging bodies, rot, the world ending. He wants to love someone through all of it. A later version features Gracie Abrams.",
+  shape:[["V","verse"],["C","chorus"],["V","verse"],["C","chorus"],["B","bridge"],["C","chorus"]],
+  shapeNote:"The verses work almost like lists of morbid images. The chorus answers them with one tender statement.",
+  moves:[["zoom","Small physical details and apocalyptic images treated with the same weight."],
+         ["contra","Morbid and romantic at once. The grossness makes the devotion believable."],
+         ["title","The title is the promise: everywhere, everything, all of it."]],
+  steal:"This is the closest Kahan song to your Hirayama ending, joy and sadness at once. Your 'rock inside my chest, but soft and a little fuzzy' line is already doing this. Try pairing an ugly image with a tender one in every line of a verse.",
+  tags:["zoom","contra","title"]},
+ {id:"sideways", title:"Growing Sideways", album:"Stick Season", year:2022,
+  about:"About working on his mental health and finding that progress doesn't go straight up. He admits to avoiding things and deflecting, and describes growth that goes in a strange direction.",
+  shape:[["V","verse"],["C","chorus"],["V","verse"],["C","chorus"],["B","bridge"],["C","chorus"]],
+  shapeNote:"The hook repeats like a mantra, the way you repeat something to yourself to believe it.",
+  moves:[["title","Two words that hold the entire idea. Once you hear it, you can't unhear it."],
+         ["humor","Self-aware, slightly mocking lines about his own coping."],
+         ["talk","Confessional and direct, close to a therapy session."]],
+  steal:"You relate to this one. Since the phrase is his, look for your own image for crooked growth. A whale that migrates along the coast instead of diving deeper? A bird that flies in circles to gain height?",
+  tags:["title","humor","talk"]},
+ {id:"villages", title:"The View Between Villages", album:"Stick Season", year:2022,
+  about:"Driving the road between towns where he grew up, and the memories and grief that come with that stretch of road.",
+  shape:[["V","verse"],["V","verse"],["C","chorus"],["V","verse"],["O","outro"],["O","outro"]],
+  shapeNote:"Starts quiet and keeps building until the ending explodes. It works like a long camera move that lands on the big shot. Shape is approximate. The extended version stretches the ending even further.",
+  moves:[["place","Real geography gives the song its structure. The drive is the timeline."],
+         ["build","Patient build to a loud, cathartic outro. The ending is the payoff."],
+         ["zoom","Small roadside details open onto huge feelings about home and time."]],
+  steal:"Your 'step by step' notes (pavement cracks, cotton-candy sky, the helicopter spotlight) are a route. Use the walk itself as your structure, and save the biggest emotion for the very end.",
+  tags:["place","build","zoom"]}
+];
+
+const $ = s=>document.querySelector(s);
+let curSong = "stick";
+function getLyrics(id){ try{ return localStorage.getItem("lyrics-"+id)||""; }catch(e){ return ""; } }
+function setLyrics(id,v){ try{ v.trim()?localStorage.setItem("lyrics-"+id,v):localStorage.removeItem("lyrics-"+id); }catch(e){} }
+let editing = false;
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+
+function showView(v){
+  document.querySelectorAll("nav.views button").forEach(b=>b.setAttribute("aria-selected", b.dataset.v===v));
+  ["studies","map","lab"].forEach(id=>$("#"+id).hidden = id!==v);
+  try{localStorage.setItem("view",v)}catch(e){}
+}
+document.querySelectorAll("nav.views button").forEach(b=>b.onclick=()=>showView(b.dataset.v));
+
+function renderList(){
+  $("#songlist").innerHTML = SONGS.map(s=>`<button type="button" data-id="${s.id}" aria-current="${s.id===curSong}">${esc(s.title)}<small>${esc(s.album)} &middot; ${s.year}${getLyrics(s.id).trim()?' &middot; <span class="ready">breakdown ready</span>':''}</small></button>`).join("");
+  $("#songlist").querySelectorAll("button").forEach(b=>b.onclick=()=>{curSong=b.dataset.id;editing=false;renderList();renderDetail();});
+}
+function renderDetail(){
+  const s = SONGS.find(x=>x.id===curSong);
+  const q = encodeURIComponent("Noah Kahan "+s.title);
+  $("#detail").innerHTML = `
+    <div><div class="meta">${esc(s.album)} &middot; ${s.year}</div><h2>${esc(s.title)}</h2><p class="about">${esc(s.about)}</p></div>
+    <div class="shape"><h3>Shape</h3>
+      <div class="shape-bar">${s.shape.map(([l,t])=>`<span style="background:var(--${t==="outro"?"other":t});${t==="outro"?"color:var(--ink)":""}" title="${t}">${l}</span>`).join("")}</div>
+      <p>${esc(s.shapeNote)}</p></div>
+    <div><h3>Three moves to study</h3><div class="moves">${s.moves.map(([k,how])=>`<div class="move"><b>${MOVES[k].name}</b><p>${esc(how)}</p></div>`).join("")}</div></div>
+    <div class="steal"><h3 style="color:var(--accent)">Try it in your song</h3><p>${esc(s.steal)}</p></div>
+    <div><h3>Also uses</h3><div class="tags">${s.tags.map(k=>`<button class="tag" type="button" data-move="${k}">${MOVES[k].name}</button>`).join("")}</div></div>
+    <div class="paste" id="bd"></div>`;
+  $("#detail").querySelectorAll(".tag").forEach(t=>t.onclick=()=>{showView("map");selectMove(t.dataset.move);});
+  renderBreakdown(s,q);
+}
+function renderBreakdown(s,q){
+  const box=$("#bd"), lyr=getLyrics(s.id), pfx="song-"+s.id;
+  if(!lyr.trim() || editing){
+    box.innerHTML=`<div class="bd-head"><h3><label for="lyr-${s.id}">Your breakdown &middot; paste the lyrics</label></h3>
+        <a href="https://www.google.com/search?q=${q}%20lyrics" target="_blank" rel="noopener" class="meta">Find ${esc(s.title)} lyrics on Google</a></div>
+      <textarea id="lyr-${s.id}" spellcheck="false" placeholder="Copy the lyrics from Google (or anywhere) and paste them here. Keep the blank lines between stanzas. Adding [Verse] / [Chorus] / [Bridge] labels makes the map more accurate.">${esc(lyr)}</textarea>
+      <p class="help">Labels like [Verse 1] or [Bridge] (Genius style) are used as-is. Without labels, the lab guesses: stanzas that repeat become the chorus, a repeating stanza that always leads into it becomes the pre-chorus, and a one-time stanza after the second chorus becomes the bridge. Each section says how it was identified. Type a label above any stanza to correct it. Saved in this browser only.</p>
+      <div class="row" style="margin-top:10px">${lyr.trim()?'<button class="btn" type="button" id="bdDone">Done editing</button>':''}</div>
+      <div class="out" id="bdOut" style="margin-top:16px"></div>`;
+    const ta=$("#lyr-"+s.id); let tt;
+    const draw=()=>{ const v=ta.value; $("#bdOut").innerHTML = v.trim()?analysisHTML(v,pfx):""; wireStrip($("#bdOut"),pfx); };
+    ta.oninput=()=>{ clearTimeout(tt); tt=setTimeout(()=>{ const had=!!getLyrics(s.id).trim(); setLyrics(s.id,ta.value); if(had!==!!ta.value.trim()) renderList(); draw(); },250); };
+    draw();
+    const d=$("#bdDone"); if(d) d.onclick=()=>{ setLyrics(s.id,ta.value); editing=false; renderList(); renderBreakdown(s,q); };
+  } else {
+    box.innerHTML=`<div class="bd-head"><h3>Your breakdown</h3>
+        <div class="row"><button class="btn ghost" type="button" id="bdEdit">Edit lyrics</button><button class="btn ghost" type="button" id="bdClear">Remove</button></div></div>
+      <div class="out" id="bdOut">${analysisHTML(lyr,pfx)}</div>`;
+    wireStrip($("#bdOut"),pfx);
+    $("#bdEdit").onclick=()=>{ editing=true; renderBreakdown(s,q); $("#lyr-"+s.id).focus(); };
+    const c=$("#bdClear"); c.onclick=()=>{ if(c.dataset.armed){ setLyrics(s.id,""); renderList(); renderBreakdown(s,q); } else { c.dataset.armed="1"; c.textContent="Tap again to remove"; setTimeout(()=>{ if(c.isConnected){ delete c.dataset.armed; c.textContent="Remove"; } },3000); } };
+  }
+}
+
+let selMove = null;
+function renderMap(){
+  $("#maptable").innerHTML = `<thead><tr><th style="text-align:left;cursor:default">Song</th>${MOVE_KEYS.map(k=>`<th data-move="${k}" class="${k===selMove?"on":""}">${MOVES[k].name}</th>`).join("")}</tr></thead>
+   <tbody>${SONGS.map(s=>`<tr><th data-id="${s.id}">${esc(s.title)}</th>${MOVE_KEYS.map(k=>`<td class="${k===selMove?"hl":""}">${s.tags.includes(k)?'<span class="dot" title="'+MOVES[k].name+'"></span>':'<span class="dot off"></span>'}</td>`).join("")}</tr>`).join("")}</tbody>`;
+  $("#maptable").querySelectorAll("thead th[data-move]").forEach(th=>th.onclick=()=>selectMove(th.dataset.move));
+  $("#maptable").querySelectorAll("tbody th").forEach(th=>th.onclick=()=>{curSong=th.dataset.id;renderList();renderDetail();showView("studies");});
+}
+function selectMove(k){
+  selMove=k; renderMap();
+  const users = SONGS.filter(s=>s.tags.includes(k)).map(s=>s.title);
+  $("#movedef").innerHTML = `<b>${MOVES[k].name}</b><p style="margin:4px 0 0">${MOVES[k].def}</p><p class="meta" style="margin-top:6px">Used in: ${users.map(esc).join(", ")}</p>`;
+}
+
+/* ---------- Lab ---------- */
+const SAMPLE = `[Verse]
+flutter bird, far away
+don't let the car exhaust get you
+it's absurd, a car in May
+can stink a whole block up you
+wrinkle your nose
+breathe through your mouth
+if I were a bird
+I'd just fly far from this town!
+
+[Bridge]
+little bird, must be free
+we fantasize, we don't see
+all the hunger, and the struggle
+of being a bird in this cruel world
+
+[Chorus]
+there's a rock inside my chest
+but it's soft, and a little fuzzy`;
+
+function syl(w){
+  w=w.toLowerCase().replace(/[^a-z]/g,""); if(!w) return 0; if(w.length<=3) return 1;
+  w=w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,"").replace(/^y/,"");
+  const m=w.match(/[aeiouy]{1,2}/g); return Math.max(1,m?m.length:1);
+}
+function lastWord(l){const ws=l.trim().split(/\s+/);for(let i=ws.length-1;i>=0;i--){const c=ws[i].replace(/[^A-Za-z']/g,"");if(c)return c;}return "";}
+function rhymeKey(w){
+  w=w.toLowerCase().replace(/[^a-z]/g,""); if(!w) return "";
+  if(/[^aeiou]e$/.test(w) && w.length>3) w=w.slice(0,-1);
+  w=w.replace(/(ed|s)$/,m=> w.length>4?"":m);
+  const m=w.match(/[aeiouy]+[^aeiouy]*$/); let k=m?m[0]:w;
+  k=k.replace(/^y/,"i").replace(/ay$/,"ei").replace(/ey$/,"ei").replace(/ee/,"i").replace(/ea/,"i");
+  return k;
+}
+const RCOL=["--r1","--r2","--r3","--r4","--r5","--r6"];
+function norm(l){return l.toLowerCase().replace(/[^a-z ]/g,"").replace(/\s+/g," ").trim();}
+
+function splitRuns(lines){
+  const N=lines.map(norm), n=N.length, mark=Array(n).fill(false);
+  for(let i=0;i<n;i++){
+    if(mark[i]) continue;
+    for(let k=Math.min(8,n-i);k>=2;k--){
+      const seq=N.slice(i,i+k).join("|"); let found=-1;
+      for(let j=0;j+k<=n;j++){ if(Math.abs(j-i)>=k && N.slice(j,j+k).join("|")===seq){found=j;break;} }
+      if(found>-1){ for(let x=0;x<k;x++){mark[i+x]=true;mark[found+x]=true;} i+=k-1; break; }
+    }
+  }
+  const out=[]; let cur=null;
+  lines.forEach((l,i)=>{ if(!cur||cur.m!==mark[i]){ if(cur) out.push({label:null,lines:cur.lines}); cur={m:mark[i],lines:[]}; } cur.lines.push(l); });
+  if(cur) out.push({label:null,lines:cur.lines});
+  return out;
+}
+function analyze(text){
+  // Split on blank lines AND on [Section] label lines, so pastes without blank lines still separate.
+  const JUNK = /^(source:.*|songwriters?:.*|lyrics licensed.*|lyrics provided.*|written by:?.*|you might also like|\d*\s*embed|see .* live|get tickets.*|\d+\s*contributors?.*|translations?|.*\blyrics$|read more|\d+$)$/i;
+  const blocks=[]; let cur=null;
+  const flush=()=>{ if(cur && cur.lines.length) blocks.push(cur); cur=null; };
+  text.replace(/\r/g,"").replace(/ /g," ").split("\n").forEach(rawLine=>{
+    const line=rawLine.replace(/\d*\s*Embed\s*$/i,"").trim();
+    if(!line){ flush(); return; }
+    if(/^\[[^\]]*\]$/.test(line)){ flush(); cur={label:line.slice(1,-1).split(":")[0].trim()||null,lines:[]}; return; }
+    if(JUNK.test(line)) return;
+    if(!cur) cur={label:null,lines:[]};
+    cur.lines.push(line);
+  });
+  flush();
+  // ---- structure detection ----
+  const anyLabel = blocks.some(b=>b.label);
+  if(!anyLabel && blocks.some(b=>b.lines.length>14)){
+    const out=[]; blocks.forEach(b=> b.lines.length>14 ? out.push(...splitRuns(b.lines)) : out.push(b));
+    blocks.length=0; blocks.push(...out);
+  }
+  const lineFreq={}; blocks.forEach(b=>b.lines.forEach(l=>{const n=norm(l); if(n) lineFreq[n]=(lineFreq[n]||0)+1;}));
+  const lset=b=>new Set(b.lines.map(norm).filter(Boolean));
+  const sim=(x,y)=>{const A=lset(x),B=lset(y); let i=0; A.forEach(v=>{if(B.has(v))i++}); return i/Math.max(1,Math.min(A.size,B.size));};
+  // 1. explicit labels (Genius-style) win
+  blocks.forEach(b=>{
+    const lab=(b.label||"").toLowerCase(); b.how="label";
+    b.type = /pre/.test(lab)?"pre": /chorus|hook|refrain/.test(lab)?"chorus": /bridge/.test(lab)?"bridge": /verse/.test(lab)?"verse": /outro|intro|coda|interlude/.test(lab)?"other": null;
+    if(b.label && !b.type) b.type="other";
+  });
+  // 2. group unlabeled blocks that repeat (exactly or mostly)
+  let gid=0;
+  blocks.forEach((b,i)=>{ if(b.type||b.group!=null) return;
+    const twins=blocks.filter((o,j)=>j!==i && !o.type && sim(b,o)>=.6);
+    const repShare=b.lines.filter(l=>lineFreq[norm(l)]>1).length/b.lines.length;
+    if(twins.length||repShare>=.6){ b.group=gid; twins.forEach(t=>{ if(t.group==null) t.group=gid; }); gid++; }
+  });
+  // 3. a repeating group that always sits right before another repeating group is a pre-chorus
+  const groups=[...new Set(blocks.filter(b=>b.group!=null).map(b=>b.group))];
+  const role={};
+  groups.forEach(g=>{
+    const idx=blocks.map((b,i)=>b.group===g?i:-1).filter(i=>i>-1);
+    const nextG=idx.map(i=>blocks[i+1]?.group);
+    const prevG=idx.map(i=>blocks[i-1]?.group);
+    if(idx.length>1 && nextG.every(x=>x!=null && x!==g && x===nextG[0])) role[g]="pre";
+    else if(idx.length>1 && prevG.every(x=>x!=null && x!==g && x===prevG[0]) && blocks[idx[0]].lines.length<=4) role[g]="post";
+  });
+  blocks.forEach(b=>{ if(b.group==null) return;
+    b.how="repeats";
+    if(role[b.group]==="pre"){ b.type="pre"; b.label="Pre-chorus"; }
+    else if(role[b.group]==="post"){ b.type="chorus"; b.label="Post-chorus"; }
+    else { b.type="chorus"; b.label="Chorus"; }
+  });
+  // 4. use position for the rest: intro, bridge, outro, verses
+  const chIdx=blocks.map((b,i)=>b.type==="chorus"?i:-1).filter(i=>i>-1);
+  const lastCh=chIdx.length?chIdx[chIdx.length-1]:-1, secondCh=chIdx.length>1?chIdx[1]:-1;
+  let vn=0;
+  blocks.forEach((b,i)=>{
+    if(b.type){ if(b.type==="verse") vn++; return; }
+    b.how="position";
+    if(i===0 && b.lines.length<=2 && blocks.length>2){ b.type="other"; b.label="Intro"; return; }
+    if(lastCh>-1 && i>lastCh && i===blocks.length-1){ b.type="other"; b.label="Outro"; return; }
+    if(secondCh>-1 && i>secondCh && (i<lastCh || i===blocks.length-1)){ b.type="bridge"; b.label="Bridge"; return; }
+    b.type="verse"; b.label="Verse "+(++vn);
+  });
+  // rhyme colors global by key
+  const keyCount={}; blocks.forEach(b=>b.lines.forEach(l=>{const k=rhymeKey(lastWord(l)); if(k) keyCount[k]=(keyCount[k]||0)+1;}));
+  const keyColor={}; let ci=0;
+  blocks.forEach(b=>{
+    const letters={}; let li=0;
+    b.rows=b.lines.map(l=>{
+      const w=lastWord(l), k=rhymeKey(w); let letter="";
+      if(k){ if(!(k in letters)) letters[k]=String.fromCharCode(65+li++); letter=letters[k]; }
+      const shared = k && b.lines.filter(x=>rhymeKey(lastWord(x))===k).length>1;
+      if(shared && !(k in keyColor)) keyColor[k]=RCOL[ci++%RCOL.length];
+      return {l, w, letter, color: shared?keyColor[k]:null, s:l.trim().split(/\s+/).reduce((a,x)=>a+syl(x),0), rep: lineFreq[norm(l)]>1};
+    });
+    b.scheme=b.rows.map(r=>r.letter).join("");
+  });
+  return blocks;
+}
+
+function analysisHTML(text,pfx){
+  const blocks=analyze(text);
+  const total=blocks.reduce((a,b)=>a+b.rows.length,0);
+  const allS=blocks.flatMap(b=>b.rows.map(r=>r.s));
+  const avg=(allS.reduce((a,b)=>a+b,0)/Math.max(1,allS.length)).toFixed(1);
+  const repeated=new Set(blocks.flatMap(b=>b.rows.filter(r=>r.rep).map(r=>norm(r.l)))).size;
+  const rhymed=blocks.flatMap(b=>b.rows).filter(r=>r.color).length;
+  const notes=[];
+  const verses=blocks.filter(b=>b.type==="verse"), chor=blocks.filter(b=>b.type==="chorus");
+  if(chor.length){ const cs=chor[0].rows.reduce((a,r)=>a+r.s,0)/chor[0].rows.length, vs=verses.length?verses[0].rows.reduce((a,r)=>a+r.s,0)/verses[0].rows.length:0;
+    if(vs) notes.push(cs<vs?`The chorus lines are shorter than the verse lines (${cs.toFixed(1)} vs ${vs.toFixed(1)} syllables). Short chorus lines are easier to sing back and feel like a release.`:`The chorus lines run as long as or longer than the verse (${cs.toFixed(1)} vs ${vs.toFixed(1)} syllables). Think about whether the chorus should feel lighter.`); }
+  else notes.push("No section repeats yet, so there's no chorus. A chorus gives a listener something to hold onto between story sections.");
+  if(verses.length>=2){ const a=verses[0].rows.map(r=>r.s), b=verses[1].rows.map(r=>r.s); const diffs=a.slice(0,b.length).map((x,i)=>Math.abs(x-b[i])); const off=diffs.filter(d=>d>2).length;
+    notes.push(off?`Verse 1 and verse 2 differ by more than 2 syllables on ${off} line${off>1?"s":""}. If they share a melody, those lines may be hard to sing.`:"Verse 1 and verse 2 line up closely in syllable count, so they can share a melody."); }
+  const long=blocks.filter(b=>b.rows.length>14);
+  if(long.length) notes.unshift(`${long.map(b=>b.label).join(", ")} ${long.length>1?"are":"is"} ${long.map(b=>b.rows.length).join(" and ")} lines long, which usually means several stanzas got pasted together. Add a blank line (or a label like [Chorus]) wherever the song changes section.`);
+  const loose=blocks.filter(b=>b.rows.length>=4 && !b.rows.some(r=>r.color));
+  if(loose.length) notes.push(`${loose.map(b=>b.label).join(", ")} ${loose.length>1?"have":"has"} no end rhymes the tool can find. That can be a deliberate conversational choice, or a spot to tighten.`);
+  const typeName={verse:"Verse",chorus:"Chorus",pre:"Pre-chorus",bridge:"Bridge",other:"Intro / outro"};
+  return `
+    <div><h3>Song map</h3>
+      <div class="strip">${blocks.map((b,i)=>`<span data-i="${i}" style="flex:${b.rows.length};background:var(--${b.type});${b.type==="other"?"color:var(--ink)":""}" title="${esc(b.label)}: ${b.rows.length} lines">${esc(b.label.split(" ")[0])}</span>`).join("")}</div>
+      <div class="legend" style="margin-top:8px">${Object.entries(typeName).map(([k,v])=>`<span><i style="background:var(--${k})"></i>${v}</span>`).join("")}</div></div>
+    <div class="stats"><div><b>${blocks.length}</b>sections</div><div><b>${total}</b>lines</div><div><b>${avg}</b>avg syllables</div><div><b>${repeated}</b>repeated lines</div><div><b>${Math.round(100*rhymed/Math.max(1,total))}%</b>lines that rhyme</div></div>
+    <div><h3>What stands out</h3><ul class="notes">${notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul></div>
+    ${blocks.map((b,i)=>`<div class="block" id="${pfx}-blk-${i}" style="--c:var(--${b.type})">
+      <div class="block-h"><span>${esc(b.label)} <em style="text-transform:none;letter-spacing:0;font-style:normal;opacity:.75">${b.how==="label"?"&middot; your label":b.how==="repeats"?"&middot; guessed: repeats":"&middot; guessed: position"}</em></span><span>rhyme ${esc(b.scheme)} &middot; syllables ${b.rows.map(r=>r.s).join(" ")}</span></div>
+      ${b.rows.map((r,j)=>{ const t=esc(r.l.trim()); const w=esc(r.w); let html=t;
+        if(r.color && w){ const idx=t.toLowerCase().lastIndexOf(w.toLowerCase()); if(idx>-1) html=t.slice(0,idx)+`<span class="end" style="color:var(${r.color})">${t.slice(idx,idx+w.length)}</span>`+t.slice(idx+w.length); }
+        return `<div class="ln"><span class="n">${r.s}</span><span class="t ${r.rep?"rep":""}">${html}</span><span class="rl" style="color:${r.color?`var(${r.color})`:"var(--muted)"}">${r.letter}</span></div>`;}).join("")}
+    </div>`).join("")}
+    <p class="help">Left number: syllables (an estimate). Right letter: rhyme scheme within the section. Colored words rhyme with each other. Dotted underline: a line that repeats somewhere in the song. Rhyme detection matches spelling, so trust your ear on near rhymes.</p>`;
+}
+function wireStrip(root,pfx){
+  root.querySelectorAll(".strip span").forEach(sp=>sp.onclick=()=>document.getElementById(pfx+"-blk-"+sp.dataset.i)?.scrollIntoView({behavior:"smooth",block:"center"}));
+}
+function renderLab(){
+  const text=$("#lyrics").value;
+  try{localStorage.setItem("labText",text)}catch(e){}
+  if(!text.trim()){ $("#out").innerHTML=`<div class="block" style="--c:var(--line)"><p style="margin:0">Paste a song's lyrics on the left to see its sections, rhyme scheme and syllable counts. Or load the example, which uses your own bird lines.</p></div>`; return; }
+  $("#out").innerHTML=analysisHTML(text,"lab"); wireStrip($("#out"),"lab");
+}
+let t; $("#lyrics").oninput=()=>{clearTimeout(t);t=setTimeout(renderLab,200);};
+$("#loadSample").onclick=()=>{$("#lyrics").value=SAMPLE;renderLab();};
+$("#clear").onclick=()=>{$("#lyrics").value="";renderLab();$("#lyrics").focus();};
+
+// boot
+let saved=null; try{saved=localStorage.getItem("labText")}catch(e){}
+$("#lyrics").value = saved!=null && saved.trim() ? saved : SAMPLE;
+renderList(); renderDetail(); renderMap(); selectMove("place"); renderLab();
+let v="studies"; try{v=localStorage.getItem("view")||"studies"}catch(e){}
+if(!["studies","map","lab"].includes(v)) v="studies";
+showView(v);
+</script>
+</body>
+</html>
