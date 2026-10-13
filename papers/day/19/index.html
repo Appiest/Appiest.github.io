@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 19: Robust Speech Recognition via Large-Scale Weak Supervision</title>
+<meta name="description" content="Train one plain Transformer on 680,000 hours of messy, internet-sourced audio with its existing transcripts, and you get a speech recognizer that works out of the box on almost any recording, in about 100 languages, without being tuned for any of them.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:87.84%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:87.84%">2022</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Robust Speech Recognition via Large-Scale Weak Supervision</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">19 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Radford, Kim, Xu, Brockman, McLeavey &amp; Sutskever</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2022</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/2212.04356" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Train one plain Transformer on 680,000 hours of messy, internet-sourced audio with its existing transcripts, and you get a speech recognizer that works out of the box on almost any recording, in about 100 languages, without being tuned for any of them.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Instead of training a speech recognizer on a small, perfectly labeled dataset and then tuning it for each new situation, OpenAI trained one model on a huge pile of imperfectly labeled audio from the internet, and it turned out to be far more reliable on real-world audio than models that looked better on the standard test.</p>
+
+<h2 id="how-it-builds-on-day-18">How it builds on Day 18</h2>
+<p>ReAct (Day 18) gave language models hands, a way to take actions in the world; Whisper gave them ears, a dependable way to turn human speech into the text those models read. Under the hood it is the same Transformer from Day 9, and it applies the GPT-3 lesson from Day 11 (more data and more variety beat clever tuning) to sound.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Turning speech into text is called <strong>automatic speech recognition (ASR)</strong>. By 2022 the best research systems were scoring amazingly well on the standard benchmark, <strong>LibriSpeech</strong>, a set of about 1,000 hours of people reading audiobooks aloud. Some papers even claimed &quot;superhuman&quot; accuracy. The leading recipe was <strong>self-supervised pretraining</strong>: a model like Meta&#39;s wav2vec 2.0 first listened to enormous amounts of <em>unlabeled</em> audio (no transcripts) to learn what speech sounds like, then was <strong>fine-tuned</strong> (trained a bit more) on a smaller labeled dataset like LibriSpeech. The problem was that this second step made models brittle. A model fine-tuned on clean audiobook narration would stumble on a phone call, a noisy restaurant, a podcast with accents, or a lecture. Every new setting needed new labeled data and new tuning. Meanwhile, the alternative of collecting huge amounts of carefully hand-labeled audio was too expensive. The best combined hand-labeled datasets were only a few thousand hours. The field was stuck choosing between &quot;small and clean but fragile&quot; and &quot;huge but unlabeled.&quot;</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-weak-supervision-at-scale-680-000-hours-of-imperfect-labels">1. Weak supervision at scale: 680,000 hours of imperfect labels</h3>
+<p><strong>What it is.</strong> <strong>Supervised</strong> learning means training on examples that come with the right answer (here, audio plus its transcript). <strong>Weak supervision</strong> means the answers are noisy or imperfect: nobody checked them carefully. OpenAI gathered audio from the internet that already had transcripts attached (think subtitled videos and captioned talks) and simply used those transcripts as the answers.</p>
+<p><strong>How big.</strong> 680,000 hours, roughly 77 years of nonstop audio. That is hundreds of times larger than LibriSpeech. About 117,000 hours covered 96 languages other than English, and another 125,000 hours were audio in some other language paired with an English transcript, which taught the model to translate.</p>
+<p><strong>How they cleaned it, step by step.</strong> &quot;Imperfect&quot; can&#39;t mean &quot;garbage,&quot; so they filtered:</p>
+<ol>
+<li><strong>Drop machine-made transcripts.</strong> A lot of internet captions were generated by other speech recognizers. Training on those would just teach Whisper to copy another system&#39;s mistakes. They spotted them with simple clues: text that is ALL CAPS or all lowercase, or has no punctuation, which human transcribers rarely produce.</li>
+<li><strong>Check the language matches.</strong> A language detector listened to the audio and another checked the text. If the audio was Spanish but the transcript was English, the pair became a <em>translation</em> example instead of a transcription example. Other mismatches were thrown out.</li>
+<li><strong>Remove near-duplicates</strong> so the same transcript didn&#39;t appear over and over.</li>
+<li><strong>Avoid cheating.</strong> They removed transcripts that overlapped with test sets they planned to evaluate on.</li>
+<li><strong>Audit and prune.</strong> After training a first model, they looked at which sources it did worst on, found many were just bad data (half-transcribed or misaligned), and removed them.</li>
+</ol>
+<p><strong>Analogy.</strong> Learning a language by watching thousands of subtitled films versus studying a single perfect textbook. The subtitles are sometimes wrong or out of sync, but the sheer variety of voices, accents, rooms and topics teaches you to understand people in the real world. The textbook student aces the textbook exam and freezes in a real conversation.</p>
+
+<h3 id="2-a-plain-transformer-that-reads-a-picture-of-sound">2. A plain Transformer that &quot;reads&quot; a picture of sound</h3>
+<p><strong>What it is.</strong> The model itself is deliberately boring: a standard <strong>encoder-decoder Transformer</strong>, the same design as the original Transformer (Day 9) and close cousin of sequence to sequence (Day 5). The <strong>encoder</strong> reads the input and builds an understanding of it; the <strong>decoder</strong> writes the output one token at a time. A <strong>token</strong> is a small chunk of text, often a word or part of a word.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>The audio is cut into <strong>30-second chunks</strong>.</li>
+<li>Each chunk is turned into a <strong>log-Mel spectrogram</strong>. Picture an image where left to right is time, bottom to top is pitch (low rumbles at the bottom, hisses at the top), and brightness is loudness. &quot;Mel&quot; means the pitch bands are spaced the way human hearing works (we tell low notes apart more finely than high ones). &quot;Log&quot; means loudness is measured on a scale like decibels, again like our ears. Whisper uses 80 pitch bands, with a new column every 10 milliseconds.</li>
+<li>The encoder scans this sound-picture and builds a rich representation of what was said.</li>
+<li>The decoder, which works like a small language model that is &quot;listening&quot; to the encoder, writes out the transcript token by token, each time looking back at the audio through attention (Day 9) and at the words it has already written.</li>
+</ol>
+<p>They trained five sizes, from Tiny (39 million <strong>parameters</strong>, the adjustable numbers inside a model) to Large (1.55 billion). The point of keeping the design standard was to show that the gains came from the <em>data</em>, not from a clever new architecture.</p>
+<p><strong>Analogy.</strong> A court stenographer who has listened to every kind of speaker imaginable. The ears (encoder) take in the sound, and the hands (decoder) type what they heard, using their sense of what words usually come next to resolve mumbled bits.</p>
+
+<h3 id="3-one-model-many-jobs-controlled-by-special-tokens">3. One model, many jobs, controlled by special tokens</h3>
+<p><strong>What it is.</strong> Old speech systems were pipelines of separate parts: one to detect whether anyone is speaking, one to identify the language, one to transcribe, one to translate, one to add timestamps. Whisper does all of these in a single model. The trick is that the decoder&#39;s output always starts with a few <strong>special tokens</strong>, little instruction tags that say what job to do.</p>
+<p><strong>How it works.</strong> The output sequence follows a fixed format:</p>
+<ol>
+<li>A &quot;start of transcript&quot; tag.</li>
+<li>A <strong>language tag</strong> (like English, Spanish, Japanese; 99 in total). The model predicts this itself, which is how it does language identification.</li>
+<li>A <strong>&quot;no speech&quot;</strong> tag if the chunk is just silence or noise. This is how it does voice activity detection, meaning deciding whether anyone is talking.</li>
+<li>A <strong>task tag</strong>: &quot;transcribe&quot; (write it in the same language) or &quot;translate&quot; (write it in English).</li>
+<li>A <strong>timestamps tag</strong>: either &quot;no timestamps,&quot; or timestamps woven into the text, telling you when each phrase starts and ends.</li>
+<li>The text itself, then an end tag.</li>
+</ol>
+<p>Optionally, the transcript of the previous 30 seconds can be fed in before all this as context, so the model keeps names and spellings consistent across a long recording.</p>
+<p><strong>Worked example.</strong> Say you give it 30 seconds of someone in Madrid saying &quot;Voy al mercado.&quot; With the translate task, the decoder produces something like:</p>
+<blockquote>
+<p>[start of transcript] [Spanish] [translate] [no timestamps] I&#39;m going to the market. [end]</p>
+</blockquote>
+<p>Switch the task tag to &quot;transcribe&quot; and the same audio gives &quot;Voy al mercado.&quot; You can also force the tags yourself (for example, tell it the language is Spanish) instead of letting it guess.</p>
+<p><strong>Analogy.</strong> One very versatile interpreter who, at the top of each page, writes a short note to themselves: &quot;this is Spanish, I&#39;m translating to English, no timestamps needed.&quot; Then they do the job. You can also hand them a note in advance telling them what to do.</p>
+
+<h3 id="4-judge-it-the-hard-way-zero-shot-and-effective-robustness">4. Judge it the hard way: zero-shot and &quot;effective robustness&quot;</h3>
+<p><strong>What it is.</strong> The paper&#39;s most important argument is about <em>how to measure</em> speech recognition. The standard score is <strong>word error rate (WER)</strong>: the share of words the model gets wrong (substituted, missing or extra) compared with a correct transcript. If the truth is &quot;meet me at the north gate at five&quot; (8 words) and the model writes &quot;meet me at the nor gate at nine,&quot; that&#39;s 2 wrong out of 8, a 25% WER. Lower is better.</p>
+<p>The authors evaluated Whisper <strong>zero-shot</strong>: on 12 other datasets, without training on any of their training data. That&#39;s like testing a student on an exam they never saw practice questions for.</p>
+<p>They then introduced <strong>effective robustness</strong>: don&#39;t just ask &quot;how good is the score on LibriSpeech?&quot; Ask &quot;given its LibriSpeech score, how well does it do on <em>everything else</em>?&quot; Two models with identical LibriSpeech scores can behave very differently in the real world.</p>
+<p><strong>The mental picture.</strong> Imagine two students who both score 97% on the same practice exam. One memorized the practice exam&#39;s style; the other actually understands the subject. Give them both a different exam and the difference shows. Whisper is the second student.</p>
+<p><strong>One extra practical detail.</strong> Comparing WER across systems is messy because of style: is it &quot;Mr.&quot; or &quot;Mister,&quot; &quot;10&quot; or &quot;ten,&quot; &quot;can&#39;t&quot; or &quot;cannot&quot;? The authors wrote a <strong>text normalizer</strong> to standardize these before scoring, so Whisper wasn&#39;t penalized for formatting choices. They openly noted this could flatter Whisper a bit.</p>
+
+<h2 id="walkthrough-transcribing-an-hour-long-podcast">Walkthrough: transcribing an hour-long podcast</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Whisper only hears 30 seconds at a time, so long audio needs a loop. The paper describes the tricks that made this reliable:</p>
+<ol>
+<li><strong>Transcribe the first 30-second window</strong>, with timestamps on.</li>
+<li><strong>Slide the window</strong> to where the last complete sentence ended (using the predicted timestamps), not just to the 30-second mark, so words aren&#39;t chopped in half.</li>
+<li><strong>Feed the previous text in as context</strong> so names and style stay consistent.</li>
+<li><strong>Watch for the model getting stuck.</strong> A common failure is a repetition loop (&quot;thank you thank you thank you...&quot;). They detect this with a clever trick: compress the output text with gzip (ordinary file compression). Repetitive text compresses extremely well, so a compression ratio above 2.4 is a red flag. Low confidence (average log-probability below -1) is another red flag.</li>
+<li><strong>If it looks stuck, retry with more randomness.</strong> <strong>Temperature</strong> is a setting that controls how adventurous the model is when picking words. Start at 0 (always pick the most likely word), and if the output fails the checks, retry at 0.2, 0.4, and so on up to 1.0.</li>
+<li><strong>Skip silence.</strong> If the model says &quot;no speech&quot; with high probability and is also unsure about the text, treat the window as silent instead of letting it invent words.</li>
+<li><strong>Use beam search</strong>, which keeps the 5 most promising candidate transcripts in play at each step instead of just one.</li>
+</ol>
+<p>Together these brought average WER on long recordings from 11.0 down to 10.0. Small numbers, but they matter: these heuristics (rules of thumb) are what every Whisper-based app still uses.</p>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<ul>
+<li><strong>The headline: far fewer errors in the wild.</strong> Whisper&#39;s largest model and a strong wav2vec 2.0 model both scored about 2.7% WER on LibriSpeech&#39;s clean test, a tie. Across 14 other datasets, though, the wav2vec model averaged 29.3% WER and Whisper averaged 12.8%. That is <strong>55% fewer errors</strong> on average, from two models that looked identical on the standard benchmark. Even Whisper&#39;s tiniest model (39 million parameters), which is mediocre on LibriSpeech, roughly matched the best LibriSpeech-trained model on other datasets.</li>
+<li><strong>Close to professional humans.</strong> On 25 recordings, they compared Whisper with professional transcription services. The best (a human-plus-computer service) beat Whisper by about 1.2 percentage points of WER; purely human transcription was only a fraction of a point better. That&#39;s a big claim made carefully: not &quot;superhuman,&quot; but close to human on real audio.</li>
+<li><strong>Better in noise.</strong> Mixed with background noise from a crowded pub, Whisper held up better than every LibriSpeech-trained model once the noise got loud (below a 10 dB signal-to-noise ratio, meaning the speech is only modestly louder than the noise). In clean audio, some specialized models still beat it.</li>
+<li><strong>More data in a language, fewer errors, predictably.</strong> Across languages, error rate roughly <strong>halved for every 16x more training hours</strong> in that language. Languages with unusual scripts or few relatives in the dataset (like Hebrew, Telugu, Chinese and Korean) did worse than the trend predicted.</li>
+<li><strong>Translation from scratch.</strong> Translating speech in other languages to English text, zero-shot, it beat the previous best systems on a standard benchmark (CoVoST2), scoring 29.1 BLEU versus 25.2 (BLEU is a translation quality score where higher is better), with its biggest wins on low-resource languages.</li>
+<li><strong>Multitasking helps once the model is big enough.</strong> For small models, learning all those languages and tasks at once slightly hurt English accuracy. For large models it helped: the multilingual, multitask model eventually beat an English-only model.</li>
+<li><strong>Diminishing returns on English.</strong> Going from about 54,000 to 680,000 hours of data improved English WER by only about one point. The authors suggested English might be close to the ceiling of what&#39;s achievable, partly because the &quot;correct&quot; transcripts themselves have errors.</li>
+</ul>
+<p>Why it was convincing: the 55% result directly exposed that the field&#39;s favorite benchmark was misleading, and the release of the full model let anyone check the claims on their own audio, which millions of people quickly did.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Hallucination.</strong> The authors listed it themselves: the model sometimes gets stuck in repeat loops, skips the first or last words of a chunk, or writes fluent text that has nothing to do with the audio. Because the decoder acts like a language model, when the audio is unclear or silent it can fill the gap with plausible-sounding words. A 2024 study, &quot;Careless Whisper&quot; (Koenecke and colleagues, presented at the FAccT conference), found that about 1% of transcriptions from OpenAI&#39;s Whisper API in 2023 contained entire invented phrases or sentences, and 38% of those included harmful content such as made-up violence, false associations or false authority. Hallucinations were more common for speakers with aphasia (a language disorder), whose speech has longer pauses: 1.7% versus 1.2%.</li>
+<li><strong>High-stakes use made this serious.</strong> In October 2024, the Associated Press reported on hallucinations in medical settings, where a Whisper-based tool from the company Nabla had been used by over 30,000 clinicians for about 7 million patient visits.</li>
+<li><strong>Uneven languages.</strong> The data was English-heavy and most languages had under 1,000 hours, so quality for many languages lags well behind English.</li>
+<li><strong>Not built for live use.</strong> The 30-second window and sequential decoding make it awkward for real-time, streaming conversation.</li>
+<li><strong>No speaker labels.</strong> Whisper writes <em>what</em> was said, not <em>who</em> said it. (The authors actually had to fine-tune it briefly to stop it from inventing speaker names that appeared in its training transcripts.)</li>
+<li><strong>Open questions.</strong> They studied only zero-shot use, not fine-tuning, and couldn&#39;t say how much of the robustness came from the encoder (hearing) versus the decoder (language guessing).</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The default open-source speech recognizer.</strong> OpenAI released the code and weights under the permissive MIT license, which is a big reason Whisper spread everywhere. It&#39;s still offered by cloud providers (OVHcloud, for example, lists Whisper Large V3 Turbo as a hosted endpoint) and packaged in mainstream software distributions.</li>
+<li><strong>Faster versions.</strong> OpenAI&#39;s own <strong>Whisper large-v3-turbo</strong> (late 2024) cut the decoder from 32 layers to 4, giving an 809-million-parameter model that is much faster with a small accuracy cost; its model card says the Whisper family is now trained on more than 5 million hours of labeled data. Hugging Face&#39;s <strong>Distil-Whisper</strong> compressed it further for English: about 6 times faster and roughly half the size, staying within 1% WER of the original.</li>
+<li><strong>Runs on your laptop or phone.</strong> <strong>whisper.cpp</strong>, a C/C++ reimplementation, made Whisper run efficiently on ordinary hardware without a big GPU. It is still actively maintained (the Arch Linux package was updated to version 1.9.4 in September 2026), and many local transcription apps are built on it.</li>
+<li><strong>The standard toolkit for meeting-style transcripts.</strong> <strong>WhisperX</strong> wraps Whisper with voice activity detection (to cut hallucinations on silence), batching (about 70 times faster than real time on large-v2), precise word-level timestamps, and speaker labels using a separate tool called pyannote. This &quot;Whisper plus diarization&quot; pipeline is the usual way people build &quot;who said what&quot; transcripts.</li>
+<li><strong>It was ChatGPT&#39;s ears.</strong> When ChatGPT got voice conversations in September 2023, OpenAI said: &quot;We also use Whisper, our open-source speech recognition system, to transcribe your spoken words into text.&quot;</li>
+<li><strong>Medical scribes and more.</strong> Companies like Nabla built clinical note-taking on it, which is also where the hallucination concerns hit hardest.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>OpenAI&#39;s own voice products moved past it.</strong> In May 2024, OpenAI explained that the old ChatGPT Voice Mode was &quot;a pipeline of three separate models&quot; (speech to text, then GPT, then text to speech), with average delays of 2.8 to 5.4 seconds, and that the pipeline &quot;can&#39;t directly observe tone, multiple speakers, or background noises.&quot; GPT-4o handles audio directly, responding in about 320 milliseconds on average. Speech-to-speech models like this are now the direction for live voice assistants.</li>
+<li><strong>OpenAI&#39;s API has newer transcription models.</strong> In March 2025 OpenAI released <strong>gpt-4o-transcribe</strong> and <strong>gpt-4o-mini-transcribe</strong>, saying they &quot;consistently outperform Whisper v2 and Whisper v3&quot; across languages, trained with heavy use of <strong>reinforcement learning</strong> (Day 6&#39;s idea of learning from rewards) that OpenAI says reduces hallucination. These are closed models, not open weights.</li>
+<li><strong>No longer the most accurate open model.</strong> On Hugging Face&#39;s Open ASR Leaderboard, Whisper Large v3 (about 7.4% average WER) has been overtaken, first by NVIDIA&#39;s Canary and Parakeet models, and in March 2026 by <strong>Cohere Transcribe</strong> (2 billion parameters, Apache 2.0 license), which reported 5.42% average WER and claims to roughly halve Whisper&#39;s errors on multi-speaker meeting audio. (These are company-reported benchmark numbers.)</li>
+<li><strong>The data lesson won, the exact recipe aged.</strong> Today&#39;s best systems still use huge, diverse, weakly labeled data, but they add extra training stages (fine-tuning, reinforcement learning, machine-labeled data checked by other models) that Whisper deliberately skipped.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Transformer (Day 9) + &quot;scale the data&quot; (Day 11) -&gt; Whisper: 680,000 hours of weakly labeled audio, one multitask model (2022) -&gt; faster and smaller descendants (whisper.cpp, Distil-Whisper, large-v3-turbo) and pipelines like WhisperX -&gt; closed RL-trained transcribers (gpt-4o-transcribe), stronger open models (Canary, Parakeet, Cohere Transcribe), and end-to-end voice models like GPT-4o that skip the transcript entirely.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Amelia.</strong> This paper is a map of exactly where Amelia&#39;s hard problems live. Whisper tells you <em>what</em> was said, never <em>who</em> said it, so live speaker identification has to come from a separate system (the WhisperX plus pyannote pattern is the common starting point). Two specific lessons: the 30-second window means live use needs a streaming approach, not Whisper&#39;s batch design; and Whisper is most likely to invent text during silence and long pauses, which is exactly what real conversations are full of. If Amelia stores per-person memories from transcripts, a hallucinated sentence becomes a false memory attached to a real person. Voice activity detection before transcription, and keeping confidence scores alongside each stored memory, are worth designing in from day one.</li>
+<li><strong>Unstall.</strong> A voice-first chief of staff faces the choice this paper&#39;s story sets up: a pipeline (speech to text, then a language model, then speech back) or an end-to-end voice model. The pipeline is cheaper, easier to log, and lets you store an auditable text record of what the realtor said; end-to-end is faster and hears tone. Also useful: the &quot;previous text&quot; slot in Whisper&#39;s format is how you can nudge the model toward the right spelling of client names, street addresses and listing IDs (the open-source Whisper library exposes this as an &quot;initial prompt&quot;), which are exactly the words generic recognizers get wrong.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Automatic speech recognition (ASR)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Software that turns spoken audio into text.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Word error rate (WER)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The percentage of words a transcript gets wrong (swapped, missing or extra) compared with a correct one; lower is better.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Weak supervision</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Training on examples whose labels are imperfect or unchecked, like internet subtitles, in exchange for much more data.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Log-Mel spectrogram</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A picture of sound showing time, pitch (spaced like human hearing) and loudness, used as the model&#39;s input.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Zero-shot evaluation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Testing a model on a dataset without training on any examples from it.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Effective robustness</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How well a model does on new kinds of data compared with what its score on the standard benchmark would predict.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Look at <strong>Figure 1</strong>, which shows the whole system on one page: the sound-picture going into the encoder, and the special-token format the decoder writes (language, task, timestamps). Then read <strong>Section 3.3 on English speech recognition</strong>, especially <strong>Figure 2</strong> and <strong>Table 2</strong>, which show the 55% result and make the argument that benchmark scores can mislead. If you have a bit more time, the <strong>Limitations section (Section 6)</strong> is short and honest about hallucinations. Skip the training details, the long per-language tables, and the appendix.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>Whisper was trained to produce what a human transcriber would write, so when the audio is unclear, it guesses what someone <em>probably</em> said. For a product that remembers what people tell it, when is a confident guess helpful, and when should the system instead say &quot;I didn&#39;t catch that&quot;?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2212.04356">Radford et al., Robust Speech Recognition via Large-Scale Weak Supervision, on arXiv</a></li>
+<li><a href="https://ar5iv.labs.arxiv.org/html/2212.04356">Whisper paper, full text (ar5iv HTML version)</a></li>
+<li><a href="https://openai.com/blog/chatgpt-can-now-see-hear-and-speak">OpenAI, ChatGPT can now see, hear, and speak (September 2023)</a></li>
+<li><a href="https://openai.com/index/hello-gpt-4o/">OpenAI, Hello GPT-4o (May 2024)</a></li>
+<li><a href="https://openai.com/blog/introducing-our-next-generation-audio-models">OpenAI, Introducing our next-generation audio models (March 2025)</a></li>
+<li><a href="https://huggingface.co/openai/whisper-large-v3-turbo">Hugging Face model card, openai/whisper-large-v3-turbo</a></li>
+<li><a href="https://github.com/huggingface/distil-whisper">Hugging Face, Distil-Whisper on GitHub</a></li>
+<li><a href="https://github.com/m-bain/whisperx">WhisperX on GitHub</a></li>
+<li><a href="https://archlinux.org/packages/extra/x86_64/whisper-cpp/">Arch Linux package, whisper-cpp (upstream: ggerganov/whisper.cpp)</a></li>
+<li><a href="https://www.ovhcloud.com/en-ie/public-cloud/ai-endpoints/catalog/whisper-large-v3-turbo/">OVHcloud AI Endpoints, Whisper Large V3 Turbo</a></li>
+<li><a href="https://arxiv.org/html/2402.08021v2">Koenecke et al., Careless Whisper: Speech-to-Text Hallucination Harms</a></li>
+<li><a href="https://www.news.cornell.edu/stories/2024/06/ai-speech-text-can-hallucinate-violent-language">Cornell Chronicle, AI speech-to-text can hallucinate violent language (June 2024)</a></li>
+<li><a href="https://slator.com/openais-whisper-faces-bad-press-for-hallucinations-in-healthcare-transcription/">Slator, OpenAI&#39;s Whisper faces bad press for hallucinations in healthcare transcription</a></li>
+<li><a href="https://www.vktr.com/ai-news/cohere-transcribe-debuts/">VKTR, Cohere Transcribe debuts (March 2026)</a></li>
+<li><a href="https://select.keenable.ai/r/speech-recognition-accuracy-leaders-2022-2026/JbURQjlVooLQ6J10NkbRVw">Speech recognition accuracy leaders 2022 to 2026 (Open ASR Leaderboard history)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/18/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 18</span>
+<span class="mt-1 block font-semibold">ReAct</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
