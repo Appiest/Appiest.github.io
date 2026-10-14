@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 20: 3D Gaussian Splatting for Real-Time Radiance Field Rendering</title>
+<meta name="description" content="Instead of hiding a 3D scene inside a neural network the way NeRF did, describe it as millions of tiny, soft, colored, see-through blobs that a graphics card can draw directly, and you get NeRF-quality views of real places at over 100 frames per second after under an hour of training.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">3D Gaussian Splatting for Real-Time Radiance Field Rendering</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">20 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Kerbl, Kopanas, Leimkühler &amp; Drettakis</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2023</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/2308.04079" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Instead of hiding a 3D scene inside a neural network the way NeRF did, describe it as millions of tiny, soft, colored, see-through blobs that a graphics card can draw directly, and you get NeRF-quality views of real places at over 100 frames per second after under an hour of training.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>NeRF (Day 13) proved you could rebuild a real place from photos and fly a camera through it, but it was painfully slow because every pixel required asking a neural network hundreds of questions. Gaussian Splatting threw out the network and stored the scene as millions of fuzzy 3D blobs that can be drawn almost instantly, matching NeRF&#39;s quality while rendering roughly 2,000 times faster.</p>
+
+<h2 id="how-it-builds-on-day-19">How it builds on Day 19</h2>
+<p>It doesn&#39;t build on Whisper directly: Whisper gave AI ears, and this paper is about giving it eyes for physical space. Its real parent is NeRF from Day 13. It keeps NeRF&#39;s goal and its &quot;learn the scene by comparing renders to real photos&quot; training loop (gradient descent and backprop, Day 2), but swaps the neural network for an explicit list of shapes.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>The task is called <strong>novel view synthesis</strong>: you take a few dozen or a few hundred photos of a place, and the computer produces a photo-realistic image from a camera position nobody actually stood in. NeRF (2020) cracked the quality problem by storing the scene inside a small neural network you could query: &quot;at this point in space, seen from this direction, what color is it and how solid is it?&quot; To make one pixel, you shot a ray from the camera through the scene and asked the network that question at hundreds of points along the ray, then blended the answers. That gave beautiful results but was brutally slow. The best-quality method, Mip-NeRF360, took about 48 hours to train one scene and around 10 seconds to render a single frame. Faster methods existed (Nvidia&#39;s Instant-NGP trained in minutes, and Plenoxels used a 3D grid instead of a network), but they either rendered at only about 7 to 12 frames per second or lost quality on big, real, outdoor scenes. Nobody had something that was high quality, quick to train, and real-time (smooth enough for VR or a game, which means at least 30 and ideally 90+ frames per second) all at once.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-represent-the-scene-as-millions-of-soft-3d-blobs-gaussians">1. Represent the scene as millions of soft 3D blobs (Gaussians)</h3>
+<p><strong>What it is.</strong> Instead of a neural network, the scene is a list of 1 to 5 million little 3D shapes called <strong>Gaussians</strong>. A Gaussian is the mathematical name for a &quot;bell curve&quot; shape: dense and solid in the middle, fading smoothly to nothing at the edges. In 3D, think of a fuzzy ellipsoid, like a soft cotton ball or a puff of colored smoke.</p>
+<p><strong>How it works.</strong> Each blob stores just a handful of numbers:</p>
+<ul>
+<li><strong>Position</strong>: where its center sits in 3D space (x, y, z).</li>
+<li><strong>Shape and orientation</strong>: how stretched it is along each of three axes, and which way it&#39;s rotated. A blob can be a round ball, a flat pancake, or a long thin needle. The paper calls this the <strong>covariance</strong>, which is just the math word for &quot;how spread out, and in which directions.&quot; Being able to stretch unevenly is called <strong>anisotropic</strong> (the opposite, <strong>isotropic</strong>, means equally round in every direction).</li>
+<li><strong>Opacity</strong>: how see-through it is, from fully transparent to fully solid.</li>
+<li><strong>Color that changes with viewing angle</strong>: stored as <strong>spherical harmonics</strong>, a compact recipe for &quot;what color does this blob look like from each direction?&quot; This is what lets a shiny car hood or a window reflection look right as you move around.</li>
+</ul>
+<p>A clever detail: the authors store the shape as a separate &quot;stretch&quot; and &quot;rotation&quot; rather than one combined matrix. That guarantees that no matter how training nudges the numbers, the blob always stays a valid shape instead of turning into mathematical nonsense.</p>
+<p><strong>Analogy.</strong> Think of a pointillist painting like Seurat&#39;s, but in 3D, and with each dot being a soft, smeared, semi-transparent brushstroke that can be stretched and tilted. Up close it&#39;s a cloud of blurry smudges. From a normal distance, the smudges overlap and blend into a sharp, realistic image. Long thin blobs line up along edges like the cable of a bridge; flat pancake blobs tile a wall or tabletop; a few big blobs fill in a blue sky.</p>
+<p><strong>Why blobs instead of points or triangles?</strong> Plain points leave holes and look sparkly. Triangle meshes (what video games use) need clean surfaces and struggle with fuzzy things like hair, leaves and fog. Soft blobs blend into each other with no gaps, handle fuzziness naturally, and, crucially, are smooth, which means you can calculate exactly how to nudge each one to make the image better. That&#39;s what makes them trainable with gradient descent.</p>
+<p><strong>Where the starting blobs come from.</strong> Before training, a standard tool called <strong>Structure-from-Motion (SfM)</strong>, usually the free program COLMAP, looks at the photos, figures out where each camera was standing, and produces a sparse 3D <strong>point cloud</strong>: a few thousand to hundreds of thousands of dots on recognizable features like corners and textured spots. The paper puts one small blob on each of those dots as a starting guess. This matters a lot: in their tests, starting from random blobs instead dropped quality sharply on real scenes.</p>
+
+<h3 id="2-train-the-blobs-by-comparing-renders-to-real-photos">2. Train the blobs by comparing renders to real photos</h3>
+<p><strong>What it is.</strong> Same loop as NeRF, different thing being tuned. You render the current blobs from the exact spot one of your real photos was taken, compare the render to that photo, and nudge every blob&#39;s numbers to shrink the difference. Repeat about 30,000 times, cycling through the photos.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Pick one of the training photos and its known camera position.</li>
+<li>Draw the current blob cloud from that camera (idea 3 explains how).</li>
+<li>Measure the error: how different the rendered image is from the real photo, using both a pixel-by-pixel difference and a measure of whether textures and structures look similar (called <strong>SSIM</strong>, structural similarity).</li>
+<li>Use backpropagation (Day 2) to work out, for every blob, &quot;if I moved you a hair to the left, made you a bit more transparent, or tinted you slightly redder, would the error go down?&quot; Then make those small adjustments.</li>
+<li>Go to the next photo.</li>
+</ol>
+<p>The authors add a few practical tricks: they start training at quarter resolution and step up, and they let blobs first learn one flat color before gradually unlocking the direction-dependent color recipe, so the blobs settle into the right positions before worrying about reflections.</p>
+<p><strong>Analogy.</strong> Imagine sculpting a scene out of colored cotton balls in a dark room. Someone shows you a real photo, then snaps a picture of your cotton-ball sculpture from the same spot. You compare the two, adjust every cotton ball slightly, and they do it again from another angle. After thousands of rounds, your sculpture looks like the real place from every angle you&#39;ve been shown.</p>
+
+<h3 id="3-grow-split-and-delete-blobs-as-needed-adaptive-density-control">3. Grow, split and delete blobs as needed (adaptive density control)</h3>
+<p><strong>What it is.</strong> The starting point cloud is far too sparse to capture fine detail, so the method keeps changing how many blobs there are during training. This is called <strong>adaptive density control</strong>.</p>
+<p><strong>How it works.</strong> Every 100 training steps, the system looks for blobs that are under heavy &quot;pressure,&quot; meaning the gradients (the nudge signals from step 4 above) keep strongly pulling on their position. That pressure is a sign that this area isn&#39;t captured well. Then:</p>
+<ul>
+<li><strong>Clone</strong>: if the blob is small, the area is probably <strong>under-reconstructed</strong> (there&#39;s detail with no blob covering it). Make a copy and move it in the direction the gradient is pulling.</li>
+<li><strong>Split</strong>: if the blob is big, it&#39;s probably <strong>over-reconstructed</strong> (one giant blob is smearing over detail). Replace it with two smaller blobs (each shrunk by a factor of 1.6) placed inside the original.</li>
+<li><strong>Prune</strong>: delete blobs that have become almost fully transparent, or that have ballooned to absurd sizes.</li>
+</ul>
+<p>Every 3,000 steps they also reset every blob&#39;s opacity close to zero. Blobs that are actually needed quickly regain their solidity; blobs that aren&#39;t stay faint and get pruned. This keeps the count from exploding with useless floaters.</p>
+<p><strong>Analogy.</strong> It&#39;s like a city planner adding bus stops. Where crowds are overflowing a small stop, open another one nearby (clone). Where a single huge station is trying to serve two neighborhoods at once, replace it with two smaller ones (split). Stops nobody uses get closed (prune). Every so often, you temporarily cut service everywhere to see which stops people actually fight to keep.</p>
+<p>The ablations (tests where they remove one part to see what it&#39;s worth) show this matters: turning off splitting dropped quality significantly on their benchmark.</p>
+
+<h3 id="4-a-renderer-built-for-graphics-cards-tiles-sorting-and-blending">4. A renderer built for graphics cards: tiles, sorting and blending</h3>
+<p><strong>What it is.</strong> The speed comes from how the blobs get drawn. <strong>Rendering</strong> means turning the 3D scene into a 2D image. NeRF used <strong>ray marching</strong>: for every pixel, step along a ray and query a network hundreds of times. Gaussian Splatting uses <strong>rasterization</strong> (and specifically <strong>splatting</strong>): project each blob flat onto the screen, like throwing a paintball at a window, and paint it in. Rasterization is exactly what graphics cards (<strong>GPUs</strong>) have been optimized to do for games for decades.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li><strong>Project</strong>: each 3D blob, seen from the camera, becomes a 2D soft oval on the screen. There&#39;s a closed-form math formula for this, so it&#39;s instant.</li>
+<li><strong>Cull</strong>: throw away blobs that are behind the camera or off-screen.</li>
+<li><strong>Tile</strong>: split the screen into 16 by 16 pixel squares (<strong>tiles</strong>). Note which tiles each oval touches.</li>
+<li><strong>Sort</strong>: sort all the (tile, blob) pairs by tile and then by depth, nearest first, in one giant GPU sort. Sorting millions of items is something GPUs do extremely fast.</li>
+<li><strong>Blend</strong>: for each tile, a group of GPU threads walks through its blobs from front to back and mixes their colors using <strong>alpha blending</strong> (layering semi-transparent colors, like stacking tinted glass). Once a pixel is fully covered and nothing behind it can show through, it stops early.</li>
+</ol>
+<p>Because every step is differentiable (you can compute how changing any blob would change the final pixels), the same renderer is used for training, not just display. That&#39;s why training is fast too.</p>
+<p><strong>Analogy.</strong> NeRF is like a detective who, for every single pixel, walks into the scene and interviews hundreds of witnesses along a line. Splatting is like a painter who sorts their pre-made stickers from back to front and slaps them onto the canvas in order, one small square of canvas at a time, with a team of assistants each handling a square.</p>
+
+<h2 id="walkthrough-from-your-phone-video-to-a-vr-walkthrough">Walkthrough: from your phone video to a VR walkthrough</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li>You walk around a living room filming a 2-minute video on your phone. Software pulls out about 200 sharp frames.</li>
+<li>COLMAP (Structure-from-Motion) works out where the camera was for every frame and produces a sparse cloud of, say, 100,000 dots on the couch corners, picture frames and rug patterns.</li>
+<li>Each dot becomes a tiny round blob with the dot&#39;s color.</li>
+<li>Training begins. Early renders look like a blurry impressionist painting. Around the rug&#39;s fringe and the plant&#39;s leaves, the error is high, so blobs there clone and split. The big blank white wall gets covered by a few large flat pancake blobs. The window gets blobs whose color shifts with viewing angle, to show the glare.</li>
+<li>After about 7,000 steps (around 6 minutes on a strong GPU in the paper&#39;s tests), it already looks good. After 30,000 steps (around 40 minutes), it&#39;s sharp. You now have maybe 2 to 3 million blobs, stored in a file of a few hundred megabytes.</li>
+<li>You load the file into a VR headset viewer. Every frame, the renderer projects, sorts and blends the blobs from your current head position at well over 100 frames per second, so you can walk through the room and peek behind the couch smoothly.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p>They tested on the standard hard benchmarks: the 9 real-world scenes from the Mip-NeRF360 dataset (big indoor and outdoor scenes like a bicycle on a lawn, a garden, a kitchen counter), plus Tanks and Temples and Deep Blending (also real captured scenes). Quality was measured with <strong>PSNR</strong> (peak signal-to-noise ratio, a &quot;how close is the render to the real held-out photo&quot; score, where higher is better and each point is meaningful) and a couple of perception-based scores.</p>
+<ul>
+<li><strong>Versus Mip-NeRF360 (the quality champion):</strong> roughly equal quality (PSNR 27.21 vs 27.69, and better on some other measures and some scenes), but training took about 41 minutes instead of 48 hours, and rendering ran at 134 frames per second instead of 0.06 (one frame every 16 seconds or so). That&#39;s over 2,000 times faster rendering.</li>
+<li><strong>Versus Instant-NGP and Plenoxels (the speed champions):</strong> with a short 7,000-step run (about 6 minutes) it matched their quality, and with the full run it beat them clearly, while rendering 10 to 20 times faster than either (134 to 160 fps vs about 7 to 12).</li>
+<li><strong>Ablations:</strong> removing the stretchy (anisotropic) shapes, the angle-dependent color, the splitting step, or the SfM starting points each hurt quality, so every piece earned its place.</li>
+</ul>
+<p>What made it convincing was that it was the first method to hit all three at once: top-tier quality, training in minutes, and true real-time rendering of large, unbounded real scenes at 1080p. The authors also released their code, which is a big reason the idea spread so fast.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Big files.</strong> A NeRF scene might be 8 to 50 MB; a splat scene was hundreds of MB (734 MB on average for the Mip-NeRF360 scenes). Training could need over 20 GB of GPU memory for large scenes.</li>
+<li><strong>Artifacts where you didn&#39;t film.</strong> Areas seen in few photos get blotchy, stretched &quot;needle&quot; blobs or floaters. Fly the camera far from where the photos were taken and things fall apart.</li>
+<li><strong>Popping.</strong> Because blobs are sorted by their centers rather than exactly per pixel, big blobs can suddenly &quot;pop&quot; in front of or behind each other as the camera moves.</li>
+<li><strong>No real surfaces.</strong> It&#39;s a cloud of fuzz, not a solid mesh. You can&#39;t easily measure a wall, run physics, or relight the scene, because lighting is baked into the colors.</li>
+<li><strong>Static only.</strong> The original method captures a frozen moment. Anything that moves during capture becomes a ghost.</li>
+<li><strong>Needs good camera poses.</strong> It depends on COLMAP succeeding first; if Structure-from-Motion fails (blurry photos, blank walls, reflective surfaces), the whole thing fails.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<p>Gaussian splatting went from paper to products remarkably fast, and in 2026 it&#39;s the default way to capture and share photo-real 3D of real places.</p>
+<ul>
+<li><strong>Phone capture apps.</strong> Niantic&#39;s Scaniverse added splatting in March 2024, processing everything on the phone itself in about two minutes, no cloud needed. Polycam has supported splats since September 2023, and KIRI Engine and others followed.</li>
+<li><strong>VR headsets.</strong> Meta&#39;s Horizon Hyperscape Capture (beta, launched in late 2025) lets you scan a room with a Quest 3 in a few minutes; Meta&#39;s servers turn it into a splat scene in 1 to 8 hours and stream it back so you can walk through it in VR. Apps like Gracia show splat scenes on Apple Vision Pro, Quest and Pico.</li>
+<li><strong>Real estate.</strong> Zillow launched SkyTour in July 2025, using splats for exterior 3D views of showcase listings. Apartments.com launched Matterport 3D Exterior drone flyovers in November 2025 that appear to use splatting, though the exact pipeline isn&#39;t confirmed.</li>
+<li><strong>AI-generated worlds.</strong> World Labs&#39; Marble (announced September 2025) generates explorable 3D worlds from a text prompt or image and exports them as Gaussian splats. Here the splat is the output format of a generative model, not just a capture of a real place.</li>
+<li><strong>Volumetric video.</strong> <strong>4D Gaussian splatting</strong> adds time, so you can capture moving people and pause and orbit around them. Companies like 4DV.ai, Gracia, Evercoast and Arcturus use it for music videos, sports replays and performances.</li>
+<li><strong>Industry standard.</strong> In February 2026 the Khronos Group (which runs glTF, &quot;the JPEG of 3D&quot;) released a candidate standard, KHR_gaussian_splatting, with Autodesk, Nvidia, Esri, Cesium and Niantic Spatial contributing, and is coordinating with the OpenUSD alliance. Ratification was expected around mid-2026; I couldn&#39;t confirm whether it has been finalized. Geospatial tools like CesiumJS and Esri ArcGIS are early adopters.</li>
+<li><strong>Self-driving and robotics simulation.</strong> Companies such as Wayve use splatting-based reconstructions of real streets to build realistic simulation environments for testing.</li>
+</ul>
+<p>How directly: the core representation (3D Gaussians with position, shape, opacity and angle-dependent color, drawn by sorted alpha blending) is used nearly as-is across all of these. Most products have added their own compression and streaming, but the blob is still the blob.</p>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>The original memory-hungry format</strong> has been largely replaced in shipping products by compressed versions (Niantic&#39;s SPZ format, for example, and many research methods that cut files by 10x or more), because hundreds of MB doesn&#39;t stream well to phones.</li>
+<li><strong>Pure NeRF for real-time products</strong> has mostly lost to splatting. NeRF-style methods survive in niches like compact archives and research, and some pipelines now use neural tricks during training and export splats for viewing. Note that this &quot;splatting won&quot; framing comes mostly from industry commentary rather than hard market data.</li>
+<li><strong>The slow per-scene, COLMAP-first workflow</strong> is being challenged by <strong>feed-forward</strong> models that predict splats from a few photos in one pass, with no per-scene training, and by generative models like Marble. Many research groups have also moved toward fixing popping, anti-aliasing and relighting, which the original method doesn&#39;t handle.</li>
+<li><strong>Splats as final geometry</strong> didn&#39;t happen. When you need measurable, solid surfaces (for construction, physics or accessibility checks), people still extract meshes or use LiDAR alongside splats.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Photogrammetry and point clouds -&gt; NeRF (Day 13, scenes inside a network) -&gt; 3D Gaussian Splatting (scenes as drawable blobs) -&gt; compressed, streamed, 4D and AI-generated splats in Scaniverse, Hyperscape, Zillow, Marble and the coming glTF standard.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Standard Physics.</strong> This is the most direct connection in the whole series. A phone scan of a space is exactly the input splatting was built for, and Scaniverse shows it can run entirely on a phone in minutes. But note the key limitation: a splat is a photo-real &quot;looks right&quot; cloud of fuzz, not a measurable surface. For an ADA check, you need trustworthy dimensions (door widths, ramp slopes, counter heights), which is better served by LiDAR or a mesh. A strong design could use both: geometry from LiDAR for the measurements, and a splat as the shareable visual layer where you pin each violation so an owner or inspector can &quot;walk&quot; the space and see the problem in context.</p>
+<p><strong>AR/XR/VR and generative video.</strong> Splats are now the common currency between capture (phones, Quest), generation (World Labs Marble) and viewing (Vision Pro, browsers). As a filmmaker, 4D Gaussian splatting is worth watching: it turns a shoot into a scene you can re-frame after the fact, choosing camera angles in post the way you&#39;d choose takes.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Novel view synthesis</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Generating a realistic image of a scene from a camera angle that wasn&#39;t in the original photos.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">3D Gaussian</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A soft, fuzzy ellipsoid with a solid center that fades out at the edges; the scene&#39;s basic building block here.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Anisotropic</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Stretched by different amounts in different directions (a needle or a pancake), rather than a perfect sphere.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Structure-from-Motion (SfM)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A technique (usually the COLMAP program) that works out where each photo&#39;s camera was and produces a sparse point cloud of the scene.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Rasterization / splatting</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Drawing 3D objects by projecting them flat onto the screen and painting them in, the way GPUs draw games, instead of tracing rays pixel by pixel.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Alpha blending</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Layering semi-transparent colors in order from front to back, like stacking tinted sheets of glass, to get each pixel&#39;s final color.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read <strong>Section 1 (Introduction)</strong> and look at <strong>Figure 1</strong> and <strong>Figure 2</strong>, which show the speed versus quality comparison and the full pipeline in one picture. Then skim <strong>Section 5 (Adaptive density control)</strong> and look at <strong>Figure 4</strong>, which shows clone versus split visually. Skip Section 6&#39;s GPU sorting details and the appendix math on projecting covariances, unless you&#39;re curious about graphics programming.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>A Gaussian splat looks real but isn&#39;t a true surface, while a mesh is measurable but often looks fake. For Standard Physics, which do you show a building owner, which do you show an inspector, and what happens to trust if the pretty version and the measured version ever disagree?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2308.04079">3D Gaussian Splatting for Real-Time Radiance Field Rendering (arXiv)</a></li>
+<li><a href="https://huggingface.co/papers/2308.04079.md">Paper text and results (Hugging Face Papers)</a></li>
+<li><a href="https://radiancefields.com/scaniverse-introduces-gaussian-splatting">Scaniverse Introduces Gaussian Splatting (Radiance Fields)</a></li>
+<li><a href="https://radiancefields.com/luma-ai-alternatives">Luma AI Alternatives for Gaussian Splatting Capture (Radiance Fields)</a></li>
+<li><a href="https://uploadvr.com/meta-horizon-hyperscape-photorealistic-scene-capture-quest-3">Meta Horizon Hyperscape Capture on Quest 3 (UploadVR)</a></li>
+<li><a href="https://radiancefields.com/zillow-adds-gaussian-splatting-support-with-skytour-unveiling">Zillow Adds Gaussian Splatting Support with SkyTour (Radiance Fields)</a></li>
+<li><a href="https://radiancefields.com/apartments-com-unveils-matterport-3d-exterior">Apartments.com Unveils Matterport 3D Exterior (Radiance Fields)</a></li>
+<li><a href="https://radiancefields.com/world-labs-unveils-new-model-marble">World Labs Unveils New Model, Marble (Radiance Fields)</a></li>
+<li><a href="https://radiancefields.com/4d-gaussian-splatting">4D Gaussian Splatting explained (Radiance Fields)</a></li>
+<li><a href="https://www.khronos.org/news/press/gltf-gaussian-splatting-press-release">Khronos glTF Gaussian Splatting extension press release</a></li>
+<li><a href="https://radiancefields.com/gaussian-splatting-statistics">Gaussian Splatting Statistics 2026 (Radiance Fields)</a></li>
+<li><a href="https://metavert.io/compare/gaussian-splatting-vs-neural-radiance-fields">Gaussian Splatting vs NeRFs (Metavert)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/19/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 19</span>
+<span class="mt-1 block font-semibold">Whisper</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
