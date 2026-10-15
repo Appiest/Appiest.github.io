@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 21: RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control</title>
+<meta name="description" content="Take a big vision-language model that already learned about the world from the internet, teach it to write robot movements as if they were words, and the robot can suddenly handle objects, places and instructions it never practiced on.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:36.24%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:41.4%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.56%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:51.72%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:62.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.2%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:77.52%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:82.68%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:87.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2023</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">21 of 21</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Brohan, Brown, Carbajal, Chebotar et al. (Google DeepMind)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2023</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Foundations</dd></div></dl>
+<a href="https://arxiv.org/abs/2307.15818" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Take a big vision-language model that already learned about the world from the internet, teach it to write robot movements as if they were words, and the robot can suddenly handle objects, places and instructions it never practiced on.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>RT-2 showed that a robot&#39;s &quot;brain&quot; can be the same kind of model that answers questions about photos, as long as you let it answer in a new language made of movement numbers. That one move let the robot borrow everything the model learned from billions of web images, and it roughly doubled how often the robot succeeded in situations it had never seen.</p>
+
+<h2 id="how-it-builds-on-day-20">How it builds on Day 20</h2>
+<p>Gaussian Splatting (Day 20) gave AI a way to see and rebuild physical space. RT-2 is the step after seeing: acting in that space. Its real parents are scattered across the series: the Transformer (Day 9) as the engine, CLIP-style image and text understanding (Day 15) as the eyes, GPT-3&#39;s &quot;one model, many tasks&quot; idea (Day 11), and chain-of-thought (Day 17) for thinking before moving. It is, in a sense, the whole series pointed at a robot arm.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Robots were stuck in a data trap. A language model can read trillions of words from the internet, but robot training data has to be collected one demonstration at a time: a person steers a real robot through &quot;pick up the apple&quot; again and again. Google&#39;s own previous model, RT-1 (2022), was trained on about 130,000 such demonstrations gathered by 13 robots over 17 months in an office kitchen. That is huge by robotics standards and tiny by internet standards. The result: RT-1 was good at the exact objects and tasks it had practiced, but brittle with anything new. Show it a toy it had never seen, or a different tablecloth, and success dropped sharply. Ask it something requiring general knowledge (&quot;move the banana to the sum of two plus one&quot;) and it had no chance, because nothing in its kitchen data taught it arithmetic or what a Taylor Swift photo looks like. Meanwhile, vision-language models (models that look at an image and answer questions about it) knew a lot about the world, but they could only talk. Researchers tried to connect them: a language model would write a plan (&quot;step 1: pick up the sponge&quot;) and a separate, smaller robot model would carry it out. But the robot part never got the big model&#39;s knowledge directly, so it remained the weak link.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-actions-as-words-teach-the-model-a-movement-language">1. Actions as words: teach the model a &quot;movement language&quot;</h3>
+<p><strong>What it is.</strong> The central trick is to express robot movements as text tokens, so a model that writes words can also write actions. A <strong>token</strong> is the basic unit a language model reads and writes, roughly a word or a piece of a word (or, here, a number).</p>
+<p><strong>How it works.</strong> At each moment, the robot needs to decide one small move. RT-2 describes that move with 8 numbers:</p>
+<ul>
+<li>one flag: keep going, or stop because the task is done</li>
+<li>three numbers for how far to move the hand (the <strong>end-effector</strong>, the robot&#39;s gripper) left/right, forward/back and up/down</li>
+<li>three numbers for how much to rotate the hand</li>
+<li>one number for how open or closed the gripper should be</li>
+</ul>
+<p>Robot movements are naturally continuous (the hand could move 2.37 cm or 2.38 cm), but language models pick from a fixed vocabulary. So each number is <strong>discretized</strong>: its full range is chopped into 256 equal slices called <strong>bins</strong>, and you just say which bin. &quot;Move up a little&quot; might become bin 140; &quot;move up a lot&quot; might be bin 230.</p>
+<p>The action then becomes a short string like <code>0 140 92 201 128 127 130 255</code>. For one backbone (PaLI-X), numbers up to 1000 already exist as tokens, so the action numbers are just written as numbers. For the other (PaLM-E), the researchers took the 256 least-used tokens in the vocabulary and repurposed them to mean &quot;bin 0&quot; through &quot;bin 255.&quot;</p>
+<p>The input is a camera image plus a text prompt in the exact style of a visual question: <code>Q: what action should the robot take to pick up the apple? A:</code> and the answer is the action string. When the model is in &quot;robot mode,&quot; it is only allowed to output valid action tokens, so it can&#39;t answer with a sentence when the robot needs a movement.</p>
+<p><strong>Analogy.</strong> Imagine a brilliant travel writer who has seen millions of photos and read about every object on Earth, but has never driven. You don&#39;t rebuild their brain; you teach them a shorthand for driving (&quot;L3 F7 B0&quot; means turn left a bit, go forward fairly fast, no brake) and let them practice in a car. All their knowledge of what a stop sign, a pedestrian or a school zone means comes along for free.</p>
+<p><strong>Why it matters.</strong> Because actions are just another output of the same model, nothing new has to be bolted on. Any vision-language model can, in principle, become a robot controller. The authors named this new category of model a <strong>vision-language-action model (VLA)</strong>, and that name stuck: it&#39;s now the standard term for robot foundation models.</p>
+
+<h3 id="2-co-fine-tuning-learn-robot-moves-without-forgetting-the-internet">2. Co-fine-tuning: learn robot moves without forgetting the internet</h3>
+<p><strong>What it is.</strong> <strong>Fine-tuning</strong> means taking an already-trained model and training it a bit more on a new task. The danger is <strong>catastrophic forgetting</strong>: train only on robot data and the model may lose the web knowledge you wanted to keep. RT-2&#39;s answer is <strong>co-fine-tuning</strong>: every training batch mixes robot demonstrations with the original web image and text tasks.</p>
+<p><strong>How it works.</strong></p>
+<ol>
+<li>Start from a big pretrained vision-language model. They used two: PaLI-X (5 billion and 55 billion parameter versions) and PaLM-E (12 billion). A <strong>parameter</strong> is one adjustable number inside the model; more parameters roughly means more capacity to know things.</li>
+<li>Build training batches that are about half to two thirds robot data (camera image, instruction, correct action string) and the rest regular web tasks like captioning images or answering questions about them.</li>
+<li>Train on the mix. The model keeps practicing &quot;what is in this picture?&quot; while learning &quot;what should the arm do?&quot;</li>
+</ol>
+<p><strong>Analogy.</strong> It&#39;s like a language student who keeps reading novels in their native language while learning to speak Spanish. They pick up the new skill without the old one going rusty, and the two reinforce each other.</p>
+<p><strong>Did it matter?</strong> Yes, and the ablations (experiments that remove one ingredient to see what it was worth) make the case clearly. On the generalization tests, a 5B model trained from scratch on robot data scored 9%. The same size starting from the pretrained model scored 42% with plain fine-tuning and 44% with co-fine-tuning. At 55B, plain fine-tuning reached 52% and co-fine-tuning reached 63%. Two lessons: starting from web knowledge is the single biggest win, and bigger models plus co-fine-tuning add more on top.</p>
+
+<h3 id="3-closed-loop-control-from-a-giant-model-in-the-cloud">3. Closed-loop control from a giant model in the cloud</h3>
+<p><strong>What it is.</strong> RT-2 doesn&#39;t plan a whole motion and then execute it blindly. It runs in a <strong>closed loop</strong>: look, decide one small move, do it, look again.</p>
+<p><strong>How it works.</strong> The 55B model is far too big to run on the robot, so it ran on a cluster of Google&#39;s AI chips (TPUs) in the cloud. The robot sent a camera frame and instruction over the network, got back one action, executed it, and repeated. The big model managed about 1 to 3 decisions per second; the 5B model about 5 per second. That&#39;s slow for a robot (a human adjusts their grip dozens of times a second), but enough for deliberate tabletop tasks like picking and placing.</p>
+<p><strong>Mental picture.</strong> Think of a remote-controlled arm where the operator is a very knowledgeable person looking at a webcam feed and calling out one short instruction every half second: &quot;a bit left... down... close the gripper... lift.&quot;</p>
+
+<h3 id="4-emergent-reasoning-including-chain-of-thought-for-robots">4. Emergent reasoning, including chain-of-thought for robots</h3>
+<p><strong>What it is.</strong> <strong>Emergent capabilities</strong> are skills the model shows that were never in its robot training data. Because RT-2 still &quot;knows&quot; the web, it can follow instructions that need general knowledge.</p>
+<p><strong>Examples from the paper.</strong> The robot data only covered seven basic skills (pick, move near, place upright, knock over, open or close a drawer, put into or take out of a container). Yet RT-2 could:</p>
+<ul>
+<li><strong>Understand symbols</strong>: &quot;move the apple to the 3&quot; or &quot;move the coke can to the heart.&quot;</li>
+<li><strong>Reason</strong>: &quot;move the banana to the sum of two plus one,&quot; &quot;pick the object that is different,&quot; or follow instructions in other languages.</li>
+<li><strong>Recognize people and things</strong>: &quot;move the coke can to the person with glasses,&quot; or &quot;pick up the extinct animal&quot; (it picked a toy dinosaur).</li>
+</ul>
+<p><strong>Chain-of-thought.</strong> The authors also briefly trained a version (a few hundred extra training steps) to write a short plan in words before its action tokens, borrowing the idea from Day 17. Told &quot;I&#39;m hungry,&quot; it wrote &quot;Plan: pick rxbar chocolate&quot; and then produced the movement. Asked to pick an improvised hammer, it chose a rock. Thinking in words first helped on multi-step, more abstract requests.</p>
+<p><strong>Analogy.</strong> RT-1 was like a trained dog that knows &quot;fetch the ball&quot; perfectly. RT-2 is more like a new employee who has never worked in this kitchen but understands English, numbers, brands and common sense, so &quot;grab me something to eat&quot; makes sense on day one.</p>
+
+<h2 id="walkthrough-one-decision-start-to-finish">Walkthrough: one decision, start to finish</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li>A person types: &quot;move the banana to the sum of two plus one.&quot; On the table are a banana and three paper cards showing 1, 2 and 3.</li>
+<li>The robot&#39;s head camera captures a frame. The image and the instruction, wrapped as <code>Q: what action should the robot take to move the banana to the sum of two plus one? A:</code>, go to the model in the cloud.</li>
+<li>The vision part turns the image into tokens the Transformer can read, alongside the text tokens.</li>
+<li>The model&#39;s web knowledge lets it connect &quot;two plus one&quot; with the card showing 3, and its robot training lets it connect &quot;move the banana to X&quot; with a reach-grasp-carry motion.</li>
+<li>It outputs 8 action tokens: keep going, move hand a bit right and forward, slightly down, no rotation, gripper open.</li>
+<li>These bin numbers are converted back into real distances and sent to the arm, which moves a few centimeters.</li>
+<li>A fresh camera frame is taken and the loop repeats, maybe 20 to 60 times, until the banana sits on the 3 and the model outputs the &quot;done&quot; flag.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p>The team ran about 6,000 real-robot trials, comparing RT-2 against RT-1 and against other robot methods that used pretrained vision models (VC-1 and R3M) or an object-detection-based approach (MOO).</p>
+<ul>
+<li><strong>Familiar tasks:</strong> everyone good enough was roughly tied. RT-2 scored 91 to 93% versus RT-1&#39;s 92%. So the new approach didn&#39;t sacrifice basic skill.</li>
+<li><strong>Unseen situations:</strong> this is where it shone. Averaged across new objects, new backgrounds and new rooms, both RT-2 versions scored 62%, versus 35% for MOO, 32% for RT-1, 12% for R3M and 10% for VC-1. That&#39;s about 2x better than the previous best and about 6x better than the other pretrained-vision methods.</li>
+<li><strong>Emergent tasks</strong> (symbols, reasoning, recognizing people): the 55B version averaged 60% versus 17% for RT-1, roughly 3x. On symbol understanding alone it was 82% versus 16%.</li>
+<li><strong>Simulation check:</strong> on a separate tabletop pushing benchmark (Language-Table), a small 3B RT-2 hit 90% versus 74 to 77% for prior methods, showing the recipe worked on a different robot and setup too.</li>
+</ul>
+<p>Why it was surprising: nobody added reasoning modules, object detectors or knowledge bases. The same robot data plus web knowledge, connected through the &quot;actions as words&quot; trick, was enough. It was strong evidence that the scaling story from language models (bigger pretrained models generalize better) also applies to physical control.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>No new physical skills.</strong> Web knowledge helped the robot understand <em>what</em> to do, but it could only perform motions found in its robot data. It couldn&#39;t learn to wipe a table or fold a towel just by having seen pictures of it. The authors say this plainly.</li>
+<li><strong>Slow and expensive.</strong> 1 to 3 decisions per second from a 55B model in a data center is far too slow for fast or delicate work, and depends on a network connection.</li>
+<li><strong>Coarse actions.</strong> Chopping each motion into 256 bins and producing one step at a time limits precision and smoothness. This turned out to be the biggest technical weakness.</li>
+<li><strong>Failure cases.</strong> It struggled to grasp objects by a specific part (like a handle), with dexterous motions, and with long multi-step tasks. In simulation, it didn&#39;t understand unfamiliar physics, like a pen rolling off a table.</li>
+<li><strong>Closed and narrow.</strong> Only a few huge private models could serve as the base, the weights were never released, and all testing was one robot type in office kitchens.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<p>The term and the recipe RT-2 introduced are now the backbone of the robotics industry&#39;s push toward general-purpose robots, as of October 2026.</p>
+<ul>
+<li><strong>Google DeepMind&#39;s Gemini Robotics</strong> is RT-2&#39;s direct descendant: a vision-language-action model built on Gemini that turns images and instructions into motor commands. Gemini Robotics 1.5 (September 2025) &quot;thinks&quot; in words before acting, extending RT-2&#39;s chain-of-thought experiment, and can transfer skills between very different robots. A separate planner model, Gemini Robotics-ER 1.5, is open to developers through the Gemini API, while the action model is limited to partners such as Apptronik, Agility Robotics and Boston Dynamics.</li>
+<li><strong>Boston Dynamics</strong> announced at CES in January 2026 that Gemini Robotics models will power the next Atlas humanoid, starting with automotive manufacturing research. Hyundai, Boston Dynamics&#39; majority owner, has said it plans to bring Atlas into a U.S. plant from 2028. This is still research and phased rollout, not a shipped product.</li>
+<li><strong>Open-source VLAs.</strong> OpenVLA (Stanford and collaborators, June 2024) copied RT-2&#39;s recipe, including discretized action tokens, in an open 7B model and beat the 55B RT-2 on many manipulation tests. Hugging Face&#39;s SmolVLA (450M parameters) runs on a consumer GPU or a MacBook.</li>
+<li><strong>Startups built around the VLA idea.</strong> Physical Intelligence (raised $600M in late 2025 at about a $5.6B valuation) open-sourced its π0 model in February 2025. Figure AI&#39;s Helix controls a whole humanoid upper body. NVIDIA&#39;s GR00T N-series offers open humanoid VLAs other companies can build on.</li>
+</ul>
+<p>How directly: the concept (start from a web-trained vision-language model, train it to output actions, call it a VLA) is used everywhere. The specific way RT-2 did it is mostly not.</p>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>One-token-per-bin actions have largely been replaced.</strong> Most newer VLAs keep the vision-language &quot;brain&quot; but attach a separate <strong>action expert</strong> that outputs smooth, continuous movements using diffusion or flow matching (relatives of the diffusion models from Day 12). π0, Octo and SmolVLA work this way, and π0 can produce actions up to 50 times per second. Even the token approach got rebuilt: Physical Intelligence&#39;s FAST tokenizer compresses whole chunks of motion into far fewer tokens, because simple per-step binning &quot;rapidly breaks down&quot; on dexterous tasks.</li>
+<li><strong>One big slow model was split in two.</strong> Figure&#39;s Helix and NVIDIA&#39;s GR00T use a &quot;System 2 / System 1&quot; design: a big vision-language model thinks slowly about the scene, and a small fast network handles motor control (Helix runs its action part at 200 times per second, on the robot itself). This directly fixes RT-2&#39;s 1 to 3 Hz cloud bottleneck.</li>
+<li><strong>RT-2 itself is a benchmark, not a product.</strong> The model was never released. Today it mostly appears as the baseline that newer models (like OpenVLA) compare against.</li>
+<li><strong>The data trap isn&#39;t solved.</strong> Companies now add human videos, simulation and AI-generated training data on top of teleoperation, because robot demonstrations are still scarce. Commercial deployments remain mostly pilots and demos; claims of &quot;general-purpose&quot; robots in homes are still ahead of reality.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Hand-coded robot programs -&gt; RT-1 (robot-only Transformer) -&gt; RT-2 (web vision-language model that writes actions as tokens, the first VLA) -&gt; OpenVLA, π0, Helix, GR00T and Gemini Robotics (VLAs with continuous action experts and fast/slow splits) -&gt; the humanoid and warehouse robot pilots of 2026.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Arbor.</strong> RT-2&#39;s deepest idea is &quot;if you can express something as tokens, a language model can learn to produce it.&quot; Arbor&#39;s agents bidding and negotiating in a structured protocol is the same move in a different domain: you&#39;re defining a small, constrained &quot;action vocabulary&quot; (bid, counter, accept, walk away, with parameters) that a general model can output. RT-2&#39;s trick of restricting the model to only valid action tokens when it&#39;s in action mode is directly relevant: an agent in an auction should be physically unable to emit a malformed bid.</p>
+<p><strong>Robotics and Standard Physics.</strong> If you ever want Standard Physics to go beyond scanning, the stack is now visible: Gaussian splats or LiDAR to capture a space (Day 20), and a VLA to act in it. More immediately, Gemini Robotics-ER is available through an API today, and it&#39;s designed for spatial questions about a camera image (&quot;where is the door handle, how high is it?&quot;). That&#39;s worth testing as an ADA-check assistant layered on top of your measurements, while trusting real measurements over the model for compliance.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Vision-language-action model (VLA)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A model that takes images and text instructions in and produces robot actions out; RT-2 coined the term.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Token</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The small unit of text (or here, a number) a language model reads and writes one at a time.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Discretization (bins)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Chopping a continuous range, like &quot;how far to move,&quot; into a fixed number of slots (256 in RT-2) so it can be written as a token.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Co-fine-tuning</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Continuing to train a pretrained model on a mix of new task data (robot demos) and its original data (web images and text) so it learns the new skill without forgetting.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Closed-loop control</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Repeatedly looking, choosing one small action, acting and looking again, instead of planning everything up front.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Emergent capability</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A skill a model shows that wasn&#39;t directly in its training data for that task, like understanding &quot;the sum of two plus one&quot; while moving a banana.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Look at <strong>Figure 1</strong> on the first page, which shows the whole idea in one picture: web data and robot data go into one model, and actions come out as tokens. Then read <strong>Section 3</strong> (the RT-2 method), especially the part on turning actions into tokens; it&#39;s short and readable. Finally, look at the <strong>emergent capability examples and the chain-of-thought figure</strong> in the experiments section. Skip the appendix tables on model training settings and the detailed per-category baselines.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>RT-2 could understand far more than it could physically do: it knew what a towel was but couldn&#39;t fold one. For any AI product you build, where is your own gap between what the model understands and what it can actually do in the world, and is the bottleneck data, speed, or the &quot;action vocabulary&quot; you&#39;ve given it?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2307.15818">RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control (arXiv)</a></li>
+<li><a href="https://arxiv.org/pdf/2307.15818">RT-2 paper PDF (arXiv)</a></li>
+<li><a href="https://deepmind.google/blog/gemini-robotics-15-brings-ai-agents-into-the-physical-world/">Gemini Robotics 1.5 brings AI agents into the physical world (Google DeepMind)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Gemini_Robotics">Gemini Robotics (Wikipedia)</a></li>
+<li><a href="https://the-decoder.com/google-deepminds-gemini-robotics-models-will-power-boston-dynamics-atlas-for-industrial-tasks/">Google DeepMind&#39;s Gemini Robotics models will power Boston Dynamics&#39; Atlas (The Decoder)</a></li>
+<li><a href="https://toolnavs.com/article/1048-ces-2026-google-deepmind-partners-with-boston-dynamics-to-bring-gemini-robotics">CES 2026: Google DeepMind partners with Boston Dynamics (Toolnavs)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Vision-language-action_model">Vision-language-action model (Wikipedia)</a></li>
+<li><a href="https://arxiv.org/pdf/2406.09246">OpenVLA: An Open-Source Vision-Language-Action Model (arXiv)</a></li>
+<li><a href="https://pi.website/research/fast">FAST: Efficient Action Tokenization (Physical Intelligence)</a></li>
+<li><a href="https://www.therobotreport.com/physical-intelligence-raises-600m-advance-robot-foundation-models/">Physical Intelligence raises $600M (The Robot Report)</a></li>
+<li><a href="https://www.marktechpost.com/2026/04/28/top-10-physical-ai-models-powering-real-world-robots-in-2026/">Top 10 Physical AI Models Powering Real-World Robots in 2026 (MarkTechPost)</a></li>
+<li><a href="https://www.metavert.io/vision-language-action-models">Vision-Language-Action Models (Metavert)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/20/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 20</span>
+<span class="mt-1 block font-semibold">3D Gaussian Splatting</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
