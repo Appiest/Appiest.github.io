@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 23: Cortex: Consolidating Context into Parametric Memory</title>
+<meta name="description" content="Instead of re-pasting the same notes into a model&#39;s prompt forever, Cortex has the model quiz itself on those notes and then bakes the answers into a small add-on to its own weights, so it keeps the new knowledge with the notes gone and barely forgets anything else.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Cortex: Consolidating Context into Parametric Memory</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">23</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Jintian Zhang, Feng He, Xinnian Liang, Ziwen Xu, Haoming Xu, Haojing Huang, Shuangzhi Wu, Ningyu Zhang (ByteDance Seed)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.20399" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Instead of re-pasting the same notes into a model&#39;s prompt forever, Cortex has the model quiz itself on those notes and then bakes the answers into a small add-on to its own weights, so it keeps the new knowledge with the notes gone and barely forgets anything else.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Today an AI &quot;remembers&quot; you only because your notes get pasted back into its prompt every single time; Cortex shows a practical way to move those notes into the model&#39;s actual brain (its weights) so the knowledge survives after the notes are removed, while keeping about 99.8% of everything else it already knew.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>The Transformer (Day 9) gives it the target: Cortex writes new knowledge only into the Transformer&#39;s &quot;feed-forward&quot; layers. GPT-3 (Day 11) showed the thing Cortex is trying to make permanent: in-context learning, where a model gets smarter just from what is in its prompt. RAG (Day 14) is the rival approach it wants to complement: look things up and paste them in. InstructGPT (Day 16) is the reminder that changing weights after pretraining is how models actually acquire new behavior. And the &quot;teacher and student&quot; trick at its core is a form of distillation, a recurring idea across the series.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>There are two ways to give a language model new information. The first is the <strong>context window</strong>: the text you put in the prompt. It is instant and works remarkably well, but it is temporary. Close the chat, and it is gone. Every product with &quot;memory&quot; (ChatGPT&#39;s saved memories, memory layers like Mem0, Zep and Letta) works by storing notes in a database and pasting the relevant ones back into the prompt on every turn. That costs money and time on every request, and long prompts get slow and unreliable. The second way is to change the <strong>weights</strong>, the billions of numbers that are the model&#39;s long-term knowledge. That is permanent, but it has been clumsy. Fine-tuning tends to cause <strong>catastrophic forgetting</strong> (learn one thing, quietly break others). Specialized &quot;knowledge editing&quot; methods like ROME, MEMIT and AlphaEdit can change a single fact (&quot;the CEO of X is now Y&quot;), but they are narrow: they handle facts, not skills or behavior, and they degrade when you stack many edits in a row. Each kind of update (facts, new tools, personality, &quot;stop saying this&quot;) had its own separate method and its own benchmark. Nobody had one recipe for &quot;take whatever the prompt taught the model and make it stick.&quot;</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-name-the-goal-close-the-context-gap-without-breaking-anything">1. Name the goal: close the &quot;context gap&quot; without breaking anything</h3>
+<p><strong>What it is.</strong> The paper&#39;s first contribution is a clean way to define the problem, which it calls <strong>Memory Consolidation</strong>, borrowing a term from neuroscience. In your brain, consolidation is the process (largely during sleep) where short-term experiences get rewritten into long-term memory.</p>
+<p><strong>How it works.</strong> Pick some piece of context, say a short document describing a new software tool. Ask the model questions about it twice: once with the document in the prompt, once without. The difference in scores is the <strong>context gap</strong>. The goal of consolidation is to update the weights so that, <em>without</em> the document, the model scores as if it still had it, while scoring the same as before on everything unrelated.</p>
+<p>That gives two measurements:</p>
+<ul>
+<li><strong>Consolidation Rate (CR)</strong>: what fraction of the context gap the updated model recovers with the context removed. 100% means it fully absorbed the lesson.</li>
+<li><strong>Retention Rate (RR)</strong>: how well the updated model does on unrelated &quot;retain&quot; questions, compared with the original model. 100% means nothing else got damaged.</li>
+</ul>
+<p>The paper also separates two kinds of failure. A <strong>memory failure</strong> is when the model <em>can</em> use the information when it is in the prompt but loses it when it is not. That is the only thing consolidation tries to fix. A <strong>capability failure</strong> is when the model can&#39;t solve the task even with the information in front of it. No amount of consolidation fixes that, because there is no gain to keep.</p>
+<p><strong>Analogy.</strong> A student who aces the open-book exam but fails the closed-book one has a memory failure. A student who fails both has a capability failure. Studying (consolidation) only helps the first student.</p>
+<p><strong>Why this framing matters.</strong> It unifies jobs that used to be separate fields. The paper&#39;s test bed has five task families, all treated as &quot;consolidate this context&quot;:</p>
+<ol>
+<li><strong>Factual editing</strong>: update or add facts.</li>
+<li><strong>Novel API learning</strong>: learn to use a new software tool, so later you don&#39;t need the documentation in the prompt.</li>
+<li><strong>Persona steering</strong>: adopt a personality or style as a default.</li>
+<li><strong>Knowledge suppression</strong>: stop producing certain information.</li>
+<li><strong>Agent experience</strong>: absorb lessons from successful past attempts at tasks (they use ALFWorld, a text-based household task game, and tau2-Bench, which simulates customer service agents).</li>
+</ol>
+<p>It also tests three schedules: one update at a time, a big batch at once, and <strong>sequential</strong> updates, where lessons arrive one after another and old notes can&#39;t be revisited. Sequential is the realistic one for a product that learns over months, and the hardest.</p>
+
+<h3 id="2-prospective-queries-have-the-model-quiz-itself-before-it-forgets">2. Prospective queries: have the model quiz itself before it forgets</h3>
+<p><strong>What it is.</strong> To train the weights, you need examples of the model using the new information. Cortex generates them itself, with no outside helper model. The authors call these <strong>prospective queries</strong>, inspired by how people decide what to remember by imagining when they will need it.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Take the context (for example, the new tool&#39;s documentation).</li>
+<li>Ask the frozen, original model: &quot;What questions might a user ask that this text would help answer?&quot; It writes a set of plausible future questions.</li>
+<li>Have the same model answer each question <em>with the context in its prompt</em>. Those answers are good, because the model is reading the documentation.</li>
+<li>Save each (context, question, answer) triple as training data. An optional filter can throw out bad ones. For agent tasks, the &quot;questions&quot; come from the task environment, and only trajectories that actually succeeded are kept.</li>
+</ol>
+<p>When there are many contexts in a batch, there are two options: glue the contexts together first and then generate questions, or generate questions per context and merge the results so each example remembers which context it came from.</p>
+<p><strong>Analogy.</strong> Before a trip, you don&#39;t memorize the guidebook word for word. You imagine &quot;where will I eat on day two? how do I get from the airport?&quot; and remember the answers to those. The questions shape what sticks.</p>
+<p><strong>Why it matters.</strong> Training on the raw text tends to produce a model that can recite the text but not use it. Training on varied questions and answers teaches <em>use</em>. (A related 2025 Stanford method called Cartridges found the same thing: training on the raw document made a memorizer, while training on self-generated conversations about it made something useful.)</p>
+
+<h3 id="3-write-only-into-the-feed-forward-layers-as-a-removable-add-on">3. Write only into the feed-forward layers, as a removable add-on</h3>
+<p><strong>What it is.</strong> Every Transformer layer has two main parts. <strong>Attention</strong> decides which words to look at. The <strong>feed-forward network (FFN)</strong> is a block of math applied to each word afterwards, and researchers have long viewed it as the model&#39;s <strong>key-value memory</strong>: patterns come in as &quot;keys,&quot; stored associations come out as &quot;values.&quot; Cortex writes new knowledge <em>only</em> there and keeps attention frozen. Its ablations show this beats also training attention, on both learning and not forgetting.</p>
+<p><strong>Two ways to write.</strong></p>
+<ul>
+<li><strong>Cortex-Synaptic</strong> adds small <strong>low-rank</strong> adjustments to the existing FFN weight matrices. &quot;Low-rank&quot; means the change is described by a few thin slices of numbers instead of a whole new matrix (this is the same idea as <strong>LoRA</strong>, the most popular cheap fine-tuning method). Afterward the adjustment is simply added into the weights.</li>
+<li><strong>Cortex-Structural</strong> leaves the original FFN untouched and bolts on a small parallel branch: a few <strong>new channels</strong> (think extra memory slots) with their own weights. Afterwards this is merged by making the FFN slightly wider. Old weights never change, so old knowledge is harder to disturb, and it is also cheaper to train than the Synaptic version for the same size.</li>
+</ul>
+<p>Either way, the final model has a normal architecture. You don&#39;t need special software to run it.</p>
+<p><strong>One extra wrinkle for mixture-of-experts models.</strong> Many big models today are <strong>mixture-of-experts (MoE)</strong>: each layer has many expert FFNs, and a router sends each word to only a few. If you add a new branch to every expert, some branches barely get trained because few words reach them. Cortex instead adds one shared branch per layer that every word passes through, which still folds neatly into the standard design.</p>
+<p><strong>Analogy.</strong> Synaptic is editing notes in the margins of your existing textbook. Structural is adding a few new index cards to the back of the book: nothing already printed gets smudged, but the book gets a little thicker with every lesson.</p>
+
+<h3 id="4-the-teacher-and-student-copy-the-open-book-self">4. The teacher and student: copy the &quot;open book&quot; self</h3>
+<p><strong>What it is.</strong> The training step is <strong>context distillation</strong>: the same model plays both roles.</p>
+<p><strong>How it works.</strong></p>
+<ul>
+<li>The <strong>teacher</strong> is the original frozen model, given the context plus the question plus the answer.</li>
+<li>The <strong>student</strong> is the model with the new trainable add-on, given the question and answer but <em>not</em> the context.</li>
+<li>The student is trained to produce the same next-word probabilities as the teacher (measured with <strong>KL divergence</strong>, a standard score for how different two probability distributions are). In plain terms: &quot;act as if you had read the notes, without the notes.&quot;</li>
+<li>A second loss keeps the student&#39;s internal signals at every layer close to the teacher&#39;s. This acts as a guardrail so the inside of the model doesn&#39;t drift, which is what usually damages unrelated skills. It costs a little learning but stabilizes retention.</li>
+</ul>
+<p><strong>Query replay for long-running learning.</strong> In the sequential setting, Cortex optionally saves only the <em>questions</em> from earlier lessons, not the notes or the answers. Before each new lesson, the previous version of the model answers those old questions, and those answers get mixed into training so the new lesson doesn&#39;t overwrite old ones. Nothing extra is needed at run time.</p>
+
+<h2 id="worked-example-a-new-tool-start-to-finish">Worked example: a new tool, start to finish</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>This is my own illustration of the pipeline, not an example from the paper.</p>
+<ol>
+<li>A company releases a new internal API, <code>book_showing(listing_id, time)</code>, and writes two paragraphs of documentation.</li>
+<li>Without the docs, the model has never heard of it and fails. With the docs pasted in, it uses it correctly. That difference is the context gap.</li>
+<li>Prospective queries: the model writes questions like &quot;How do I schedule a showing for listing 4471 tomorrow at 3pm?&quot; and &quot;What happens if the time slot is taken?&quot;</li>
+<li>With the docs in its prompt, the model answers each one. These become training triples.</li>
+<li>Distillation: a small structural branch is trained so the model, without the docs, gives the same answers.</li>
+<li>The branch is merged in. Now the docs can be deleted from every future prompt. Questions about unrelated things (writing an email, doing math) score essentially the same as before.</li>
+<li>Next week, a second API arrives. Repeat, with query replay of last week&#39;s questions so the first API isn&#39;t forgotten.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Scale and breadth.</strong> They tested models from 4 billion to 120 billion parameters, both regular (&quot;dense&quot;) and mixture-of-experts, instruction-tuned and &quot;thinking&quot; models, text-only and multimodal. That breadth is a big part of why the paper is credible: it isn&#39;t a trick that works on one model.</p>
+<p><strong>The headline number.</strong> On a 14B model, after <strong>50 factual edits in a row</strong>, Cortex-Structural recovered <strong>88.9%</strong> of the context gap while keeping <strong>99.8%</strong> of performance on unrelated questions. Against AlphaEdit, a strong specialized fact-editing method, under the same conditions, that is reported as about <strong>66 percentage points</strong> more consolidation and about <strong>4 points</strong> better retention. That is the surprising part: a general method beat a specialist at the specialist&#39;s own job, and the gap is huge in the sequential setting where specialist editors tend to collapse.</p>
+<p><strong>The bigger picture.</strong> Across the five task families, Cortex sits on the <strong>Pareto frontier</strong> &quot;in most settings.&quot; That phrase means: for the amount it learns, nothing else forgets less, and for how little it forgets, nothing else learns more. It is not claiming to win every single comparison.</p>
+<p><strong>What the ablations showed.</strong></p>
+<ul>
+<li>Writing only into the FFN beat also training attention, on both measures.</li>
+<li>Structural forgot less than Synaptic, even without query replay.</li>
+<li>The shared branch for mixture-of-experts models learned more than giving each expert its own.</li>
+<li>The internal-signal guardrail stabilized retention at a small cost in learning.</li>
+</ul>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>I could not read the full paper.</strong> The arXiv PDF was rate-limited for me today, so the method details and numbers here come from the abstract, the Hugging Face page and a detailed third-party summary. The headline numbers match the abstract; finer details deserve a check against the PDF.</li>
+<li><strong>Not yet reproducible.</strong> Code and benchmark are promised but not released, and the paper is not yet peer reviewed.</li>
+<li><strong>The headline is one setting.</strong> 88.9% and 99.8% are for a 14B model on 50 factual edits. &quot;Most settings&quot; means some settings are not on the frontier.</li>
+<li><strong>The model keeps getting wider.</strong> Each structural update adds channels and freezes the old ones. Over thousands of updates, that growth adds up, and the paper&#39;s evaluation is on tens of updates, not years of daily learning.</li>
+<li><strong>It costs compute per update.</strong> Generating questions and training is far heavier than writing a row to a database, and the summary I read notes the overhead isn&#39;t fully quantified.</li>
+<li><strong>Hand-built test cases.</strong> The test contexts were written by hand to have a clear context gap. Messy real-world conversations are harder.</li>
+<li><strong>It can&#39;t fix capability failures.</strong> By design, it only preserves what the model could already do with the notes in front of it.</li>
+<li><strong>Weights are hard to audit and delete.</strong> A database memory can be shown to a user and deleted line by line. Knowledge baked into weights cannot be inspected the same way, which matters for privacy and &quot;forget this&quot; requests. (This is my observation, not a limitation the paper lists.)</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Product memory today is all context, not weights.</strong> ChatGPT&#39;s memory stores &quot;saved memories&quot; and references chat history separately from the model, and lets you view, correct and delete them; OpenAI&#39;s help page describes choosing relevant information for each response, not retraining your copy of the model. Memory layers like Mem0 work the same way: extract facts, store them in a database keyed by user, retrieve the relevant ones, and paste them into the prompt. Cortex is aimed at the step after that: turning those pasted notes into weights.</li>
+<li><strong>Close cousins already exist as research tools.</strong> Sakana AI&#39;s Doc-to-LoRA and Text-to-LoRA (February 2026) train a &quot;hypernetwork&quot; (a model that writes weights for another model) to turn a document or a task description into a LoRA adapter in under a second, with open code. Stanford&#39;s Cartridges (2025) compress a long document into a small trained cache using self-generated conversations, using about 38.6 times less memory than keeping the whole document in context. Cortex shares the self-quizzing idea with Cartridges and the &quot;mergeable adapter&quot; idea with LoRA methods, but bakes the result into the weights themselves.</li>
+<li><strong>Companies do update weights from deployment, in batches.</strong> Shopify&#39;s engineering team described (August 2026) a loop for its Sidekick assistant that first improves prompts and tools, then, once that plateaus, fine-tunes the model daily on repaired production conversations. That is the coarse, company-wide version of what Cortex does surgically, one lesson at a time.</li>
+<li><strong>Knowledge editing tools.</strong> Ningyu Zhang&#39;s group maintains EasyEdit, an open-source toolkit that implements many fact-editing methods, including AlphaEdit, the baseline Cortex beats. It is used mostly in research, not products.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>No shipping assistant I found learns into its weights per user.</strong> A forecasting exercise built on Dwarkesh Patel&#39;s &quot;continual learning&quot; predictions (August 2026) put about 60% on mid-2027 still being &quot;context and memory only, no weight change&quot; for frontier products, and only about 3% on per-customer weight copies updated weekly. Cortex is a step toward the thing forecasters think is still far off.</li>
+<li><strong>Narrow single-fact editors are being outgrown.</strong> Methods like ROME, MEMIT and AlphaEdit edit one fact at a time and struggle when edits pile up. Cortex&#39;s result suggests one general distillation recipe can replace them.</li>
+<li><strong>Plain fine-tuning on raw text is the thing to avoid.</strong> It tends to produce memorization without understanding, plus forgetting. The self-quizzing approach (Cortex, Cartridges) is the current answer.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>In-context learning (GPT-3) + fact editing (ROME, MEMIT) + LoRA adapters -&gt; self-quizzing distillation (Cartridges, Doc-to-LoRA, Cortex) -&gt; what you use today: retrieved notes pasted into the prompt (ChatGPT memory, Mem0) -&gt; what may come next: assistants that consolidate those notes into their own weights over time.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>For your relationship-memory startups</strong>, this is the clearest picture yet of the &quot;two-tier&quot; memory design that could be your architecture, and the trade-off you will have to sell. Tier one is an explicit, permissioned store of what a person shared (inspectable, deletable, scoped to whoever was granted access). Tier two is consolidation: knowledge that has been stable and confirmed for a while gets distilled into a small per-user add-on so it doesn&#39;t have to be pasted into every prompt. Cortex-Structural&#39;s design (old weights frozen, new knowledge in a separable branch) is what makes a per-person &quot;memory module&quot; even thinkable, because a separable branch is something you could in principle switch off when permission is revoked. The paper doesn&#39;t test that, and it is the hard question: once something is in weights, deletion and consent get much harder than deleting a database row.</p>
+<p><strong>For Unstall</strong>, the &quot;novel API learning&quot; and &quot;agent experience&quot; task families map directly onto a chief of staff that needs to learn each agent&#39;s tools (their CRM, their showing scheduler) and the habits that worked before. Today you would put those docs and examples in the prompt every call; consolidation is the path to a faster, cheaper assistant that just knows them. In the near term, the practical lesson is cheaper: if you ever fine-tune, train on realistic questions and answers about the material, not the raw material itself.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Context window</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The text a model can see in its prompt right now; powerful but temporary.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Parametric memory</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Knowledge stored in a model&#39;s weights (its parameters), which persists without being in the prompt.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Context gap</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How much better a model does with some context in its prompt than without it; the thing consolidation tries to keep.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Consolidation Rate and Retention Rate</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How much of the context gap is kept after the context is removed, and how much unrelated performance survives.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Prospective queries</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Questions the model writes for itself to anticipate how a piece of context will be used later.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Context distillation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Training a model without the context to imitate its own outputs with the context.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Feed-forward network (FFN)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The per-word processing block inside each Transformer layer, often viewed as the model&#39;s key-value memory.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Catastrophic forgetting</dt><dd class="mt-3 [&>*+*]:mt-3"><p>When training on something new quietly breaks what a model already knew.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the <strong>introduction</strong> and the <strong>problem definition section</strong> (context gap, memory vs capability failure, Consolidation and Retention Rates); that framing is the most reusable idea in the paper and will change how you think about any memory product. Then look at the <strong>method overview figure</strong> and the <strong>sequential editing results</strong>. Skip the per-model result tables and the mixture-of-experts derivation.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If an assistant could either keep a person&#39;s details in a visible, deletable notebook or absorb them into its own weights where it is faster and cheaper but nearly impossible to inspect, which details belong in which place, and who should get to decide when something moves from the notebook into the brain?</p>
+
+<h2 id="sources">Sources</h2>
+<p>A note: I read the arXiv abstract page and the Hugging Face paper page directly; the full PDF was rate-limited today, so method details come from those pages and from a detailed Mindverse summary of the paper.</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.20399">Cortex: Consolidating Context into Parametric Memory (arXiv abstract)</a></li>
+<li><a href="https://huggingface.co/papers/2610.20399">Paper page (Hugging Face)</a></li>
+<li><a href="https://www.mind-verse.de/news/cortex-kontext-parametrisches-gedaechtnis-llm-c92b8321116b">Cortex summary (Mindverse, German)</a></li>
+<li><a href="https://aiweekly.co/fr/alerts/bytedance-seed-publie-cortex-qui-compile-le-contexte-en-mmoire-paramtrique-sans">ByteDance Seed publishes Cortex (AI Weekly, French)</a></li>
+<li><a href="https://help.openai.com/en/articles/8590148-memory-faq">Memory FAQ (OpenAI Help Center)</a></li>
+<li><a href="https://mem0.ai/blog/state-of-ai-agent-memory-2026">State of AI Agent Memory 2026 (Mem0)</a></li>
+<li><a href="https://sakana.ai/doc-to-lora/">Instant LLM Updates with Doc-to-LoRA and Text-to-LoRA (Sakana AI)</a></li>
+<li><a href="https://hazyresearch.stanford.edu/blog/2025-06-08-cartridges">Cartridges: Storing long contexts in tiny caches with self-study (Hazy Research, Stanford)</a></li>
+<li><a href="https://shopify.engineering/sidekicks-continual-learning-loop">Sidekick&#39;s continual learning loop (Shopify Engineering)</a></li>
+<li><a href="https://futuresearch.ai/dwarkesh-continual-learning-forecast/">When Will AI Have Continual Learning? (FutureSearch)</a></li>
+<li><a href="https://cdn.jsdelivr.net/gh/zjunlp/easyedit@main/README.md">EasyEdit knowledge editing framework (zjunlp, README)</a></li>
+<li><a href="https://data-science.ustc.edu.cn/_upload/tpl/15/04/5380/template5380/publication/iclr25-fjf.html">AlphaEdit: Null-Space Constrained Model Editing (USTC)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/22/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 22</span>
+<span class="mt-1 block font-semibold">ATAS (video world memory)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
