@@ -1,5 +1,5 @@
 import type { Icon } from "@phosphor-icons/react";
-import { Article, BaseballCap, Eyeglasses, Metronome, PawPrint, VectorTwo } from "@phosphor-icons/react/ssr";
+import { Article, BaseballCap, Eyeglasses, Monitor, Metronome, PawPrint, VectorTwo } from "@phosphor-icons/react/ssr";
 
 export type Project = {
   name: string;
@@ -44,5 +44,11 @@ export const projects: Project[] = [
     description: "Our pitch for a cap that stops cameras and microphones from recording the person wearing it.",
     path: "/cloak/",
     icon: BaseballCap,
+  },
+  {
+    name: "Black screen",
+    description: "A plain black page. Press F or double-click to go fullscreen.",
+    path: "/blackscreen/",
+    icon: Monitor,
   },
 ];
