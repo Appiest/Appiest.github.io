@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 24: Jeva: System One Models from First Principles</title>
+<meta name="description" content="When an AI only needs to pick from a list, say yes or no, or give a score, Jeva treats that as a decision instead of a writing task: it reads each option once, never lets their order matter, can say &quot;none of these,&quot; and reuses its work on options it has seen before, which makes it accurate, stable and up to 28 times faster.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Jeva: System One Models from First Principles</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">24</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Qi Li, Xinchao Wang (National University of Singapore)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.18773" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">When an AI only needs to pick from a list, say yes or no, or give a score, Jeva treats that as a decision instead of a writing task: it reads each option once, never lets their order matter, can say &quot;none of these,&quot; and reuses its work on options it has seen before, which makes it accurate, stable and up to 28 times faster.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Most of what AI does inside real software is not writing essays but making small decisions (which tool? which intent? is this spam? how urgent, 1 to 5?), and Jeva shows that if you build a model specifically for choosing among options, instead of asking a chatbot to type out its choice, you get decisions that never change when you shuffle the options, can honestly say &quot;none of these,&quot; scale to thousands of options, and get much faster when the options repeat.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>word2vec (Day 4) gave the core trick of turning text into vectors and comparing them with a dot product; Jeva&#39;s final scores are exactly that. The Transformer (Day 9) supplies attention, and Jeva&#39;s decision step is a single attention block where the question &quot;looks at&quot; the options. BERT (Day 10) is the model of an encoder plus a small task-specific head on top. GPT-3 (Day 11) introduced the habit Jeva is arguing against: write the options into a prompt and let a language model type the answer. RAG (Day 14) and ReAct (Day 18) are why this matters now: agents constantly pick documents and tools from long lists. And yesterday&#39;s LoRA-style adapters (Day 23) are how Jeva is trained cheaply on top of an existing model.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>When software needs an AI to make a decision today, the usual move is to ask a large language model (LLM): paste the situation and a numbered list of options into a prompt and ask it to answer &quot;B.&quot; That works, but it is slow (seconds per call), expensive, and has strange failure modes. LLMs read text left to right, so the <strong>order</strong> of the options leaks into the answer: shuffle the list and the choice can change. They have no clean way to say &quot;none of these fit,&quot; so they often force a pick. Adding more options means a longer prompt, and past a few hundred the prompt overflows. And if the same 500 tools appear in a million requests, the model re-reads all 500 every single time. The alternatives each solve part of this. <strong>Classifiers</strong> are fast but have a fixed list of labels baked in, so a new option means retraining. <strong>Embedding search</strong> (turn the question and each option into vectors, pick the closest) is fast and reusable, but each option is judged alone, so the model can&#39;t notice that two options are near-duplicates or that the right answer depends on what else is on the menu. <strong>Rerankers</strong> read the question and one option together, which is accurate, but nothing can be reused, because every pair is new. Nobody had one design that was accurate, order-proof, null-aware, scalable and reusable at the same time. That is what &quot;first principles&quot; in the title means: list the properties a decision should have, then design the model so it has them by construction.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-a-decision-is-not-a-sentence-four-properties-it-must-have">1. A decision is not a sentence: four properties it must have</h3>
+<p><strong>What it is.</strong> The paper starts by naming what a good decision-maker must guarantee, not just usually achieve:</p>
+<ul>
+<li><strong>Null-aware.</strong> It must tell apart &quot;I&#39;m torn between A and B&quot; from &quot;none of these is right.&quot; Those are different situations and need different actions (pick one vs. escalate to a human).</li>
+<li><strong>Permutation-invariant.</strong> &quot;Permutation&quot; just means a reordering. Listing the options as A, B, C or C, A, B must give the same decision.</li>
+<li><strong>Option-scalable.</strong> Going from 4 options to 4,000 should not require a different model or a different output format.</li>
+<li><strong>Cacheable.</strong> &quot;Caching&quot; means saving work to reuse later. If an option (say, a tool description) shows up in many requests, the model&#39;s work on that option should be done once and reused.</li>
+</ul>
+<p>It also defines three output types that cover most everyday decisions, a vocabulary shared with TypeSafe&#39;s Jev:</p>
+<ul>
+<li><strong>Choice</strong>: pick one candidate (or &quot;null,&quot; meaning none).</li>
+<li><strong>Noul</strong>: the probability that a yes/no statement is true (&quot;Is this email spam?&quot; → 0.93).</li>
+<li><strong>Score</strong>: a value on a rubric (&quot;Urgency 1 to 5?&quot; → 3.8, computed as the probability-weighted average of the levels).</li>
+</ul>
+<p><strong>Analogy.</strong> A chatbot answering a multiple-choice question is like a student reading the options out loud and saying the letter that sounds best; a nervous student is swayed by which option came first. Jeva is designed like a fair judge: every contestant is judged on their own merits, the judge is allowed to say &quot;no winner this year,&quot; and the panel can handle 10 contestants or 2,000.</p>
+
+<h3 id="2-encode-each-option-alone-then-decide-all-together">2. Encode each option alone, then decide all together</h3>
+<p><strong>What it is.</strong> This is the architecture, and it has two phases that split the work in a clever place.</p>
+<p><strong>Phase 1, the encoder.</strong> A shared language model (Jeva uses Qwen3.5-4B, a 4-billion-parameter open model from Alibaba) reads the <strong>request</strong> (the decision type, the question and the current situation) and turns it into a vector called the <strong>request state</strong>. Separately, it reads <strong>each option on its own</strong> (just the decision type and the option&#39;s text) and turns it into:</p>
+<ul>
+<li>a <strong>semantic vector</strong> (a list of numbers capturing what the option means), and</li>
+<li>a set of <strong>keys and values</strong> for the next phase. In attention, a key is like the label on a folder (&quot;what am I about?&quot;) and a value is the folder&#39;s contents (&quot;what do I contribute if chosen?&quot;).</li>
+</ul>
+<p>The crucial detail: an option&#39;s encoding never sees the request or the other options. So it is the same no matter which request it appears in. The paper calls this the <strong>immutable option memory</strong>.</p>
+<p><strong>Phase 2, the decision block.</strong> A small extra layer (just one block in Jeva-4B) lets the request state &quot;look at&quot; all the options at once using attention: the request asks a question, every option&#39;s key answers how relevant it is, and the request state is updated with a blend of the most relevant options&#39; values. Only the request state changes; the options stay frozen.</p>
+<p><strong>Step 3, scoring.</strong> Each option&#39;s score is the dot product (a simple similarity measure: multiply matching numbers and add them up) between the refined request state and that option&#39;s semantic vector. A <strong>softmax</strong> (a function that turns scores into probabilities adding up to 100%) gives the share for each option.</p>
+<p><strong>Why order can&#39;t matter.</strong> Attention over a set has no notion of position: the request state is a blend of the options, and a blend doesn&#39;t care which ingredient you poured first. Since Jeva never tells the decision block what position an option was in, shuffling the list cannot change the result. It is guaranteed by the math, not learned and hoped for.</p>
+<p><strong>Why it still understands context.</strong> You might think &quot;encode each option alone&quot; is just embedding search. The difference is Phase 2: because the request looks at all the options together before scoring, the presence of other options shapes the decision. The paper includes a small proof (their &quot;Proposition 1&quot;) showing that adding or swapping a third option can flip which of two other options wins. Humans do this too: a $9 popcorn next to a $7 small and an $8.50 large makes the large look like a deal. A pure embedding search can&#39;t do that, because it scores each option in isolation.</p>
+<p><strong>Analogy.</strong> Think of a casting director. Each actor&#39;s headshot and reel (the option) is prepared once and filed. When a new role comes in (the request), the director looks across the whole stack of files together, forms a sharper picture of what the role needs given who is available, and then scores each file. The files never change; only the director&#39;s thinking does.</p>
+<p><strong>Worked example.</strong> A real estate assistant hears: &quot;Can we push Thursday&#39;s showing to Friday?&quot; The options are tool descriptions: <code>reschedule_showing</code>, <code>cancel_showing</code>, <code>book_showing</code>, <code>send_message</code>. Each tool description was encoded once, last week. Now only the request is encoded, the decision block reads the four frozen tool memories, and the scores come out something like 0.88, 0.05, 0.04, 0.03. Reorder the tools and you get exactly the same numbers.</p>
+
+<h3 id="3-a-separate-gauge-for-is-anything-here-good-enough">3. A separate gauge for &quot;is anything here good enough?&quot;</h3>
+<p><strong>What it is.</strong> The <strong>coverage gate</strong> is a second output, separate from &quot;which option is best.&quot; It looks only at the single highest score and compares it with a learned threshold, then squashes the difference into a probability with a <strong>sigmoid</strong> (a smooth curve from 0 to 1). That probability is <strong>coverage</strong>: how likely it is that at least one acceptable option exists.</p>
+<ul>
+<li>The <strong>null probability</strong> is simply 1 minus coverage.</li>
+<li>Each option&#39;s final probability is coverage times its share from the softmax.</li>
+</ul>
+<p><strong>Why this design is smart.</strong> It separates two questions LLMs blur together: &quot;is there an answer?&quot; and &quot;which one?&quot; It also has a neat property: adding weaker options below the current best leaves coverage unchanged. Padding the list with junk can&#39;t trick the model into thinking a real answer exists.</p>
+<p><strong>Training.</strong> The model is trained with examples that include &quot;all-null&quot; cases where no option is correct, so the gate learns what &quot;nothing fits&quot; looks like without being forced to rank options that are all wrong.</p>
+<p><strong>Analogy.</strong> A restaurant host checks two things: &quot;Do we have a table that fits this party at all?&quot; and, if yes, &quot;Which table is best?&quot; Adding a bunch of two-tops to the floor plan doesn&#39;t make a party of twelve fit.</p>
+
+<h3 id="4-reuse-the-options-recompute-the-decision">4. Reuse the options, recompute the decision</h3>
+<p><strong>What it is.</strong> Because option memories never depend on the request, they can be saved and reused. The model card&#39;s motto is literally &quot;Reuse the options. Recompute the decision.&quot; There are two caches:</p>
+<ul>
+<li><strong>Set cache</strong>: remembers an exact list of options in an exact order. Useful when the same menu repeats verbatim, useless when lists are freshly assembled.</li>
+<li><strong>Hybrid cache</strong>: remembers each option individually, so a brand-new list made of previously seen options (in any order) is almost free to encode.</li>
+</ul>
+<p>Only the cheap parts run every time: encoding the new request and the small decision block. The cache changes no decisions: the largest difference in any probability between cached and uncached runs was 0.007, from rounding.</p>
+<p><strong>Cost of the cache.</strong> Storage grows with the number of options, the number of decision layers and the vector size. With one decision block, that is modest.</p>
+<p><strong>Analogy.</strong> A recruiter who already read 2,000 résumés last month doesn&#39;t reread them when a new job opens. They read the new job description and compare.</p>
+<p><strong>How it&#39;s trained, briefly.</strong> The base model is adapted with <strong>LoRA</strong> (Low-Rank Adaptation: training a small set of add-on numbers instead of the whole model), rank 64, on a curriculum that moves from typed decisions to intent selection, verification, reading comprehension and finally retrieval over large candidate sets. The loss rewards putting probability on the right option or on null, plus a separate term that teaches the coverage gate.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p>The baselines include several other decision models: &quot;Jev-1.13.0&quot; and &quot;JevK5&quot; (which appear to be versions of TypeSafe&#39;s commercial Jev, though the summaries I read don&#39;t say so explicitly), InternDecision (4B and 0.8B), Re-Flex-4B, KEV-4B and a plain language model, CLM-8B.</p>
+<ul>
+<li><strong>Accuracy.</strong> Jeva was best on 7 of 8 test slices. On BANKING77 (a standard test where you map a banking customer&#39;s message to one of 77 intents), with 16 options, it scored <strong>91.6%</strong> vs. 82.5% for the best rival. On MASSIVE (a voice-assistant intent dataset from Amazon), <strong>90.2%</strong> vs. 81.6%. On Mind2Web (picking the right element to click on real websites, an agent task), <strong>80.0%</strong> vs. 66.3%. The one exception was the &quot;Typed Test,&quot; where InternDecision-4B edged it out, 78.7% to 78.3%.</li>
+<li><strong>Order stability.</strong> On 600 Choice questions, each tried in original, reversed and shuffled orders, Jeva had <strong>zero</strong> changed decisions. The other decision models flipped on <strong>17% to 26%</strong> of questions. This is the most striking result, because it shows a property that is guaranteed by design, while rivals that merely learned it still fail one time in five.</li>
+<li><strong>Saying &quot;none of these.&quot;</strong> On BANKING77 with 588 queries that had no correct option, Jeva separated &quot;no answer&quot; from &quot;has answer&quot; with an AUROC of <strong>98.7%</strong> (AUROC is a 0 to 100% score of how well a detector separates two groups; 50% is a coin flip). At a 5% false-alarm rate, it caught <strong>94%</strong> of the no-answer cases.</li>
+<li><strong>Scale.</strong> On a tool-retrieval test with up to <strong>2,048</strong> candidate tools, Jeva scored the whole set in one pass at 69.9% accuracy in about 12 seconds; the next best (JevK5, which has to work recursively in batches) got 67.5% in 28 seconds. Several rivals simply could not handle more than 32 or 128 options at all.</li>
+<li><strong>Speed from reuse.</strong> With options already cached, the median response on long-document decisions fell from about <strong>2.1 seconds to 0.075 seconds</strong>, about <strong>28 times</strong> faster; with half the options reused, about 2 times faster. On short typed decisions, the median went from 93 ms to 47 ms.</li>
+</ul>
+<p>Why it&#39;s convincing: the order and null results are not small improvements on a leaderboard; they show the design delivering the exact properties it promised, which is rarer and more reusable than another point of accuracy.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>I couldn&#39;t open the arXiv PDF directly today.</strong> Details here come from a full-text reproduction of the paper (hyper.ai), the model card, and a detailed news summary; the numbers are consistent across them, but check the PDF before quoting them.</li>
+<li><strong>Self-reported, not peer reviewed.</strong> All results come from the authors; there are no independent reproductions yet. Several baselines (KEV, Re-Flex, InternDecision) are not well documented in what I could find.</li>
+<li><strong>It only decides; it never explains.</strong> Jeva returns probabilities, not reasons. That is the point (speed), but it makes debugging and audits harder, a criticism also aimed at TypeSafe&#39;s Jev.</li>
+<li><strong>The options must be known.</strong> It can only choose among candidates you hand it. If the right answer isn&#39;t on the list, the best it can do is say null.</li>
+<li><strong>Caching only helps if options repeat.</strong> For freshly written options every request, the speedup largely disappears. The paper also doesn&#39;t describe how old cache entries are evicted.</li>
+<li><strong>Very large lists still cost more.</strong> Scoring is linear in the number of options, and 12 seconds for 2,048 tools is still slow for live use.</li>
+<li><strong>Order-proofing removes position on purpose.</strong> Some decisions should care about order (&quot;the first available slot&quot;). For those, the order must be written into each option&#39;s text.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The commercial cousin is real and getting tried.</strong> TypeSafe launched <strong>Jev</strong>, its &quot;System One model,&quot; in early access on September 15, 2026: you send state plus typed questions (Choice, Score, yes/no) and get calibrated probabilities back in 70 to 500 ms, priced at $0.042 per million input tokens with free output. Reviews report Vercel offering it through its AI Gateway and one Vercel engineer saying it replaced a safety-review model there, Cloudflare hosting it on Workers AI, and OpenRouter listing it. TypeSafe has not disclosed Jev&#39;s architecture, so Jeva is the first fully described open design in this category.</li>
+<li><strong>The use cases are everywhere in agents.</strong> The patterns people report for Jev map straight onto Jeva&#39;s design: routing requests to the right model or tool, guardrails (&quot;is this agent action safe?&quot;), reranking search results, scoring and prioritization, and real-time decisions in games and voice-controlled apps. These jobs are mostly done today by calling a big LLM as a &quot;judge,&quot; which is the slow, expensive approach this line of work aims to replace.</li>
+<li><strong>Its ancestors run most search today.</strong> The two halves of Jeva are standard tools: <strong>bi-encoders</strong> (embed the question and each document separately, compare vectors; reusable and fast) power vector search, and <strong>cross-encoders</strong> (read question and document together; accurate but nothing reusable) power rerankers like Cohere Rerank and Elastic Rerank in Elasticsearch. Jeva is a hybrid: it keeps the bi-encoder&#39;s reusable option vectors but adds a small cross-attention step so the decision sees all options together.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Jeva itself isn&#39;t in products yet.</strong> It was released five days ago, its weights require authenticated access, and it runs in-process in Python on NVIDIA GPUs with no hosted API. I found no deployments.</li>
+<li><strong>&quot;Ask a chatbot to type the letter&quot; is what this is meant to replace</strong>, but it is still the default in most agent frameworks for tool choice and judging, because it is easy and needs no special model.</li>
+<li><strong>Fixed-label classifiers are fading for these jobs.</strong> They are fast, but every new tool or category means retraining. Option-scalable designs like Jeva and Jev handle a new option by just encoding it.</li>
+<li><strong>Hype check.</strong> Commentators push back on claims that decision models &quot;can&#39;t hallucinate&quot;: the output is always a valid type, but it can still be confidently wrong.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>word2vec vectors + Transformer attention + BERT-style encoders -&gt; bi-encoder search and cross-encoder rerankers -&gt; LLM-as-a-judge for agent decisions -&gt; &quot;System One&quot; decision models (TypeSafe&#39;s Jev, now the open Jeva) -&gt; what you use today: mostly LLM prompts for decisions, with vector search and rerankers underneath.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>For Arbor</strong>, this is close to the core engine you&#39;ll need. An agent marketplace is a constant stream of &quot;which listing or bid best fits this agent&#39;s context?&quot; decisions over a catalog that changes slowly, which is exactly where option caching pays off: encode each listing once, then score millions of incoming requests against it cheaply. Two of Jeva&#39;s guarantees are also marketplace rules in disguise. Permutation invariance means a seller can&#39;t buy influence by being listed first, which is a fairness property you could actually promise participants. And the coverage gate gives your protocol an honest &quot;no acceptable match, don&#39;t transact&quot; outcome instead of forcing a bad trade. The context-dependence result (adding a third option can flip two others) is also a reminder that decoy listings are a real attack surface in any auction that ranks options jointly.</p>
+<p><strong>For Unstall</strong>, voice is unforgiving about delay: an extra second of silence feels broken. Most of what a voice chief of staff does between sentences is small typed decisions: which intent is this (&quot;reschedule,&quot; &quot;call back,&quot; &quot;add note&quot;)? which client is &quot;the Hendersons&quot;? is this even a command, or just chatter? (that last one is the null case). MASSIVE, one of Jeva&#39;s test sets, is a voice-assistant intent benchmark, and Jeva&#39;s tens-of-milliseconds decisions on cached options suggest a pattern: let a fast decision model handle routing and save the big LLM for writing replies.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">System One model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A model built to make fast, typed decisions (pick, yes/no, score) rather than generate text, named after the &quot;fast thinking&quot; mode in Daniel Kahneman&#39;s psychology.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Permutation invariance</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Reordering the options cannot change the decision.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Null / coverage gate</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A separate output estimating whether any option is acceptable at all, so the model can answer &quot;none of these.&quot;</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Immutable option memory</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Each option&#39;s precomputed vector, keys and values, built without seeing the request, so it can be reused.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Bi-encoder vs. cross-encoder</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Encoding question and option separately (fast, reusable) versus together (accurate, not reusable); Jeva sits between.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Calibration</dt><dd class="mt-3 [&>*+*]:mt-3"><p>When a model says 80%, it is right about 80% of the time, which lets software set confidence thresholds.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the <strong>introduction</strong>, where the four properties are laid out; that list is the most reusable idea and works as a checklist for any decision system you design. Then look at the <strong>architecture figure</strong> and the short section on the <strong>coverage gate</strong>. Skim the <strong>permutation stability and null detection results</strong>. Skip Proposition 1&#39;s math and the detailed latency tables.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If a model&#39;s decisions are guaranteed never to depend on the order of options, but also come with no explanation, would you trust it more or less than a chatbot that explains its pick but changes its mind when you shuffle the list, and does the answer change if the decision is who gets matched with whom?</p>
+
+<h2 id="sources">Sources</h2>
+<p>A note: the arXiv page itself did not load for me today; I read a full-text reproduction of the paper on hyper.ai, the papers.cool listing, the model card and a Mindverse summary.</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.18773">Jeva: System One Models from First Principles (arXiv)</a></li>
+<li><a href="https://hyper.ai/en/papers/2610.18773">Jeva full text and figures (hyper.ai)</a></li>
+<li><a href="https://papers.cool/arxiv/2610.18773">Jeva listing (papers.cool)</a></li>
+<li><a href="https://huggingface.co/LIQIIIII/Jeva-4B">Jeva-4B model card (Hugging Face)</a></li>
+<li><a href="https://www.mind-verse.de/news/jeva-architektur-system-one-entscheidungsmodelle-e7b5d3c7bf3f">Jeva architecture summary (Mindverse, German)</a></li>
+<li><a href="https://huggingface.co/papers/trending">Trending papers (Hugging Face)</a></li>
+<li><a href="https://www.datacamp.com/blog/system-one-models-jev">Jev: TypeSafe&#39;s System One Model Explained (DataCamp)</a></li>
+<li><a href="https://www.eesel.ai/blog/typesafe-jev-review">TypeSafe Jev review (eesel)</a></li>
+<li><a href="https://www.digitalocean.com/resources/articles/what-is-jev">What is Jev? (DigitalOcean)</a></li>
+<li><a href="https://www.ayautomate.com/blog/jev-use-cases">Jev use cases (AY Automate)</a></li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/8.18/semantic-reranking.html">Semantic re-ranking, bi-encoders vs cross-encoders (Elastic docs)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/23/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 23</span>
+<span class="mt-1 block font-semibold">Cortex (context into weights)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
