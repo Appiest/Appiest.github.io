@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 25: OpenGCUA: Toward a Fully Open Stack for Generalist Computer Use</title>
+<meta name="description" content="Instead of making an AI agent click through a computer one step at a time, let it write a small program that mixes clicks, typing, terminal commands and checks, and let the model itself decide when it needs to look at the screen: across eight frontier models this raised scores on a hard desktop benchmark by about 20 points and cut the number of steps roughly in half.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">OpenGCUA: Toward a Fully Open Stack for Generalist Computer Use</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">25</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Hanzhang Zhou, Long Li, Quyu Kong, Lei Wang, Panrong Tong, Yue Wang and others (Alibaba)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.22200" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Instead of making an AI agent click through a computer one step at a time, let it write a small program that mixes clicks, typing, terminal commands and checks, and let the model itself decide when it needs to look at the screen: across eight frontier models this raised scores on a hard desktop benchmark by about 20 points and cut the number of steps roughly in half.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>The best way for an AI to operate a computer is not &quot;look at a screenshot, click once, repeat&quot; but &quot;write a short program that clicks, types, runs commands, loops and checks its own work,&quot; with the model deciding when it actually needs to look; OpenGCUA opens up the full recipe for building agents like that and shows it helps every frontier model they tried, weak ones most of all.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>The Transformer (Day 9) and GPT-3 (Day 11) are the engines doing the thinking. CLIP (Day 15) started the line of models that can read images and text together, which is how an agent reads a screenshot. InstructGPT (Day 16) is why these models follow instructions at all, and chain-of-thought (Day 17) is the &quot;reasoning tokens&quot; this paper measures. The most direct ancestor is ReAct (Day 18): think, act, observe, repeat. OpenGCUA keeps that loop but makes each &quot;act&quot; a whole program instead of a single move. And yesterday&#39;s Jeva (Day 24) is a cousin in spirit: both papers argue that the default way we wire language models into software is wasteful, and that changing the shape of the interface beats making the model bigger.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>A <strong>computer-use agent</strong> is an AI that operates a computer the way you do: it looks at the screen, moves the mouse, clicks and types. The classic design, popularized by products like Anthropic&#39;s computer use and OpenAI&#39;s Operator, is a loop: take a screenshot, send it to the model, the model picks one action (&quot;click at x=412, y=88&quot;), the action runs, take another screenshot, repeat. It works, but it is slow and fragile. A task a person does in five minutes can take a hundred or more of these round trips, each one a full model call with an image attached. Errors compound: if each step is 98% reliable, a 50-step task succeeds only about a third of the time. Meanwhile, a separate family of agents (coding agents like Claude Code) works almost entirely in the <strong>terminal</strong>, the text window where you type commands, which is fast and precise but cannot touch apps that only have buttons. Some systems combined the two, letting the model output a short fixed list of GUI and terminal actions per turn. But in all of these, the people building the <strong>harness</strong> (the scaffolding code around the model that decides what it sees and how its outputs get executed) hard-coded the important choices: always send a screenshot after every step, always one action at a time, always the same memory rules. On top of that, the strongest systems are closed, so researchers could not study which of those choices actually matter. That is the gap this paper goes after.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-a-generalist-agent-makes-three-decisions-every-step">1. A &quot;generalist&quot; agent makes three decisions every step</h3>
+<p>The paper&#39;s first move is a definition. A <strong>generalist computer-use agent (GCUA)</strong> is one where the model, not the harness, makes three decisions at every step:</p>
+<ol>
+<li><strong>What to observe.</strong> Do I need a screenshot right now? Or the <strong>accessibility tree</strong> (the hidden, text-based map of every button and field on screen that screen readers for blind users rely on)? Or just the text output of the last command? Or nothing?</li>
+<li><strong>How to act.</strong> Click? Type? Run a terminal command? Call an app&#39;s API? Or several of these at once?</li>
+<li><strong>How to organize the work.</strong> What is done so far, what is next, and what should I remember?</li>
+</ol>
+<p>Seen this way, older agent designs are just special cases where some of these decisions were frozen in advance. A pure GUI agent has decision 2 frozen to &quot;mouse and keyboard only&quot; and decision 1 frozen to &quot;screenshot every time.&quot; A pure terminal agent has decision 2 frozen the other way. The definition matters because it turns a pile of competing products into one design space you can measure.</p>
+<p><strong>Analogy:</strong> compare a new intern on a tightly scripted checklist (&quot;after every click, take a photo and email it to me&quot;) with an experienced assistant who decides when to check in, which tool to use, and how to track progress. Same brain, very different efficiency. OpenGCUA is about handing those choices to the model.</p>
+
+<h3 id="2-act-by-writing-a-program-not-by-clicking-once">2. Act by writing a program, not by clicking once</h3>
+<p>This is the heart of the paper. Instead of outputting one action, the model writes a short <strong>program</strong>, a few lines of Python, that can mix every kind of action:</p>
+<ul>
+<li><strong>GUI operations</strong>: mouse moves, clicks and key presses, using a common Python library called PyAutoGUI.</li>
+<li><strong>Terminal commands</strong>: through a <code>bash()</code> function.</li>
+<li><strong>Browser control</strong>: through Playwright, a tool that drives web pages by their structure rather than by pixels.</li>
+<li><strong>Accessibility and API calls</strong> where available.</li>
+</ul>
+<p>And because it is a real program, it gets the things programs have: <strong>variables</strong> (remember a value), <strong>loops</strong> (do this seven times), and <strong>conditionals</strong> (if this, then that). After it runs, the model gets back what the program printed, any errors, and whether it succeeded, plus a screenshot only if it asked for one.</p>
+<p><strong>Step by step, in a mental picture.</strong> Say the task is &quot;rename every PDF in the Downloads folder by date, then email the list to Sam.&quot;</p>
+<ul>
+<li>The old way: screenshot, open Finder, screenshot, click file 1, screenshot, press Enter, type a name, screenshot... dozens of model calls just for the renaming.</li>
+<li>The OpenGCUA way: one program uses a terminal command to list and rename all the files in a loop, prints the new names, then uses GUI actions to open the mail app and paste the list. One model call does what used to take thirty.</li>
+</ul>
+<p>The authors studied how the strongest closed model they tested (GPT-6 Astra) actually uses this freedom and found five recurring patterns:</p>
+<ol>
+<li><strong>Cross-interface composition</strong>: alternate clicks with programmatic checks (click &quot;Export,&quot; then check from the terminal that the file really appeared).</li>
+<li><strong>Loops</strong>: one program visits seven sections of a web page, checking each before moving on.</li>
+<li><strong>Result-dependent execution</strong>: compare a draft email with a saved copy and click Send only if they match.</li>
+<li><strong>Observation preparation</strong>: gather 25 views into a single <strong>contact sheet</strong> image so the model can look once instead of 25 times.</li>
+<li><strong>Executable verification</strong>: after finishing, run code that confirms the expected files changed and nothing else did.</li>
+</ol>
+<p>The fourth one is quietly brilliant: the agent prepares its own evidence before looking, the way a photographer reviews a contact sheet instead of flipping through prints one at a time.</p>
+<p><strong>Analogy:</strong> the difference between giving someone directions turn by turn over the phone (&quot;now left... now stop... what do you see?&quot;) and handing them a written route with &quot;if the bridge is closed, take Elm Street.&quot; The second needs far fewer calls.</p>
+
+<h3 id="3-move-decisions-from-the-harness-into-the-model">3. Move decisions from the harness into the model</h3>
+<p>The second big design choice has a mouthful of a name: <strong>harness-to-model decision transfer</strong>. Rules that used to be hard-coded in the scaffolding become choices the model makes:</p>
+<ul>
+<li><strong>On-demand observation</strong>: no automatic screenshot after every step. The model asks for one when it needs it.</li>
+<li><strong>Task-state tracking</strong>: the model keeps its own running notes on what is done and what is left, instead of the harness deciding what history to show it.</li>
+<li><strong>Stated intent</strong>: before each program runs, the model writes one line saying what the program is for. That makes its behavior easier to follow and debug, for the model and for people.</li>
+<li><strong>Context policies</strong>: rules for what old information to keep or drop, so long tasks do not drown the model in stale screenshots.</li>
+</ul>
+<p>There is a hidden cost win here. AI providers offer <strong>prompt caching</strong>: if the start of what you send matches something you sent before, they reuse the earlier work and charge less. Forcing a fresh screenshot into every turn keeps changing the input and breaks the cache. Letting the model skip unneeded screenshots raised cache hit rates by about 10 to 14 percentage points for two models, with no drop in scores. Cheaper and just as good.</p>
+<p><strong>Analogy:</strong> a film director who stops demanding dailies after every single take and instead asks for footage when a scene needs checking. The crew moves faster, and the director still sees what matters.</p>
+
+<h3 id="4-one-sdk-for-every-device-and-a-harness-for-your-real-computer">4. One SDK for every device, and a harness for your real computer</h3>
+<p>The last contribution is the most preliminary but the most forward-looking. An <strong>SDK</strong> (software development kit, a ready-made set of functions programmers call) gives the agent one way to talk to computers, browsers and phones. Every action names exactly which device, app, window or tab it targets, so nothing lands in the wrong place. The paper&#39;s example: open a report in a phone app, copy the file to a laptop with <code>mu.files.copy</code>, then type the results into a web service in the laptop&#39;s browser, all inside one program.</p>
+<p>They also built a <strong>real-device harness</strong>: a version that runs on a person&#39;s own Mac rather than inside a clean virtual machine. Real computers are messy in ways benchmarks ignore. You might be using the machine at the same time. The target app might be in a background window. Permissions pop up. The harness is described in five layers, from top to bottom:</p>
+<ol>
+<li><strong>Model</strong>: writes a program each step.</li>
+<li><strong>Runtime and host</strong>: a persistent Python session that runs programs and assembles what the model sees next.</li>
+<li><strong>Device SDK</strong>: the one API across computer, browser and phone.</li>
+<li><strong>Driver</strong>: turns SDK calls into real operating-system actions, with rules about how and when to deliver them.</li>
+<li><strong>Real apps and OS</strong>: the actual source of truth, subject to whatever permissions you grant.</li>
+</ol>
+<p><strong>Mental picture:</strong> layers 1 to 3 are the brain and its vocabulary; layers 4 and 5 are the hands and the world. Keeping them separate means the same agent brain could, in principle, drive a Mac today and a phone tomorrow.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>The test.</strong> The main benchmark is <strong>OSWorld-v2</strong>, a set of long, realistic desktop workflows (think &quot;build this spreadsheet from these three files and email it&quot;) run inside virtual machines. They used an 82-task &quot;offline&quot; subset that skips tasks needing the live internet, so results do not depend on websites changing. Each task gets a <strong>partial score</strong> from 0 to 100 (credit for how much of the job was done right), and they counted how many steps each task took.</p>
+<p><strong>The headline.</strong> They ran eight frontier models, closed and open, under the old setup (GUI actions sent in batches) and under the full OpenGCUA setup. Every single model improved:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Score before → after</th>
+<th>Steps per task before → after</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GPT-6 Astra</td>
+<td>67.1 → 75.7</td>
+<td>102 → 34</td>
+</tr>
+<tr>
+<td>Claude Opus 5</td>
+<td>60.7 → 70.1</td>
+<td>103 → 61</td>
+</tr>
+<tr>
+<td>Gemini 3.8 Flash</td>
+<td>50.1 → 67.0</td>
+<td>167 → 101</td>
+</tr>
+<tr>
+<td>Qwen3.8-Max</td>
+<td>46.9 → 64.0</td>
+<td>128 → 57</td>
+</tr>
+<tr>
+<td>Kimi K3</td>
+<td>40.7 → 59.2</td>
+<td>160 → 82</td>
+</tr>
+<tr>
+<td>Qwen3.8-Flash</td>
+<td>38.9 → 60.5</td>
+<td>232 → 86</td>
+</tr>
+<tr>
+<td>GLM-5.3-Flash</td>
+<td>29.6 → 64.9</td>
+<td>191 → 76</td>
+</tr>
+<tr>
+<td>DeepSeek-V4.1-Flash</td>
+<td>28.0 → 57.7</td>
+<td>167 → 85</td>
+</tr>
+</tbody></table>
+<p>On average: <strong>+19.6 points</strong> and <strong>53% fewer steps</strong>.</p>
+<p><strong>Why it is surprising.</strong> Look at the bottom of the table. The weakest models gained the most: GLM-5.3-Flash more than doubled, from 29.6 to 64.9. The gap between the best and worst model shrank by more than half. In other words, a lot of what looked like &quot;this model is dumb at computers&quot; was actually &quot;this model is being forced to use the computer in a clumsy way.&quot; The interface was hiding ability.</p>
+<p><strong>Is it just the terminal access?</strong> A fair objection: maybe the gain comes from letting the model use the terminal at all, not from writing programs. They tested that. Compared with a setup that already had GUI plus terminal actions in a fixed list, real code execution still added <strong>+6.1 points</strong> and cut steps by <strong>about 15%</strong>. For one model (Qwen3.8-Max) the progression was clean: one GUI action per turn scored 50.9, batched GUI 46.9 (batching alone actually hurt), GUI plus terminal 57.2, and code execution 62.4. So the form of acting, programs with logic, matters on its own.</p>
+<p><strong>The real-computer reality check.</strong> On four real macOS tasks, the open model Qwen3.8-Max used <strong>19.4 times</strong> as many reasoning tokens as GPT-6 Astra (5.7 times as many output tokens overall) and still finished fewer tasks. The authors trace it to over-thinking simple operations, trouble adapting to messy real conditions, and weaker coding. That is a useful, honest finding: the open models are catching up on benchmarks, but on real machines the efficiency gap is still huge.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>No trained model yet.</strong> This release is a recipe and a toolkit, not a new AI. All results use existing models plugged into the new harness. A trained OpenGCUA model is &quot;planned for the next release,&quot; with no date.</li>
+<li><strong>Small real-world test.</strong> The real-device evidence is four macOS tasks. That is a demo, not proof.</li>
+<li><strong>One benchmark subset.</strong> 82 offline tasks from OSWorld-v2. Tasks that touch the live internet, which is a lot of real work, were excluded.</li>
+<li><strong>Self-checking is not checking.</strong> The agent writing code to verify its own work is helpful, but the authors stress it does not replace independent evaluation. An agent can write a check that passes for the wrong reason.</li>
+<li><strong>Safety and permissions are open questions.</strong> An agent that can run terminal commands on your actual computer can also delete things, send things, or buy things. The harness respects OS permissions, but the paper is mostly about capability, not about guardrails.</li>
+<li><strong>Numbers are the authors&#39; own.</strong> Coverage so far repeats their figures; no independent replication yet.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Computer-use agents are a real product category.</strong> Anthropic&#39;s Claude computer use, OpenAI&#39;s Operator, Perplexity Computer and Google&#39;s Computer Use (in preview with Gemini) all operate screens on a user&#39;s behalf. On the standard OSWorld-Verified benchmark, top agents now score above the published human baseline of about 72%, and on the harder OSWorld 2.0 the best vendor-reported partial score is around 82%, though full end-to-end completion is still under 50%. OpenGCUA&#39;s ideas are aimed squarely at that remaining gap.</li>
+<li><strong>&quot;Let the agent write code&quot; is already winning elsewhere.</strong> The idea of code as the action, rather than one tool call at a time, goes back to the 2024 paper CodeAct (&quot;Executable Code Actions Elicit Better LLM Agents&quot;). In November 2025 Anthropic&#39;s engineering team published &quot;Code execution with MCP,&quot; arguing agents should call tools by writing code, with one example dropping from about 150,000 tokens to about 2,000. OpenGCUA extends the same idea from tools and APIs to the screen itself.</li>
+<li><strong>Practitioners already recommend the hybrid.</strong> Industry write-ups on running computer-use agents in production say to use APIs or scripts wherever they exist and fall back to clicking only for legacy apps and portals you do not control. OpenGCUA formalizes that advice and puts it inside a single program.</li>
+<li><strong>Open source you can use.</strong> The code, prompts, trajectories from all eight models, and the preliminary harness and SDK are released on GitHub. Its sister project MAI-Gym (also released) lets teams train agents in thousands of mocked, resettable copies of apps; the team reports a 9-billion-parameter model scoring 76.2% on OSWorld-Verified, and that practice on a mock train-ticketing app raised success on the real app on a physical phone from 28.8% to 48.1%.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Screenshot-every-step is on its way out</strong>, at least as the only mode. It still exists in products because it is simple and works with any app, but its cost and slowness are the main complaint about computer-use agents today.</li>
+<li><strong>Fixed, harness-decided action lists are being superseded.</strong> The paper&#39;s own data shows batching GUI actions without logic can even hurt (46.9 vs 50.9 for one model).</li>
+<li><strong>Pure GUI agents for apps with good APIs</strong> do not make sense at scale. When a clean API exists, calling it is faster and more reliable than clicking, and almost every guide says so.</li>
+<li><strong>Real-device, cross-device agents are not mainstream yet.</strong> The phone-plus-laptop-in-one-program vision is preliminary here and in industry. I could not find a widely used product that does it reliably today.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>ReAct&#39;s think-act-observe loop (2022) -&gt; screenshot-and-click computer-use agents (2024 to 2025) -&gt; CodeAct and &quot;code execution with MCP&quot; (agents write code to call tools) -&gt; OpenGCUA (agents write code that mixes clicks, commands and checks, and decide for themselves when to look) -&gt; what you will likely use next: assistants that operate your actual devices in a few big, verified moves instead of hundreds of tiny ones.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Unstall.</strong> A chief of staff for real estate agents has to work inside tools that often have no clean API: MLS portals, brokerage CRMs, e-signature sites, county record searches, a phone full of texts. That is exactly the &quot;GUI for the gaps, code where you can&quot; world this paper is about. Two design lessons transfer directly. First, give your agent the ability to do a whole chunk (&quot;pull every showing request from today, check each against the calendar, draft replies only for conflicts&quot;) in one verified program instead of narrating every click, which cuts cost and the compounding-error problem. Second, the result-dependent pattern (&quot;compare the draft with the saved copy, send only if they match&quot;) is the kind of built-in checkpoint you want before an agent sends anything to a client. And the cross-device SDK idea, one program spanning phone and laptop, is basically Unstall&#39;s daily reality: realtors live on their phones, but the paperwork lives on a computer.</p>
+<p><strong>Arbor.</strong> If agents are going to bid for and perform tasks in a marketplace, the 19.4x token gap on the same real tasks is a pricing warning: two agents can &quot;do the same job&quot; at wildly different costs and success rates. A protocol that prices by verified outcome rather than by effort, and that can ask the agent for its own executable verification as part of delivery, lines up well with what this paper shows agents can already produce.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Computer-use agent</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An AI that operates a computer through its screen, mouse and keyboard, like a person would.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Harness</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The scaffolding code around a model that decides what it sees, runs its actions, and manages its memory.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Accessibility tree</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The hidden text map of every button, field and label on screen, built for screen readers and readable by agents.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Code execution (as an action)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The model writes a small program, with loops and if-statements, instead of choosing a single click or command.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Harness-to-model decision transfer</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Moving fixed rules (like &quot;screenshot after every step&quot;) out of the scaffolding and letting the model decide.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Prompt caching</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A provider reusing work on an input that starts the same as a previous one, making repeated calls cheaper and faster.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the section with the five code-execution patterns and its case studies. It is the most concrete part of the paper and shows what &quot;an agent that writes programs to use a computer&quot; looks like in practice. Then glance at Table 2 (the eight models, before and after). Skip the formal definitions section if you have read this brief, and skip the real-device harness architecture unless you are building one; it is preliminary and short on detail.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If the same model jumps from 30 to 65 just by changing how it is allowed to act, how much of what we call an AI&#39;s &quot;intelligence&quot; is really the quality of the interface we give it, and what would the best possible interface for Unstall&#39;s agent look like?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.22200">OpenGCUA: Toward a Fully Open Stack for Generalist Computer Use (arXiv)</a></li>
+<li><a href="https://arxiv.org/html/2610.22200v1">OpenGCUA full text (arXiv HTML)</a></li>
+<li><a href="https://github.com/Tongyi-MAI/OpenGCUA">OpenGCUA code (GitHub, Tongyi-MAI)</a></li>
+<li><a href="https://huggingface.co/papers/trending">Trending papers (Hugging Face)</a></li>
+<li><a href="https://aicoder.com/news/news-20261017-alibaba-tongyi-mai-opengcua-mai-gym-computer-use">Alibaba Tongyi-MAI releases OpenGCUA and MAI-Gym (AICoder)</a></li>
+<li><a href="https://presenc.ai/research/osworld-computer-use-leaderboard-2026">OSWorld leaderboard 2026: OSWorld-Verified and 2.0 (Presenc)</a></li>
+<li><a href="https://contracollective.com/blog/computer-use-agents-production-reliability-cost-2026">Computer use agents in production: reliability and cost (Contra Collective)</a></li>
+<li><a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Code execution with MCP (Anthropic Engineering)</a></li>
+<li><a href="https://arxiv.org/abs/2402.01030">Executable Code Actions Elicit Better LLM Agents, CodeAct (arXiv)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/24/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 24</span>
+<span class="mt-1 block font-semibold">Jeva (fast typed decisions)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
