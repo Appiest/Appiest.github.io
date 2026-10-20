@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 26: 3DCodeVerse: Exploring 3D Worlds as Code</title>
+<meta name="description" content="Instead of having AI paint 3D objects as frozen meshes or point clouds, have coding agents write short programs that build them, then check those programs by running them, measuring the parts and looking at renders: a USC-led team releases a 2-million-example dataset and a self-checking agent harness that beat Claude Design&#39;s 3D objects in 90% of blind human comparisons.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">3DCodeVerse: Exploring 3D Worlds as Code</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">26</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Yipeng Gao, Ziyao Zeng, Jinfa Huang, Yijiang Li and others, led from USC (Laurent Itti&#39;s iLab)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.22341" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Instead of having AI paint 3D objects as frozen meshes or point clouds, have coding agents write short programs that build them, then check those programs by running them, measuring the parts and looking at renders: a USC-led team releases a 2-million-example dataset and a self-checking agent harness that beat Claude Design&#39;s 3D objects in 90% of blind human comparisons.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>A 3D object written as a program can be edited, reused, measured and checked in ways a pile of triangles cannot; 3DCodeVerse gives coding agents the data and the self-checking workflow to build 3D that way, and shows it works much better than letting a model write the code in one shot.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>The Transformer (Day 9) and GPT-3 (Day 11) are the engines that write the code. CLIP (Day 15) started the line of models that understand images and text together, which is how this system&#39;s &quot;judge&quot; looks at renders and says what is wrong. ReAct (Day 18) is the loop underneath: plan, act, observe, fix. NeRF (Day 13) and 3D Gaussian Splatting (Day 20) are the rival approach, where 3D is learned as millions of numbers rather than written as instructions; this paper is a bet on the other side. RT-2 (Day 21) is why the robotics section matters: robots need simulated objects whose hinges actually work. And yesterday&#39;s OpenGCUA (Day 25) makes the same move in a different domain: have the model write a program instead of making one tiny move at a time, and let execution tell it whether it worked.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>There are two broad ways to get AI to make 3D things. The popular one is <strong>neural or mesh generation</strong>: a model outputs a <strong>mesh</strong> (a surface made of thousands of small triangles) or a set of splats, the way an image generator outputs pixels. It looks good fast, but the result is frozen. If you want the table two inches taller, or the drawer to slide open, you are mostly starting over. The other way is <strong>3D as code</strong>: write a short program, in a tool like Blender&#39;s Python scripting or a CAD language, that builds the object step by step (&quot;make a box this wide, cut a hole here, attach four legs&quot;). Change one number and the object updates. Engineers and technical artists have worked this way for decades. Language models can write such code, but they were bad at it: the programs often crashed, parts floated in mid-air or passed through each other, and nobody had a big, clean training set. The data that did exist was scattered across formats and mostly covered static objects, and every team built its own one-off checking setup. This paper tries to give the field a common foundation.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-treat-3d-as-code-across-many-dialects">1. Treat 3D as code, across many &quot;dialects&quot;</h3>
+<p>The paper&#39;s starting belief: a program is a better container for 3D than a mesh, because a program is <strong>editable</strong> (change a number), <strong>composable</strong> (reuse a chair function in a hundred rooms), <strong>inspectable</strong> (you can read why the leg is where it is) and <strong>verifiable</strong> (you can run it and measure the result).</p>
+<p>3D code comes in several <strong>dialects</strong>, different languages each good at a different job. The paper covers these:</p>
+<ul>
+<li><strong>Blender Python</strong>: scripts that drive Blender, the free 3D software used in film and games. Good for artistic objects with materials and lighting.</li>
+<li><strong>CadQuery</strong> and <strong>OpenSCAD</strong>: CAD languages for precise, manufacturable parts with exact dimensions. Think brackets, gears, enclosures for 3D printing.</li>
+<li><strong>URDF</strong>: a description format for robots and other <strong>articulated</strong> objects (things with moving joints, like a door, a laptop lid or a robot arm). It says which part connects to which, and how far each joint can bend.</li>
+<li><strong>Three.js</strong>: a JavaScript library that draws 3D scenes in a web browser.</li>
+<li><strong>GLSL</strong>: a language for <strong>shaders</strong>, small programs that run on a graphics card to compute colors and effects pixel by pixel.</li>
+</ul>
+<p>These cover four &quot;tracks&quot; of content: single objects, articulated objects, whole scenes, and graphics effects.</p>
+<p><strong>Analogy:</strong> a mesh is a photograph of a building; a program is the architect&#39;s drawing set. You can admire a photo, but only the drawing set lets you move a wall, count the doors, or hand it to a builder.</p>
+
+<h3 id="2-a-2-million-example-training-set-assembled-and-verified">2. A 2-million-example training set, assembled and verified</h3>
+<p>The first big contribution is <strong>3DCodeVerse-2M</strong>, a dataset of runnable 3D programs paired with descriptions. The name rounds up a specific structure: about <strong>270,000 distinct programs</strong>, expanded into about <strong>2.03 million training pairs</strong> (the same program paired with different descriptions, conditions and views). Every program comes packaged with its assets (textures, meshes it needs), text captions, and <strong>verification records</strong>, a log proving it actually runs and produces what it claims.</p>
+<p>They got the programs three ways:</p>
+<ol>
+<li><strong>Collect what is open.</strong> About 120,000 shaders from Shadertoy (a public site where people share GLSL effects) and about 1,200 OpenSCAD models from Thingiverse (a 3D-printing community).</li>
+<li><strong>Convert specialized formats into code.</strong> The biggest chunk comes from DeepCAD, a research dataset that stores CAD parts as a custom list of &quot;draw a sketch, then extrude it&quot; steps. They wrote a translator that turned about 178,000 of those into CadQuery programs, then threw out anything that failed to compile, wasn&#39;t a closed solid, or duplicated something else. That left about 128,000 unique programs, and the rebuilt shapes matched the originals almost perfectly (an average overlap score of 0.985 out of 1).</li>
+<li><strong>Have agents write new code</strong>, then keep only what passed the harness&#39;s checks.</li>
+</ol>
+<p>The verification is the point. A training set of code that does not run teaches a model to write code that does not run.</p>
+<p><strong>Mental picture:</strong> a cookbook where every recipe has been test-cooked, photographed from four angles, and tagged with what it is, versus a shoebox of handwritten recipe cards, some missing steps.</p>
+
+<h3 id="3-a-self-checking-agent-team-the-harness">3. A self-checking agent team (the &quot;harness&quot;)</h3>
+<p>A <strong>harness</strong> is the scaffolding around a model: what it sees, what tools it can use, and how its output gets checked. The 3DCodeVerse Harness is a team of agents organized as a <strong>DAG</strong> (directed acyclic graph: a to-do list where some tasks must wait for others, and tasks with no dependency can run at the same time).</p>
+<p>Here is one request, &quot;a wooden stool with three legs and a round seat,&quot; step by step:</p>
+<ol>
+<li><strong>Plan.</strong> A planner agent turns the request into a structured spec: named parts (seat, three legs, maybe a footrest ring), a rough bounding box for each, materials, how parts relate (&quot;legs touch the underside of the seat&quot;), and an <strong>acceptance checklist</strong>. Each checklist item says how it will be checked (by measurement, by looking, or by moving a joint) and whether it is a must or a should.</li>
+<li><strong>Build in parallel.</strong> Coding agents write the parts. Each agent owns specific files, so they do not overwrite each other. Big objects (8 or more top-level parts) are built in small sub-assemblies, then combined.</li>
+<li><strong>Check, in three layers, cheapest first:</strong><ul>
+<li><strong>Execution check:</strong> does the program even run? If not, that crash log is the only feedback this round, and the agent gets up to three targeted repair attempts.</li>
+<li><strong>Spatial measurements:</strong> code measures the result. Which parts exist? Where are their bounding boxes? Do the legs actually touch the seat, or is there a gap? Do any parts pass through each other? For things with joints, it swings every joint through its full range and tries eight random poses to make sure nothing collides. Errors come back with numbers attached (&quot;leg 2 is 1.4 cm below the seat&quot;).</li>
+<li><strong>Visual judge:</strong> a <strong>vision-language model</strong> (an AI that reads images and text; here Google&#39;s Gemini 3.1 Pro) looks at renders from several angles and compares them to the request and checklist. It writes down what it sees before it scores, and it never sees the coding agent&#39;s reasoning, so it cannot be talked into agreeing.</li>
+</ul>
+</li>
+<li><strong>Measurements outrank opinions.</strong> If the judge says &quot;the legs look detached&quot; but the measurement proves they touch, the measurement wins and vetoes that complaint. The project page says it directly: a visual judge alone is not enough.</li>
+<li><strong>Fix and repeat.</strong> Feedback is boiled down to at most six prioritized fix tasks per round: crashes first, then unchecked must-haves, then visual polish. A fix agent applies them. This repeats for up to four rounds (or 60 minutes), and the best-scoring round wins, not necessarily the last one.</li>
+</ol>
+<p>In the paper&#39;s worked example, a stool went from a score of 0.41 to 0.84 to 0.93 over two rounds of fixes, using 21 model calls and costing about 74 cents.</p>
+<p>Every success, failure and repair gets saved, which turns the harness into a <strong>data engine</strong>: it produces more verified training examples as it runs. About 15,700 of the dataset&#39;s programs came from it.</p>
+<p><strong>Analogy:</strong> a film production, not a lone animator. A director breaks the script into a shot list with clear &quot;done when&quot; criteria, departments build in parallel, a continuity supervisor measures that the coffee cup is in the same spot in every take, a fresh pair of eyes watches the cut without hearing the excuses, and if the tape measure and the reviewer disagree, the tape measure wins.</p>
+
+<h3 id="4-teaching-small-open-models-the-craft">4. Teaching small open models the craft</h3>
+<p>The last idea is simple: train smaller, free models on the dataset and see if they get better at 3D code. They used <strong>fine-tuning</strong> (continuing to train an existing model on new examples) with <strong>LoRA</strong> (a cheap fine-tuning trick that trains a small add-on instead of the whole model) on two open Qwen models, one with 9 billion parameters and one with 27 billion.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>The harness vs. models working on their own.</strong> On 3D objects, people shown two results side by side preferred the harness&#39;s output 69% to 89% of the time, depending on which model powered it, and the judge&#39;s score rose 11 to 25 points. Example: Google&#39;s Gemini 3.8 Flash went from 61 to 87 out of 100. For articulated objects, scenes and graphics, human preference was 78% to 88%.</p>
+<p><strong>The headline: vs. Claude Design.</strong> Claude Design is Anthropic&#39;s visual-creation product, launched in April 2026. With Claude Opus 5.5 inside the 3DCodeVerse harness, people preferred the harness&#39;s 3D objects over Claude Design&#39;s in <strong>90%</strong> of blind comparisons, and the judge scored them about 87 vs. 37 (59 wins, 1 loss out of 60 prompts). Even against plain Opus 5.5 writing the code without the harness, the harness added about 9 points. One important asterisk: Claude Design&#39;s results were taken from its released reference outputs, not regenerated by the authors.</p>
+<p><strong>Fine-tuning works, especially for small models.</strong> The share of programs that actually run:</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Qwen 9B before → after</th>
+<th>Qwen 27B before → after</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3DCodeBench (Blender tasks)</td>
+<td>0% → 85%</td>
+<td>52% → 93%</td>
+</tr>
+<tr>
+<td>CadQuery</td>
+<td>11% → 99%</td>
+<td>66% → 99%</td>
+</tr>
+<tr>
+<td>OpenSCAD</td>
+<td>50% → 86%</td>
+<td>80% → 90%</td>
+</tr>
+<tr>
+<td>GLSL shaders</td>
+<td>33% → 56%</td>
+<td>57% → 72%</td>
+</tr>
+<tr>
+<td>Three.js</td>
+<td>73% → 75%</td>
+<td>73% → 93%</td>
+</tr>
+</tbody></table>
+<p>The 9-billion-parameter model went from never producing a working Blender program to producing one 85% of the time. That is a small, cheap model learning a skill almost from scratch.</p>
+<p><strong>But &quot;runs&quot; is not &quot;right.&quot;</strong> The paper also measures how closely the generated shape matches the target. These scores improved but stay modest: on 3DCodeBench the 9B model&#39;s shape match went from 0.00 to about 0.32 on a 0 to 1 scale. So the models learned to write code that runs far faster than they learned to write code that builds exactly the right thing.</p>
+<p><strong>Quality costs money.</strong> With Gemini Flash, one object costs about 3.5 cents without the harness and about $3.31 with it, roughly 95 times more, even though about 94% of the input was served from cache. Every program now runs (100% vs. 93%), and they look much better, but you pay for all those checks.</p>
+<p><strong>Not every model benefits everywhere.</strong> With Claude Sonnet 5, results on graphics and scenes were mixed: slightly worse on graphics, flat on scenes. The harness helps most when the base model is weaker or faster.</p>
+<p><strong>Early applications.</strong> In 12 robot-simulation test cases (doors with handles in MuJoCo, a physics simulator), the code-built objects passed a geometry check 12 out of 12 times, while a neural world model&#39;s predictions passed 7 out of 36. They also used code-built scenes as layout guides for video generators like Seedance, though that part is shown only with examples, not measured.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Graded by an AI.</strong> Much of the scoring comes from a single vision-language judge (Gemini 3.1 Pro) using rubrics the authors wrote. Human preference tests back it up, but the judge and the harness were tuned together, so the system may be good at pleasing that specific judge.</li>
+<li><strong>Small samples in places.</strong> The scenes and graphics comparisons use only 7 to 11 prompts each, so those numbers are rough.</li>
+<li><strong>The Claude Design comparison is not apples to apples.</strong> It used saved outputs rather than fresh runs.</li>
+<li><strong>Running is easier than being correct.</strong> Execution rates jump; shape accuracy improves much less.</li>
+<li><strong>Expensive.</strong> The harness multiplies cost by roughly 100x on cheap models. Fine for a hero asset, painful at scale.</li>
+<li><strong>Unbalanced data.</strong> Most programs are CAD parts and shaders. There are only about 300 Three.js programs and about 7,000 Blender programs, which helps explain why those areas improved less for some models.</li>
+<li><strong>Licensing.</strong> The code is open (Apache 2.0), but the datasets are marked non-commercial (CC BY-NC-SA). A startup can learn from it but should not ship a product trained on it without checking terms.</li>
+<li><strong>Very new.</strong> Released five days ago, no independent replication yet, and the robotics and video results are explicitly preliminary.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Agents driving Blender through code is already a real workflow.</strong> The open-source Blender MCP connects Claude and other assistants to Blender, so you describe a change and the AI writes and runs the Blender Python that makes it. Designers write about using it for parametric, code-driven iteration rather than mesh generation. 3DCodeVerse is essentially a much more rigorous version of that loop, with measurement and review built in.</li>
+<li><strong>Text-to-CAD tools are a startup category.</strong> Zoo, AdamCAD (Y Combinator W25, $4.1M seed) and others turn descriptions into editable CAD, and AdamCAD exports OpenSCAD code. A June 2026 hands-on test of seven such tools found them good for simple parts and prototyping but inconsistent on complex ones (a 24-tooth gear, a manifold block). That gap is exactly what the paper&#39;s measurement checks target.</li>
+<li><strong>Parametric output is already how phone scanning works.</strong> Apple&#39;s RoomPlan, the iPhone LiDAR room-scanning API, outputs a parametric model with walls, doors and furniture as labeled boxes with dimensions, not a raw mesh. Same philosophy: structure you can measure and edit.</li>
+<li><strong>Claude Design</strong> exists as a product for prototypes, slides and visual assets, and the paper uses its 3D object outputs as the main baseline.</li>
+<li><strong>Released and usable.</strong> The harness, evaluation code, data tools and fine-tuning recipes are on GitHub, and the dataset is on Hugging Face (with the non-commercial caveat above).</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Not replacing neural 3D for realism.</strong> For photoreal capture of real places, Gaussian splats and learned world models still lead. World Labs&#39; Marble, for example, generates persistent worlds and exports them as splats or meshes. World Labs itself argues for a hybrid where structured 3D acts like code and learned rendering adds the realism, which suggests the future is both, not one winning.</li>
+<li><strong>Not cheap enough for mass generation.</strong> At around $3 per object on a fast model, the full harness is for quality, not for filling a game with ten thousand props.</li>
+<li><strong>One-shot &quot;just ask the model for code&quot; is fading</strong> for anything complex. The paper&#39;s own numbers show single-shot generation lags well behind the check-and-fix loop.</li>
+<li><strong>I could not find a shipping consumer product built on 3DCodeVerse itself yet.</strong> It is five days old.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>CAD programs and procedural modeling (decades old) -&gt; language models that can write code (GPT-3, 2020) -&gt; agents that write, run and fix their own code (ReAct, 2022, and coding agents) -&gt; 3DCodeVerse (agents that build 3D as code and check it by running, measuring and looking) -&gt; what you will likely use next: describe a room, object or robot part in words and get an editable, measurable, simulation-ready model back.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Standard Physics.</strong> This is the closest paper yet to your project. An ADA check is a list of measurable rules: door clear width at least 32 inches, a 60-inch turning circle, counter heights, ramp slopes. A raw mesh from a phone scan makes those hard to check reliably. A structured, code-like model of the space (like what RoomPlan already outputs) makes them almost trivial to check. Two lessons transfer directly. First, the harness&#39;s acceptance checklist, where every item is tied to how it will be verified, is basically what an accessibility report is. Second, the rule that <strong>measurements outrank the visual judge</strong> is the right design for compliance: let an AI look at the scan and flag &quot;this hallway looks tight,&quot; but let geometry make the call. The joint-sweep idea even maps onto doors: swing the door through its range and check clearances, the way the paper swings robot joints.</p>
+<p><strong>AR/XR and generative video.</strong> Three.js is one of the six dialects, which means objects that run in any web browser and can be dropped into WebXR scenes. And the paper&#39;s use of code-built scenes as layout guides for video models is a filmmaker&#39;s dream workflow: block out a scene as editable 3D (camera, set, props in exact positions), then let a video generator paint the final look on top. It is previs that a video model can follow.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">3D as code</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Building a 3D object by writing a program that constructs it, so you can edit it by changing numbers.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Mesh</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The standard way to store a 3D surface, as many small connected triangles. Easy to render, hard to edit meaningfully.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Articulated object</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Something with moving parts and joints, like a door, drawer or robot arm. URDF is the common format for describing them.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Harness</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The scaffolding around an AI model that plans its work, runs its output and feeds back what went wrong.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">VLM judge</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A vision-language model used to look at rendered images and grade them against a request.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Fine-tuning (LoRA)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Continuing to train an existing model on new examples; LoRA is a cheap version that trains a small add-on instead of the whole model.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read Section 4, on the harness, and look at its main diagram. It is the clearest picture of how plan, build, measure, look and fix fit together, and it is the part most reusable for your own projects. Then skim Figure 5 for before-and-after examples of refinement fixing floating parts. Skip the dataset construction details in Section 3 and the long appendix on training runs unless you plan to train a model yourself.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If a phone scan of a room could be turned into an editable program instead of a frozen 3D model, what else besides an ADA report could you generate from that same program: a renovation quote, a VR walkthrough, a robot&#39;s map, a film set?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.22341">3DCodeVerse: Exploring 3D Worlds as Code (arXiv)</a></li>
+<li><a href="https://arxiv.org/html/2610.22341v1">3DCodeVerse full text (arXiv HTML)</a></li>
+<li><a href="https://3dcodeverse.com/">3DCodeVerse project page</a></li>
+<li><a href="https://github.com/gaoypeng/3dcodeverse">3DCodeVerse code (GitHub)</a></li>
+<li><a href="https://huggingface.co/datasets/ilabai/3dcodeverse">3DCodeVerse dataset (Hugging Face)</a></li>
+<li><a href="https://huggingface.co/papers/trending">Trending papers (Hugging Face)</a></li>
+<li><a href="https://aiweekly.co/alerts/3dcodeverse-opens-203m-executable-3d-code-pairs-across-six-languages-90-win">3DCodeVerse opens 2.03M executable 3D code pairs (AI Weekly)</a></li>
+<li><a href="https://pardesco.com/blogs/technology-art-design/3d-design-with-ai">3D Design With AI in 2026: Agents, Blender and the Open-Source Wave (Pardesco)</a></li>
+<li><a href="https://www.wevolver.com/article/we-tested-7-text-to-cad-tools-are-they-actually-useful-for-engineers">We tested 7 text-to-CAD tools (Wevolver)</a></li>
+<li><a href="https://pasqualepillitteri.it/en/news/3372/adamcad-text-to-cad-ai-review-2026">AdamCAD review (Pasquale Pillitteri)</a></li>
+<li><a href="https://www.unite.ai/anthropic-launches-claude-design-for-visual-prototyping-and-presentations/">Anthropic launches Claude Design (Unite.AI)</a></li>
+<li><a href="https://developer.apple.com/augmented-reality/roomplan">Introducing RoomPlan (Apple Developer)</a></li>
+<li><a href="https://worldlabs.ai/blog/3d-as-code">3D as code (World Labs)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/25/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 25</span>
+<span class="mt-1 block font-semibold">OpenGCUA (agents that write code to use computers)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
