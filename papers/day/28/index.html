@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 28: MemoryTax: The Bitter Lesson of Agent Memory</title>
+<meta name="description" content="A small, careful study finds that once an AI model is strong enough, specially designed memory systems like Mem0 and Zep stop helping and cost more, while simply keeping the raw conversation and letting the model search it with basic tools scores higher for less money.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">MemoryTax: The Bitter Lesson of Agent Memory</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">28</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Zedong Peng (Shanghai Jiao Tong University)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.29823" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">A small, careful study finds that once an AI model is strong enough, specially designed memory systems like Mem0 and Zep stop helping and cost more, while simply keeping the raw conversation and letting the model search it with basic tools scores higher for less money.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Memory systems that decide in advance what to remember are a costly crutch for weak models; with a strong model, keeping the full raw conversation and letting the model search it like a coder searches files is more accurate and cheaper.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>RAG (Day 14) is the parent idea: fetch relevant pieces of text and put them in front of the model. Mem0 and Zep, the memory systems tested here, are RAG specialized for conversations, and they find &quot;relevant&quot; pieces using <strong>embeddings</strong> (lists of numbers that capture meaning), a direct descendant of word2vec (Day 4). ReAct (Day 18) is the loop the coding agents use: think, use a tool, look at the result, repeat. The Transformer (Day 9) is why &quot;just read everything&quot; is even possible, since its context window is what holds the full history. And last week&#39;s Cortex (Day 23) took the opposite bet, trying to squeeze context into the model&#39;s weights; this paper says, at least for histories that fit, don&#39;t compress at all.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Chatbots forget. Every session starts blank unless something feeds them the past. Since about 2024, a whole product category has grown up to fix that: <strong>agent memory</strong> systems like Mem0 and Zep. They watch a conversation, use an AI model to pull out the important facts (&quot;Caroline is training to be a counselor&quot;), store them, and later retrieve a handful of relevant facts when a question comes in. These systems were built when models were weaker and context windows were small, so summarizing and filtering made sense. Meanwhile, coding agents like Claude Code took a different path: they keep everything as plain files and let the model search with simple tools like <code>grep</code> (find every line containing a word). Nobody had cleanly compared the two approaches across weak and strong models while also counting the money each one costs. That is the gap this paper fills.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-two-philosophies-of-memory-decide-early-vs-decide-late">1. Two philosophies of memory: decide early vs. decide late</h3>
+<p>The paper frames everything as one question: <strong>when do you decide what matters?</strong></p>
+<ul>
+<li><strong>Decide early (designed memory).</strong> Mem0 and Zep process the conversation <em>before any question is asked</em>. Mem0 extracts short facts and stores them in a searchable database. Zep builds a <strong>knowledge graph</strong>: a web of people, things and relationships (&quot;Melanie → painted → sunset&quot;), with dates attached to each link. At question time, the system retrieves the top matches (200 facts for Mem0, 20 graph links for Zep) and hands just those to the model.</li>
+<li><strong>Decide late (search the raw record).</strong> Keep the entire conversation, word for word, as one file. When a question arrives, give a coding agent (Pi, Codex or Claude Code) that file and its normal tools, and let the model itself decide what to search for, read and cross-check.</li>
+</ul>
+<p>There are also two simple baselines:</p>
+<ul>
+<li><strong>Full context</strong>: paste the whole conversation into the prompt every time. Possible here because the conversation fits in every model&#39;s context window.</li>
+<li><strong>BM25</strong>: a classic keyword search formula from the 1990s (the same family of math behind old-school search engines). It grabs the 8 turns that best match the question&#39;s words, plus 2 turns on each side for context.</li>
+</ul>
+<p><strong>Analogy:</strong> You are a documentary editor with 400 hours of interview footage. &quot;Decide early&quot; is having an assistant write a one-page summary of each tape the day it comes in, then throwing out the tapes. &quot;Decide late&quot; is keeping every tape with a searchable transcript and scrubbing through it yourself when you need a quote. The first is faster to consult. The second never loses anything.</p>
+<p>The test material is one conversation from <strong>LoCoMo</strong>, a standard benchmark for long-term conversational memory: 419 turns across 19 sessions between two fictional friends, Caroline and Melanie, with 152 questions about it. Questions come in four types: <strong>single-hop</strong> (one fact: &quot;What did Melanie paint?&quot;), <strong>multi-hop</strong> (combine facts from different places), <strong>temporal</strong> (about when things happened), and <strong>open-domain</strong> (needs some general knowledge). Every method was run with three models, from weakest to strongest: GPT-4o-mini, GPT-6 Luna and Claude Opus 5.5. That makes 21 combinations, and for each one the author recorded both accuracy and the full dollar cost.</p>
+
+<h3 id="2-the-memory-tax-designed-memory-is-a-patch-for-weak-models">2. The &quot;memory tax&quot;: designed memory is a patch for weak models</h3>
+<p>The headline finding. Look at how each approach scored as the model got stronger:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>GPT-4o-mini</th>
+<th>GPT-6 Luna</th>
+<th>Claude Opus 5.5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Full context</td>
+<td>74%</td>
+<td>92%</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>BM25 keyword search</td>
+<td>74%</td>
+<td>82%</td>
+<td>90%</td>
+</tr>
+<tr>
+<td>Mem0</td>
+<td><strong>78%</strong></td>
+<td>80%</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>Zep</td>
+<td>43%</td>
+<td>51%</td>
+<td>87%</td>
+</tr>
+<tr>
+<td>Pi (agent)</td>
+<td>63%</td>
+<td>91%</td>
+<td><strong>99%</strong></td>
+</tr>
+<tr>
+<td>Codex (agent)</td>
+<td>28%</td>
+<td>88%</td>
+<td>98%</td>
+</tr>
+<tr>
+<td>Claude Code (agent)</td>
+<td>29%</td>
+<td>91%</td>
+<td>97%</td>
+</tr>
+</tbody></table>
+<p>Read it like this:</p>
+<ul>
+<li>With the <strong>weak model</strong>, Mem0 wins. Pre-digesting the facts helps a model that would get lost in 419 turns. The coding agents do badly, but for a funny reason: the weak model mostly did not bother to open the file. Claude Code with GPT-4o-mini almost never looked, and just guessed from the question.</li>
+<li>With the <strong>middle model</strong>, Mem0 already falls behind simply pasting everything in (80% vs. 92%).</li>
+<li>With the <strong>strongest model</strong>, Mem0 only ties full context (95%), and all three agents beat everything.</li>
+</ul>
+<p>Now the cost. Building Mem0&#39;s memory store (reading the conversation and extracting facts) <em>by itself</em> cost more than answering all 152 questions with full context:</p>
+<ul>
+<li>GPT-4o-mini: $0.56 to build Mem0 vs. $0.43 for the entire full-context run.</li>
+<li>GPT-6 Luna: $0.45 vs. $0.29.</li>
+<li>Claude Opus 5.5: $25.88 vs. $17.84.</li>
+</ul>
+<p>Mem0&#39;s individual questions are cheaper afterward, so the build eventually pays for itself, but only after roughly 370 to 600 questions about the same conversation. LoCoMo asks 152. The author&#39;s term for paying to build memory a strong model does not need is a <strong>memory tax</strong>.</p>
+<p>The title borrows from Rich Sutton&#39;s famous 2019 essay <strong>&quot;The Bitter Lesson&quot;</strong>: in AI, clever human-designed shortcuts help at first, but general methods that just use more computation keep improving and eventually win. Designed memory is the clever shortcut. A strong model searching raw text is the general method.</p>
+<p><strong>Analogy:</strong> Training wheels. Great when you cannot balance. Once you can, they slow you down, and you paid for them.</p>
+
+<h3 id="3-the-ceiling-memory-can-only-be-as-good-as-whoever-wrote-it">3. The ceiling: memory can only be as good as whoever wrote it</h3>
+<p>This is the most useful idea in the paper, and it is a neat experiment.</p>
+<p>With Mem0 and Zep, a model does two jobs: it <strong>writes</strong> the memory (decides which facts to extract) and later <strong>reads</strong> it (answers questions from what was retrieved). Because the retrieval step itself uses no language model, you can swap them: let a weak model write the store and a strong model read it, or vice versa.</p>
+<p>Here is Zep, the starkest case:</p>
+<table>
+<thead>
+<tr>
+<th>Zep graph written by</th>
+<th>Read by GPT-4o-mini</th>
+<th>Read by GPT-6 Luna</th>
+<th>Read by Opus 5.5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GPT-4o-mini</td>
+<td>43%</td>
+<td>43%</td>
+<td>45%</td>
+</tr>
+<tr>
+<td>Claude Opus 5.5</td>
+<td>66%</td>
+<td>71%</td>
+<td>87%</td>
+</tr>
+</tbody></table>
+<p>When the weak model wrote the graph, upgrading the reader to the strongest model barely helped (43% to 45%). The information was simply never saved. When the strong model wrote it, every reader did much better. Mem0 shows the same pattern with smaller gaps (78% to 84% from the weak model&#39;s store; 89% to 95% from the strong model&#39;s). You can also see the writer&#39;s limits in raw size: Zep&#39;s graph held 128 facts when GPT-6 Luna built it, and 195 when Claude Opus 5.5 did.</p>
+<p>Step by step, why this happens:</p>
+<ol>
+<li>A conversation comes in.</li>
+<li>The writer model decides, right then, which facts are worth keeping.</li>
+<li>Everything it skips is gone. The raw turns are not what gets searched later.</li>
+<li>Months later, a question arrives about something the writer thought was unimportant.</li>
+<li>No reader, however smart, can retrieve a fact that was never stored.</li>
+</ol>
+<p><strong>Mental picture:</strong> A court stenographer who only writes down what they think matters. The best lawyer in the world reading that transcript still cannot quote what the witness said if the stenographer skipped it. Keep the audio, and a better lawyer can always go back.</p>
+<p>This matters because models keep getting better. With designed memory, today&#39;s model sets a permanent cap on what tomorrow&#39;s model can know. With a raw record, tomorrow&#39;s model gets to reread everything.</p>
+
+<h3 id="4-search-beats-reading-everything-mostly-and-the-photo-caption-twist">4. Search beats reading everything (mostly), and the photo-caption twist</h3>
+<p>With Claude Opus 5.5, Pi was the clear winner: <strong>99% correct for $6.95</strong> for the whole run, vs. full context at <strong>95% for $17.84</strong>. Pi read about 10,000 input tokens per question (and 7,900 of those were <strong>cached</strong>, meaning reused from earlier and billed at a discount) vs. about 28,900 for pasting the full conversation. Searching means you only read the parts you need.</p>
+<p>Pi is a deliberately minimal coding agent (four default tools: read, write, edit and run shell commands, and a very short system prompt). Codex and Claude Code, with the same model, scored nearly as well (98% and 97%) but cost $25.41 and $28.41. Same brain, different scaffolding, three to four times the price. The paper points to a separate study (&quot;HarnessTax&quot;) for why harnesses differ so much.</p>
+<p>Two honest twists the author reports himself:</p>
+<ul>
+<li><strong>Pi&#39;s single &quot;miss&quot; was actually the answer key&#39;s mistake.</strong> The question asked what painting Caroline shared on a certain date; the key said an abstract painting, but in the conversation it was Melanie who shared that painting. Pi said so and was marked wrong. So Pi effectively got every valid question right.</li>
+<li><strong>Part of the agents&#39; lead was unfair.</strong> Some conversation turns include photos, and the official data file has a text caption for each one. The agents got the file with captions; the memory methods got only the spoken text. 64 of the 152 questions had their evidence in a photo turn. On the other 88 questions, where everyone saw the same text, Pi scored 100% and full context, Mem0, Codex and Claude Code each scored 99%. A one-question difference.</li>
+</ul>
+<p>So the fair reading is: with a strong model, searching the raw record <strong>matches</strong> reading everything at <strong>less than half the cost</strong>, and both beat or tie designed memory. Whether searching is <em>more accurate</em> than reading everything, the paper explicitly says it did not settle.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p>In plain terms:</p>
+<ul>
+<li><strong>Tested:</strong> 7 approaches × 3 models on one 419-turn conversation with 152 questions, scoring accuracy and every dollar spent.</li>
+<li><strong>With a weak model</strong>, designed memory (Mem0) helps a bit: 78% vs. 74%.</li>
+<li><strong>With strong models</strong>, designed memory stops helping and never sits on the best cost-for-accuracy curve. The best options were plain keyword search or full context with GPT-6 Luna (cheap and decent), and Pi with Claude Opus 5.5 (best overall).</li>
+<li><strong>Zep&#39;s knowledge graph</strong> was the weakest approach with every model.</li>
+<li><strong>The writer sets the ceiling</strong>: a strong reader cannot recover what a weak writer dropped.</li>
+<li><strong>Strong model + simple search agent</strong> got every valid question right for less than half the cost of pasting everything in.</li>
+</ul>
+<p>What makes it convincing despite its size is that it measures cost alongside accuracy (most memory papers report only accuracy), and the writer/reader swap isolates a cause rather than just a correlation. It also agrees with earlier 2026 papers the author cites, which found plain retrieval keeps up with elaborate memory and that verbatim chunks beat extracted facts.</p>
+
+<h2 id="limitations">Limitations</h2>
+<p>The author is unusually upfront, and lists these himself:</p>
+<ul>
+<li><strong>Tiny scale.</strong> One conversation out of LoCoMo&#39;s ten, and each combination run once. A difference of a few questions might flip on a second run.</li>
+<li><strong>Lenient grading.</strong> A cheap model (GPT-4o-mini) graded answers with a generous rubric, and at least one answer key is wrong.</li>
+<li><strong>The photo captions</strong> gave the agents information the memory systems did not have (see above).</li>
+<li><strong>The history fits in the context window.</strong> That is the friendliest possible case for &quot;just keep everything.&quot; For a person with years of conversations, or a company with millions of users, full context is not an option and search has much more to sift through. Results could differ on harder benchmarks like LongMemEval.</li>
+<li><strong>Default settings.</strong> Mem0 and Zep were run out of the box; tuned settings might do better. Prices are list prices.</li>
+</ul>
+<p>Other things worth knowing:</p>
+<ul>
+<li><strong>Single author, one day old, not peer reviewed.</strong> Treat it as a strong, clearly argued data point, not a settled verdict.</li>
+<li><strong>Agents are slow.</strong> The paper measures dollars, not seconds. A coding agent may take many tool steps per question (the setup allowed up to 20 minutes per question). For a live voice product, that latency matters a lot.</li>
+<li><strong>Repeated questions change the math.</strong> The author notes designed memory may still make sense when many questions are asked about the same history, since the build cost gets spread out.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Designed memory is a real, funded business.</strong> Mem0 raised $24 million (seed plus Series A led by Basis Set Ventures, with Y Combinator and Peak XV) in October 2025, reported 186 million API calls in Q3 2025, and is the exclusive memory provider for AWS&#39;s Agent SDK. Its open-source project has tens of thousands of GitHub stars.</li>
+<li><strong>Zep</strong> sells a managed memory service (Zep Cloud) built on its open-source Graphiti knowledge-graph engine, with a free tier and paid plans, according to a March 2026 comparison (published by a competitor, so take its framing with salt).</li>
+<li><strong>&quot;Search the raw record&quot; is already how leading coding agents work.</strong> Claude Code&#39;s built-in tools are file search, <code>grep</code> (powered by ripgrep) and code navigation, with no vector database. Cline says it uses no embeddings by design, and Sourcegraph replaced embeddings with search in its Cody product. Anthropic&#39;s own guidance for agent builders (September 2025) says: &quot;we suggest starting with agentic search, and only adding semantic search if you need faster results or more variations,&quot; and describes storing an email agent&#39;s past conversations as plain files it can search.</li>
+<li><strong>Pi</strong>, the winner here, is a real open-source minimalist coding agent created by Mario Zechner and now run by Earendil; it ships with just four tools.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used-or-not-everywhere">How it ISN&#39;T used (or not everywhere)</h3>
+<ul>
+<li><strong>Embeddings are not dead.</strong> Cursor and Devin Desktop (formerly Windsurf) still build semantic indexes, and Cursor reports measurable gains from them. The fair summary from a September 2026 review: agentic search is a sound starting point, and embeddings earn their place for conceptual queries, huge collections and non-code material.</li>
+<li><strong>Very large histories still need some retrieval layer.</strong> Nobody can paste ten years of a person&#39;s messages into every prompt. The likely future is the paper&#39;s own suggestion: better search tools over raw records (exact, keyword and meaning-based search the model drives itself), rather than lossy summaries made in advance.</li>
+<li><strong>Fact extraction at write time</strong> is the part this paper most directly questions. I could not find a major product that has publicly abandoned it because of this line of work; this is an emerging argument, not yet an industry shift.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Keyword search (BM25, 1990s) and embeddings (word2vec, 2013) -&gt; RAG (2020) -&gt; conversation memory layers like Mem0 and Zep (2024 to 2025) -&gt; coding agents that just search raw files (Claude Code, Cline, Pi, 2025 to 2026) -&gt; this paper: for strong models, keep the raw record and give the model good search tools.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Amelia (live speaker ID and per-person memory).</strong> The &quot;writer ceiling&quot; is a design rule for you. If Amelia summarizes each conversation into a few facts at capture time (&quot;Sam likes hiking&quot;), whatever the summarizer skipped is lost forever, and next year&#39;s better model cannot get it back. The paper&#39;s evidence says: store the verbatim, speaker-labeled transcript as the source of truth, with timestamps, and let the model search it when someone asks &quot;what did Priya say about her sister&#39;s wedding?&quot; You can still keep summaries as a fast index on top, just never as the only copy. The photo-caption finding is a bonus lesson: non-verbal context (who was in the room, what was on screen) answered a big share of questions, so capturing it as text alongside the transcript is worth it.</p>
+<p><strong>Your relationship continuity and memory startups.</strong> If the product promise is &quot;permissioned memory,&quot; a raw record has a quiet advantage worth thinking about: it is easy to show a person exactly what is stored, to scope access by conversation or by person, and to delete a specific moment. Extracted facts and graphs are harder to audit (&quot;where did the system get the idea that I am moving?&quot;). That is my inference, not something the paper tested, but the paper removes the main argument against raw records (cost) for strong models.</p>
+<p><strong>Unstall (voice chief of staff).</strong> Mixed news. A realtor&#39;s history of calls, texts and emails is exactly the kind of record where &quot;keep everything, search when needed&quot; shines. But the paper ignores speed, and a voice assistant cannot spend a minute running searches mid-sentence. A practical split: during the call, use fast, simple retrieval (even plain keyword search did respectably); after the call, let a strong model search the full record carefully for follow-ups and reminders.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Agent memory</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A system that lets an AI remember past interactions, usually by extracting and storing facts to retrieve later. Mem0 and Zep are examples.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Knowledge graph</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Memory stored as a web of entities (people, places, things) connected by labeled relationships, like &quot;Melanie → painted → sunset.&quot;</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Full context</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Putting the entire history directly into the model&#39;s prompt every time, with no filtering.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">BM25</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A classic keyword-matching formula that ranks text by how well its words match a query; the backbone of traditional search.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Agentic search</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Letting the model itself decide what to search for, run the search with tools like <code>grep</code>, read results and search again.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Memory tax</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The paper&#39;s name for the extra cost of building designed memory that a strong model does not actually need.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>The whole paper is short, so read pages 1 to 3: the introduction (one page, with the three findings as bullet points), Figure 1 (cost vs. accuracy for every combination, the single best picture of the argument), and Section 4 on the writer and reader ceiling with Table 3 in the appendix. Then read Section 6, &quot;Discussion and limitations,&quot; which is half a page. Skip the appendix prompts and protocols unless you want to replicate it.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If every summary your product makes today caps what a smarter future model can know about a person, what is the one thing in your users&#39; lives that you must store word for word, and what are you comfortable letting the system forget?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.29823">MemoryTax: The Bitter Lesson of Agent Memory (arXiv)</a></li>
+<li><a href="https://arxiv.org/html/2610.29823v1">MemoryTax full text, HTML version (arXiv)</a></li>
+<li><a href="https://techcrunch.com/2025/10/28/mem0-raises-24m-from-yc-peak-xv-and-basis-set-to-build-the-memory-layer-for-ai-apps">Mem0 raises $24M from YC, Peak XV and Basis Set (TechCrunch)</a></li>
+<li><a href="https://vectorize.io/articles/mem0-vs-zep">Mem0 vs Zep (Graphiti): AI Agent Memory Compared, 2026 (Vectorize)</a></li>
+<li><a href="https://jacar.es/en/code-agents-without-vector-search/">Why many code agents use agentic search instead of a vector database (jacar.es)</a></li>
+<li><a href="https://claude.com/resources/articles/building-agents-with-the-claude-agent-sdk">Building agents with the Claude Agent SDK (Anthropic)</a></li>
+<li><a href="https://www.mindstudio.ai/blog/is-rag-dead-what-ai-agents-use-instead">Is RAG dead? What AI agents use instead (MindStudio)</a></li>
+<li><a href="https://www.kdnuggets.com/working-with-pi-coding-agents">Working with Pi Coding Agents (KDnuggets)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/27/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 27</span>
+<span class="mt-1 block font-semibold">GPT-6-Astra as a robot brain</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
