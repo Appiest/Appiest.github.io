@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 29: LLM Multi-Agent Systems Are Vulnerable to Herding and Runaway Cascades</title>
+<meta name="description" content="When AI agents can see what earlier agents chose, they pile onto early favorites far more than people do, so a crowd of agents can crown an arbitrary winner and, unlike human crowds, rarely corrects itself.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">LLM Multi-Agent Systems Are Vulnerable to Herding and Runaway Cascades</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">29</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Farnoosh Hashemi, Shiyu Ji, Joice Chen, Michael W. Macy (Cornell University and Stanford University)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.30769" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">When AI agents can see what earlier agents chose, they pile onto early favorites far more than people do, so a crowd of agents can crown an arbitrary winner and, unlike human crowds, rarely corrects itself.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Show AI agents a popularity counter and they stampede toward whatever got lucky early, more than humans do and with much less ability to course-correct, so any system where agents see each other&#39;s choices needs to be designed against herding.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>GPT-3 (Day 11) showed that whatever you put in a model&#39;s prompt steers its answer, which is exactly the channel this paper exploits: the popularity counts are just text in the prompt. InstructGPT and RLHF (Day 16) trained models to be agreeable, which is one suspected root of <strong>sycophancy</strong> (a model&#39;s tendency to go along with what it is shown or told). Chain-of-thought (Day 17) is the ancestor of the &quot;reasoning models&quot; tested here, which think before answering, and ReAct (Day 18) is the ancestor of the agents that now act in sequence inside larger systems. The authors also point to RAG (Day 14) as an example of the same bottleneck their experiment builds in: a model can only judge what got picked for it to look at.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>In 2006, sociologists Matthew Salganik, Peter Dodds and Duncan Watts ran the <strong>Music Lab</strong> experiment, published in <em>Science</em>. About 14,000 people visited a website with 48 songs by unknown bands. Some visitors saw how many times each song had been downloaded; others saw no counts. The twist: the visitors who saw counts were split into eight separate &quot;worlds&quot; that each started from zero. The same song could become a hit in one world and a flop in another, purely because of who happened to download it first. Success was more unequal and much less predictable when people could see each other&#39;s choices. But a later reanalysis found something hopeful: over time, the human crowds partly <strong>self-corrected</strong>, drifting back toward the songs people liked on their own merits. Fast forward to 2026. AI agents increasingly read other agents&#39; outputs: rankings, ratings, votes, reviews. Researchers had shown that a single model bends toward a majority answer you paste into its prompt. What nobody had cleanly tested was the full loop: agents creating the very signal that later agents react to, at the scale of thousands, with a human benchmark to compare against.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-the-setup-music-lab-rebuilt-for-ai-agents">1. The setup: Music Lab, rebuilt for AI agents</h3>
+<p>The authors kept Music Lab&#39;s structure and swapped in AI.</p>
+<p><strong>The songs.</strong> They generated 48 brand new songs with Suno v4.5, an AI music app. New songs matter: if they had used famous songs, the models might already &quot;know&quot; which ones are popular from their training data, which would contaminate the experiment. Agents saw each song as a title plus lyrics (131 to 172 words), with no audio.</p>
+<p><strong>The agents.</strong> Each agent was one call to a language model, given a <strong>persona</strong>: an age, a gender, a country, and a favorite and second favorite music genre (from a list like Jazz, Hip-Hop/Rap, Country, Metal). Personas make the crowd varied, the way a real audience is varied, instead of 1,000 copies of the same listener.</p>
+<p><strong>One agent&#39;s turn, in two stages:</strong></p>
+<ol>
+<li><strong>Select.</strong> The agent sees all 48 titles and must pick exactly 4 to look at more closely. (Four matches how many songs the average Music Lab visitor sampled.)</li>
+<li><strong>Recommend.</strong> It reads the lyrics of those 4 and says yes or no to recommending each one. Every &quot;yes&quot; adds 1 to that song&#39;s count. Then the next agent goes.</li>
+</ol>
+<p><strong>Three conditions:</strong></p>
+<ul>
+<li><strong>Independent:</strong> titles in random order, no counts. This measures each song&#39;s <strong>intrinsic appeal</strong>: how much agents like it with no social pressure.</li>
+<li><strong>Weak influence:</strong> counts shown next to each title, but titles still in random order.</li>
+<li><strong>Strong influence:</strong> counts shown <em>and</em> titles sorted from most to least recommended, with the prompt saying so.</li>
+</ul>
+<p><strong>The parallel worlds.</strong> For each model, there was one independent world of 1,440 agents, eight weak-influence worlds of 720 agents, and eight strong-influence worlds of 720 agents. Each world started at zero and evolved on its own, with no knowledge of the others. That is 12,960 agents per model, and they did it for 13 models, for 168,480 agents in total.</p>
+<p><strong>The models.</strong> Five <strong>reasoning models</strong> (models that write out hidden step-by-step thinking before answering): GPT-5, GPT-5 nano, Gemini 3 Flash, DeepSeek-R1 and Claude Sonnet 4.6. And eight <strong>non-reasoning models</strong> (answer directly): GPT-4o, GPT-4o mini, Gemma 3 in 4B, 12B and 27B sizes, DeepSeek-V3.1, Claude Haiku 4.5 and Qwen3-Next 80B.</p>
+<p><strong>Analogy:</strong> Imagine running the same film festival in 17 identical towns on the same weekend. In one town, the audience gets no buzz at all. In the other 16, each screening&#39;s ticket count is posted on a board outside, and in half of those the board is also the program order. If the same film wins everywhere, quality is driving the result. If every town crowns a different winner, buzz is.</p>
+
+<h3 id="2-three-ways-to-measure-a-stampede">2. Three ways to measure a stampede</h3>
+<p>The paper uses three yardsticks. Each answers a different question.</p>
+<p><strong>Divergence: did the crowd drift away from honest taste?</strong> Each song&#39;s <strong>market share</strong> is its fraction of all recommendations in a world. The independent world gives the &quot;honest taste&quot; shares. <strong>KL divergence</strong> (Kullback-Leibler divergence) is a standard formula for how different two sets of percentages are. Zero means identical; bigger means more different. Here it measures how far each influence world&#39;s shares moved away from the honest-taste shares.</p>
+<p><strong>Unpredictability: would you get the same winners if you reran history?</strong> For each song, compare its market share across every pair of the eight parallel worlds (28 pairs) and average the gaps. Then average over all 48 songs. If every world agrees, unpredictability is near zero. If a song is a hit in World 3 and ignored in World 6, it is high. This is the exact measure Music Lab used, which is what lets the authors compare against humans.</p>
+<p><strong>Self-correction: does the crowd find its way back?</strong> Split each world&#39;s history into a first half and a second half. In each half, check how well the ranking of songs matches the honest-taste ranking, using a <strong>Spearman correlation</strong> (a score from -1 to 1 for how well two rankings line up). If the second half lines up better than the first, the crowd is correcting itself.</p>
+<p><strong>Mental picture:</strong> divergence is how far the herd wandered from the river. Unpredictability is whether different herds wander to different places. Self-correction is whether they start walking back toward the river once they get thirsty.</p>
+
+<h3 id="3-the-core-finding-agents-herd-harder-than-people-and-do-not-walk-back">3. The core finding: agents herd harder than people and do not walk back</h3>
+<p>Put together, the result has three parts.</p>
+<p><strong>Agents herd.</strong> In every one of the 13 models, under both influence conditions, recommendations moved away from honest taste (statistically significant every time). On average, LLM crowds diverged about <strong>9 times as far as humans</strong> under weak influence and <strong>4 times as far</strong> under strong influence.</p>
+<p><strong>Early luck decides the winner.</strong> In the independent condition, unpredictability was close to zero for every model: with no social signal, agents agree on which songs are good. Once counts appeared, parallel worlds split apart. Non-reasoning models were more than twice as unpredictable as humans. The authors also checked directly how much the first 30 agents mattered: the songs those first 30 agents favored predicted later popularity better than intrinsic appeal did, in 12 of 13 models under weak influence and all 13 under strong influence. Among humans, early movers beat intrinsic appeal only under strong influence.</p>
+<p><strong>No walking back.</strong> Human Music Lab crowds self-corrected in 15 of 16 worlds. The match between popularity and honest appeal rose from 0.633 to 0.773 under weak influence and from 0.575 to 0.660 under strong influence. LLM crowds went every which way: some worlds corrected a little, some got worse, and under strong influence the average change was close to zero. The authors call this a <strong>runaway cascade</strong>: a self-reinforcing departure from independent judgment that does not fix itself, at least over 720 agents.</p>
+<p>Why would agents be worse than people here? The paper does not prove a cause, but the data offer clues. DeepSeek-R1, whose reasoning is visible, mentioned song popularity in <em>every</em> reasoning log in both influence conditions. In other words, the agents openly treat the count as evidence. Humans, by contrast, have their own ears and their own moods, which keep pulling them back toward what they actually like.</p>
+
+<h3 id="4-smarter-models-resist-better-but-are-not-immune">4. Smarter models resist better, but are not immune</h3>
+<p>The authors split the results two ways.</p>
+<p><strong>Reasoning vs. non-reasoning.</strong> Non-reasoning models diverged 2.4 times as far as reasoning models under weak influence and 3.2 times as far under strong influence, and were about twice as unpredictable. Under strong influence, four of the five reasoning models diverged less than every non-reasoning model (GPT-5 nano was the exception). GPT-5 came close to the human level. Gemma 3 4B, the smallest model, diverged more than 8 times as far as GPT-5.</p>
+<p><strong>A continuous &quot;intelligence&quot; score.</strong> They used the <strong>Artificial Analysis Intelligence Index</strong>, a public composite benchmark covering coding, agent tasks and science reasoning. Higher-scoring models herded less. The rank correlation between intelligence and divergence was -0.85 under strong influence (a strong link), and about -0.72 to -0.73 for unpredictability in both conditions.</p>
+<p><strong>But.</strong> Even the models that resisted herding best did not reliably self-correct. And the authors add a warning that cuts against the comforting reading: their task was simple and had no talking, no incentives, and no peer pressure. If tasks get harder as models get smarter, and agents start persuading or rewarding each other, susceptibility could go up, not down.</p>
+<p><strong>Analogy:</strong> A seasoned film critic is less swayed by a sold-out sign than a first-time moviegoer. But put the critic in a room where every other critic is raving, and give them a reason to agree, and the sign starts to matter again.</p>
+
+<h3 id="walkthrough-one-strong-influence-world-agent-by-agent">Walkthrough: one strong-influence world, agent by agent</h3>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li><strong>Agent 1</strong> (persona: 34, Brazil, likes Rock then Folk) sees 48 titles, all at 0, in random order (ties are broken randomly). It picks 4, reads the lyrics, recommends 2: say &quot;Velvet Web&quot; and &quot;Compass Ink.&quot; Counts: Velvet Web 1, Compass Ink 1.</li>
+<li><strong>Agent 2</strong> now sees those two titles at the top of the list, with a count of 1. It is told the list is sorted by recommendations. It is more likely to pick them to read, simply because they are first and labeled popular.</li>
+<li><strong>Having picked them,</strong> it reads the lyrics knowing others liked them, which nudges its yes or no. Popularity therefore helps a song twice: once in getting looked at, once in getting a yes.</li>
+<li><strong>By agent 100,</strong> Velvet Web might sit at 41, far ahead, while a song that independent agents liked more never got picked enough to catch up, because nobody chose it to read.</li>
+<li><strong>In a parallel world,</strong> agent 1 happened to recommend &quot;Neon Garden&quot; instead, and that world crowns Neon Garden. Same songs, same model, same rules, different winner.</li>
+<li><strong>The second half</strong> of each world looks a lot like the first. The leader stays the leader. That is the runaway part.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<ul>
+<li><strong>Scale:</strong> 13 models, 168,480 agents, 48 songs, 17 parallel worlds per model, compared against the original human Music Lab data using the same formulas.</li>
+<li><strong>Herding everywhere:</strong> all 13 models drifted from independent taste under both influence types.</li>
+<li><strong>Sorting makes it worse:</strong> putting popular songs at the top (strong influence) raised divergence in 12 of 13 models, by 65% on average (excluding Claude Sonnet 4.6, the one exception), and raised unpredictability in 12 of 13 (Gemini 3 Flash the exception).</li>
+<li><strong>Inequality rose:</strong> the <strong>Gini coefficient</strong> (a 0 to 1 score of how concentrated something is; 1 means one song gets everything) increased in all 13 models under strong influence.</li>
+<li><strong>Not a position quirk:</strong> you might suspect agents just pick whatever is listed first. With random order and no counts, most models picked fairly evenly across positions (Gemma 3 4B and GPT-4o mini showed a slight top bias). Humans actually showed much stronger position bias, which suggests the gap between humans and AI may be even bigger than reported.</li>
+<li><strong>Robust to settings:</strong> lowering the <strong>temperature</strong> (a dial for how random a model&#39;s answers are) from 1.0 to 0.7 did not reduce herding in non-reasoning models. Letting agents read 12 songs instead of 4 reduced herding but kept the same pattern across models.</li>
+</ul>
+<p>Why it is convincing: the parallel-worlds design is clean. Same model, same songs, same personas procedure, only the history differs, so differences between worlds can only come from social feedback. And comparing against the real human data gives a yardstick most AI herding studies lack.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Not a perfectly matched human comparison.</strong> Humans listened to audio and downloaded; agents read lyrics and recommended. Humans chose how many songs to sample; agents had to pick exactly 4. Humans saw a grid; agents saw a list. The authors themselves say the human numbers are a qualitative benchmark, and that a matched human replication is needed.</li>
+<li><strong>Lyrics are not music.</strong> Judging a song from lyrics alone is a much weaker &quot;intrinsic appeal&quot; signal than hearing it. A weaker personal signal makes it easier to lean on the crowd. The authors explain why they chose text (cost across 160,000 agents, and evidence that audio models often ignore audio anyway), but it may inflate herding.</li>
+<li><strong>Same-model crowds.</strong> Every world was one model talking to copies of itself. Real systems mix models and mix humans with AI.</li>
+<li><strong>No talking, no money.</strong> Agents only saw counts. Real multi-agent systems involve messages, persuasion, rewards and penalties, which could make herding stronger.</li>
+<li><strong>Short horizon.</strong> 720 agents per world. The authors say they cannot rule out that LLM crowds would correct over much longer runs.</li>
+<li><strong>A preprint.</strong> It was posted yesterday and is under review, so there has been no outside replication or critique yet.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<p>This is a one-day-old warning paper, not a technique, so &quot;use&quot; here means: where does the loop it describes already exist, and is anyone designing against it?</p>
+
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>AI shopping agents already react strongly to crowd signals.</strong> A 2025 Columbia Business School study, &quot;What Is Your AI Agent Buying?&quot;, built a simulated marketplace and found that a +0.1 star rating raised a product&#39;s selection chance from 10% to between 15% and 20% depending on the model, and an &quot;Overall Pick&quot; badge raised it to as much as 42.6% for Gemini. Telling agents to ignore list position did not meaningfully remove position effects. That is the single-agent half of this paper&#39;s loop. As agentic commerce spreads (Google has published a Universal Commerce Protocol and an Agent Payments Protocol for agents that shop and pay), more of those ratings will be written by agents and then read by other agents, which closes the loop.</li>
+<li><strong>Agent social networks.</strong> Moltbook, launched in January 2026, is a Reddit-style site where only AI agents post and upvote; it had more than 37,000 agents within a week. A study of it (MoltNet) found agents posted more after their most upvoted post and drifted away from their stated personas afterward, and that each community converged on template-like posts. That is the same kind of popularity feedback this paper isolates in the lab.</li>
+<li><strong>Automated evaluation.</strong> Using one model to grade another&#39;s output (&quot;LLM-as-a-judge&quot;) is now standard in AI development and in many products. The paper flags that if judges see earlier scores, the same cascades can form.</li>
+<li><strong>Recommender systems.</strong> Researchers have long documented that recommendation feedback loops homogenize what people consume and amplify popularity. LLM-based recommenders inherit that, and this paper suggests they may amplify it more.</li>
+</ul>
+<p>I did not find any product that cites this specific paper yet; it is too new.</p>
+
+<h3 id="how-it-isn-t-used-or-not-yet">How it ISN&#39;T used (or not yet)</h3>
+<ul>
+<li><strong>No standard fix.</strong> The paper measures the problem but does not test a remedy. The design lessons are implicit in its setup (collect independent judgments before showing counts; do not sort by popularity; let agents look at more options), but these are my reading of the results, not tested interventions.</li>
+<li><strong>&quot;Use a smarter model&quot; is only a partial answer.</strong> The best reasoning models herded less but still did not self-correct, and the authors expect harder tasks with incentives to push susceptibility back up.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Herding theory (economists, 1992) -&gt; Music Lab with humans (2006) -&gt; LLMs conforming to a pasted-in majority (2023 to 2025) -&gt; this paper: AI crowds generating their own cascades (2026) -&gt; agent marketplaces and agent social networks where agents read each other&#39;s ratings (today).</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Arbor.</strong> This is the most directly relevant paper you have read so far for Arbor. An auction or marketplace protocol for agents is precisely a place where agents see signals created by other agents: bids, prior winners, ratings, &quot;most chosen&quot; lists. This paper says those signals can crown arbitrary winners and lock them in. Concrete design questions it raises: Should Arbor show agents other agents&#39; choices at all before they evaluate? Can you use <strong>sealed bids</strong> (each agent commits without seeing others, a classic auction format) or a blind first pass? Should listings be shuffled rather than ranked by popularity, given that sorting made herding worse in 12 of 13 models? And the Columbia shopping study tells you sellers will optimize for whatever signals agents over-weight.</p>
+<p><strong>Your filmmaker side.</strong> The original Music Lab is one of the best pieces of evidence that hits in cultural markets are partly luck: the same song can win or lose depending on early buzz. This paper suggests that as AI agents start curating and recommending films, music and videos, that luck factor could get stronger, not weaker. For a creator, the first 30 viewers (or agents) matter more than ever.</p>
+<p><strong>CoMinds.</strong> If students or their agents can see which teams or projects are &quot;filling up,&quot; you will likely get the same pile-on. Showing popularity after people state their own preferences, not before, is the lesson.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Herding</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Discounting your own judgment to follow what others chose.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Information cascade</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A chain where each person follows the previous ones, so early choices snowball regardless of quality.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Intrinsic appeal</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How much a song is liked when nobody sees anyone else&#39;s choices; here, measured in the independent world.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">KL divergence</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A number for how different two sets of percentages are; zero means identical.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Unpredictability</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How much the same song&#39;s success varies across parallel worlds that started identically.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Self-correction</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A crowd drifting back toward intrinsic appeal over time after an early wrong turn.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the Introduction (page 1 to 2) for the Music Lab background and the seven research questions, then look at Figure 1 on page 4, which shows the whole design in one picture including a single agent&#39;s turn. Then read Section 3.4 and Figure 5 on self-correction, the most striking human vs. AI contrast, and the one-page Discussion (Section 4). Skip the formulas in Section 2.4 and the appendix unless you want to replicate it.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>In a marketplace run by agents, early luck turns into lasting advantage. Is that a bug you should engineer away, or a feature that real markets have always had, and who should decide which one Arbor is?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.30769">LLM Multi-Agent Systems Are Vulnerable to Herding and Runaway Cascades (arXiv)</a></li>
+<li><a href="https://pdodds.w3.uvm.edu/research/papers/years/2006/salganik2006a.pdf">Salganik, Dodds and Watts, Experimental Study of Inequality and Unpredictability in an Artificial Cultural Market (2006, PDF)</a></li>
+<li><a href="https://arxiv.org/pdf/2508.02630v2">What Is Your AI Agent Buying? Evaluation, Implications, and Emerging Questions for Agentic E-Commerce (arXiv)</a></li>
+<li><a href="https://stacker.com/stories/shopping/rise-agent-agent-commerce-when-ai-starts-shopping-ai">The rise of agent-to-agent commerce: When AI starts shopping for AI (Stacker)</a></li>
+<li><a href="https://www.nbcwashington.com/news/tech/moltbook-ai-social-network/4052050/">Moltbook, a social network for AI agents (NBC Washington)</a></li>
+<li><a href="https://www.arxiv.org/pdf/2602.13458">MoltNet: Understanding Social Behavior of AI Agents in the Agent-Native MoltBook (arXiv)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/28/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 28</span>
+<span class="mt-1 block font-semibold">MemoryTax (is agent memory worth it?)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
