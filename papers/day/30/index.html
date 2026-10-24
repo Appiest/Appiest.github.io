@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 30: VISAGENT: An Agent-Based End-to-End Voice Interaction System</title>
+<meta name="description" content="China Unicom replaced the press-1-for-this phone menu on a national hotline with one natural voice that listens while it talks, picks the right specialist AI agent out of hundreds in under a second, and hands that agent what it already knows about you.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">VISAGENT: An Agent-Based End-to-End Voice Interaction System</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">30</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Xiang Wang, Zhaoxiang Liu, Xiang Chen, Liqiang He, Kai Wang, Shiguo Lian (China Unicom)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.26168" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">China Unicom replaced the press-1-for-this phone menu on a national hotline with one natural voice that listens while it talks, picks the right specialist AI agent out of hundreds in under a second, and hands that agent what it already knows about you.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>The future of a phone line is not one giant AI that does everything, but one good listener at the front door that routes you, with your context, to the right specialist agent from an open marketplace, and this paper is a working blueprint of that design.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>Sequence to sequence (Day 5) and the Transformer (Day 9) are the backbone of the speech model that hears and talks. BERT (Day 10) is used almost exactly as published, as the fast first-stage classifier that sorts calls into domains. Whisper (Day 19) is the ancestor of the speech-understanding half. RAG (Day 14) is the pattern behind the memory system: look up only the relevant stored facts and add them to the prompt. ReAct (Day 18) is the ancestor of the specialist agents that call tools to book things. And Day 28 (MemoryTax) is a useful counterweight: that paper asked whether agent memory pays for itself, and this one ships memory without measuring it.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>China&#39;s 114 hotline is the national phone directory and information service, roughly the equivalent of 411 in the US. Like most service lines, it ran on <strong>IVR</strong> (interactive voice response: the recorded &quot;press 1 for billing&quot; menu). IVR has three problems. Menus are rigid, so callers must translate what they want into the menu&#39;s categories. Services are siloed, so moving from, say, a train ticket to a hotel means starting over. And adding a new service means redesigning the menu tree. Meanwhile, two separate waves of progress had arrived. Voice AI got good enough to hold a natural conversation, and companies started building lots of narrow text-based <strong>agents</strong> (AI programs that can take actions, like booking a courier, by calling software tools). What was missing was the plumbing that connects one natural voice to hundreds of independently built agents, quickly and with context, at the scale of a national phone line.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-one-voice-that-listens-while-it-talks-full-duplex-speech">1. One voice that listens while it talks (full-duplex speech)</h3>
+<p><strong>What it is.</strong> Most voice assistants are <strong>half-duplex</strong>, like a walkie-talkie: you speak, it waits until you stop, then it speaks, and while it speaks it is deaf. VISAGENT is <strong>full-duplex</strong>, like a normal phone call: it keeps listening while it is talking, so you can interrupt (&quot;no, the 5 pm train&quot;) and it adjusts mid-sentence.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Your voice comes in over the ordinary phone line.</li>
+<li><strong>Echo cancellation</strong> strips out the system&#39;s own voice from what the microphone picks up, so it does not hear itself and think you are talking.</li>
+<li><strong>Voice activity detection (VAD)</strong> decides, moment to moment, whether a human is speaking. When you start talking over the system, VAD notices and the system can stop or change course.</li>
+<li>An <strong>end-to-end speech-to-speech model</strong> does the actual conversation. &quot;End-to-end&quot; means one model goes from your audio to its audio, instead of a chain of three separate programs (speech-to-text, then a language model, then text-to-speech). Inside it are an <strong>audio encoder</strong> (turns sound into a compact numerical summary), an <strong>adapter</strong> (translates that summary into the format the language model understands), a 14-billion-parameter <strong>language model</strong> (the brain), a <strong>streaming audio decoder</strong> (produces speech piece by piece so it can start talking before it has finished thinking), and a <strong>vocoder</strong> (turns the decoder&#39;s output into an actual sound wave).</li>
+<li>A side branch called <strong>CTC</strong> (connectionist temporal classification, a classic technique for turning audio into text without needing word-by-word alignment) also writes out a text transcript. The talking happens in audio, but the text is what the routing system and the specialist agents read.</li>
+</ol>
+<p><strong>How they trained it.</strong> In three phases, like teaching a band one section at a time. First they trained only the adapter, with the ears and brain frozen, so the brain learns to &quot;hear.&quot; Then only the voice decoder, so it learns to &quot;speak.&quot; Then they fine-tuned the adapter, brain and decoder together. The data: about 64,000 hours of public Mandarin speech, 10,000 hours of public English, and 1,000 hours of private Chinese speech.</p>
+<p><strong>One more detail that matters.</strong> Many specialist agents are text-only. The platform gives them a voice: a provider can pick from more than 40 preset voice styles or clone a voice from a short recording.</p>
+<p><strong>Analogy.</strong> A great restaurant host does not stand frozen until you finish a sentence, then recite a script. They nod, catch &quot;actually, make it four people,&quot; and adjust while still talking. That is full-duplex.</p>
+
+<h3 id="2-two-level-routing-a-receptionist-then-a-department-head">2. Two-level routing: a receptionist, then a department head</h3>
+<p><strong>The problem it solves.</strong> Imagine the marketplace has 319 agents: several courier companies, several hotel bookers, legal info, government services and so on. The obvious approach is to give a large language model (LLM) the caller&#39;s request plus descriptions of all 319 agents and ask &quot;which one?&quot; That works, but the prompt gets huge, and huge prompts are slow. On a phone call, a 10-second pause feels broken.</p>
+<p><strong>How it works.</strong></p>
+<ol>
+<li><strong>Level 1, the receptionist.</strong> A small, fast <strong>BERT-based intent classifier</strong> (BERT is the Day 10 model; an <strong>intent classifier</strong> sorts a sentence into one of a fixed set of categories) decides the caller&#39;s domain: is this just chat, or is it travel, shopping, government affairs, law, finance and so on? If it is unclear, the system simply keeps chatting and re-checks after the next thing the caller says. Level 1 deliberately does not collect details like dates or addresses; it only sorts.</li>
+<li><strong>Level 2, the department head.</strong> Now an LLM chooses among only the agents registered in that one domain. Its prompt includes the request, the conversation so far, each candidate agent&#39;s description, and any relevant user memory (idea 4).</li>
+<li>The platform calls the chosen agent&#39;s registered web address and passes along the request and the context. From there, the provider&#39;s own agent does the work.</li>
+</ol>
+<p><strong>Worked example.</strong> A caller says, &quot;I need to send a package to my daughter in Chengdu tomorrow.&quot; Level 1 tags it &quot;logistics&quot; in a fraction of a second. Level 2 now looks at, say, 12 courier agents instead of 319. Memory says this caller usually uses a particular courier, which tips the choice. The courier&#39;s agent gets the request plus the caller&#39;s saved address and starts asking for what is missing.</p>
+<p><strong>Analogy.</strong> A hospital does not have one doctor who reads every specialist&#39;s resume for each patient. Triage sends you to cardiology; cardiology picks the right cardiologist.</p>
+
+<h3 id="3-a-marketplace-where-agents-register-like-apps">3. A marketplace where agents register like apps</h3>
+<p><strong>What it is.</strong> Instead of the phone company building every service itself, any provider (the platform or a third party) can register an agent, similar to publishing an app in an app store.</p>
+<p><strong>What a registration contains.</strong> The provider&#39;s identity, the agent&#39;s domain, a plain-language description, its capabilities, service tags, which regions it covers, the web address the platform should call, and <strong>function specifications</strong> (a precise list of what inputs the agent needs, like pickup address and weight, and what it returns, like a tracking number). The paper&#39;s appendix walks through a courier agent&#39;s registration.</p>
+<p><strong>The gate.</strong> Before an agent can be found by callers, it must pass a security review and operational testing.</p>
+<p><strong>The key move.</strong> Registration turns a text-only task agent into a voice agent without the provider doing any voice work. The platform handles listening, talking, routing and memory. The provider handles business logic and is responsible for actually completing the task.</p>
+<p><strong>Analogy.</strong> It is like a food court with one shared ordering kiosk that speaks every language. Each restaurant just has to post its menu and cook.</p>
+
+<h3 id="4-memory-that-follows-the-caller-but-only-the-relevant-slice">4. Memory that follows the caller, but only the relevant slice</h3>
+<p><strong>Three kinds of memory.</strong></p>
+<ul>
+<li><strong>Explicit preference memory:</strong> things you said outright that apply generally (&quot;I always use SF Express&quot;).</li>
+<li><strong>Behavioral preference memory:</strong> patterns inferred from what you keep doing (you always pick the aisle seat).</li>
+<li><strong>Context memory:</strong> recent, task-specific facts (you have a hotel booking active right now).</li>
+</ul>
+<p><strong>What gets stored.</strong> Not the full call recording or transcript. After each interaction the system writes a compact <strong>execution summary</strong>: domain, agent used, task, services, constraints, and outcome. Think of it as a receipt, not a tape.</p>
+<p><strong>How it is retrieved.</strong> Preferences are looked up with <strong>structured retrieval</strong> (exact lookups, like a database query for &quot;this caller&#39;s courier preference&quot;). Recent context is looked up with <strong>semantic retrieval</strong> (finding records that are similar in meaning to what you are asking now, the RAG idea from Day 14). Only records relevant to the current domain are passed on, so the hotel agent does not see your legal question from last week.</p>
+<p><strong>Two places it is used.</strong> The Level 2 selector uses it to choose between agents, but memory &quot;does not override explicit requirements&quot;: if you say &quot;use a different courier this time,&quot; that wins. Then the chosen agent uses it to do the task without asking you to repeat yourself. The memory service itself just stores and hands over records; it does not interpret them.</p>
+<p><strong>Analogy.</strong> A good concierge keeps a short card on each regular guest, not a recording of every conversation. When you call about dinner, they glance at the restaurant notes, not your laundry history.</p>
+
+<h3 id="walkthrough-one-call-start-to-finish">Walkthrough: one call, start to finish</h3>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li>You dial 114 and say, in plain Mandarin, &quot;Can you book me a hotel near the Shanghai train station for Friday?&quot;</li>
+<li>Echo cancellation and VAD are already running. The speech model hears you and produces both a spoken reply and a text transcript.</li>
+<li>Level 1 BERT tags the request &quot;travel/hotel.&quot;</li>
+<li>Memory returns two things relevant to hotels: you prefer non-smoking rooms (explicit) and you usually book with one particular platform (behavioral).</li>
+<li>Level 2 compares the hotel agents in the travel domain and, nudged by memory, picks the platform you usually use.</li>
+<li>The hotel agent receives your request plus &quot;non-smoking.&quot; It asks the system to say, in its assigned voice, &quot;One night or two?&quot;</li>
+<li>Halfway through the question you cut in: &quot;Two nights.&quot; Full-duplex handling catches it; the agent updates.</li>
+<li>Booking done. The system writes a compact summary: domain hotel, agent X, Shanghai, two nights, success. Next time you call about a taxi to that hotel, context memory has it.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Conversation quality.</strong> On URO-Bench, a set of 16 public Chinese spoken-conversation tests, the 14B VISAGENT speech model averaged 71.5 on the basic tests and 66.5 on the harder &quot;pro&quot; tests. That beat Step-Audio-mini (70.9 and 58.6), Qwen3-Omni with 30B parameters (65.5 and 60.1), and MiMo-Audio (53.3 and 51.1). The basic-test lead is tiny; the pro-test lead (about 6 points) is the meaningful one, and it beat a model twice its size.</p>
+<p><strong>Speed.</strong> In about 40 live test rounds, VISAGENT averaged 1.05 seconds from when you stop talking to when it answers, and 800 milliseconds of that is a deliberate wait to be sure you finished. Three big Chinese commercial assistants (iFlytek Spark, Baidu&#39;s ERNIE and ByteDance&#39;s Doubao) took 2.2 to 2.5 seconds. Caveat from the authors: they could not control the commercial systems&#39; hardware. On theoretical model latency, VISAGENT (300 ms) is actually slower than research systems like Moshi (200 ms) and LLaMA-Omni (226 ms).</p>
+<p><strong>Voice quality.</strong> On a standard Chinese text-to-speech test, it placed second on both accuracy (character error rate 1.36%, where fish-speech scored 1.34%) and naturalness (3.491 out of 5, where CosyVoice 2 scored 3.500). In short: about as good as the best open systems, not better.</p>
+<p><strong>Routing, the most interesting result.</strong> They tested 100 caller requests against marketplaces of 50, 100 and 319 agents across 15 domains, using three different LLMs as the selector (DeepSeek V3, Qwen3 and Kimi K2). With single-level routing (the LLM sees every agent), accuracy stayed high (98 to 99% at 319 agents) but time ballooned to 8 to 10 seconds. With two-level routing, every selector hit 100% and stayed under 1 second at every size. That is the paper&#39;s clearest evidence: splitting the decision into &quot;which department&quot; then &quot;which agent&quot; keeps a growing marketplace fast.</p>
+<p><strong>Deployment.</strong> The system is live on China&#39;s 114 hotline across several service domains.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Thin evaluation for a system this big.</strong> Routing was tested on just 100 requests and at most 319 agents. 100% on 100 questions does not tell you how it fails on the 10,000th odd request.</li>
+<li><strong>No deployment numbers.</strong> The paper does not report call volume, which domains are live in production, task completion rates, or caller satisfaction. The 15-domain marketplace in the routing test is a test setup, not a description of what is running.</li>
+<li><strong>Memory was not evaluated at all.</strong> The authors say they do not yet have enough interaction data, and that memory&#39;s effect is tangled up with how each downstream agent uses it. So the most novel-sounding piece is untested.</li>
+<li><strong>Routing is not finishing.</strong> Picking the right agent does not mean the task gets done; that depends on each provider.</li>
+<li><strong>Unfair speed comparisons.</strong> The commercial systems ran on unknown hardware, and the comparison set is small (about 40 rounds).</li>
+<li><strong>Chinese only.</strong> All speech benchmarks are Chinese.</li>
+<li><strong>What the paper does not discuss:</strong> who gets ranked first when several agents could serve a request, whether providers can pay for placement, and how a caller can see or delete what memory holds about them. Those are design questions any real marketplace faces.</li>
+<li><strong>A preprint</strong>, five days old, with no outside replication or critique yet.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The architecture itself is in production.</strong> By the authors&#39; account, VISAGENT runs on China&#39;s 114 hotline. That is the most direct use.</li>
+<li><strong>Phone voice agents replacing IVR are a mainstream industry.</strong> Platforms like Retell AI, PolyAI, Bland AI, Sierra, Replicant and Synthflow sell AI phone agents for contact centers, many advertising sub-second response times. Most of them still chain speech-to-text, an LLM and text-to-speech rather than using one end-to-end model. Huawei announced next-generation voice virtual agents for its AI contact center at MWC in March 2026, aimed at carriers, finance and government, claiming a 20% improvement in self-service resolution.</li>
+<li><strong>Full-duplex speech-to-speech went mainstream this fall.</strong> OpenAI&#39;s GPT-Live-1, opened to developers on September 10, 2026, listens and speaks at the same time in one model, and can hand harder reasoning and tool calls off to a separate text model while the conversation continues. That is the same split as VISAGENT: a voice front end, with the real work delegated behind it. Named users include Yelp (reservation and food-order calls) and Speak (language tutoring). Its predecessor line, GPT-Realtime-2 (May 2026), is used by Zillow among others.</li>
+<li><strong>Agent registration and discovery are being standardized.</strong> The A2A (agent-to-agent) protocol, now at version 1.0, has agents publish an <strong>Agent Card</strong>: a document listing name, provider, skills, endpoints and security requirements. That is very close to VISAGENT&#39;s registration record, which suggests the industry is converging on the &quot;agents register like apps&quot; idea.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used-or-not-yet">How it ISN&#39;T used (or not yet)</h3>
+<ul>
+<li><strong>The cascade is not dead.</strong> Many production voice agents still use the older three-step pipeline because it is easier to debug, swap parts in, and audit, even though end-to-end models are smoother. VISAGENT itself keeps a text transcript for exactly that reason.</li>
+<li><strong>Flat routing does not scale.</strong> The paper&#39;s own numbers show &quot;put every agent in one prompt&quot; falls apart on speed past about 100 agents. Hierarchical routing, or search over agent descriptions, is what replaces it.</li>
+<li><strong>No public open marketplace of voice agents</strong> at this scale that I could verify outside this paper. Most commercial voice platforms let one company build its own agents rather than letting third parties plug in. I could not find independent reporting on VISAGENT&#39;s deployment, so its scale is unconfirmed.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Touch-tone IVR menus (1970s onward) -&gt; speech recognition plus scripted dialogs -&gt; LLM voice agents built as a speech-to-text, LLM, text-to-speech chain (2023 to 2025) -&gt; full-duplex speech-to-speech models (Moshi 2024, GPT-Live-1 2026) -&gt; VISAGENT: one voice front end routing to a registered marketplace of agents with shared memory (today).</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Arbor.</strong> VISAGENT is effectively a non-auction version of Arbor: a request comes in, and the platform picks one agent from a registry, using context about the user. Two concrete takeaways. First, the two-level design is a practical answer to &quot;how do I choose among thousands of agents fast&quot;: narrow the field cheaply, then decide carefully among a few. Arbor&#39;s auction could run only in the second stage, among the shortlisted agents. Second, the paper never says how ties are broken or whether providers compete on price, quality or placement. That gap is exactly where Arbor&#39;s context-aware auction would plug in, and it is worth thinking about how memory (&quot;this user prefers X&quot;) should interact with bids without letting a sponsor override what the user asked for. Note the paper&#39;s rule that memory &quot;does not override explicit requirements&quot;; you will want an equivalent rule for bids.</p>
+<p><strong>Unstall.</strong> A real estate agent&#39;s day is the same shape as a hotline call: one voice front door, many specialized jobs behind it (scheduling showings, drafting offers, pulling comps, following up with leads). VISAGENT&#39;s lesson is to keep the voice layer separate from the task agents, so you can add a new skill by registering it rather than retraining the voice. Its 1-second response time, including an 800 ms &quot;are you done?&quot; wait, is a good concrete target for how Unstall should feel.</p>
+<p><strong>Amelia and relationship memory.</strong> Their choice to store a compact summary per interaction instead of full transcripts, and to pass on only the slice relevant to the current task, is a privacy-friendly pattern worth borrowing for permissioned memory. But they did not test it, so you would be building on a sensible design, not a proven one.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Full-duplex</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A voice system that listens and speaks at the same time, so you can interrupt it.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">End-to-end speech-to-speech model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>One model that goes from your audio to its spoken reply, instead of chaining separate transcription, reasoning and speech programs.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">IVR (interactive voice response)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The classic &quot;press 1 for billing&quot; phone menu.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Intent classifier</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A small, fast model that sorts a request into one of a fixed set of categories.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Hierarchical routing</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Choosing in stages (domain first, then specific agent) so each decision looks at a small list.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Agent registration</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The record a provider submits so the platform can find, describe and call its agent; similar to an A2A Agent Card.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the Introduction for the motivation, then look at the system overview figure in Section 3 to see how the speech model, router, marketplace and memory connect. Then read the routing subsection and the routing results table in the experiments section; that is the paper&#39;s strongest, cleanest evidence. Skim the user memory subsection for the three memory types. Skip the speech benchmark tables and training details unless you are building a speech model yourself.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>When one company controls the front door that decides which agent you are routed to, it controls which businesses get your request. Should that choice be made by memory of what you liked before, by an auction among providers, or by something you can see and override, and how would you prove to a caller which one is happening?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.26168">VISAGENT: An Agent-Based End-to-End Voice Interaction System (arXiv)</a></li>
+<li><a href="https://arxiv.org/html/2610.26168">VISAGENT full text (arXiv HTML)</a></li>
+<li><a href="https://openai.com/es-419/index/introducing-gpt-live-1-in-the-api/">Introducing GPT-Live-1 in the API (OpenAI)</a></li>
+<li><a href="https://www.dsebastien.net/2026-05-07-gpt-realtime-2-openais-voice-model-gets-gpt-5-class-reasoning/">GPT-Realtime-2: OpenAI&#39;s voice model gets GPT-5-class reasoning (dsebastien.net)</a></li>
+<li><a href="https://www.vellum.ai/blog/ai-voice-agent-platforms-guide">Top 10 AI Voice Agent Platforms Guide 2026 (Vellum)</a></li>
+<li><a href="https://www.huawei.com/en/news/2026/3/mwc-voice-interaction-aicc">Huawei launches next-generation voice virtual agents for its AI contact center (Huawei)</a></li>
+<li><a href="https://api7.ai/blog/a2a-protocol-gateway-layer">A2A Protocol 1.0 at the Gateway: Identity, Tenant Routing, and Signed Agent Cards (API7)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/29/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 29</span>
+<span class="mt-1 block font-semibold">Herding in AI agent crowds</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
