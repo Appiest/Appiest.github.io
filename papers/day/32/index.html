@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 32: FilmFlow: Agentic System for 3D Virtual Film Cinematography</title>
+<meta name="description" content="FilmFlow turns a one-line shot description like &quot;orbit the dancer while rising, then push in&quot; (or a clip from a real film) into an exact camera move inside a 3D scene, using four AI agents that plan the move from 22 named camera operations, render it, critique the footage, and revise, and viewers ranked its shots best about 6 times out of 10.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">FilmFlow: Agentic System for 3D Virtual Film Cinematography</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">32</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Yiming Zhang, Jiarui Guo, Haojia Wei, Yifei Liu, Yifan Yang, Hongjie Zhang, Xue Yang, Zhihang Zhong (Shanghai Jiao Tong University, Shanghai AI Laboratory, Cornell, UCLA)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.30753" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">FilmFlow turns a one-line shot description like &quot;orbit the dancer while rising, then push in&quot; (or a clip from a real film) into an exact camera move inside a 3D scene, using four AI agents that plan the move from 22 named camera operations, render it, critique the footage, and revise, and viewers ranked its shots best about 6 times out of 10.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Instead of asking an AI to &quot;imagine&quot; a camera move in pixels, FilmFlow has a team of AI agents write the move as a precise, timed recipe of real camera operations, execute it in an actual 3D scene, watch the result, and fix it, and that &quot;plan, render, review, refine&quot; loop beats every earlier method on both automatic scores and human preference.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>The Transformer (Day 9) and GPT-3 (Day 11) supply the language model at the center of every agent; GPT-3&#39;s <strong>in-context learning</strong> (learning from examples pasted into the prompt) is exactly how FilmFlow reuses past good shots. Chain-of-thought (Day 17) and ReAct (Day 18) are the ancestors of agents that reason, act, look at the result, and try again. CLIP (Day 15) began the line of models that can judge whether an image matches a sentence, which is what the Critic agent does. NeRF (Day 13) and Gaussian splatting (Day 20) are how real places become 3D scenes a virtual camera can fly through. Among recent frontier days, it is a cousin of Day 26 (3DCodeVerse, describing 3D worlds as code) and Day 31 (AW-0, where writing a plan as structured code before acting made a robot much better).</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>A director&#39;s intent is usually written in words (&quot;slow push-in as she turns&quot;) or shown with a reference clip (&quot;do what Deakins did here&quot;). Turning that into an actual camera path means making dozens of hidden decisions: where exactly the camera starts, how fast it moves, when the push-in begins relative to the orbit, how to keep a moving actor in frame. Earlier research handled pieces of this. Some systems (GenDoP, LAMP) generate a camera path from text but do not follow subjects who move. CinemaTraj plans in static scenes and strings moves together one after another, so it cannot orbit and rise at the same time. Multi-agent film systems like FilmAgent (2025) picked from a small menu of preset shots tied to fixed camera positions. And none of them looked at the rendered footage and asked, &quot;Is this actually a good shot?&quot; Geometrically valid is not the same as well composed.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-a-camera-move-is-a-recipe-of-overlapping-atomic-operations">1. A camera move is a recipe of overlapping atomic operations</h3>
+<p><strong>What it is.</strong> FilmFlow describes every shot using a vocabulary of <strong>22 atomic operations</strong>, the smallest named camera actions, grouped the way a camera department would group them:</p>
+<ul>
+<li><strong>Position (10):</strong> dolly in, dolly out, truck, pedestal up, pedestal down, orbit, path follow, position follow, height follow, distance follow.</li>
+<li><strong>Orientation (6):</strong> pan, tilt, aim follow, screen position lock, roll, horizon lock.</li>
+<li><strong>Framing (2):</strong> zoom, frame subject.</li>
+<li><strong>Focus (2):</strong> focus pull, focus follow.</li>
+<li><strong>Perturbation (1):</strong> shake or handheld.</li>
+<li><strong>Hold (1):</strong> static shot.</li>
+</ul>
+<p>Each operation in a plan has three parts: which move it is, its settings (for example, how many degrees to orbit), and a <strong>time window</strong>, a start and end point within the shot.</p>
+<p><strong>How it works.</strong> The key is that time windows can <strong>overlap</strong>. A plan might say: orbit from 0 to 6 seconds, pedestal up from 1 to 5 seconds, dolly in from 4 to 8 seconds. A piece of software called the <strong>executor</strong> turns each operation into a frame-by-frame list of camera changes and then adds them together on every frame. So on frame 120 the camera is moving around the subject, rising, and starting to approach, all at once.</p>
+<p><strong>Analogy.</strong> It is a mixing board. Each operation is a fader with its own start and end, and the final shot is all the faders playing together. The older systems were more like a playlist, one track ending before the next starts.</p>
+<p><strong>Why it matters.</strong> When the authors forced the system to use operations one at a time (&quot;sequential-only&quot;), quality dropped (overall video quality 45.1 versus 47.6, and the camera-motion match score 0.775 versus 0.829). Real cinematography is layered, and the system has to be able to say so.</p>
+
+<h3 id="2-four-agents-each-with-one-job">2. Four agents, each with one job</h3>
+<p><strong>What it is.</strong> An <strong>agent</strong> here is a large language model (an AI that reads and writes text, and in this case also looks at images) given a specific role, instructions, and tools. FilmFlow uses four:</p>
+<ol>
+<li><strong>Interpreter.</strong> Reads your instruction (or watches your reference clip) and the 3D scene, and writes two things: a description of what is in the scene (&quot;a dancer center stage, a piano to the left&quot;) and a <strong>cinematographic script</strong>, a short summary of intent, duration, and which subjects matter. For a reference clip, it also uses a tool called LingBot-Map to estimate how the original camera moved, treated as a hint rather than ground truth.</li>
+<li><strong>Scout.</strong> Finds the opening frame. It renders up to six candidate starting views, scores them, and accepts one if it scores at least 0.70 out of 1. If none passes, it tries one more round, then keeps the best it found.</li>
+<li><strong>Director.</strong> Writes the plan: the list of timed atomic operations from idea 1. It keeps the opening view and lens fixed and only adjusts motion.</li>
+<li><strong>Critic.</strong> Watches the rendered result. It first runs <strong>hard checks</strong> (did the camera pass through a wall, did the plan execute without errors), then scores the footage on six criteria: instruction alignment, subject readability, composition, spatial storytelling, motion coherence, and cinematic quality. If the average is below 0.62, it writes notes back to the Director.</li>
+</ol>
+<p>All four agents in the paper run on the same model, gpt-6-astra, at a medium reasoning setting.</p>
+<p><strong>Analogy.</strong> A real crew: the script supervisor (Interpreter) translates the director&#39;s note into specifics, the DP and operator scout the opening frame (Scout), the camera operator plans the move (Director), and the director watches playback at video village and says &quot;again, slower on the push-in&quot; (Critic).</p>
+
+<h3 id="3-plan-render-review-refine">3. Plan, render, review, refine</h3>
+<p><strong>What it is.</strong> The project page sums up the method as &quot;Plan. Render. Review. Refine.&quot; The system does not trust its first draft.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>The Director writes a plan.</li>
+<li>The executor turns it into per-frame camera <strong>keyframes</strong> (exact camera position, angle and lens on each frame) and the shot is rendered in Blender.</li>
+<li>The Critic watches it and either accepts or writes specific feedback, for example &quot;the subject drifts out of the left third during the orbit&quot; or &quot;the push-in starts too early.&quot;</li>
+<li>The Director revises operation types, settings, or timings. It gets up to three Critic-guided revisions, plus up to two quick repairs if the plan fails a technical check.</li>
+</ol>
+<p><strong>Why it matters.</strong> This is the most important design choice in the paper. Removing the Critic hurt the most in the reference-video task: overall quality fell from 41.8 to 37.2 and the motion quality score fell by about a third (0.289 to 0.191). Removing the Scout also hurt across the board, which shows that where a shot starts matters as much as how it moves.</p>
+<p><strong>Mental picture.</strong> Think of it as an AI that does takes. Most generative AI systems are &quot;one take and print.&quot; FilmFlow shoots, watches playback, gives itself notes, and reshoots.</p>
+
+<h3 id="4-a-library-of-good-shots-to-borrow-from">4. A library of good shots to borrow from</h3>
+<p><strong>What it is.</strong> FilmFlow keeps a bank of past plans that worked, built only from 50 &quot;development&quot; scenes that are never used for testing.</p>
+<p><strong>How it works.</strong> A plan enters the bank only if it passed the technical checks and the Critic accepted it. Each stored plan is tagged with up to three keywords (say, &quot;orbit,&quot; &quot;rise,&quot; &quot;reveal&quot;). For a new instruction, the system finds the stored plan with the most overlapping keywords (a simple measure called <strong>Jaccard similarity</strong>: shared keywords divided by total distinct keywords) and pastes it into the Director&#39;s prompt as an example. This is in-context learning: no retraining, just &quot;here is one that worked, do something like this.&quot;</p>
+<p><strong>Analogy.</strong> A cinematographer&#39;s lookbook. You do not reinvent the crane reveal every time; you pull up the one you did last year and adapt it to this location.</p>
+<p><strong>Result.</strong> Taking the examples away dropped the camera-motion match score in the text task from 0.829 to 0.724, the largest single drop on that measure. (In the reference-video task, the version without examples actually scored slightly higher on that one measure, 0.766 versus 0.750; the authors note it and do not over-read it.)</p>
+
+<h3 id="walkthrough-one-shot-from-a-sentence">Walkthrough: one shot from a sentence</h3>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>This is an illustrative example built from the paper&#39;s described process; the scene, plan and scores are made up to show how the pieces fit together.</p>
+<ol>
+<li><strong>You type:</strong> &quot;Circle the dancer while slowly rising, then push in on her face as she stops.&quot;</li>
+<li><strong>Interpreter:</strong> finds the dancer in the Blender scene, notes she moves center to right, sets a duration of about 8 seconds, and marks her as the subject.</li>
+<li><strong>Scout:</strong> renders six opening views; picks a low three-quarter angle with her readable and the piano as background depth.</li>
+<li><strong>Library:</strong> finds a stored &quot;orbit plus rise plus push-in&quot; plan from a different scene and hands it over as an example.</li>
+<li><strong>Director:</strong> writes something like: orbit 120 degrees around the dancer from 0 to 6 seconds; pedestal up 0.8 meters from 0.5 to 5.5 seconds; aim follow on the dancer the whole time; dolly in from 5 to 8 seconds; focus follow on her face.</li>
+<li><strong>Executor and Blender:</strong> turn that into frame-by-frame camera keyframes and render the shot.</li>
+<li><strong>Critic:</strong> no collisions. Scores 0.55: &quot;the push-in begins before she stops moving, so she is cut off at frame right.&quot; Below 0.62, so it sends the note back.</li>
+<li><strong>Director:</strong> shifts the dolly-in to start at 6 seconds and adds screen position lock to keep her on the right third. Re-render.</li>
+<li><strong>Critic:</strong> 0.71. Accepted. You get both the video and the editable camera keyframes.</li>
+</ol>
+<p>On average, a task like this took about 2.2 minutes and about 6 model calls (roughly 70,000 tokens of text read and written), counting failed attempts.</p>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>The benchmark.</strong> The authors built <strong>CinemaBench</strong>: 150 Blender scenes (73 with moving subjects, 77 static), with five shot instructions each (easy, medium and hard), for 750 text tasks, plus 60 reference clips (about 10 seconds each, from licensed film excerpts and self-recorded footage) for the copy-a-real-shot task. 50 scenes were used only to build the example library; all results come from the other 100 (500 text tasks, 40 reference-video tasks).</p>
+<p><strong>How it was scored.</strong> By outside judges that share nothing with FilmFlow: VideoReward (does the video match the instruction, and is the motion good), DOVER (overall video quality, 0 to 100), and a probe trained on CameraBench, a dataset for recognizing camera moves, which estimates how likely the motion matches the instruction. (The alignment numbers are negative for everyone because of how VideoReward is scaled; only &quot;higher is better&quot; matters.)</p>
+<p><strong>Text instructions (500 tasks).</strong></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Align</th>
+<th>Quality</th>
+<th>Motion</th>
+<th>Camera match</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LAMP</td>
+<td>-1.747</td>
+<td>41.5</td>
+<td>0.209</td>
+<td>0.564</td>
+</tr>
+<tr>
+<td>GenDoP</td>
+<td>-1.768</td>
+<td>39.6</td>
+<td>0.257</td>
+<td>0.597</td>
+</tr>
+<tr>
+<td>CinemaTraj</td>
+<td>-1.788</td>
+<td>44.7</td>
+<td>-0.068</td>
+<td>0.618</td>
+</tr>
+<tr>
+<td>FilmFlow</td>
+<td>-1.461</td>
+<td>47.6</td>
+<td>0.555</td>
+<td>0.829</td>
+</tr>
+</tbody></table>
+<p><strong>Reference clips (40 tasks).</strong> FilmFlow also won every measure against three ways of copying a camera path from video, for example a camera-match score of 0.750 against 0.533 for the next best.</p>
+<p><strong>People.</strong> 42 people watched shots in a blind, randomized test and ranked them.</p>
+<ul>
+<li>For text instructions, FilmFlow&#39;s shots were judged acceptable 84 percent of the time (next best: 64 percent) and ranked first 61 percent of the time (next best: 21 percent).</li>
+<li>For reference clips, acceptable 82 percent of the time, ranked first 63 percent of the time (next best: 17 percent).</li>
+<li>On 5-point scales, FilmFlow averaged about 4.2 to 4.4; the best baseline averaged 3.5 to 3.7.</li>
+</ul>
+<p><strong>Why it is convincing.</strong> The automatic judges and the humans agree, the gaps with people are large (61 versus 21 percent first place), and the ablations point to specific parts (the Critic, the Scout, layered operations, the example library) rather than &quot;a bigger model did it.&quot;</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>One continuous shot only.</strong> No coverage, no editing, no shot-reverse-shot. It is a camera operator, not a director or editor.</li>
+<li><strong>The 3D scene must already exist.</strong> It works inside finished Blender scenes. Building the set is out of scope (the authors list it as future work).</li>
+<li><strong>Accepted does not mean perfect.</strong> In the paper&#39;s own case study, the Critic accepted a shot while still noting a small overlap and some drift. AI judging AI can wave things through.</li>
+<li><strong>AI wrote most of the test.</strong> 700 of the 750 text instructions were generated by the same model family that runs FilmFlow, then checked automatically. Only 50 were written by people. That risks a test that suits the system&#39;s own phrasing.</li>
+<li><strong>One expensive model.</strong> Every agent runs on a frontier model. Whether a smaller, cheaper model could do it is untested.</li>
+<li><strong>The comparison is not quite apples to apples.</strong> Several baselines are single-pass trajectory generators with no feedback loop, so part of the win is &quot;you got to retry&quot; rather than &quot;you plan better.&quot; The ablations help, but the gap would likely narrow against other agentic systems.</li>
+<li><strong>Code and benchmark are not out yet.</strong> The project page lists both as &quot;coming soon.&quot;</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Camera control is a headline feature in commercial AI video tools, but in pixels, not 3D.</strong> A 2026 survey of the field describes Kling&#39;s &quot;six-axis camera control,&quot; motion transfer from a reference video, and presets such as orbit, crane and push-in; Veo 3.1&#39;s first-and-last-frame interpolation as &quot;the trick for a controlled camera move&quot;; and Runway Aleph changing a finished clip&#39;s framing after the fact. Its advice: &quot;Explicit camera controls beat prompt text.&quot; FilmFlow is the 3D, fully explicit version of that idea.</li>
+<li><strong>Multi-agent &quot;AI film crew&quot; systems are an active research line.</strong> FilmAgent (2025) used director, screenwriter, actor and cinematographer agents in Unity, but chose shots from nine presets at fixed positions, with two cinematographer agents debating. FilmFlow is a direct descendant that replaces presets with continuous, composable moves and adds visual review.</li>
+<li><strong>Agents that orchestrate a whole creative brief exist commercially.</strong> Luma Agents, launched March 5, 2026 with ad agencies Publicis Groupe and Serviceplan, coordinates text, image, video and audio generation from a brief. Reviewers call its orchestration opaque, which is the opposite of FilmFlow&#39;s inspectable plan.</li>
+<li><strong>Real places can already become scenes for a virtual camera.</strong> Luma&#39;s capture app turns iPhone video into NeRF or Gaussian-splat scenes, exports to standard 3D formats, and has an Unreal Engine plugin. It offers one-touch &quot;Flythroughs,&quot; automatic camera paths through a capture. That is the gap FilmFlow could fill: directed, not generic, moves through a captured space.</li>
+<li><strong>FilmFlow itself</strong> is a research system. Code and CinemaBench are announced but not yet released.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used-or-not-yet">How it ISN&#39;T used (or not yet)</h3>
+<ul>
+<li><strong>&quot;Type a camera move in the prompt and hope&quot;</strong> is fading as the main control method in video tools, replaced by explicit controls. FilmFlow pushes further, toward a written, editable plan.</li>
+<li><strong>Fixed preset shots</strong> (FilmAgent&#39;s approach) look too rigid next to composable operations.</li>
+<li><strong>OpenAI&#39;s Sora</strong>, once the face of AI video, shut down as a consumer product in 2026 (app closed April 26, API September 24), per the same survey, which says it continues only as internal world-model research. Generating a whole film straight from text has proven harder to productize than controllable, tool-based workflows.</li>
+<li><strong>No production studio is publicly known to use FilmFlow-style planning</strong> for real previs yet. I could not find one, so treat it as research.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Preset shot menus (FilmAgent, 2025) + text-to-trajectory generators (GenDoP, CinemaTraj) + agents that reason, act and check (ReAct) -&gt; FilmFlow (agents that compose timed, overlapping camera operations and critique renders) -&gt; what you will likely see next: virtual production and AI video tools where a director types or shows a move and gets back editable camera keyframes, not just a finished clip.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Your filmmaking.</strong> This is a previs tool hiding in a research paper. Build a rough scene in Blender (or capture a real location with a phone and bring it in as a Gaussian splat), type the move you want, and get exact keyframes you can hand to a DP or a motion-control rig. Even before the code is out, the 22-operation vocabulary is a useful way to write shot lists that a machine can execute: overlapping operations with time windows are more precise than &quot;slow push-in.&quot;</p>
+<p><strong>Standard Physics.</strong> You already turn a phone scan into a 3D model of a space. FilmFlow&#39;s Scout and Critic are exactly the pieces you would need to automatically produce a walkthrough video of the accessibility findings: choose a readable opening view of the problem doorway, move the camera to show it, and check the frame actually shows what the report says. Its hard checks (no camera through walls) are the same kind of geometry checks you already care about.</p>
+<p><strong>Arbor and CoMinds.</strong> The design lesson is specialized agents with narrow jobs, a shared written plan, and a critic with an explicit score and a pass threshold (0.62 here). For an agent marketplace, that is a template for how a buyer agent could judge a seller agent&#39;s delivered work before paying, with a clear, logged reason when it sends work back.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Agent</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A language model given one role, instructions and tools, that can take actions and see results.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Atomic operation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The smallest named camera action (dolly in, orbit, focus pull), with settings and a start and end time.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Keyframe</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The exact camera position, angle and lens on a given frame; software fills in the motion between them.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Critic loop</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An agent watches the output, scores it against criteria, and sends specific notes back for a revision.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">In-context learning</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Improving a model&#39;s answer by pasting good examples into its prompt, with no retraining.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Previs (previsualization)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A rough animated version of a scene made before shooting to plan shots and timing.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Open the <a href="https://visionary-laboratory.github.io/Filmflow/">project page</a> and watch a few text-to-video and video-to-video demos; seeing the instruction next to the result explains the paper faster than any text. Then read the paper&#39;s method section on the Director&#39;s atomic operations and how overlapping operations are combined, plus the Critic description. Finish with the user study table. Skip the detailed metric definitions and appendix prompts unless you plan to build on it.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>FilmFlow&#39;s Critic decides what counts as &quot;cinematic quality&quot; using a general AI model&#39;s taste. If tools like this become how most camera moves are planned, whose taste gets baked in, and how would you, as a filmmaker, teach the Critic your own style instead?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.30753">FilmFlow: Agentic System for 3D Virtual Film Cinematography (arXiv)</a></li>
+<li><a href="https://visionary-laboratory.github.io/Filmflow/">FilmFlow (project page)</a></li>
+<li><a href="https://aiweekly.co/alerts/sjtu-shanghai-ai-lab-open-filmflow-for-3d-camera-shots">SJTU, Shanghai AI Lab Open FilmFlow for 3D Camera Shots (AI Weekly)</a></li>
+<li><a href="https://huggingface.co/papers/date/2026-10-23">Hugging Face Daily Papers, October 23, 2026</a></li>
+<li><a href="https://arxiv.org/html/2501.12909v1">FilmAgent: A Multi-Agent Framework for End-to-End Film Automation in Virtual 3D Spaces (arXiv)</a></li>
+<li><a href="https://ocdevel.com/mlg/mla-26">AI Video Generation in 2026: Veo and Gemini Omni, Kling, Runway, MiniMax H3, and the End of Sora (OCDevel)</a></li>
+<li><a href="https://www.fast.io/resources/luma-ai-review-2026.md">Luma AI Review 2026: Dream Machine, 3D Capture, and Agents Tested (Fast.io)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/31/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 31</span>
+<span class="mt-1 block font-semibold">AW-0 (a robot that writes a plan as code, imagines it, then acts)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
