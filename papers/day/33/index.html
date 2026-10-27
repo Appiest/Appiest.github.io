@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 33: StreamVibe: Proactive Video Agents for Evolving User Intent</title>
+<meta name="description" content="StreamVibe teaches a video AI to watch a live stream (your kitchen, your screen) and decide on its own when to help, even when you only said &quot;keep an eye on this&quot; or changed your mind halfway through, by training it on when to stay silent and giving it a notebook that tracks what you currently want.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">StreamVibe: Proactive Video Agents for Evolving User Intent</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">33</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Chengzhi Liu, Yuxiang Lai, Yuzhe Yang, Yanqing Liu, Jiheng Hou, Yue Cao, Haonan Wang, Ruixi Fan, Lan Wang, Sheng Liu, Songyou Peng, Yale Song, Kevin Qinghong Lin, Xin Eric Wang, Jui-Hsin Lai, Youbao Tang (Google, UC Santa Barbara, Emory, UC Santa Cruz, Columbia, Stanford, Oxford)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.34662" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">StreamVibe teaches a video AI to watch a live stream (your kitchen, your screen) and decide on its own when to help, even when you only said &quot;keep an eye on this&quot; or changed your mind halfway through, by training it on when to stay silent and giving it a notebook that tracks what you currently want.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>An always-on AI assistant is only useful if it speaks at the right moment about what you want right now, so this paper builds a test for that, trains a small open video model to be good at it (mostly by learning when to stay quiet), and adds a structured &quot;intent notebook&quot; around the model that cuts its unnecessary interruptions dramatically.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>The Transformer (Day 9) and GPT-3 (Day 11) are the foundation of the language model inside. CLIP (Day 15) began the line of models that connect images and words, which grew into today&#39;s vision-language models. InstructGPT (Day 16) introduced training a model with rewards for good behavior; StreamVibe uses a newer reward method in the same family. ReAct (Day 18) is the ancestor of &quot;observe, think, act, repeat&quot; agents. Whisper (Day 19) is the speech side of the same always-on assistant dream. Among frontier days, it connects to Day 23 (Cortex) and Day 28 (MemoryTax) on agent memory, and Day 30 (VISAGENT) on live voice agents.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Most AI assistants are <strong>reactive</strong>: you ask, they answer. Researchers have spent two years building <strong>streaming video models</strong>, which watch a live feed instead of a finished clip, and some can already speak up on their own. But they were almost all tested on <strong>explicit</strong> requests like &quot;tell me when the water boils,&quot; where the trigger is spelled out. Real help is messier. You say &quot;help me not mess this up,&quot; which never names a trigger. You change your mind (&quot;actually, use less sugar&quot;). And something the assistant said five minutes ago might now be wrong because you already did it. Existing models kept long histories but did not keep an up-to-date picture of what you still want, so they repeated themselves, answered stale requests, or missed the moment. Consumer products show the same problem: Engadget&#39;s review of Halliday&#39;s &quot;proactive AI&quot; glasses said it was &quot;just a constantly-running chatbot which treats everything as a prompt,&quot; even trying to respond to &quot;ums.&quot;</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-a-test-for-when-should-i-speak-and-about-what">1. A test for &quot;when should I speak, and about what?&quot;</h3>
+<p><strong>What it is.</strong> <strong>StreamVibe-Bench</strong>, a benchmark (a standard test set) with 4,100 test videos totaling 183 hours, averaging about 8 minutes each, plus a separate 85,000-example training set.</p>
+<p><strong>How it works.</strong> Each video is a real task, either <strong>physical</strong> (cooking, assembling a shelf, making coffee, filmed first-person) or <strong>digital</strong> (screen recordings of someone using GIMP, Filmora, or a shopping app). Each comes with a user request and a set of <strong>help points</strong>: moments where a good assistant should say something, each with a time window and a reference answer. There are 20,546 help points in all. The requests come in three levels of difficulty:</p>
+<ul>
+<li><strong>Level 1, Explicit (600 videos).</strong> &quot;Let me know when the water starts boiling.&quot; The trigger is named.</li>
+<li><strong>Level 2, Implicit (2,000 videos).</strong> &quot;Help me keep an eye on this dish.&quot; The assistant must figure out what counts as worth saying, across four types: guidance, teaching, monitoring, and helping with a software tool.</li>
+<li><strong>Level 3, Dynamic (1,500 videos).</strong> The request changes mid-task in one of three ways: <strong>revision</strong> (change a goal: &quot;actually, make it spicier&quot;), <strong>composition</strong> (add a goal while keeping the old one: &quot;also tell me when it&#39;s time to flip&quot;), or <strong>interruption</strong> (a quick side question while the main task continues).</li>
+</ul>
+<p>Gemini drafted the help points, then four human reviewers checked every video, and a video stayed only if all four approved.</p>
+<p><strong>Two ways of grading.</strong> This is subtle and important.</p>
+<ul>
+<li><strong>Pointwise:</strong> the model is dropped at a single moment, given a perfect history, and asked &quot;speak or stay silent, and if you speak, what?&quot; It tests one decision in isolation.</li>
+<li><strong>Trajectory:</strong> the model runs through the whole video on its own, living with its own earlier mistakes. This is what a real product experiences.</li>
+</ul>
+<p>Scores track <strong>timing</strong> (precision: of the times it spoke, how many were right; recall: of the moments it should have spoken, how many it caught; and <strong>false positive rate</strong>, how often it spoke when it should not have) and <strong>content</strong> (Claude Sonnet 4.6 graded each answer from 0 to 4).</p>
+<p><strong>Analogy.</strong> It is like testing a stage manager. Pointwise asks, &quot;Here is the script and this exact moment; do you call the cue?&quot; Trajectory asks them to run the whole show live, where one missed cue throws off everything after it.</p>
+
+<h3 id="2-training-a-model-to-know-when-to-keep-quiet">2. Training a model to know when to keep quiet</h3>
+<p><strong>What it is.</strong> <strong>StreamVibe-VL</strong>, a small open <strong>vision-language model</strong> (an AI that takes in images or video plus text and writes text). It watches video at one frame per second, and at every step it outputs a decision: wait, or speak, followed by what to say.</p>
+<p><strong>How it works, in two stages.</strong></p>
+<ol>
+<li><p><strong>Supervised fine-tuning (SFT).</strong> Fine-tuning means taking an existing trained model and training it further on examples of the behavior you want. Here: 70,000 task examples plus 768,000 general streaming-video examples. The catch is that &quot;wait&quot; is the right answer almost all the time, so a naive model learns to never speak, or (if overcorrected) to speak constantly. The authors use <strong>adaptive weighting</strong>: the training automatically rebalances how much each &quot;wait&quot; or &quot;speak&quot; decision counts, based on how common each is in the current batch of training data, so neither habit dominates.</p>
+</li>
+<li><p><strong>Reinforcement learning (RL) on short clips around help points.</strong> RL means the model tries things and gets a score (a <strong>reward</strong>) instead of being shown the right answer. Grading a whole 8-minute run with one score makes it hard to tell which decision earned it (researchers call this the <strong>credit assignment</strong> problem). So they cut short windows around each help point and score those. The reward multiplies a timing score (did you speak inside the window?) by a content score (was it right?), subtracts for missed help points and extra chatter, and adds a smaller score for whether the run as a whole was coherent and not repetitive. The specific algorithm, <strong>GRPO</strong>, has the model try several versions of the same moment and rewards the ones that beat the group&#39;s average.</p>
+</li>
+</ol>
+<p><strong>Analogy.</strong> SFT is a new assistant shadowing a great one and copying them. RL is that assistant running small practice scenes and getting notes: &quot;right moment, wrong words,&quot; &quot;too early,&quot; &quot;you already said that.&quot;</p>
+<p><strong>What it does in practice.</strong> SFT made the model notice more opportunities (higher recall) but also interrupt more. RL made it pickier: in full runs on implicit tasks, its false positive rate dropped to about 1.5 percent, while open models built for single questions were firing falsely 15 to 26 percent of the time.</p>
+
+<h3 id="3-the-harness-an-intent-notebook-around-the-model">3. The Harness: an intent notebook around the model</h3>
+<p><strong>What it is.</strong> <strong>StreamVibe-Harness</strong>, software wrapped around the model (an <strong>agent harness</strong> is the code that manages an AI&#39;s memory, tools, and context). The key choice: the model still makes every speak-or-wait decision, but the harness keeps the facts straight.</p>
+<p><strong>How it works.</strong> The harness keeps three things:</p>
+<ul>
+<li><strong>The intent list.</strong> Each request you have made is its own record with a status: waiting for evidence, evidence found, answered, or cancelled. A one-time question closes once answered. A standing request (&quot;tell me whenever the pan smokes&quot;) stays open after each alert. Saying &quot;never mind that&quot; retires it. Crucially, an AI suggestion is never treated as proof that you actually did the step.</li>
+<li><strong>Task progress.</strong> What has actually been observed happening, up to the last 8 completed steps.</li>
+<li><strong>What it already said.</strong> So it does not repeat itself.</li>
+</ul>
+<p>It also keeps a <strong>hierarchical memory</strong>, meaning memory at several levels of detail:</p>
+<ul>
+<li><strong>Recent:</strong> the raw last ~32 seconds of video.</li>
+<li><strong>Mid-term:</strong> short written summaries of each 32-second chunk (produced by a second, smaller off-the-shelf model, Qwen3-VL-4B), noting object states, on-screen text, and what changed.</li>
+<li><strong>Long-term:</strong> older summaries merged into compact blocks; the oldest drop off first.</li>
+</ul>
+<p>Before each decision, the harness looks up the few most relevant memories (up to 3 facts and 3 &quot;what changed&quot; events), ranked by simple keyword overlap with your current request and by recency. No fancy search model. It packs those, plus your active intents, into a short text block it hands the model along with the latest frames.</p>
+<p><strong>Analogy.</strong> A producer&#39;s call sheet next to the director. The director (the model) still decides when to yell &quot;cut,&quot; but the call sheet says which scenes are still owed, which notes were already given, and what the studio changed this morning.</p>
+
+<h3 id="walkthrough-browning-butter">Walkthrough: browning butter</h3>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>This is an illustrative example built from the paper&#39;s described process, loosely based on one of its case studies; the dialogue is made up.</p>
+<ol>
+<li><strong>You say:</strong> &quot;Help me brown this butter without burning it.&quot; (Implicit: no trigger named.)</li>
+<li><strong>Harness:</strong> registers intent A, &quot;prevent scorching,&quot; status: waiting for evidence.</li>
+<li><strong>0:00 to 1:30:</strong> butter melts. The model sees nothing worth saying and keeps choosing &quot;wait.&quot; Each 32 seconds, the small model writes a summary: &quot;butter fully melted, foaming, pale yellow.&quot;</li>
+<li><strong>1:50:</strong> foam subsides, specks turn tan. The model speaks: &quot;It&#39;s starting to brown. Keep swirling, you&#39;re close.&quot; Harness logs it.</li>
+<li><strong>2:05:</strong> you say, &quot;Actually, I want it a bit darker for the cookies.&quot; Harness revises intent A from &quot;golden&quot; to &quot;darker, nutty,&quot; instead of piling on a second, contradictory goal.</li>
+<li><strong>2:25:</strong> specks are deep brown. The model, seeing the revised intent, speaks: &quot;That&#39;s the darker color you wanted. Pull it off the heat now.&quot; Harness marks intent A complete.</li>
+<li><strong>2:40:</strong> no more talking, even though butter is still on screen, because the harness shows nothing is still owed.</li>
+</ol>
+<p>A model without the harness is the one that says &quot;it&#39;s browning!&quot; again at 2:30, or stops at &quot;golden&quot; because it forgot your revision.</p>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Single decisions with a perfect history (pointwise).</strong> On implicit requests, StreamVibe-VL&#39;s content score (61.3) beat Gemini 3.1 Pro (52.3) and GPT-Realtime-2.1 (39.3), and trailed only Gemini 3.8 Flash (66.9), which is also the model that drafted the benchmark&#39;s answers. It beat every open model of similar size. Its answer-quality score on implicit tasks (85.1) was higher than every baseline, including Gemini 3.8 Flash (82.6).</p>
+<p><strong>Whole runs on its own (trajectory).</strong> This is the sobering part. Every model&#39;s scores collapse when it has to live with its own history. On implicit tasks, content scores were:</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Content F1 (implicit, full run)</th>
+<th>False positive rate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Qwen3-VL-8B (open, not built for streaming)</td>
+<td>2.9</td>
+<td>26.5%</td>
+</tr>
+<tr>
+<td>JoyAI-VL-Interaction (open)</td>
+<td>3.7</td>
+<td>18.9%</td>
+</tr>
+<tr>
+<td>MMDuet2 (best open streaming model)</td>
+<td>16.5</td>
+<td>4.1%</td>
+</tr>
+<tr>
+<td>StreamVibe-VL, SFT only</td>
+<td>13.9</td>
+<td>3.8%</td>
+</tr>
+<tr>
+<td>StreamVibe-VL, SFT + RL</td>
+<td>19.1</td>
+<td>1.5%</td>
+</tr>
+</tbody></table>
+<p>StreamVibe won in all three intent types in full runs, but the absolute numbers are low for everyone. The big proprietary models were only tested pointwise, not in full runs.</p>
+<p><strong>What breaks.</strong> Implicit and dynamic requests are much harder than explicit ones. Models that catch more help points also fire more falsely. And timing gets steadily worse the longer a video runs; for revisions specifically, recall drops late in the video, meaning models forget that you changed your mind.</p>
+<p><strong>The harness matters most for interruptions.</strong> On an outside timing benchmark, adding the harness to the RL model raised timing F1 from 39.9 to 59.4 and cut false positives from 44.9 percent to 6.8 percent. The abstract summarizes the harness&#39;s overall gain on proactive interaction as 12.3 percent, and the model&#39;s gain over baselines as 10.7 percent. The gains were biggest on dynamic intents, which is what you would expect from a notebook that tracks changes.</p>
+<p><strong>It did not get dumber.</strong> The trained model scored higher than its starting model on four standard video-understanding tests, so learning to wait did not cost general skill.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>The absolute numbers are low.</strong> Even the best full-run content scores are under 20 out of 100. This is a clearly better research system, not a solved product.</li>
+<li><strong>No sound.</strong> The model watches frames at one per second and reads your requests as text. It never hears tone, a sizzle, or a sigh. The paper does not discuss speech or response latency at all.</li>
+<li><strong>Gemini graded its own homework, partly.</strong> Gemini 3.8 Flash drafted the help points and reference answers, and it is also the top scorer in single-decision tests. Four-way human review helps, but the bias risk is real, and most authors are at Google.</li>
+<li><strong>The appendix tables are confusing.</strong> In version 1, the detailed with-and-without-harness table on the main benchmark has rows that do not line up cleanly with the main results table. The headline harness gains are easier to trust on the outside benchmark.</li>
+<li><strong>The harness is hand-built.</strong> Memory search is keyword overlap, with ten fixed &quot;skills&quot; (monitor hazards, next-step guidance, and so on). It works, but it is engineering, not learned behavior.</li>
+<li><strong>Single user, single task.</strong> No multiple people, no conversations between people, no switching between unrelated tasks.</li>
+<li><strong>No code or model release</strong> is mentioned. The project page is listed as stream-vibe.github.io.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Live camera assistants are shipping, but reactive.</strong> Google&#39;s Gemini Live lets you point your phone camera or share your screen and talk about what it sees; it grew out of the Project Astra research prototype, which promised &quot;proactive responses.&quot; As of mid-2026, a review of Gemini on glasses described its features as user-triggered, with continuous background vision still a future item. StreamVibe is Google-adjacent research on exactly that missing step.</li>
+<li><strong>Meta&#39;s Live AI</strong> on Ray-Ban Meta glasses (rolled out from December 2024) allows a continuous conversation with live video, without repeating &quot;Hey Meta,&quot; but you still drive it.</li>
+<li><strong>Proactive glasses from smaller companies</strong> try to speak first. Even Realities&#39; glasses advertise &quot;proactive AI prompts from dialogue analysis&quot; once you start their Conversate mode. Halliday shipped &quot;proactive AI&quot; and Engadget found it responded to everything, including filler words. That is precisely the false-positive problem this paper measures and attacks.</li>
+<li><strong>The research line is crowded.</strong> The paper compares against seven earlier proactive benchmarks and five open streaming models (including VideoLLM-Online from 2024 and MMDuet2), and cites agent memory systems such as Mem0. StreamVibe is the first to combine implicit and changing intents with full-run testing.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used-or-not-yet">How it ISN&#39;T used (or not yet)</h3>
+<ul>
+<li><strong>&quot;Treat everything as a prompt&quot;</strong> (an AI that answers every utterance) is what early proactive products did, and it is failing in reviews. The replacement direction is a separate &quot;should I speak?&quot; decision trained with penalties for chatter.</li>
+<li><strong>Just keeping a longer history</strong> is not enough. The paper shows models with long context still answer stale or superseded requests. The direction is structured state (intent lists with statuses) on top of raw memory.</li>
+<li><strong>StreamVibe itself</strong> is not in any product I could find. Treat it as research.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Reactive chatbots (GPT-3, InstructGPT) -&gt; streaming video models that speak on explicit triggers (VideoLLM-Online, 2024) -&gt; StreamVibe (implicit and changing intents, trained silence, an intent notebook) -&gt; what you will likely see next: glasses and phone assistants that stay quiet by default and interrupt only when they are confident it matters to what you want right now.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Amelia.</strong> This is the clearest blueprint yet for Amelia&#39;s hardest product question: when does a live memory assistant whisper something, and when does it shut up? Three directly usable ideas: give each request its own lifecycle record (open, matched, delivered, retired), never count the assistant&#39;s own suggestion as proof something happened, and log what was already said so it never repeats. Their three-level memory (raw recent, 32-second summaries, merged long-term blocks) is a reasonable starting design for per-person conversation memory, and the per-intent records map naturally onto per-person records. Also note the gap: they ignore audio entirely, which is where Amelia lives.</p>
+<p><strong>Unstall.</strong> A chief of staff for real estate agents gets mostly implicit and dynamic requests: &quot;keep me on track with the Hendersons,&quot; then &quot;actually push their showing to Thursday.&quot; The paper&#39;s revision, composition, and interruption categories are a ready-made test plan: write 20 realistic agent days with mid-day changes and score whether Unstall follows the latest instruction without dropping old ones. And measure false positives, not just helpfulness; that is what makes users turn an assistant off.</p>
+<p><strong>AR/XR.</strong> If you build anything for glasses, this paper&#39;s result is the key design constraint: unnecessary interruptions are the product killer, and a trained &quot;wait&quot; decision plus explicit state cut them sharply.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Proactive assistant</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An AI that decides on its own when to say something, instead of only answering when asked.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Implicit intent</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A goal the user states loosely (&quot;help me not mess this up&quot;) without naming when the AI should speak.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">False positive rate</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How often the AI speaks when it should have stayed silent.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Pointwise versus trajectory evaluation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Grading one decision with a perfect history, versus grading a full run where the model lives with its own earlier choices.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Agent harness</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The software around an AI model that manages its memory, state, and context.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">GRPO</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A reinforcement learning method where the model tries several answers to the same situation and is rewarded for those that beat the group average.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read Section 3.2 (the three intent levels, one page with examples) and Section 4.1 plus Appendix C.2 (how the harness tracks each intent&#39;s lifecycle); together they are the design you would copy. Then look at Figure 7 and the case studies in Appendix D.2 (browning butter, assembling a shelf, editing in Filmora) to see the failure modes in pictures. Skip the reward equations and the long per-tolerance results tables.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>The paper treats every unnecessary interruption as a failure. But a human chief of staff sometimes speaks up about something you never asked for (&quot;you have not eaten since breakfast&quot;). How would you decide, and measure, when an unrequested interruption is welcome, and should the user be able to set that threshold per person or per situation?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.34662">StreamVibe: Proactive Video Agents for Evolving User Intent (arXiv)</a></li>
+<li><a href="https://huggingface.co/papers/2610.34662">StreamVibe on Hugging Face Papers</a></li>
+<li><a href="https://huggingface.co/papers">Hugging Face Daily Papers</a></li>
+<li><a href="https://www.androidcentral.com/apps-software/ai/project-astra">What is Project Astra? Gemini Live, Android XR, and everything else you need to know (Android Central)</a></li>
+<li><a href="https://transferllm.com/blog/gemini-glasses-ai-google-gemini-in-smart-glasses-project-astra-and-wearable-ai-in-2026/">Gemini Glasses AI: Google Gemini in Smart Glasses, Project Astra, and Wearable AI in 2026 (TransferLLM)</a></li>
+<li><a href="https://silicon.co.uk/cloud/ai/meta-ray-ban-ai-593050">Meta Adds &#39;Live AI&#39; To Ray-Ban Smart Glasses (Silicon UK)</a></li>
+<li><a href="https://www.evenrealities.com/ai-glasses">AI Glasses with ChatGPT and Auto Real-time Prompts (Even Realities)</a></li>
+<li><a href="https://www.engadget.com/wearables/halliday-glasses-review-ambitious-smart-glasses-with-frustrating-flaws-130000207.html">Halliday Glasses review: Ambitious smart glasses with frustrating flaws (Engadget)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/32/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 32</span>
+<span class="mt-1 block font-semibold">FilmFlow (an AI camera crew that plans, shoots, reviews and reshoots)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
