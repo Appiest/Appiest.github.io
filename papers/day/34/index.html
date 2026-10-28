@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 34: DynaFlow: Learning Free-Form Multi-Agent Orchestration</title>
+<meta name="description" content="DynaFlow trains a single &quot;manager&quot; AI to write a small program, fresh for each problem, that assigns work to a team of helper AIs and passes their results between them, and, just as important, to recognize when a problem is easy enough to answer alone.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">DynaFlow: Learning Free-Form Multi-Agent Orchestration</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">34</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Ruhao Liu, Qi Li, Shizun Wang, Xinchao Wang (xML Lab, National University of Singapore)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.34467" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">DynaFlow trains a single &quot;manager&quot; AI to write a small program, fresh for each problem, that assigns work to a team of helper AIs and passes their results between them, and, just as important, to recognize when a problem is easy enough to answer alone.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Instead of giving a team of AI agents a fixed org chart, DynaFlow teaches the &quot;boss&quot; agent to write a custom team plan as code for each problem, read what the team sends back, and revise, and the trained boss ends up both more accurate and better at deciding when no team is needed at all.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>The Transformer (Day 9) and GPT-3 (Day 11) are the foundation of every model involved. InstructGPT (Day 16) introduced training a model on examples of good behavior, which is exactly how DynaFlow trains its manager. Chain-of-Thought (Day 17) is the &quot;think before you act&quot; step the manager does before writing its plan. ReAct (Day 18) is the direct ancestor: an agent that alternates thinking, acting, and observing results. Among frontier days, it connects to Day 29 (herding in AI agent crowds, which showed how agents copying each other goes wrong), Day 30 (VISAGENT&#39;s marketplace of voice agents), Day 31 (AW-0, which also writes its plan as code), and Day 32 (FilmFlow&#39;s AI crew with planner and reviewer roles).</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>A <strong>multi-agent system</strong> is a setup where several AI agents, often copies of the same model given different instructions, work together on one task: one researches, one checks, one writes. These systems can beat a single agent, but almost all of them use a <strong>predefined collaboration structure</strong>: a human designer decides in advance who talks to whom, in what order (for example, &quot;solver, then critic, then reviser&quot;). Some research systems search automatically for a good structure, but they usually find one structure per <em>type</em> of task and reuse it. Real problems vary. An easy question gets the full five-agent pipeline anyway and wastes money; a weird question gets a structure that does not fit. And when people tried simply giving a model the freedom to build its own team on the fly, it often did worse than just answering by itself. The missing piece was a manager that had actually <em>learned</em> how to orchestrate.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-the-team-plan-is-a-small-program-written-fresh-for-each-problem">1. The team plan is a small program, written fresh for each problem</h3>
+<p><strong>What it is.</strong> DynaFlow has one <strong>main agent</strong> (the manager) and a pool of <strong>sub-agents</strong> (helpers). The manager has three kinds of moves it can make at each turn:</p>
+<ul>
+<li>call an ordinary <strong>tool</strong> (like a web search),</li>
+<li>give a <strong>final answer</strong>,</li>
+<li>or launch a <strong>workflow</strong>: write a short program in JavaScript that describes a team and run it.</li>
+</ul>
+<p>A <strong>workflow</strong> here means a plan for a team: which helper roles exist (&quot;independent solver,&quot; &quot;verifier,&quot; &quot;fact finder&quot;), what each one is told, what order they run in, and which helper&#39;s output gets fed to which other helper.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>The manager reads the problem and thinks about it.</li>
+<li>It writes the workflow program. Helpers that do not depend on each other run <strong>in parallel</strong> (at the same time); helpers that need someone else&#39;s result wait and receive it.</li>
+<li>A runtime executes the program under a <strong>budget</strong>, a cap on how much work the team can do.</li>
+<li>The manager gets back an <strong>execution trace</strong>: the program&#39;s output plus a record of every helper call, whether it succeeded, and what it said.</li>
+<li>The manager looks at that and decides: answer now, call a tool, or write a <em>follow-up</em> workflow to fix gaps.</li>
+</ol>
+<p>One rule matters a lot: once a workflow starts, the manager&#39;s job is coordinating, checking, and organizing. The real problem-solving belongs to the helpers.</p>
+<p><strong>Why code instead of a fixed diagram?</strong> Code is &quot;free-form&quot;: it can express any shape of team, including loops (&quot;keep verifying until two solvers agree&quot;), branches, and parallel fan-outs. A fixed menu of structures cannot.</p>
+<p><strong>Analogy.</strong> A film producer who, for every new project, writes a fresh call sheet: who is on set, which department waits on which, which footage goes to which editor. A music video gets a crew of three; a feature gets a full unit. Then the producer reads the dailies and schedules reshoots where needed.</p>
+
+<h3 id="2-train-only-the-manager-by-copying-good-managers-and-then-only-the-best-of-them">2. Train only the manager, by copying good managers and then only the best of them</h3>
+<p><strong>What it is.</strong> The helpers are <strong>frozen</strong>, meaning they are never changed. Only the manager is trained. This cleanly separates two skills: being good at the work (the helpers) and being good at organizing work (the manager). Any gain therefore comes from better orchestration, not from smarter helpers.</p>
+<p><strong>How it works, in two stages.</strong> Both stages use <strong>supervised fine-tuning (SFT)</strong>: taking an already trained model and training it further on examples of the behavior you want, so it learns to imitate them.</p>
+<ol>
+<li><p><strong>Stage 1: distillation.</strong> <strong>Distillation</strong> means using a bigger, stronger &quot;teacher&quot; model to produce examples that a smaller &quot;student&quot; learns from. A strong teacher (reported as GLM 5.3 Max) solved many problems by writing workflows. The authors kept only runs that got the right final answer <em>and</em> properly delegated work, about 2,031 examples. The student manager (Qwen3.5-27B, a 27-billion-parameter open model) trained on these.</p>
+</li>
+<li><p><strong>Stage 2: keep only clean teamwork.</strong> Getting the right answer does not mean the teamwork was good; sometimes the teacher got lucky. So an AI judge filtered the Stage 1 examples for three kinds of bad management, leaving about 712:</p>
+<ul>
+<li><strong>Premise injection:</strong> the manager tells helpers something unverified as if it were a fact (&quot;the answer is probably 42, confirm it&quot;).</li>
+<li><strong>Verification defects:</strong> the manager steers the checker toward an expected answer instead of letting it check independently.</li>
+<li><strong>Information-flow defects:</strong> context gets lost between steps, a helper cites the wrong upstream result, or the manager hardcodes a guess instead of using what a helper actually produced.</li>
+</ul>
+<p>Training then continued from Stage 1 on this smaller, cleaner set with a gentler learning rate.</p>
+</li>
+</ol>
+<p><strong>Analogy.</strong> Training an assistant director. First, they shadow a veteran AD on 2,000 shoots that came in on time. Then you pull out the 700 shoots where the veteran also ran the set <em>well</em>: no leading the script supervisor, no notes lost between departments, and the trainee studies just those.</p>
+<p><strong>A worked picture of a bad versus good handoff.</strong> Bad: &quot;Solver A, find the answer. Checker, confirm that the answer is 17.&quot; The checker is biased before it starts, and if A said 19, the manager ignored it. Good: &quot;Solvers A and B, each solve independently. Checker, here are both full solutions; find any error and say which, if either, is right.&quot; The second version is what Stage 2 rewards.</p>
+
+<h3 id="3-learning-whether-to-delegate-not-just-how">3. Learning <em>whether</em> to delegate, not just how</h3>
+<p><strong>What it is.</strong> DynaFlow runs in three modes:</p>
+<ul>
+<li><strong>Direct:</strong> the manager answers alone, no tools.</li>
+<li><strong>Forced:</strong> the manager must use a workflow every time.</li>
+<li><strong>Dynamic:</strong> the manager decides for itself.</li>
+</ul>
+<p><strong>Why it matters.</strong> The surprising baseline finding: an <em>untrained</em> model given the choice (dynamic mode) did <em>worse</em> (about 65 percent) than the same model just answering directly (about 72 percent). Handing a model a team does not mean it knows when to use one; it over-delegates or delegates badly. After training, dynamic mode answered about 47 percent of questions directly, with no team at all, and still scored within 0.14 points of forced mode, while using roughly 41 percent fewer helper calls.</p>
+<p><strong>Analogy.</strong> A good manager does not call a meeting for every email. Knowing which tasks to just handle yourself is half the job.</p>
+
+<h3 id="walkthrough-one-hard-science-question">Walkthrough: one hard science question</h3>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>This is an illustrative example built from the paper&#39;s described process; the specific question and dialogue are made up.</p>
+<ol>
+<li><strong>Question:</strong> a tricky multiple-choice chemistry question.</li>
+<li><strong>Manager thinks:</strong> &quot;This has a subtle trap. I want independent attempts and an unbiased check.&quot;</li>
+<li><strong>Manager writes a workflow:</strong> three solver helpers run in parallel, each told to solve from scratch and show work. A fourth helper, the verifier, waits for all three and receives their full reasoning, not just their letters.</li>
+<li><strong>Runtime executes it.</strong> Two solvers say B, one says D.</li>
+<li><strong>Trace comes back:</strong> the verifier says solver 3&#39;s reasoning in step 2 used the wrong formula; B is correct.</li>
+<li><strong>Manager decides:</strong> the disagreement was explained by a specific error, so it answers B. If the verifier had been unsure, the manager could have written a second, smaller workflow aimed at that one step.</li>
+</ol>
+<p>For an easy question (&quot;what is 15 percent of 80?&quot;), the trained manager in dynamic mode just answers 12. No team.</p>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>The tests.</strong> Six benchmarks, about 688 questions: three years of the AIME high school math competition (30 problems each), PolyMATH (multilingual math), GPQA-Diamond (graduate-level science questions written to be hard to look up), and HotpotQA (questions that require combining facts from multiple web pages).</p>
+<p><strong>Headline numbers</strong> (all with the same Qwen3.5-27B model as the base):</p>
+<table>
+<thead>
+<tr>
+<th>Setup</th>
+<th>Overall accuracy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Base model, answering directly</td>
+<td>about 71.5%</td>
+</tr>
+<tr>
+<td>Base model, given the dynamic choice</td>
+<td>about 65.1%</td>
+</tr>
+<tr>
+<td>Base model, forced to use workflows</td>
+<td>75.87%</td>
+</tr>
+<tr>
+<td>Strongest outside baseline method</td>
+<td>about 77.2%</td>
+</tr>
+<tr>
+<td>DynaFlow, dynamic mode</td>
+<td>87.94%</td>
+</tr>
+<tr>
+<td>DynaFlow, forced mode</td>
+<td>88.08%</td>
+</tr>
+</tbody></table>
+<p>So training the manager added about 12 points over the untrained manager in forced mode, and DynaFlow beat the best competing method by 10.9 points. It got all 90 AIME problems right in forced mode. On HotpotQA it beat a search-enabled base model by 6 to 7 points (84.5 versus 77.5 percent in dynamic mode).</p>
+<p><strong>Where it lost.</strong> On GPQA-Diamond (84.85 percent), it improved on its own base model but trailed two older methods: <strong>Self-Refine</strong> (one model critiques and rewrites its own answer) and <strong>AFlow</strong> (automatic search for a fixed workflow). The authors trace remaining science failures to verification and final-answer selection.</p>
+<p><strong>Better teamwork, measured.</strong> The authors analyzed the generated programs and found that after each training stage, more of them explicitly passed upstream results to later steps, verified them, and refined them. Their main conclusion is that <strong>cross-stage information flow</strong> (making sure what one helper learned actually reaches the next) is a key, underrated part of orchestration.</p>
+<p><strong>Why it is convincing.</strong> Same model, same helpers, same tools; the only thing that changed was the manager&#39;s training. That isolates orchestration skill well.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Narrow tasks.</strong> Math, science questions, and multi-hop lookup all have one checkable right answer. Open-ended work (writing, design, negotiation, long software projects) is untested.</li>
+<li><strong>Small test sets.</strong> A perfect score on 90 AIME problems is impressive but small; it does not guarantee new problems.</li>
+<li><strong>Cost is not fully measured.</strong> &quot;41 percent fewer helpers&quot; is not &quot;41 percent cheaper.&quot; Fewer calls can come with longer reasoning per call, and speed depends on how much runs in parallel. Real token costs and latency were not the focus.</li>
+<li><strong>The Stage 2 filter is not isolated.</strong> The news analysis notes there was no control comparing the filtered 712 examples against 712 random ones, so we do not know how much the filter itself helped versus simply training longer.</li>
+<li><strong>Running AI-written code has risks.</strong> Executing generated programs needs a sandbox; correct-looking code can still have side effects.</li>
+<li><strong>Trained weights not confirmed public.</strong> The code repository (MIT license) runs the three modes against any compatible model API, but plugging in a different model will not reproduce the paper&#39;s numbers, and the repo&#39;s &quot;success&quot; check only means answers came back in the right format, not that they were correct.</li>
+<li><strong>All helpers are the same model.</strong> It does not test mixing specialists from different providers, which is what a real marketplace would look like.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Orchestrator-worker is the dominant production pattern.</strong> Anthropic&#39;s Research feature uses a lead agent that plans, spawns parallel subagents to search, and synthesizes their findings. Anthropic reported that this beat a single agent by 90.2 percent on its internal research evaluation, but used about 15 times the tokens of a normal chat, and warned it is a poor fit when agents must share all context or have many dependencies. DynaFlow is essentially a way to <em>train</em> that lead agent rather than prompt it.</li>
+<li><strong>Coding agents use narrow versions.</strong> Cognition (makers of Devin) wrote in April 2026 that what works is &quot;map-reduce-and-manage&quot;: a manager Devin splitting work among child Devins, a separate reviewer agent with a clean context, and a cheap model escalating hard problems to a smarter one, while keeping a single agent responsible for actually writing changes. That matches DynaFlow&#39;s rule that the manager coordinates and verifies.</li>
+<li><strong>Frameworks let developers hand-build the structure.</strong> OpenAI&#39;s Agents SDK (handoffs between agents), LangGraph (agents as nodes in a graph), CrewAI (role-based crews), Microsoft&#39;s AutoGen/AG2 (group chats), Google&#39;s ADK (agent trees), and Anthropic&#39;s Claude Agent SDK (agents calling other agents as tools) are the common tools. In all of them, a human mostly designs the team in advance, which is the &quot;predefined structure&quot; DynaFlow argues against.</li>
+<li><strong>Learned orchestrators are a live research race.</strong> Sakana AI&#39;s Conductor (April 2026, ICLR 2026) is a small 7B model trained with reinforcement learning to route work across frontier models like GPT-5, Gemini, and Claude, writing natural-language workflows; it also learned to use one model call for easy questions. DynaFlow&#39;s twist is writing the workflow as executable code and training with filtered imitation instead.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used-or-not-yet">How it ISN&#39;T used (or not yet)</h3>
+<ul>
+<li><strong>Fixed, hand-designed pipelines for every query</strong> are what DynaFlow and Conductor both show to be wasteful: easy questions do not need a team.</li>
+<li><strong>Unstructured swarms</strong> of agents all editing the same thing in parallel have largely not worked in production; Cognition calls them &quot;mostly a distraction.&quot; Day 29&#39;s herding paper showed one reason why.</li>
+<li><strong>DynaFlow itself</strong> is not in any product I could find. It is a week-old research result with 7 stars on GitHub as of this writing.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>ReAct (one agent: think, act, observe) -&gt; hand-designed multi-agent pipelines and frameworks (AutoGen, CrewAI, LangGraph) -&gt; automatic workflow search (AFlow) -&gt; learned orchestrators that write a custom team per problem and skip it when unneeded (Conductor, DynaFlow) -&gt; what you will likely see next: assistants that quietly decide, on every request, whether to spin up helpers at all.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Arbor.</strong> This is the clearest research signal yet on Arbor&#39;s core question from the buyer&#39;s side. An orchestrator deciding which helper gets which subtask is a market without prices. DynaFlow&#39;s findings translate directly: (1) the &quot;whether to delegate&quot; decision is learnable and saves about 40 percent of calls, so Arbor buyers will often choose <em>not</em> to post a job, and the protocol should make &quot;do it yourself&quot; a cheap, normal outcome; (2) the biggest failure modes are informational: buyers leaking their guess to the verifier, and context lost between handoffs. A protocol that standardizes what context travels with a task, and keeps verifiers independent of the buyer&#39;s prior, is addressing exactly what this paper says matters most. The gap: DynaFlow&#39;s helpers are identical and free; Arbor&#39;s are heterogeneous and priced, which is the interesting unsolved version.</p>
+<p><strong>Unstall.</strong> A chief of staff is an orchestrator. Most agent requests (&quot;what time is the Henderson showing?&quot;) should be answered directly; a few (&quot;prep me for tomorrow&#39;s listing appointment&quot;) deserve a mini-team: pull comps, check the calendar, draft talking points, verify facts. The paper&#39;s three bad-management patterns are a ready-made checklist for reviewing Unstall&#39;s internal handoffs.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Multi-agent system</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Several AI agents, often the same model with different instructions, working together on one task.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Orchestrator (main agent)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The agent that decides how work is split among helpers and combines their results.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Workflow</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A plan for a team of agents: roles, order, and which results go where. In DynaFlow, written as a small JavaScript program.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Distillation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Training a smaller &quot;student&quot; model on examples produced by a stronger &quot;teacher&quot; model.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Supervised fine-tuning (SFT)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Further training an existing model on examples of desired behavior so it imitates them.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Cross-stage information flow</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Making sure what one helper produces actually reaches, and is used and checked by, later helpers.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the method section that defines the main agent&#39;s three actions and the workflow tool (it is short and is the whole design), then the Stage 2 description of the three defect types, which is the most transferable idea in the paper. Then look at the execution-mode analysis (Table 2: dynamic versus forced, and how often it answers directly). Skip the loss function and the per-benchmark baseline tables.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>DynaFlow&#39;s manager learned that almost half of problems need no team. If helpers in Arbor cost real money and the manager is rewarded for getting answers right cheaply, what stops it from under-delegating on hard problems to save cost, and how would a marketplace let a buyer know, before paying, that bringing in a helper is worth it?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.34467">DynaFlow: Learning Free-Form Multi-Agent Orchestration (arXiv)</a></li>
+<li><a href="https://huggingface.co/papers/2610.34467">DynaFlow on Hugging Face Papers</a></li>
+<li><a href="https://huggingface.co/papers/date/2026-10-27">Hugging Face Daily Papers, October 27, 2026</a></li>
+<li><a href="https://hyper.ai/en/papers/2610.34467">DynaFlow paper summary (HyperAI)</a></li>
+<li><a href="https://github.com/amiya-special/Dynaflow">DynaFlow official code repository (GitHub)</a></li>
+<li><a href="https://www.aiposthub.com/dynaflow-learned-multi-agent-workflow-orchestration/">DynaFlow analysis (AI Post Hub, in Chinese)</a></li>
+<li><a href="https://www.anthropic.com/engineering/multi-agent-research-system">How we built our multi-agent research system (Anthropic)</a></li>
+<li><a href="https://cognition.com/blog/multi-agents-working">Multi-Agents: What&#39;s Actually Working (Cognition)</a></li>
+<li><a href="https://cognition.com/blog/dont-build-multi-agents">Don&#39;t Build Multi-Agents (Cognition)</a></li>
+<li><a href="https://gurusup.com/blog/best-multi-agent-frameworks-2026">Best Multi-Agent Frameworks in 2026 (GuruSup)</a></li>
+<li><a href="https://sakana.ai/learning-to-orchestrate/">Learning to Orchestrate Agents in Natural Language with the Conductor (Sakana AI)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/33/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 33</span>
+<span class="mt-1 block font-semibold">StreamVibe (an AI that watches and knows when to speak up)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
