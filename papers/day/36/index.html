@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 36: From Voiceprints to User Entities: Online Speaker-Memory Construction for Multi-User Spoken Agents</title>
+<meta name="description" content="A voice assistant shared by several people has to decide whose memory each sentence belongs to before it can personalize anything, and this paper shows that treating a voiceprint as evidence to be carefully updated (rather than a fixed ID card) keeps profiles from splitting apart or bleeding into each other, raising answer accuracy by up to about 12 points with zero cases of handing one user&#39;s memories to another.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">From Voiceprints to User Entities: Online Speaker-Memory Construction for Multi-User Spoken Agents</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">36</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Yucong Zhang, Cancan Li, Bo Xiao, Ke Zeng, Ming Li (CUHK-Shenzhen, Meituan, Wuhan University)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.36713" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">A voice assistant shared by several people has to decide whose memory each sentence belongs to before it can personalize anything, and this paper shows that treating a voiceprint as evidence to be carefully updated (rather than a fixed ID card) keeps profiles from splitting apart or bleeding into each other, raising answer accuracy by up to about 12 points with zero cases of handing one user&#39;s memories to another.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Before a shared voice assistant can remember anything about you, it has to know it is you, and this paper argues that the right way to do that is to treat each voiceprint as one more piece of evidence about a person who builds up over time, updating that person&#39;s stored voice only when the match is very confident, so the system neither loses track of returning users nor mixes two people&#39;s memories.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>Word2vec (Day 4) introduced the idea that meaning can be a point in space, compared by angle; a &quot;voiceprint&quot; is the same trick applied to voices. Whisper (Day 19) is the ancestor of the speech-to-text step. RAG (Day 14) is the pattern of looking up stored facts before answering, which is what the memory backend does here. Among frontier days, it connects directly to Day 23 (Cortex) and Day 28 (MemoryTax), both about how agents store memory, and Day 30 (VISAGENT), an end-to-end voice agent. Those papers all quietly assume the system knows who is talking. This one does not.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Research on AI memory has exploded, and there are good benchmarks for it. The best known, LoCoMo, tests whether an assistant can remember facts across very long conversations. But nearly all of these benchmarks are text, and they hand the system a label saying who said each line. In real life, a kitchen speaker, a car assistant, or a meeting bot just hears voices. Separately, the speech field has spent years on <strong>speaker verification</strong>: given two recordings, are they the same person? That work is usually tested as a one-off yes or no decision. Nobody had studied the combination: a system that hears people over weeks or months, has to build up profiles on the fly with no sign-up step, and then uses those profiles to decide whose private memories it is allowed to use. And there is a hidden problem: your voice drifts. A cold, a new microphone, a noisy room, or simply a year passing all change how you sound.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-a-voiceprint-is-evidence-about-a-person-not-the-person">1. A voiceprint is evidence about a person, not the person</h3>
+<p><strong>What it is.</strong> A <strong>speaker embedding</strong>, often called a <strong>voiceprint</strong>, is a list of a few hundred numbers that a neural network (here a widely used one called <strong>ECAPA-TDNN</strong>) produces from a clip of someone talking. The network is trained so that clips of the same person land close together and clips of different people land far apart. You can picture each clip as a dot on a giant map, where each person&#39;s dots form a cloud.</p>
+<p>To compare two dots, the system uses <strong>cosine similarity</strong>: a score from about -1 to 1 based on the angle between them. Close to 1 means &quot;pointing the same way,&quot; likely the same speaker.</p>
+<p>The paper&#39;s key reframing: most systems treat the first voiceprint you give as your permanent ID card. The authors argue that a voiceprint is just an <em>observation</em> of you, and a person (they call it a <strong>user entity</strong>) is something you build up out of many observations.</p>
+<p><strong>How a user entity is stored.</strong> Each entity holds three things:</p>
+<ol>
+<li>A <strong>center</strong>: the average location of that person&#39;s voice dots so far.</li>
+<li>A <strong>count</strong>: how many turns have been linked to them.</li>
+<li>A <strong>memory partition</strong>: a private folder of facts extracted from what they said (&quot;my sister lives in Denver,&quot; &quot;I have a dentist appointment Friday&quot;).</li>
+</ol>
+<p><strong>Analogy.</strong> Think of a casting director who has met an actor once. If she only ever compares new auditions to that one headshot, she will stop recognizing the actor after a haircut and a year of aging. If she keeps a running mental picture that she refreshes every time she is <em>sure</em> it is them, she keeps up.</p>
+
+<h3 id="2-two-kinds-of-mistakes-and-why-they-compound">2. Two kinds of mistakes, and why they compound</h3>
+<p>The paper names the two ways an identity mistake damages memory:</p>
+<ul>
+<li><strong>Fragmentation</strong>: a returning user is treated as a stranger. Their history gets split into two or more profiles, so the assistant &quot;forgets&quot; things it actually knows.</li>
+<li><strong>Contamination</strong>: two different people get merged, or one person&#39;s sentence gets filed under someone else. Now one profile contains another person&#39;s facts, and the assistant might tell your roommate about your doctor&#39;s appointment.</li>
+</ul>
+<p>These errors are <strong>stateful</strong>: they do not just cause one bad answer. A wrong filing stays in memory and poisons future answers. And the two errors pull against each other. Be strict about matching and you fragment; be loose and you contaminate. The paper insists on measuring both together, which is one of its most useful contributions.</p>
+<p>To measure them, it uses <strong>B-cubed (B³) F1</strong>, a score that checks for each turn whether the turns it was grouped with are really the same speaker (catching contamination) and whether all of that speaker&#39;s turns ended up together (catching fragmentation). Higher is better. It also reports <strong>FNUR (false new-user rate)</strong>: the share of returning-speaker turns wrongly sent to a brand new profile, a pure fragmentation measure.</p>
+
+<h3 id="3-evospeakermem-link-generously-update-cautiously">3. EvoSpeakerMem: link generously, update cautiously</h3>
+<p><strong>What it is.</strong> EvoSpeakerMem is the paper&#39;s system. It is <strong>training-free</strong> (no neural network is trained; it is logic wrapped around existing models) and it sits in front of any ordinary text memory system. <strong>Online</strong> and <strong>causal</strong> mean it handles turns one at a time as they arrive, never peeking at the future.</p>
+<p><strong>How it works, step by step.</strong> For every new spoken turn:</p>
+<ol>
+<li><strong>Embed.</strong> Turn the audio into a voiceprint.</li>
+<li><strong>Score.</strong> Compare it, by cosine similarity, to the center of every existing user entity.</li>
+<li><strong>Route (link or create).</strong> If there are no entities yet, or the best score is below <strong>0.489</strong>, create a new entity. Otherwise, link the turn to the best match. That 0.489 is not arbitrary: it is the <strong>equal error rate (EER) point</strong>, the threshold where the system wrongly accepts strangers exactly as often as it wrongly rejects real matches, measured once on a reference set of voices and then frozen.</li>
+<li><strong>Gated update.</strong> Here is the clever part. Linking a turn to you and <em>updating your stored voice</em> are separate decisions. The center only moves toward the new voiceprint if the score is at least <strong>0.58</strong>, a stricter bar. Between 0.489 and 0.58, the turn is filed under you, but your voice profile is left alone. When it does update, the new center is a simple running average of all accepted voiceprints.</li>
+<li><strong>Write memory.</strong> An audio-capable language model (Qwen3-Omni) transcribes the turn. The transcript, the entity ID and a timestamp go to a text memory system called <strong>LightMem</strong>, which pulls out individual facts and stores them in that entity&#39;s private partition. Importantly, <em>what</em> you said never influences <em>who</em> the system thinks you are; routing is purely by voice.</li>
+</ol>
+<p><strong>Why two thresholds?</strong> If you update on every link, a single wrong link drags your center toward the other person, which makes the next wrong link more likely: a slow slide into contamination. If you never update, your profile goes stale as your voice drifts: fragmentation. Gating lets the profile follow drift using only the cases it is sure about.</p>
+<p><strong>Analogy.</strong> A bouncer at a members&#39; club lets you in if you look <em>reasonably</em> like your membership photo. But he only replaces the photo on file when he is <em>certain</em> it is you, so a lookalike who gets in once does not become the new reference photo.</p>
+<p>The paper compares four policies: <strong>Fixed</strong> (keep the first voiceprint forever), <strong>Update</strong> (update on every link), <strong>Gated Update</strong> (the method above), and <strong>All-exemplar KNN</strong> (keep every accepted voiceprint and score a newcomer by its average similarity to the five closest stored ones; KNN stands for k-nearest neighbors).</p>
+
+<h3 id="4-identity-gated-memory-when-unsure-give-nothing">4. Identity-gated memory: when unsure, give nothing</h3>
+<p><strong>What it is.</strong> When someone asks a question (&quot;what did I say my sister&#39;s name was?&quot;), the system matches the voice to its single best entity. It only opens that entity&#39;s memory if the match clears 0.489. If not, it answers with no personal memory at all. The paper counts every query as <strong>correct</strong> (right person&#39;s memory opened), <strong>wrong</strong> (someone else&#39;s memory opened, the dangerous case) or <strong>denied</strong> (no memory opened, annoying but safe).</p>
+<p><strong>Analogy.</strong> A receptionist who will read out your appointment details only if she recognizes you; if she is unsure, she says &quot;I can&#39;t share that,&quot; rather than guessing and reading someone else&#39;s file aloud.</p>
+
+<h3 id="walkthrough-one-evening-with-a-shared-kitchen-assistant">Walkthrough: one evening with a shared kitchen assistant</h3>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>This example is illustrative; the numbers are made up but follow the paper&#39;s rules.</p>
+<ol>
+<li><strong>Monday.</strong> Maya says, &quot;I&#39;m vegetarian.&quot; No entities exist, so the system creates Entity A, center = Maya&#39;s voiceprint, and files &quot;vegetarian&quot; under A.</li>
+<li><strong>Monday.</strong> Jordan says, &quot;I&#39;m allergic to nothing, I eat everything.&quot; Similarity to A is 0.21, below 0.489, so a new Entity B is created.</li>
+<li><strong>Three weeks later.</strong> Maya has a cold. Her voiceprint scores 0.52 against A. That clears 0.489, so the turn is linked to A and her new fact is filed there. But 0.52 is below 0.58, so A&#39;s center is <em>not</em> moved toward her sick voice.</li>
+<li><strong>A month later.</strong> Maya, healthy, on a new phone. Score 0.66 against A. Linked, and since 0.66 clears 0.58, A&#39;s center shifts slightly toward how she sounds on the new phone. The profile is now tracking her drift.</li>
+<li><strong>That evening.</strong> Jordan asks, &quot;What should I cook for myself?&quot; Best match is B at 0.71, so only B&#39;s memory is opened. The assistant does not suggest vegetarian food because of Maya&#39;s preference.</li>
+</ol>
+<p>Under the <strong>Fixed</strong> policy, step 4 might have scored below 0.489 against her original Monday voiceprint, creating a third &quot;stranger&quot; entity: fragmentation. Under <strong>Update</strong>, step 3&#39;s sick-voice turn would have moved her center, and repeated borderline links like that are how profiles drift into someone else.</p>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Voices really do drift.</strong> On SMIIP-TV, a dataset of 373 speakers recorded over 90 days with a follow-up about a year later for 118 of them, a frozen first voiceprint rejected the real person 29.8% of the time when the recordings were a day apart, 40.7% at two to three months, and 55.6% at a year. In other words, after a year a fixed profile fails to recognize the right person more often than not. A stronger voice model (ReDimNet2-B6) helped a lot but showed the same upward trend (5.2% to 13.0%).</p>
+<p><strong>A new benchmark, LoCoMo-ID.</strong> The authors took LoCoMo&#39;s ten long two-person conversations (5,882 turns), gave each character a synthetic voice using Qwen3-TTS, hid the speaker labels, and rewrote most questions into first person (&quot;what did <em>I</em> say...&quot;) so the system has to figure out who is asking. That produced 30 voice collections, about 17,600 history clips and about 6,000 spoken questions. They also made a <strong>shifted</strong> version where history audio is passed through simulated rooms, devices and background noise, and a four-speaker stress test that interleaves two stories with shared character names and conflicting facts.</p>
+<p><strong>Grouping turns into people (B³, higher is better).</strong></p>
+<table>
+<thead>
+<tr>
+<th>Policy</th>
+<th>Clean audio</th>
+<th>Shifted audio</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Fixed</td>
+<td>97.0</td>
+<td>74.2</td>
+</tr>
+<tr>
+<td>Update</td>
+<td>98.4</td>
+<td>93.5</td>
+</tr>
+<tr>
+<td>Gated Update</td>
+<td>99.5</td>
+<td>92.7</td>
+</tr>
+<tr>
+<td>All-exemplar KNN</td>
+<td>98.5</td>
+<td>96.6</td>
+</tr>
+</tbody></table>
+<p>With clean audio all policies look fine. Add realistic recording changes and the fixed policy collapses, because people stop matching their first voiceprint.</p>
+<p><strong>Answering questions with identity gating (4,113 questions).</strong></p>
+<table>
+<thead>
+<tr>
+<th>Audio</th>
+<th>Policy</th>
+<th>Correct / Wrong / Denied</th>
+<th>Answer accuracy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Clean</td>
+<td>Fixed</td>
+<td>4084 / 0 / 29</td>
+<td>71.4%</td>
+</tr>
+<tr>
+<td>Clean</td>
+<td>Gated Update</td>
+<td>4110 / 0 / 3</td>
+<td>75.3%</td>
+</tr>
+<tr>
+<td>Clean</td>
+<td>All-exemplar KNN</td>
+<td>3993 / 116 / 4</td>
+<td>73.6%</td>
+</tr>
+<tr>
+<td>Shifted</td>
+<td>Fixed</td>
+<td>4079 / 1 / 33</td>
+<td>60.2%</td>
+</tr>
+<tr>
+<td>Shifted</td>
+<td>Gated Update</td>
+<td>4109 / 0 / 4</td>
+<td>71.8%</td>
+</tr>
+<tr>
+<td>Shifted</td>
+<td>All-exemplar KNN</td>
+<td>3993 / 116 / 4</td>
+<td>72.4%</td>
+</tr>
+</tbody></table>
+<p>This is the paper&#39;s punchline. Gated Update beats Fixed by about 4 points on clean audio and about 12 points on shifted audio, and it <em>never</em> opened the wrong person&#39;s memory. KNN looks slightly better on raw accuracy in the shifted case and was the best at clustering, but it handed someone else&#39;s memories to the asker 116 times. A good clustering score can hide a privacy leak, which is exactly why the authors insist on measuring both kinds of error.</p>
+<p><strong>Four speakers.</strong> Gated Update again had the best grouping (97.8) and best accuracy (73.6%) with zero wrong-person openings; Fixed had 18 and plain Update 32.</p>
+<p><strong>Versus big end-to-end models.</strong> On MSU-Bench, a speaker retrieval and verification test, a simple voiceprint tool plus a persistent registry scored 96.6% on retrieval, far ahead of the best end-to-end audio model listed (Gemini-3-Flash at 69%). Large multimodal models are still not good at &quot;is this the same person I heard earlier?&quot;</p>
+<p><strong>Smaller findings.</strong> Results were nearly flat for update thresholds from 0.58 to 0.66; dropping it to 0.50 produced 115 wrong-person openings. Very short turns (1 to 2 seconds) were much harder, especially with noisy audio: 77% correct identification versus 99% for longer turns.</p>
+<p><strong>Why it is convincing.</strong> It isolates the identity step, shows on real longitudinal data that the problem (voice drift) is large, and shows the fix is cheap, needs no training, and works with any memory backend.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Synthetic voices.</strong> LoCoMo-ID uses AI-generated voices, and the &quot;shifted&quot; conditions are simulated rooms and devices, not real recordings. Real people interrupt, mumble, and change mood in ways synthetic voices do not.</li>
+<li><strong>No overlapping speech.</strong> The conversations are mostly two people taking turns. Even the four-speaker test does not have people talking over each other, which is the norm in real meetings and dinners.</li>
+<li><strong>One threshold was never stress-tested.</strong> The 0.489 link threshold was not varied; only the update threshold was, and only on clean audio.</li>
+<li><strong>Mistakes are permanent.</strong> If a turn gets filed under the wrong person, nothing ever goes back to fix it.</li>
+<li><strong>Not security.</strong> The authors say plainly that this is not authentication and should not guard anything sensitive. Voice can be imitated, and modern voice cloning makes that easier every month.</li>
+<li><strong>Surveillance risk.</strong> The paper notes that silently linking voices across sessions is a capability that can be misused, and frames the work as a research prototype.</li>
+<li><strong>Short turns are fragile.</strong> &quot;Yeah, do that&quot; is too short to identify a speaker reliably, which matters for live conversation.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Smart speakers have done basic voice recognition for years.</strong> Google&#39;s Voice Match lets up to six people in a home get personal results from a shared device; unrecognized voices get &quot;guest&quot; results. Notably, Google&#39;s help page tells users how to manually &quot;Retrain&quot; their voice model, which is exactly the drift problem this paper addresses automatically. Amazon&#39;s Alexa Voice ID does the same for personalized content, and since 2018 Alexa has been able to start learning a voice automatically from requests like &quot;Alexa, play music.&quot; Neither company publishes how its profiles are updated, so I cannot say whether they use anything like gated updating.</li>
+<li><strong>Open-source voiceprint and diarization tools are everywhere.</strong> <strong>Diarization</strong> means splitting a recording into &quot;who spoke when.&quot; SpeechBrain&#39;s ECAPA-TDNN model, the same kind used in this paper, is a standard open reference. pyannote, the most widely used open diarization pipeline, originally used ECAPA-TDNN and has since moved to WeSpeaker embeddings in its 2026 Community-1 release. Meeting transcription tools are built on pipelines like these, but they label speakers within one recording; persistent cross-session identity linked to memory is much rarer.</li>
+<li><strong>Memory layers for agents are a booming category.</strong> LightMem, the memory backend used here, is an open-source research system from Zhejiang University. Products like ChatGPT have long-term memory, but it is tied to the logged-in account, not to the voice.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used-or-not-yet">How it ISN&#39;T used (or not yet)</h3>
+<ul>
+<li><strong>Mainstream chat assistants do not tell voices apart.</strong> As of October 2026, an OpenAI community feature request asks for exactly this, stating that ChatGPT Voice &quot;does not currently distinguish which person is speaking&quot; in a shared conversation. That is a user&#39;s description, not an official statement, but I found no announcement contradicting it. If two people share one phone&#39;s voice mode, their facts go into one memory.</li>
+<li><strong>End-to-end audio models do not replace dedicated voiceprint tools yet.</strong> The MSU-Bench result above (about 97% for a simple tool plus registry versus 69% for the best end-to-end model) suggests that &quot;just ask the big model who is talking&quot; does not work well today.</li>
+<li><strong>Fixed enrollment voiceprints</strong> (record a few phrases once, compare forever) remain common in products, but this paper&#39;s longitudinal data shows why they degrade.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Speaker verification (one-off &quot;same person?&quot; checks) -&gt; speaker embeddings like ECAPA-TDNN and diarization tools like pyannote -&gt; smart-speaker voice profiles (Voice Match, Alexa Voice ID) with manual retraining -&gt; EvoSpeakerMem: voice-identified user entities that update themselves cautiously and gate per-person memory -&gt; what is likely next: multi-user voice agents where &quot;whose memory is this?&quot; is a first-class design decision.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Amelia.</strong> This paper is close to a design document for Amelia&#39;s identity layer. Three things to take directly. First, separate &quot;file this turn under Sam&quot; from &quot;update Sam&#39;s voice profile,&quot; with a stricter bar for the second; it is a two-line change that, in this paper, eliminated wrong-person memory access. Second, build both of the paper&#39;s error measures into your evaluation from day one: count how often one person gets split into two profiles <em>and</em> how often two people get merged, because optimizing only one hides the other (the KNN result is a warning). Third, plan for short turns: in live conversation many utterances are one or two seconds, and those are where identification falls apart. You may want to hold short turns in a &quot;pending&quot; state and assign them once a longer turn from the same stretch of audio makes the speaker clear.</p>
+<p><strong>Permissioned relationship continuity and memory startups.</strong> Identity-gated retrieval with an explicit &quot;denied&quot; outcome is a concrete pattern for permissioned memory: when the system is not sure who is asking, it should share nothing rather than guess. The paper&#39;s Correct / Wrong / Denied table is a good template for how to report safety to customers or investors, since &quot;zero wrong-person disclosures across 4,113 queries&quot; is a claim people understand.</p>
+<p><strong>Unstall.</strong> Real estate agents talk to assistants in cars, open houses and on speakerphone with clients. If Unstall ever hears more than one voice (a client on speaker, a partner in the car), this is the problem it will hit: not filing a client&#39;s offhand comment as the agent&#39;s own preference.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Speaker embedding (voiceprint)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A list of numbers summarizing what a voice sounds like, arranged so the same person&#39;s clips land close together.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Cosine similarity</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A score of how closely two embeddings point in the same direction; near 1 means very similar.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Equal error rate (EER)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The threshold where a system wrongly accepts strangers exactly as often as it wrongly rejects the right person.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Fragmentation and contamination</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Splitting one person into several profiles, versus mixing different people into one profile.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Gated update</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Only refreshing a stored voice profile when the match is very confident, even if a weaker match is enough to file the turn.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Identity-gated retrieval</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Only opening a person&#39;s private memory when their voice clearly matches; otherwise using no personal memory.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the introduction (especially the paragraph on fragmentation and contamination) and the section describing the routing and update rules, which is short and nearly code. Then look at Table 4, the identity-gated QA table with Correct / Wrong / Denied counts: that one table carries the paper&#39;s argument. Skip the SMIIP-TV replay tables and the encoder comparison appendix unless you plan to pick a voice model for Amelia.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>The system never fixes a misfiled memory. If Amelia realizes after an hour that two &quot;different&quot; people it has been tracking were actually the same person (or that one profile was really two people), what should happen to the facts already filed, and should the people involved be told?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.36713">From Voiceprints to User Entities: Online Speaker-Memory Construction for Multi-User Spoken Agents (arXiv)</a></li>
+<li><a href="https://arxiv.org/html/2610.36713">Full text (arXiv HTML)</a></li>
+<li><a href="https://support.google.com/assistant/answer/9071681?hl=en">Turn on voice recognition with Voice Match (Google Assistant Help)</a></li>
+<li><a href="https://digprjsurvey.amazon.com/csad/help/node/GYCXKY2AB2QWZT2X">What Is Alexa Voice ID? (Amazon Help)</a></li>
+<li><a href="https://venturebeat.com/business/amazons-alexa-can-now-learn-your-voice-automatically">Amazon&#39;s Alexa can now learn your voice automatically (VentureBeat, 2018)</a></li>
+<li><a href="https://www.pyannote.ai/blog/pyannote-vs.-speechbrain-for-speaker-diarization">pyannote vs. SpeechBrain for speaker diarization (pyannoteAI)</a></li>
+<li><a href="https://arxiv.org/pdf/2510.18866">LightMem: Lightweight and Efficient Memory-Augmented Generation (arXiv)</a></li>
+<li><a href="https://community.openai.com/t/optional-speaker-recognition-for-chatgpt-voice/1402974">Optional Speaker Recognition for ChatGPT Voice (OpenAI Developer Community, October 2026)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/35/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 35</span>
+<span class="mt-1 block font-semibold">The Trinity (agents that build their own practice worlds and upgrade their own toolkit)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
