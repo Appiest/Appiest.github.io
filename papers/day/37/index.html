@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 37: TAPESTRY: A Single Backbone for Video Generation and Robot Control</title>
+<meta name="description" content="A video-generation AI already knows a lot about how the physical world moves, and TAPESTRY taps that knowledge for a robot by disguising each robot motion as a tiny piece of video the model already understands, then skipping video generation entirely at run time, which made it about 44 times faster than a leading rival and the best performer on new objects and tasks.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">TAPESTRY: A Single Backbone for Video Generation and Robot Control</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">37</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Jeremy A. Collins, Seungjae Lee, Rachanon Wachakorn, Krishnan Srinivasan, Animesh Garg, Vitor Campagnolo Guizilini, Paarth Shah (Georgia Tech, University of Maryland, Toyota Research Institute)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.36823" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">A video-generation AI already knows a lot about how the physical world moves, and TAPESTRY taps that knowledge for a robot by disguising each robot motion as a tiny piece of video the model already understands, then skipping video generation entirely at run time, which made it about 44 times faster than a leading rival and the best performer on new objects and tasks.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>The physics that a video generator has learned lives in its weights, not in the videos it produces, so you can teach that same network to output robot motions directly, as long as you feed the motions in a format it already recognizes, and then you never have to pay for generating video at all.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>The Transformer (Day 9) is the engine inside the video model. Denoising diffusion (Day 12) is how both the video and the robot motions are generated: start from random noise and clean it up. RT-2 (Day 21) showed you could turn a big pretrained web model into a robot controller (a &quot;vision-language-action&quot; model, or VLA). Among frontier days, this is a direct sibling of Day 31 (AW-0, &quot;Agentic World Action Models&quot;), which also uses imagined video to guide a robot, and Day 29, which tried a general-purpose chatbot as a robot brain and found it too slow. TAPESTRY&#39;s headline is speed: it keeps the video model&#39;s knowledge while dropping the slow part.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Robots are starved for training data. Collecting robot demonstrations means a person remote-controlling a robot arm for hours, which is slow and expensive. Video models, by contrast, have watched millions of hours of people cooking, pouring, opening doors. So researchers have been trying to transfer that video knowledge into robots, and three approaches emerged. <strong>(1) Dream then copy:</strong> generate a video of the robot doing the task, then use a second model to work out which motor commands would produce that video. This is slow (you must render video every time the robot moves) and errors stack up across two models. <strong>(2) Borrow the features:</strong> run the video model partway and hand its internal signals to a brand-new &quot;action head&quot; trained from scratch. Faster, but the new head never really gets the video model&#39;s knowledge. <strong>(3) Share one brain:</strong> train the video network itself to produce both video and actions. The deepest integration, but existing versions either still generate full video at run time (NVIDIA&#39;s DreamZero takes seconds per move), or bolt on new untrained parts. Nobody had gotten the deep integration and real-time speed together.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-disguise-each-robot-motion-as-a-tiny-patch-of-video">1. Disguise each robot motion as a tiny patch of video</h3>
+<p><strong>What it is.</strong> Video models do not look at raw pixels. A component called a <strong>VAE</strong> (variational autoencoder) first compresses each video into a smaller grid of numbers called <strong>latents</strong>. Then a layer called the <strong>patchifier</strong> chops that grid into small squares (<strong>patches</strong>), and each patch becomes one <strong>token</strong>, the unit the Transformer reads. Everything the model knows about the world, it learned while reading tokens made this way.</p>
+<p>TAPESTRY&#39;s trick: take one moment of robot action (for this robot, 20 numbers: for each of two arms, the hand&#39;s position, its rotation, and how open the gripper is) and reshape it so it looks exactly like one patch of video latents. Then send it through the model&#39;s <em>own</em> patchifier, the same door video comes in through.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>A tiny new layer stretches the 20 action numbers into the size of one video patch (2 by 2 by 16 numbers). This is the only new part added to the whole model: 1,280 parameters, in a model with about 2 billion.</li>
+<li>A <strong>normalization</strong> step rescales those numbers so their average and spread match what real video patches look like. (Video latents are designed to look roughly like a standard bell curve; raw robot numbers do not.)</li>
+<li>The result goes through the video model&#39;s existing patchifier, becoming one token per action step. A chunk of 16 steps (about half a second of motion) is just 16 tokens.</li>
+<li>On the way out, the same path runs in reverse to turn tokens back into motor commands, with no new parts.</li>
+</ol>
+<p><strong>Why it matters.</strong> The authors tried the obvious shortcut: feed actions straight into the Transformer with a fresh layer, skipping the patchifier. Training blew up every time (the numbers went to infinity). Removing just the normalization step cut success from 58% to 33% in a quick test. Speaking the model&#39;s native language is not a nicety; it is what makes the transfer work.</p>
+<p><strong>Analogy.</strong> Imagine a veteran film editor who has cut thousands of action scenes and has a great feel for how bodies move. You want her advice on choreographing a real stunt. You could write her a technical memo (she would struggle), or you could hand her storyboard frames in the exact format she has always worked with. TAPESTRY hands the video model storyboard frames.</p>
+
+<h3 id="2-train-one-network-three-ways-at-once">2. Train one network three ways at once</h3>
+<p><strong>What it is.</strong> The same network is trained on a mix of three jobs, chosen at random for each training example:</p>
+<ul>
+<li><strong>Video only.</strong> Ordinary video generation on a large pile of robot and human footage (robot datasets like DROID and AgiBot-World; human video like Ego4D, Epic Kitchens, and Something-Something; and web clips from Panda-70M). About 673 hours in all. This keeps the model&#39;s sense of physics sharp and stretches it toward robot-relevant scenes.</li>
+<li><strong>Video and actions together.</strong> On the robot&#39;s own demonstrations, the model generates future video and the matching actions side by side. A one-way <strong>attention mask</strong> (a rule about which tokens can look at which) lets action tokens look at the imagined video, but stops video tokens from looking at actions, so the action training cannot scramble the video skills.</li>
+<li><strong>Actions only.</strong> Given the current camera image and an instruction, generate only the actions, with no video. This exactly matches how the robot will be used.</li>
+</ul>
+<p>Strikingly, only about 6 hours of robot demonstrations carried any action labels; everything else was plain video.</p>
+<p><strong>Why all three?</strong> The ablations make the case. Skip the actions-only job, and a model that works when generating video (78%) fails completely when asked for actions alone. Drop the video job, and the model scores 0%. Train video and actions as separate jobs that never mix, and it reaches only 36%. The full mix reaches 58% in that same short training run (76% when fully trained).</p>
+<p><strong>Analogy.</strong> A dance student who sometimes just watches performances, sometimes watches and dances along, and sometimes dances with no video at all. The last one is what the recital requires, but the first two are where she learns what good movement looks like.</p>
+
+<h3 id="3-one-step-not-many-the-surprising-smoothness-result">3. One step, not many: the surprising smoothness result</h3>
+<p><strong>What it is.</strong> Diffusion models normally clean up noise in many small steps (often 10 to 100). The general rule in image and video generation: more steps, better results. For robot actions coming out of a video model, the authors found the opposite: every extra step made the motion <em>jittery</em>, with high-frequency shaking that hurts a real robot. So TAPESTRY takes a single step, straight from pure noise to the final answer, using a standard method called <strong>DDIM</strong>.</p>
+<p><strong>Why extra steps hurt.</strong> Video is full of fine, fast detail: textures, edges, flickering motion. A video model learns that in its last cleanup steps, its job is to add that fine detail. Robot motion is smooth and slow by comparison. The authors measured it: 95% of a robot&#39;s motion energy sits below about 0.35 cycles per second, versus about 2 for natural video, a gap of four to six times. So when the video model does its final polishing on robot actions, it adds the kind of fine detail that belongs in video, which shows up as shaking. Other teams had seen this symptom: DreamZero runs a smoothing filter on its outputs, and NVIDIA&#39;s Cosmos Policy averages 112 parallel predictions per chunk. TAPESTRY sidesteps it by never entering those final polishing steps at all.</p>
+<p><strong>Why one step works here.</strong> With this model&#39;s particular math setup (the technical names are a &quot;zero terminal signal-to-noise&quot; schedule and &quot;v-prediction&quot;), a single step from pure noise mathematically collapses to &quot;predict the most likely action chunk given what you see and what you were told.&quot; The authors checked: the output barely changes no matter what random noise you start from.</p>
+<p><strong>Analogy.</strong> Asking a portrait painter to &quot;just tidy up&quot; a technical blueprint. Her instinct is to add brushwork and texture, which ruins straight lines. Better to ask for one confident sketch and stop.</p>
+
+<h3 id="walkthrough-one-half-second-of-the-robot-pouring-a-golf-ball">Walkthrough: one half-second of the robot pouring a golf ball</h3>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li>The robot&#39;s cameras (up to three, such as wrist and overhead) capture the current scene. The VAE compresses each view into latents, then into image tokens.</li>
+<li>The instruction, &quot;pour the golf ball out of the bowl,&quot; is turned into text tokens by a frozen language encoder (T5-XXL).</li>
+<li>Sixteen action tokens are filled with pure random noise.</li>
+<li>All of it goes through the Transformer once. No future video is created, and the VAE&#39;s decoder (the expensive part that turns latents back into pixels) is never used.</li>
+<li>The 16 action tokens come out and are translated back into 16 motor commands for both arms: about 0.53 seconds of motion.</li>
+<li>Time taken: 84 milliseconds on a single RTX 5090 (a high-end gaming graphics card), using 9 GB of memory. The robot starts moving, and the process repeats.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Learning tasks it only saw as video (LIBERO simulation).</strong> LIBERO is a standard simulated kitchen-and-tabletop benchmark with five groups of tasks. In this harder version, models get action labels for only one group (90 tasks) and see the other four groups only as video. They must figure out how to <em>do</em> tasks they have only watched.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Average success on unseen-as-action tasks</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Diffusion Policy, BAKU, QueST (no video learning)</td>
+<td>0 to 2%</td>
+</tr>
+<tr>
+<td>AMPLIFY</td>
+<td>61%</td>
+</tr>
+<tr>
+<td>Cosmos Policy (NVIDIA and Stanford)</td>
+<td>70%</td>
+</tr>
+<tr>
+<td>DreamZero (NVIDIA)</td>
+<td>70%</td>
+</tr>
+<tr>
+<td>TAPESTRY trained from scratch</td>
+<td>58%</td>
+</tr>
+<tr>
+<td>TAPESTRY with video pretraining</td>
+<td>76%</td>
+</tr>
+</tbody></table>
+<p>It beat the two strongest rivals by about 6 points, winning big on tasks about objects (95%) and spatial layouts (87%), though it trailed on the long multi-step group. The 18-point gap between from-scratch and pretrained is the value of the video model&#39;s prior knowledge.</p>
+<p><strong>Real two-armed robot.</strong> On a 20-joint two-armed robot, trained on three tasks (screwdriver into toolbox, croissant from oven to plate, corn into bowl), TAPESTRY succeeded 28 of 30 times versus 15 of 30 for a standard from-scratch robot policy (Diffusion Policy).</p>
+<p><strong>New situations.</strong> The real test: a croissant on a glass oven door instead of inside, pouring a golf ball from a bowl (both never seen in demonstrations), and putting a Lego brick on a wooden boomerang (neither object ever seen by the robot). TAPESTRY fully completed 10 of 15 tries. DreamZero managed 4 of 15 (all on the pouring task). Every other version scored 0. TAPESTRY was the only one to do the Lego task, and it did it 5 of 5 times, which the authors credit to the broad web and human video it trained on.</p>
+<p><strong>Speed.</strong> 84 ms per chunk versus about 3.7 seconds for DreamZero on the same card, even after the authors sped DreamZero up (about 20 seconds with its released code). Roughly 44 times faster. Training cost was similar.</p>
+<p><strong>Why it is convincing.</strong> It works on a real robot, not just simulation; the speed gain is huge and comes from a clear reason (16 tokens and one step, instead of about a thousand video tokens and several steps); and the jitter finding is backed by careful measurements that rule out four other explanations.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Small real-world tests.</strong> Out-of-distribution results are 5 tries per condition. The margin over DreamZero there is not statistically significant (the authors say so).</li>
+<li><strong>One answer, not a range.</strong> The single-step trick returns the &quot;average best&quot; action. If a task has two equally good options (go left or right around an obstacle), averaging could produce something in between that does neither. In a test with two identical croissants, the robot committed to one each time (8 of 10 successes), but tricky cases remain possible.</li>
+<li><strong>Tied to one model&#39;s math.</strong> The single-step result depends on CogVideoX&#39;s particular noise setup. Many newer video models (like Wan) use a different method called rectified flow, where the trick did not carry over in their experiments.</li>
+<li><strong>One robot body.</strong> The action layer is sized for this 20-number, two-armed robot. Moving to other robots is untested.</li>
+<li><strong>Short tasks.</strong> It lagged rivals on LIBERO&#39;s long multi-step tasks, and it has no long memory of earlier frames.</li>
+<li><strong>Older, smaller base model.</strong> CogVideoX-2B is modest by 2026 standards; whether the approach scales to much bigger video models is open.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Big labs are betting on video models as robot brains.</strong> NVIDIA&#39;s research groups built both main rivals in this paper. DreamZero (from NVIDIA&#39;s GEAR lab, early 2026) uses a 14-billion-parameter Wan video model and topped public robot leaderboards like RoboArena, but needs top-end data-center chips to run in real time. Cosmos Policy (NVIDIA and Stanford, ICLR 2026) fine-tunes NVIDIA&#39;s Cosmos video model into a controller and reported 98.5% on standard LIBERO. These are research releases, not shipped products.</li>
+<li><strong>A consumer humanoid uses the &quot;dream then copy&quot; approach.</strong> 1X, the company making the NEO home robot, launched its &quot;1X World Model&quot; in January 2026. Per The Robot Report, NEO generates visualizations of possible future actions, then &quot;a built-in inverse dynamics model&quot; translates them into movement. That is family (1) from above, the approach TAPESTRY argues is slower. NEO is sold through early access ($20,000, or $499 a month). How well this works in real homes is not something I could verify.</li>
+<li><strong>Toyota Research Institute</strong> is a co-author and has its own &quot;Large Behavior Model&quot; program for multitask robot manipulation; TAPESTRY borrows its action-normalization recipe. I found no public sign that TAPESTRY itself is in a Toyota product.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used-or-not-yet">How it ISN&#39;T used (or not yet)</h3>
+<ul>
+<li><strong>The leading commercial robot brains are VLAs, not video models.</strong> Physical Intelligence&#39;s π0 family attaches a small &quot;action expert&quot; (about 300 million parameters in π0) to a vision-language model and generates motions with a few-step method called flow matching. Its π0 and π0.5 models are open-source through the openpi repository; π0.7 (April 2026) is closed. This is close to approach (2) above: a newly trained action part next to a big pretrained model. VLAs are faster than video-generating robots but do not inherit a video model&#39;s sense of motion.</li>
+<li><strong>Generating video at run time is being questioned.</strong> TAPESTRY, and earlier Fast-WAM, both argue the robot does not need to imagine the future in pixels. If that holds, &quot;dream then copy&quot; systems may give way to designs that keep the video model&#39;s weights but skip the video.</li>
+<li><strong>TAPESTRY itself</strong> is a brand-new research result with no released code yet.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Video generators trained on the internet (Day 12 diffusion, Day 9 Transformer) -&gt; &quot;dream a video, then copy it&quot; robots (UniPi, DreamGen, 1X World Model) -&gt; shared video-and-action models that still render video (DreamZero, Cosmos Policy) -&gt; TAPESTRY: same shared brain, actions disguised as video patches, no video at run time, one step -&gt; what is likely next: robot policies built on ever-larger video models, running on a single local chip.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Generative video, from the filmmaker&#39;s side.</strong> This paper is evidence for something you can say with confidence in a pitch or a panel: video models are not just content tools; they are learning physics. The fact that a model trained mostly to make clips can, with 1,280 new parameters and 6 hours of robot data, place an unseen Lego on an unseen boomerang tells you how much real-world understanding those models hold. It also explains why NVIDIA, a chip company, keeps building video models: they are becoming the brains of robots.</p>
+<p><strong>A design lesson that travels.</strong> Two ideas here apply to any product that repurposes a big pretrained model. First, feed it data in the format it already knows (the normalization step was worth 25 points). Second, the expensive output is not always the valuable part: the knowledge is in the weights, so ask whether you can skip generating the costly thing. If Standard Physics ever uses a 3D or video model to judge a scanned room, the question &quot;do I need to render anything, or can I read the answer straight off the model?&quot; is the same one this paper asks.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">World action model (WAM)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A single AI model that understands how the world changes over time (like a video model) and also outputs robot actions.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">VAE latents and patches</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The compressed grid of numbers a video model uses instead of pixels, cut into small squares that each become one token.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Diffusion and DDIM step</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Generating something by starting from random noise and cleaning it up; DDIM is a standard recipe for doing that in few steps.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Action chunk</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A short batch of future motor commands (here 16, about half a second) predicted all at once.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">VLA (vision-language-action model)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A robot brain built from a model that understands images and text, with an add-on that outputs actions (RT-2, π0).</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Inverse dynamics model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A model that looks at a before-and-after (or a video) and works out which actions caused it.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the Introduction, which lays out the three families of video-to-robot approaches more clearly than most review papers, and then Section 3 (the jitter section) with Figure 2, which is the paper&#39;s most original insight. Glance at Table 3, the real-robot out-of-distribution results. Skip Appendix G&#39;s derivations and the dataset-alignment appendix unless you want the math.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>TAPESTRY&#39;s robot never &quot;imagines&quot; the future visually; it just acts. A film director, by contrast, often storyboards before shooting. When should an AI system (a robot, or a creative tool) actually render its plan so a human can see and approve it, and when is skipping that step the right call, even if it makes the system harder to understand?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.36823">TAPESTRY: A Single Backbone for Video Generation and Robot Control (arXiv)</a></li>
+<li><a href="https://arxiv.org/html/2610.36823v1">Full text (arXiv HTML)</a></li>
+<li><a href="https://tapestry-wam.github.io">TAPESTRY project page</a></li>
+<li><a href="https://itcanthink.substack.com/p/why-is-dreamzero-so-good-at-robotics">Why Is DreamZero So Good at Robotics Benchmarks? (It Can Think, February 2026)</a></li>
+<li><a href="https://research.nvidia.com/labs/cosmos-lab/cosmos-policy/">Cosmos Policy project page (NVIDIA Research)</a></li>
+<li><a href="https://arxiv.org/html/2601.16163v1">Cosmos Policy: Fine-Tuning Video Models for Visuomotor Control and Planning (arXiv)</a></li>
+<li><a href="https://www.therobotreport.com/1x-launches-world-model-enabling-neo-robot-to-learn-tasks-by-watching-videos/">1X launches world model enabling NEO robot to learn tasks by watching videos (The Robot Report)</a></li>
+<li><a href="https://techcrunch.com/2026/01/13/neo-humanoid-maker-1x-releases-world-model-to-help-bots-learn-what-they-see">NEO humanoid maker 1X releases world model to help bots learn what they see (TechCrunch, January 2026)</a></li>
+<li><a href="https://aiwiki.ai/wiki/openpi">openpi (AI Wiki summary of Physical Intelligence&#39;s open-source models)</a></li>
+<li><a href="https://claru.ai/glossary/pi-zero">pi-zero: Physical Intelligence&#39;s VLA Model (Claru glossary)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/36/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 36</span>
+<span class="mt-1 block font-semibold">EvoSpeakerMem (a voice assistant that keeps track of who is who, and whose memories are whose)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
