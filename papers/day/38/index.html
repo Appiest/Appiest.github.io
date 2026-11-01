@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 38: EmbeddingGemma 2: Unified and Efficient Multimodal Representations</title>
+<meta name="description" content="Google built a small, free model (about 740 million parameters, small enough for a phone) that turns text, images, video and audio into points on one shared map, so a search for &quot;the clip where the dog catches the frisbee&quot; can find a video, a voice memo or a note with the same math, and it gets there by copying a giant teacher model first and then drilling on hard quizzes.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">EmbeddingGemma 2: Unified and Efficient Multimodal Representations</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">38</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Henrique Schechter Vera, Sahil Dua and about 70 others, EmbeddingGemma Team (Google)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.37364" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Google built a small, free model (about 740 million parameters, small enough for a phone) that turns text, images, video and audio into points on one shared map, so a search for &quot;the clip where the dog catches the frisbee&quot; can find a video, a voice memo or a note with the same math, and it gets there by copying a giant teacher model first and then drilling on hard quizzes.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>You can squeeze text, photos, video and audio into one shared &quot;map of meaning&quot; with a model small enough for a phone, if you first have it copy a giant teacher model&#39;s map and only then train it on tricky right-versus-wrong quizzes, and design it from the start so it can be shrunk without falling apart.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>The idea of turning things into vectors where distance means meaning goes back to word2vec (Day 4). BERT (Day 10) showed that a Transformer (Day 9) reading in both directions makes good representations of whole sentences. CLIP (Day 15) put images and text on the same map using contrastive learning, the same core training trick used here. RAG (Day 14) is the main job these models do today: find the right memory, then hand it to a language model. Among frontier days, this is the retrieval layer that the memory papers (Day 23 Cortex, Day 28 MemoryTax, Day 36 EvoSpeakerMem) assume exists.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>If you wanted an AI to search a mix of documents, photos, meeting recordings and video, you usually had two bad choices. <strong>Choice 1: turn everything into text first.</strong> Run speech through a transcription model, run images through a captioning model, then use a text-only embedding model. This works, but it is slow, costs extra models, and throws information away: a caption never mentions everything in a photo, and a transcript loses tone, music, and non-speech sounds. <strong>Choice 2: use a big multimodal model as the embedder.</strong> Recent &quot;MLLM-based&quot; embedders (built from multimodal large language models) are good at mixed inputs, but they are often several billion parameters, too big and slow to run on a phone or to embed millions of files cheaply. CLIP-style models are small and fast, but they only match one kind of thing to another (an image to a caption); they cannot handle a single input that mixes a photo, a sentence and a sound clip. Google had a strong answer in the cloud, Gemini Embedding 2 (generally available since April 2026, a paid API), but nothing small, free and on-device that did all four media types well.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-one-shared-map-for-every-kind-of-media">1. One shared map for every kind of media</h3>
+<p><strong>What it is.</strong> An <strong>embedding</strong> is a list of numbers (here, 768 of them) that stands for the meaning of a piece of content. Think of it as a position on a map with 768 directions instead of two. The model is trained so that things with similar meaning land close together and unrelated things land far apart. Closeness is measured with <strong>cosine similarity</strong>: how much two arrows point the same way, from 1 (same direction) to 0 (unrelated, at right angles).</p>
+<p>EmbeddingGemma 2&#39;s promise is that <em>everything</em> lands on the same map. A photo of a dog catching a frisbee, the sentence &quot;dog catching a frisbee,&quot; a 3-second clip of it, and an audio clip of someone saying it should all end up near each other. And you can feed in <strong>mixed</strong> inputs: a photo plus a question, a video with its soundtrack, a slide with spoken narration. One input, one point on the map.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li><strong>The core is a small language model turned inside out.</strong> Google took a pretrained Gemma 4 language model (the kind that writes text one word at a time) and changed one rule: instead of each word only looking backward at earlier words, every word can look at every other word, in both directions. This is called <strong>bidirectional attention</strong>, the BERT trick from Day 10. For writing, you must not peek ahead; for understanding a whole input at once, peeking everywhere is better. This core has about 271 million parameters.</li>
+<li><strong>Eyes and ears plug into it.</strong> A <strong>vision encoder</strong> (167 million parameters, a ViT, or Vision Transformer, that chops an image into 16 by 16 pixel squares) turns each image into a few hundred <strong>soft tokens</strong>: number-lists that the core can read just like words. An <strong>audio encoder</strong> (305 million parameters, the same one used in Gemma 4&#39;s small models, built on Google&#39;s USM speech design) turns sound into 25 soft tokens per second. Small adapter layers resize these tokens so they fit the core.</li>
+<li><strong>Everything goes in as one long sequence.</strong> Text words, image tokens and audio tokens are interleaved, with special marker tokens around each image or audio clip (like &quot;start of image ... end of image&quot;). Video is sampled at about one frame per second (up to 32 frames, 140 tokens each), and its audio can be woven in second by second with timestamps.</li>
+<li><strong>Squash it into one point.</strong> The core produces one output vector per token. These are averaged (<strong>mean pooling</strong>), passed through a final layer that maps them to 768 numbers, and scaled to length 1 (<strong>normalization</strong>), so only direction matters.</li>
+</ol>
+<p><strong>Analogy.</strong> Think of a very good film librarian who has watched, read and listened to everything. You hand her anything, a script page, a still, a voicemail, a rough cut, and she pins it on one giant wall of index cards, placing it next to whatever it is most like. Later, you hand her a question, she pins it on the wall, and whatever is pinned nearby is your answer. The model is the librarian; the 768 numbers are the pin&#39;s position on the wall.</p>
+<p><strong>A tiny worked example.</strong> Pretend the map had only 3 directions. &quot;Dog catching frisbee&quot; (text) lands at (0.8, 0.6, 0.0). A video of it lands at (0.7, 0.7, 0.1). A recording of a real estate walkthrough lands at (0.0, 0.2, 0.98). Cosine similarity of text to dog video is 0.8×0.7 + 0.6×0.7 + 0×0.1 = 0.98: a near match. Text to walkthrough is 0×0.0 + 0.6×0.2 + 0×0.98 = 0.12: unrelated. A search engine just computes this for every stored item and returns the highest scores. With 768 directions instead of 3, the map has room for very fine distinctions.</p>
+
+<h3 id="2-learn-the-map-in-stages-copy-a-master-then-take-hard-quizzes">2. Learn the map in stages: copy a master, then take hard quizzes</h3>
+<p><strong>What it is.</strong> The model is trained on about 2.9 trillion tokens in three stages, and the most important choice is <em>how</em> it learns in each one.</p>
+<p><strong>Stage A: copying a teacher (distillation).</strong> <strong>Distillation</strong> means training a small &quot;student&quot; model to imitate a big &quot;teacher&quot; model. Here the teacher is Gemini Embedding 2, Google&#39;s large paid embedding model. For each training example, the teacher produces its embedding, and the student is graded on how close its own embedding is (the score is <strong>mean squared error</strong>, the average squared gap between the two lists of numbers). Because the teacher&#39;s embeddings are longer than 768 numbers, they simply chop the teacher&#39;s list to the first 768 and match that. Stages A1 (about 300 billion tokens of text pairs: questions and answers, similar sentences, code and its description, web searches) and A2 (about 2 trillion tokens adding images, audio, video and documents) are almost entirely distillation.</p>
+<p><strong>Stage B: hard quizzes (contrastive learning).</strong> In the final stage (about 600 billion tokens of higher-quality, task-specific data), distillation is switched off and replaced with <strong>contrastive learning</strong>, the CLIP method. Each training example has a query, a correct match (the <strong>positive</strong>), and wrong answers (<strong>negatives</strong>). The model is rewarded for pulling the query and positive together and pushing the negatives away. Two kinds of negatives matter: <strong>in-batch negatives</strong> (the other examples that happen to be in the same training batch, which are free and plentiful) and <strong>hard negatives</strong> (wrong answers chosen because they look almost right, like a photo of a dog catching a <em>ball</em> when the query asked for a frisbee). Hard negatives are what teach fine distinctions. The training also masks out &quot;false negatives,&quot; duplicates that would wrongly be counted as wrong answers.</p>
+<p><strong>Two extra tricks in the last stage.</strong></p>
+<ul>
+<li><strong>The spread-out regularizer.</strong> An extra penalty that pushes random, unrelated pairs toward a cosine similarity of 0, so they sit at right angles. Without it, embeddings can bunch up in one corner of the map, wasting space. Spreading them out makes the map easier to search quickly and more robust when you compress it (Idea 3).</li>
+<li><strong>Model merging.</strong> At the end, they average the final checkpoint&#39;s weights with a much earlier checkpoint from the same run. A <strong>checkpoint</strong> is a saved snapshot of the model during training. Averaging the two keeps most of the late gains while undoing some overfitting (getting too tuned to the final training data).</li>
+</ul>
+<p><strong>Why the order matters.</strong> The ablation (a test where you remove one piece to see what it contributed) is clear. After the copying stages, doing even more copying moved the multimodal score from 52.27 to 52.28: nothing. Switching to the contrastive quiz stage jumped it to 55.46, with big gains on images and video. Copying gets the student the rough shape of the map cheaply; quizzes sharpen the borders.</p>
+<p><strong>Analogy.</strong> A film student first traces the master editor&#39;s cuts, frame by frame, to absorb her instincts. Then the teacher stops showing her answers and instead gives the student pairs of nearly identical takes and asks &quot;which one matches the script?&quot; Tracing builds intuition fast; the hard comparisons build judgment.</p>
+
+<h3 id="3-built-to-shrink-one-model-many-sizes">3. Built to shrink: one model, many sizes</h3>
+<p><strong>What it is.</strong> The paper&#39;s practical heart is that the model can be cut down at use time, in four independent ways, without retraining.</p>
+<ul>
+<li><strong>Load only the senses you need.</strong> Text only: 271 million parameters. Text plus images: 439 million. Text plus audio: 577 million. All four: about 740 million. On a Pixel 11 Pro with compressed weights, Google measured about 191 MB of memory for text-only and 567 MB for everything.</li>
+<li><strong>Choose how closely to look at images.</strong> The <strong>vision token budget</strong> sets how many tokens each image becomes: 70, 140, 280 (default), 560 or 1,120. Fewer tokens is faster but blurrier. Documents and screenshots with small text benefit most from more tokens.</li>
+<li><strong>Truncate the embedding (Matryoshka).</strong> <strong>Matryoshka Representation Learning</strong> (named after Russian nesting dolls) trains the model so the first 512, 256 or 128 numbers of the 768 are each a usable embedding on their own. The most important information is packed into the front of the list. During training, every loss is applied at each of these lengths. Result: you can store a quarter of the numbers and lose little. On code search, the full 768 scores 78.68, 256 scores 76.18, and 128 scores 71.41. For multimodal search, 256 is fine but 128 falls off sharply (59.01 down to 45.65).</li>
+<li><strong>Compress the numbers (quantization).</strong> <strong>Quantization</strong> stores each weight with fewer bits, like saving a photo as a smaller JPEG. The core is compressed to 4 bits per weight. To keep quality, they use <strong>quantization-aware training</strong>: a short extra training stage where the model practices running in its compressed form, learning from its own uncompressed version. The cost is tiny: on the multilingual text benchmark, 61.36 at full precision versus 60.96 and 60.84 for the two 4-bit versions.</li>
+</ul>
+<p><strong>Analogy.</strong> A camera bag where you can leave lenses at home, shoot at lower resolution, and save as a smaller file, and each choice is independent. You pick the kit for the job instead of buying a different camera.</p>
+
+<h3 id="walkthrough-searching-your-phone-for-a-moment-in-a-video">Walkthrough: searching your phone for a moment in a video</h3>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li><strong>Indexing (done once, in the background).</strong> Your phone samples each video at about one frame per second. Each frame (plus its audio, if you want sound included) goes through the vision and audio encoders, into the core, and comes out as one 768-number point. Each point is saved with a pointer to &quot;video X, 0:42.&quot;</li>
+<li><strong>Shrinking the index.</strong> To save storage, the phone keeps only the first 256 numbers of each point (Matryoshka), cutting the index to a third with little quality loss.</li>
+<li><strong>The query.</strong> You type &quot;dog catching a frisbee at the beach.&quot; Only the text part of the model is needed, so the vision and audio encoders do not even have to be loaded. The text becomes one point, also cut to 256 numbers and rescaled to length 1.</li>
+<li><strong>The search.</strong> The phone finds the stored points with the highest cosine similarity to your query. A fast <strong>approximate nearest neighbor (ANN)</strong> index makes this take milliseconds instead of checking every point one by one.</li>
+<li><strong>The result.</strong> The top hit is &quot;video X, 0:42,&quot; and nothing ever left the phone. This is essentially Google&#39;s &quot;Video Moments Finder&quot; demo in its AI Edge Gallery app.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>The headline: strong at everything for its size, best in several categories.</strong> The paper compares only against single-vector models and excludes ones trained on much of the test data.</p>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Benchmark (higher is better)</th>
+<th>EmbeddingGemma 2</th>
+<th>Comparison</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Code search</td>
+<td>MTEB Code</td>
+<td>78.68</td>
+<td>EmbeddingGemma 1: 68.76. Qwen3-Embedding 0.6B: 75.4. Best under 1B parameters.</td>
+</tr>
+<tr>
+<td>Image, video and document search</td>
+<td>MMEB-v2 overall</td>
+<td>59.01</td>
+<td>EmbeddingGemma 1 (text only): 43.61. Beaten only by models around 2B parameters, such as Eddy-vl (1.93B) at 63.2.</td>
+</tr>
+<tr>
+<td>Image understanding</td>
+<td>MIEB-lite</td>
+<td>60.17</td>
+<td>Next best under 1B, SigLIP SO400M: 52.3. About 8 points ahead.</td>
+</tr>
+<tr>
+<td>Spoken search</td>
+<td>MSEB retrieval</td>
+<td>69.54</td>
+<td>Same model fed transcripts instead of audio: 57.59. Gemini Embedding 2 (the teacher): 73.99.</td>
+</tr>
+<tr>
+<td>Audio tasks</td>
+<td>MAEB</td>
+<td>49.9</td>
+<td>Within 0.2 of the best model under 1B (Jina Omni Nano, 50.1).</td>
+</tr>
+<tr>
+<td>Text, multilingual</td>
+<td>MTEB v2</td>
+<td>61.36</td>
+<td>EmbeddingGemma 1: 61.15. Qwen3-Embedding 0.6B: 64.34. Jina Omni Nano: 65.52.</td>
+</tr>
+</tbody></table>
+<p><strong>The most interesting result: listening beats transcribing.</strong> On spoken search, feeding raw audio into the model scored 69.54, while transcribing the audio to text first and searching the text scored 57.59. That is a 12-point gap in favor of skipping transcription, and it even works across languages (67.68 when the spoken query and the target are in different languages). It suggests that the &quot;turn everything into text first&quot; pipeline really does lose information.</p>
+<p><strong>The student nearly matches the teacher.</strong> On spoken search the 740-million-parameter student reaches about 94% of the giant teacher&#39;s score, on a phone.</p>
+<p><strong>Small design choices, measured.</strong> Letting the vision encoder keep training (instead of freezing it) raised the multimodal score from 48.18 to 52.27. More image tokens help documents a lot (51.6 to 67.6 on document search going from 70 to 1,120 tokens) but video actually got worse past 280 tokens per frame.</p>
+<p><strong>Why it is convincing.</strong> The numbers come from standard public benchmarks across four media types, the ablations isolate why each piece matters, and the model is public, so anyone can check.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Text got slightly worse in English.</strong> 68.46 versus 69.67 for the original text-only EmbeddingGemma. Adding senses cost a little on the old job. Several similar-size text models (Qwen3-Embedding 0.6B, Jina) score higher on text.</li>
+<li><strong>It hears words better than voices.</strong> Zero-shot, it is weak at &quot;paralinguistic&quot; features (how someone sounds rather than what they say). Grouping speakers by gender, for example, scored only 0.40. It is not a voiceprint or speaker-identification model. The audio encoder was also kept frozen, so it never adapted to this job.</li>
+<li><strong>One point per item is a bottleneck.</strong> A related 2025 Google DeepMind paper (Weller et al., &quot;On the Theoretical Limitations of Embedding-Based Retrieval&quot;) proved that a single vector of a fixed size can only represent a limited number of &quot;which documents go together&quot; combinations, and showed top embedding models scoring under 20% recall on a simple test built to expose this. A whole video or a long meeting squashed into one point will lose detail; you need to chop content into segments.</li>
+<li><strong>The context window is shared.</strong> 8,192 tokens covers about 5 minutes of audio, or about 29 images, or about 58 video frames. Longer media must be split.</li>
+<li><strong>Some evaluation caveats.</strong> Ablations used an intermediate recipe, a few compressed-model scores used a different evaluation setup, and one competitor&#39;s score appears differently in two tables.</li>
+<li><strong>No safety tuning.</strong> It is a raw model; anyone building on it adds their own safeguards and access controls.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Directly, as an open model developers can download now.</strong> Released October 6, 2026. The Hugging Face page shows about 365,000 downloads in the past month, plus over 120 compressed versions and about 150 fine-tuned versions made by others. It runs in the common tools (sentence-transformers, Transformers, vLLM, llama.cpp, Ollama, LM Studio, MLX) and in Google&#39;s on-device runtime LiteRT, according to a third-party explainer from eesel.</li>
+<li><strong>In Google&#39;s own on-device demos.</strong> Google&#39;s developer blog launched it with two demos in the AI Edge Gallery app: Instant Media Search (search your phone&#39;s photos and videos by typing or by example image) and Video Moments Finder (find a described moment inside your videos), plus an experimental Mac meeting companion, AI Edge Foresight, that pairs it with Gemma 4 to answer questions during meetings. Google says Android&#39;s ML Kit will offer it as a built-in service &quot;in the coming weeks.&quot;</li>
+<li><strong>In vector databases.</strong> A <strong>vector database</strong> stores millions of embeddings and finds the nearest ones fast. Qdrant published a guide at launch, and an analysis by NxCode reports Qdrant&#39;s tests compressing 256-number EmbeddingGemma 2 vectors to about 40 bytes each while keeping about 94.5% of search quality.</li>
+<li><strong>Its teacher is a commercial product.</strong> Gemini Embedding 2, the model this one was distilled from, has been generally available on Google&#39;s Gemini API since April 22, 2026, priced (per eesel) at $0.20 per million text tokens, $0.00012 per image and $0.00016 per second of audio. EmbeddingGemma 2 is the free, local version of that same map. I could not find named outside companies running EmbeddingGemma 2 in production yet; it is four weeks old.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used-or-where-other-approaches-win">How it ISN&#39;T used (or where other approaches win)</h3>
+<ul>
+<li><strong>Best-accuracy document search often uses many vectors, not one.</strong> &quot;Late interaction&quot; models like ColBERT (for text) and ColPali (for page images) keep one vector per word or image patch and compare them piece by piece. According to Weaviate&#39;s overview, this captures finer detail, at the cost of much bigger storage (about five times larger in their example). Teams searching complex PDFs often choose this over single-vector models like EmbeddingGemma 2.</li>
+<li><strong>Rerankers usually sit on top.</strong> In serious search systems, a fast embedding model like this one picks the top 50 or 100 candidates, then a slower, more precise model (a <strong>cross-encoder</strong> or <strong>reranker</strong>, which reads query and candidate together) reorders them. The Weller et al. paper recommends exactly this for hard queries.</li>
+<li><strong>Speech-to-text pipelines are not dead.</strong> Transcripts remain human-readable, editable and easy to quote, so most products still store them. This paper&#39;s evidence argues for searching the audio directly <em>alongside</em> transcripts, not instead of them.</li>
+<li><strong>Speaker identification needs a different model.</strong> Because it is weak on voice qualities, telling <em>who</em> is speaking still needs a dedicated voiceprint model (like the ones in Day 36&#39;s EvoSpeakerMem).</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>word2vec, words as points (2013, Day 4) -&gt; sentence embeddings from BERT-style models (2018 onward, Day 10) -&gt; CLIP, images and text on one map (2021, Day 15) -&gt; RAG makes embeddings the memory of chatbots (Day 14) -&gt; Gemini Embedding 2, all media on one map in the cloud (April 2026) -&gt; EmbeddingGemma 2, the same map distilled onto a phone (October 2026) -&gt; what you will likely use: private, on-device search across everything you have ever seen, said or saved.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Amelia and permissioned relationship memory.</strong> Your memory products need to answer &quot;what did Dana say about the lease last month?&quot; across recorded conversations. This paper shows two useful things. First, searching the audio itself beat searching its transcript by 12 points, so storing an audio embedding per segment, next to the transcript, is worth testing. Second, it all runs on a phone in under 600 MB, which means a conversation&#39;s memory can be searched without uploading it, a real selling point for anything built on <em>permission</em>. One honest catch: this model hears <em>what</em> was said, not <em>who</em> said it (weak on voice identity), so you would still pair it with a speaker-ID model, exactly the split Amelia already has.</p>
+<p><strong>Unstall.</strong> A real estate agent&#39;s world is mixed media: listing photos, walkthrough videos, voice memos, texts, PDFs. One model that puts all of them on a single map means a voice request like &quot;pull up the place with the white kitchen island I saw Tuesday&quot; could search photos, video and voice notes at once, on the agent&#39;s own phone.</p>
+<p><strong>CoMinds.</strong> Matching students into teams is a similarity problem. Students in a program like Iovine and Young bring demo reels, portfolios, code and written statements. Embedding all of those on one map gives you a way to measure &quot;these two people make related work&quot; or, more usefully for interdisciplinary teams, &quot;these two are far apart but each is close to the project brief.&quot;</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Embedding</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A list of numbers (here 768) that represents an item&#39;s meaning as a point on a map, where nearby points mean similar things.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Cosine similarity</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How closely two embeddings point the same way, from 1 (same meaning) to 0 (unrelated).</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Distillation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Training a small &quot;student&quot; model to imitate a large &quot;teacher&quot; model&#39;s outputs.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Contrastive learning with hard negatives</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Training by pulling matching pairs together and pushing look-alike wrong answers away.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Matryoshka embedding</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An embedding trained so its first 128, 256 or 512 numbers also work on their own, letting you trade a little quality for much less storage.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Quantization</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Storing a model&#39;s numbers with fewer bits (here 4 per weight) so it fits in less memory, with a small quality cost.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read Section 1 (Introduction), which explains the &quot;transcribe everything first&quot; problem better than this brief can, then look at Figure 1 (the architecture diagram) and the training-recipe overview in Section 4. Then jump to the audio results table showing native audio versus transcribed audio (MSEB). Skip the detailed per-benchmark tables and the quantization appendix unless you plan to ship on a phone.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>This model puts a photo, a sentence and a voice memo on one map so that &quot;close&quot; means &quot;similar.&quot; But in a product like Amelia, the most useful memory is often not the most <em>similar</em> one; it is the one that matters most to this person, right now, or the one they gave permission to recall. What would you add on top of &quot;nearest point on the map&quot; so that an AI remembers the right thing, not just the most similar thing?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.37364">EmbeddingGemma 2: Unified and Efficient Multimodal Representations (arXiv)</a></li>
+<li><a href="https://arxiv.org/html/2610.37364">Full text (arXiv HTML)</a></li>
+<li><a href="https://huggingface.co/papers/2610.37364">EmbeddingGemma 2 paper page (Hugging Face)</a></li>
+<li><a href="https://huggingface.co/google/embeddinggemma-2">google/embeddinggemma-2 model card (Hugging Face)</a></li>
+<li><a href="https://developers.googleblog.com/en/google-ai-edge-with-embeddinggemma-2/">Bring multimodal semantic search to the edge with EmbeddingGemma 2 (Google Developers Blog, October 6, 2026)</a></li>
+<li><a href="https://www.eesel.ai/blog/embeddinggemma-2">EmbeddingGemma 2: Google&#39;s open multimodal embedding model, explained (eesel)</a></li>
+<li><a href="https://www.nxcode.io/resources/news/embeddinggemma-2-on-device-multimodal-retrieval-memory-2026">EmbeddingGemma 2 Makes Local Multimodal Search Plausible, but the Index Still Has to Fit (NxCode)</a></li>
+<li><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-embedding-2-generally-available/">Gemini Embedding 2 is now generally available (Google blog, April 22, 2026)</a></li>
+<li><a href="https://arxiv.org/html/2508.21038v1">On the Theoretical Limitations of Embedding-Based Retrieval (Weller et al., arXiv)</a></li>
+<li><a href="https://weaviate.io/blog/late-interaction-overview">An Overview of Late Interaction Retrieval Models: ColBERT, ColPali, and ColQwen (Weaviate)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/37/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 37</span>
+<span class="mt-1 block font-semibold">TAPESTRY (a video generator retrained to move a robot, without making any video)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
