@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 40: Apriel Voice 27B Preview: An Open Model for Speech, Reasoning, and Tool Use</title>
+<meta name="description" content="ServiceNow bolted a speech &quot;ear&quot; onto an existing open reasoning model and trained the two together, producing a free, downloadable voice model that listens to you directly, thinks, and calls software tools, coming within striking distance of OpenAI&#39;s and Google&#39;s closed voice agents on realistic customer-service calls.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Apriel Voice 27B Preview: An Open Model for Speech, Reasoning, and Tool Use</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">40</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Aman Tiwari, Akshay Kalkunte, Akintunde Oladipo and 28 others (ServiceNow AI)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2610.40738" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">ServiceNow bolted a speech &quot;ear&quot; onto an existing open reasoning model and trained the two together, producing a free, downloadable voice model that listens to you directly, thinks, and calls software tools, coming within striking distance of OpenAI&#39;s and Google&#39;s closed voice agents on realistic customer-service calls.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Instead of the usual three-part voice stack (transcribe your speech, send the text to a chatbot, read the answer aloud), Apriel Voice feeds your voice straight into a reasoning model that can answer or call a tool, and on a realistic airline-support test it beats every other open system and is competitive with closed ones from OpenAI and Google, while still being slower than them.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>Whisper (Day 19) supplies the &quot;ear&quot;: Apriel uses a Whisper encoder to turn sound into numbers. The Transformer (Day 9) and GPT-3 (Day 11) are the backbone family. InstructGPT (Day 16) is the ancestor of the &quot;post-trained&quot; chat model it starts from. ReAct (Day 18) is where language models learned to interleave thinking with tool calls, which is exactly what Apriel now does from voice. CLIP (Day 15) popularized the trick of lining up two kinds of data (there, images and text) in one shared space, the same move this paper makes for speech. Among frontier days, it continues VISAGENT (Day 30) and EvoSpeakerMem (Day 36), and it uses the same Gemma model family as EmbeddingGemma 2 (Day 38).</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Voice agents (the AI on the other end of a support line, or a voice assistant that books things for you) have mostly been built as a <strong>cascade</strong>: three separate models in a row. First <strong>ASR</strong> (automatic speech recognition, speech to text), then an <strong>LLM</strong> (large language model) that decides what to say or do, then <strong>TTS</strong> (text to speech). Cascades are easy to build and debug, but every handoff adds delay, and the LLM only sees a transcript, so a misheard confirmation code or name can derail the whole call. The alternative, <strong>speech-to-speech</strong> models like OpenAI&#39;s GPT Realtime and Google&#39;s Gemini Live, hear and speak natively and are fast, but they are closed: you rent them, cannot download them, and cannot inspect or fine-tune them. Open models that take audio directly existed (for example Ultravox), but on realistic multi-step tasks with tools they lagged far behind. So the gap was: an open, downloadable model that hears speech directly and is actually good at reasoning and using tools.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-give-a-smart-text-model-an-ear-instead-of-building-a-new-voice-brain">1. Give a smart text model an ear, instead of building a new voice brain</h3>
+<p><strong>What it is.</strong> Apriel Voice is three pieces glued together:</p>
+<ol>
+<li><strong>Audio encoder: Whisper large-v3-turbo.</strong> An <strong>encoder</strong> is a network that turns raw input into a list of number vectors that capture its meaning. Whisper&#39;s encoder listens to 16 kHz audio (in 30-second chunks) and outputs one vector per short slice of sound.</li>
+<li><strong>Projector.</strong> A small learned translator that converts Whisper&#39;s vectors into the exact &quot;vocabulary of vectors&quot; the language model already understands. Think of it as a plug adapter between two countries&#39; outlets.</li>
+<li><strong>Backbone: Gemma 4 26B-A4B.</strong> Google&#39;s open, already post-trained reasoning model. &quot;26B-A4B&quot; means it has about 26 billion parameters in total but is a <strong>mixture of experts</strong> (it routes each word through only a subset of its parts), so only about 4 billion are active at a time. That keeps it fast for its size.</li>
+</ol>
+<p><strong>How it works, step by step.</strong> You say &quot;Can you move my flight to Thursday?&quot; The encoder turns those two seconds of sound into a short sequence of vectors. The projector reshapes them so they look, to Gemma, like a special kind of word. Gemma then reads them alongside any text, images and tool results in the conversation, exactly as if you had typed something, and writes its reply.</p>
+<p><strong>Analogy.</strong> Rather than training a new employee who can both hear and do the job, you take your best existing employee, who already knows the job cold but only reads email, and give them a simultaneous interpreter who whispers directly into their ear. Except the &quot;interpreter&quot; here does not produce words; it hands over meaning, including things a transcript loses.</p>
+<p><strong>Why this matters.</strong> The hard part of a voice agent is not hearing; it is reasoning, following policy and using tools correctly. Gemma already does that well in text. Reusing it means the voice model inherits those skills instead of learning them from scratch.</p>
+
+<h3 id="2-one-model-that-both-talks-and-acts-a-2-stage-system">2. One model that both talks and acts (a &quot;2-stage&quot; system)</h3>
+<p><strong>What it is.</strong> The paper&#39;s headline phrase is that the model &quot;directly processes speech and generates both responses and tool calls&quot; with no separate dialogue model. A <strong>tool call</strong> is a structured message, like a little form in JSON, that tells software to do something: <code>search_flights(date=&quot;Thursday&quot;)</code>. The application runs the tool and pastes the result back into the conversation, and the model continues.</p>
+<p><strong>What it does not do.</strong> Apriel Voice outputs <strong>text</strong>, not sound. A separate TTS voice (in their tests, Cartesia&#39;s Sonic 3.5) reads the answer aloud. It is also not <strong>full-duplex</strong> (able to listen and talk at the same time, handling interruptions naturally); turn-taking is left to the app around it.</p>
+<p>So the field now has three shapes, which the paper&#39;s comparison table names explicitly:</p>
+<table>
+<thead>
+<tr>
+<th>Shape</th>
+<th>Pieces</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>3-stage cascade</td>
+<td>ASR, then LLM, then TTS</td>
+<td>Parakeet + Gemma 4 + Sonic</td>
+</tr>
+<tr>
+<td>2-stage</td>
+<td>speech-understanding LLM, then TTS</td>
+<td>Apriel Voice + Sonic</td>
+</tr>
+<tr>
+<td>Speech-to-speech</td>
+<td>one model, sound in, sound out</td>
+<td>GPT Realtime, Gemini Live</td>
+</tr>
+</tbody></table>
+<p><strong>A thoughtful extra: &quot;pre-tool speech.&quot;</strong> Tool calls take time, and silence on a phone call feels broken. The integration code turns on a behavior by default where the model first says a short spoken-style line (&quot;Let me check that for you&quot;) before it fires off the tool call. Small, human, and directly about how the call <em>feels</em>.</p>
+<p><strong>Thinking mode.</strong> Like many recent models, it can write out private reasoning before answering. The headline voice-agent results use this mode. Thinking improves accuracy but costs time, which matters a lot when someone is waiting on the line.</p>
+
+<h3 id="3-teaching-the-ear-without-making-the-brain-forget">3. Teaching the ear without making the brain forget</h3>
+<p><strong>What it is.</strong> The danger in bolting a new input onto a trained model is <strong>catastrophic forgetting</strong>: as you train it on speech, it gets worse at the reasoning it was chosen for. The paper&#39;s two-stage training is designed to avoid that.</p>
+<p><strong>Stage 1: build the speech interface.</strong> Train mainly the connection between ear and brain, so speech vectors land somewhere sensible in Gemma&#39;s space. (The model card says the speech interface is &quot;aligned first.&quot;)</p>
+<p><strong>Stage 2: adapt ear and brain together,</strong> using three ingredients:</p>
+<ul>
+<li><strong>Supervised fine-tuning (SFT)</strong> on spoken tasks: transcription, translation, spoken questions, and <strong>automatically constructed speech-conditioned dialogues</strong>, meaning multi-turn conversations, built by a pipeline rather than by hand, where the user&#39;s turns are audio. This is how it learns to handle a spoken request in the middle of an ongoing chat with tools.</li>
+<li><strong>Text replay.</strong> Mix in plain text training examples of the kind the backbone was originally good at, so it keeps practicing its old skills. Like a pianist learning jazz who keeps playing scales.</li>
+<li><strong>Two kinds of teacher signal, chosen by data source.</strong> <strong>Cross-entropy</strong> is the normal &quot;here is the one right answer, make it more likely&quot; signal. <strong>Forward KL distillation</strong> is subtler: a <strong>teacher</strong> model shows its full probability for every possible next word, and the student learns to match that whole spread, not just the top pick. That carries more information, like learning from a mentor who tells you &quot;probably A, maybe B, definitely not C&quot; instead of just &quot;A.&quot; The paper uses whichever signal fits each data source. (The abstract I could read does not name the teacher; a natural guess is the original text model, but treat that as unconfirmed.)</li>
+</ul>
+<p><strong>Engineering to make distillation affordable.</strong> Distillation means running a big teacher alongside the student during training, which is expensive. They host the teacher locally, overlap the teacher&#39;s and student&#39;s computation so neither waits, and fuse the loss math over the full vocabulary into one efficient step.</p>
+<p><strong>Did it work?</strong> Mostly yes. On text benchmarks the voice model roughly matches or slightly beats the original Gemma: MMLU-Pro 84.42 vs 85.27 (tiny drop), GPQA Diamond 80.40 vs 77.80, AIME 2025 identical at 81.67, and a text tool-use test (τ²) 70.95 vs 68.93. The brain did not forget.</p>
+
+<h2 id="walkthrough-one-call-to-an-airline-voice-agent">Walkthrough: one call to an airline voice agent</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li>A caller says, &quot;Hi, I need to rebook my flight, confirmation code K7Q-2LM.&quot;</li>
+<li>Whisper&#39;s encoder turns the audio into vectors; the projector translates them into Gemma&#39;s space. No transcript is produced as an in-between step.</li>
+<li>In thinking mode, the model reasons privately: the caller wants a rebooking, I have a code, I should look up the booking before promising anything.</li>
+<li>Pre-tool speech: it outputs &quot;Sure, let me pull up that reservation,&quot; which the TTS voice says right away.</li>
+<li>It emits a tool call like <code>get_reservation(code=&quot;K7Q2LM&quot;)</code>. The app runs it and returns the booking details as text.</li>
+<li>The model reads the result and replies with options, which TTS speaks.</li>
+<li>The whole loop, from the caller stopping talking to hearing the answer, averaged 1.91 seconds in their tests, including the speech synthesis.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p>The most convincing test is <strong>EVA</strong>, a benchmark ServiceNow released earlier in 2026, where a simulated caller with a goal and personality talks, out loud, to the voice agent in airline scenarios (rebooking, cancellations, standby, vouchers) with 15 tools. It scores two things: <strong>EVA-A</strong> (accuracy: did the task end in the right database state, were facts and codes spoken correctly) and <strong>EVA-X</strong> (experience: brief, natural, good turn-taking). They also report <strong>τ-Voice</strong>, a spoken version of a well-known customer-service agent benchmark.</p>
+<table>
+<thead>
+<tr>
+<th>System</th>
+<th>Type</th>
+<th align="right">EVA-A</th>
+<th align="right">EVA-X</th>
+<th align="right">τ-Voice</th>
+<th align="right">Latency (s)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GPT Realtime 2.1</td>
+<td>Speech-to-speech, closed</td>
+<td align="right">59.03</td>
+<td align="right">61.6</td>
+<td align="right">69.82</td>
+<td align="right">1.55</td>
+</tr>
+<tr>
+<td>Gemini 3.8 Live (extended thinking)</td>
+<td>Speech-to-speech, closed</td>
+<td align="right">54.82</td>
+<td align="right">73.5</td>
+<td align="right">84.19</td>
+<td align="right">1.50</td>
+</tr>
+<tr>
+<td>Parakeet + Gemma 4 26B</td>
+<td>3-stage, open</td>
+<td align="right">39.97</td>
+<td align="right">3.93</td>
+<td align="right">67.78</td>
+<td align="right">3.01</td>
+</tr>
+<tr>
+<td>Flux + Gemma 4 26B</td>
+<td>3-stage, mixed</td>
+<td align="right">36.07</td>
+<td align="right">29.22</td>
+<td align="right">65.92</td>
+<td align="right">2.92</td>
+</tr>
+<tr>
+<td>UltraVox v0.6</td>
+<td>2-stage, open</td>
+<td align="right">8.94</td>
+<td align="right">1.91</td>
+<td align="right">26.80</td>
+<td align="right">3.95</td>
+</tr>
+<tr>
+<td><strong>Apriel Voice 27B Preview</strong></td>
+<td><strong>2-stage, open</strong></td>
+<td align="right"><strong>51.27</strong></td>
+<td align="right"><strong>74.13</strong></td>
+<td align="right"><strong>65.51</strong></td>
+<td align="right"><strong>1.91</strong></td>
+</tr>
+</tbody></table>
+<p>How to read this:</p>
+<ul>
+<li><strong>Against other open systems, it is a big jump.</strong> The previous open 2-stage models score in the single digits or teens on EVA-A; Apriel scores 51. The best open cascades using the <em>same</em> Gemma brain reach about 40 on accuracy but score terribly on experience (3.93 for one), largely because they are slow and clunky. Apriel is about a second faster than them.</li>
+<li><strong>Against closed systems, it is close but not ahead.</strong> It beats Gemini Live on EVA-A and edges both closed models on EVA-X, but GPT Realtime is still more accurate, Gemini Live is far better on τ-Voice (84 vs 66), and both closed models are faster (about 1.5 s vs 1.9 s).</li>
+<li><strong>Interesting wrinkle:</strong> on τ-Voice, the plain cascade with Gemma slightly beats Apriel (67.78 vs 65.51). Hearing audio directly is not automatically better for raw task success; its advantage shows up most in speed and conversational feel.</li>
+</ul>
+<p>Other results: speech recognition error of 2.23 percent on a standard clean-audio test (LibriSpeech) and 11.25 percent on messy earnings-call audio; 81.13 on a spoken function-calling test (Speech-BFCL); 98.90 on Big Bench Audio (spoken reasoning puzzles); and 93.18 on spoken grade-school math.</p>
+<p>Why it is convincing: the evaluation is end to end with real audio, real tools and a scored final database state, and it is compared against the systems people actually ship. Why to be careful: EVA was built by the same company, the domain is one industry (airlines) in English, and latency depends heavily on the serving setup (they used four high-end H100 GPUs and a custom serving stack).</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Not truly speech-to-speech.</strong> It hears natively but still speaks through a separate TTS, and it cannot listen while talking. Interruptions and turn-taking depend on the surrounding app.</li>
+<li><strong>Still slower than the closed leaders</strong>, and thinking mode, which produced the best scores, adds delay.</li>
+<li><strong>English-first.</strong> The model card warns multilingual quality is uneven.</li>
+<li><strong>Noisy rooms and distant microphones remain hard</strong>, as do long recordings (repetition, losing the thread) and complex multi-tool workflows.</li>
+<li><strong>Heavy to run.</strong> The reference setup is four data-center GPUs; this is not a phone or laptop model.</li>
+<li><strong>A &quot;preview.&quot;</strong> The authors themselves frame it as early. The vLLM integration was still awaiting review when I checked, and no hosted inference providers offered it yet.</li>
+<li><strong>Home-team benchmark.</strong> The strongest results are on ServiceNow&#39;s own EVA benchmark. Independent replication will matter.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The model itself is brand new (released October 29 to November 2, 2026)</strong>, so real-world use is just starting. Weights are public under an MIT license on Hugging Face, with a demo (&quot;Apriel Live&quot;), a Docker image for serving, and an open pull request to add it to vLLM, the most popular open-source serving engine. It had around 340 downloads in its first days and no third-party hosting yet.</li>
+<li><strong>ServiceNow&#39;s own direction:</strong> ServiceNow sells enterprise IT and customer-service software, and coverage frames this as a backbone for voice-driven enterprise agents. I could not find a confirmed ServiceNow product that ships it yet, so treat that as intent, not fact.</li>
+<li><strong>The underlying recipe (speech encoder + projector + LLM) is widely used.</strong> Ultravox, an open model from Fixie, uses the same shape (an adapter mapping audio into Llama or Gemma), outputs text, and powers the Ultravox Realtime developer platform. Apriel is the same idea, trained much harder on reasoning and tool use.</li>
+<li><strong>Cascades still run most production voice agents.</strong> Frameworks like Pipecat and LiveKit Agents, and services like Deepgram&#39;s Voice Agent API, let developers chain ASR, an LLM and TTS. Industry write-ups in October 2026 argue cascades remain attractive because the text reply exists before it is spoken, so you can check it against policy, and each piece can be swapped separately. Apriel keeps that advantage: its reply is text, so you can still check it before TTS speaks.</li>
+<li><strong>Closed speech-to-speech models</strong> (GPT Realtime, Gemini Live) are the speed and quality leaders that Apriel is chasing.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used-or-not-yet">How it ISN&#39;T used (or not yet)</h3>
+<ul>
+<li><strong>It does not replace speech-to-speech for the most natural conversations.</strong> True full-duplex models that can be interrupted mid-sentence and respond with emotion in their voice are a different, harder category.</li>
+<li><strong>&quot;Half-cascade&quot; hybrids have a mixed track record.</strong> A recent comparison found two tested hybrids (speech in, text out, separate TTS) scored very poorly on conversational experience. Apriel&#39;s EVA-X of 74 suggests that is not inevitable, but it is one data point.</li>
+<li><strong>Older &quot;frozen everything, train only the adapter&quot; recipes</strong> (like early Ultravox) look superseded for agent work: Apriel&#39;s results suggest you need to adapt the brain itself, carefully, to get good spoken tool use.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Whisper (2022, speech to text) and CLIP-style alignment of modalities -&gt; &quot;audio adapter + LLM&quot; models like Ultravox (2024 to 2025) -&gt; Apriel Voice: an open reasoning model that hears directly and calls tools (2026) -&gt; the open goal still ahead: a fully open, full-duplex speech-to-speech agent.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Unstall.</strong> This is close to a direct blueprint for your core engine. A real estate agent driving between showings says &quot;Move the Henderson showing to 4 and text the buyer&#39;s agent,&quot; and the system must hear it, reason, and call calendar and messaging tools. Three concrete takeaways: (1) a 2-stage design keeps a text checkpoint, so Unstall can confirm before sending anything risky; (2) &quot;pre-tool speech&quot; is a cheap trick worth copying so the user never sits in silence; (3) EVA-style testing (a simulated caller, real tools, a scored end state, plus a separate &quot;did it feel good&quot; score) is exactly how you should evaluate Unstall before real agents depend on it. Being open and MIT-licensed also means you could, in principle, fine-tune it on real estate vocabulary like addresses, MLS numbers and names, which are exactly the &quot;misheard entity&quot; failures EVA found most damaging. The catch is cost: four data-center GPUs is not a startup&#39;s first deployment.</p>
+<p><strong>Amelia.</strong> Apriel hears audio directly but has no idea <em>who</em> is speaking. Pair today with Day 36: a speaker-identity layer in front, an Apriel-style model in the middle, and per-person memory behind it is roughly the full Amelia stack.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Cascade (3-stage)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A voice system built from separate speech-to-text, language model and text-to-speech pieces in a row.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Speech-to-speech model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>One model that takes sound in and produces sound out, like GPT Realtime.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Encoder and projector</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The encoder turns audio into number vectors; the projector translates those into the language model&#39;s own vector space.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Tool call</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A structured instruction the model writes so software performs an action, like searching flights.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Distillation (forward KL)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Training a student model to match a teacher&#39;s full probabilities for each next word, not just the single right answer.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Full-duplex</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Able to listen and speak at the same time, so it can be interrupted naturally.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the introduction for why they chose a 2-stage design, then the voice-agent evaluation section with the EVA and τ-Voice comparison table (the same table is in the model card if arXiv is slow). If you want one more thing, read the short training overview of Stage 1 and Stage 2, which explains how they avoided forgetting. Skip the serving-efficiency and kernel details unless you are deploying it, and skip the long list of individual speech benchmarks.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>Apriel deliberately outputs text and lets another system speak it, which costs some speed but lets you inspect every reply before a human hears it. For Unstall, which moments in a real estate agent&#39;s day are worth half a second of delay for that safety check (sending a contract, quoting a price), and which should feel instant (reading back the next appointment)? Could one product use both modes?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2610.40738">Apriel Voice 27B Preview: An Open Model for Speech, Reasoning, and Tool Use (arXiv)</a></li>
+<li><a href="https://huggingface.co/papers/2610.40738">Paper page on Hugging Face Daily Papers</a></li>
+<li><a href="https://huggingface.co/papers/date/2026-11-02">Daily Papers for November 2, 2026 (Hugging Face)</a></li>
+<li><a href="https://huggingface.co/ServiceNow-AI/Apriel-Voice-27B-preview">Model card: ServiceNow-AI/Apriel-Voice-27B-preview (Hugging Face)</a></li>
+<li><a href="https://github.com/vllm-project/vllm/pull/64683">vLLM pull request #64683: Add Apriel Voice support (GitHub)</a></li>
+<li><a href="https://aiweekly.co/alerts/servicenow-open-sources-apriel-voice-27b-with-tool-calling">ServiceNow Open-Sources Apriel Voice 27B With Tool Calling (AI Weekly, November 2, 2026)</a></li>
+<li><a href="https://cctest.ai/en/articles/apriel-voice-27b-preview-unifies-speech-reasoning-and-tool-use">Apriel Voice 27B: Open Model for Speech and Tool Use (CCTest)</a></li>
+<li><a href="https://huggingface.co/blog/ServiceNow-AI/eva">A New Framework for Evaluating Voice Agents (EVA) (ServiceNow on Hugging Face, March 2026)</a></li>
+<li><a href="https://www.coval.ai/blog/speech-to-speech-vs-cascaded-voice-ai-which-architecture-should-you-deploy/">Speech-to-Speech vs Cascaded Voice AI in 2026 (Coval, October 2026)</a></li>
+<li><a href="https://github.com/fixie-ai/ultravox">Ultravox (Fixie, GitHub)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/39/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 39</span>
+<span class="mt-1 block font-semibold">Agentic Backdoors (a hidden command planted in a model&#39;s reading list)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
