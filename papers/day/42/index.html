@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 42: MoviEdit: Long-form Multi-Shot Video Editing Made Easy</title>
+<meta name="description" content="Adobe and KAIST built an AI editor that takes a 15-second, multi-shot clip and a single instruction (&quot;replace the baby girl with a puppy&quot;) and applies it to the right subject in every shot, by first sketching a rough, low-resolution edit of the whole clip and then rendering it in full detail piece by piece, matching Runway&#39;s commercial Aleph 2.0.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">MoviEdit: Long-form Multi-Shot Video Editing Made Easy</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">42</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Suhyeon Lee, Zhengang Li, Soo Ye Kim, Peihao Zhu, Jong Chul Ye, Chun-Hao Paul Huang, Duygu Ceylan, Yan Kang, Hyeonho Jeong (Adobe, KAIST)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.02737" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Adobe and KAIST built an AI editor that takes a 15-second, multi-shot clip and a single instruction (&quot;replace the baby girl with a puppy&quot;) and applies it to the right subject in every shot, by first sketching a rough, low-resolution edit of the whole clip and then rendering it in full detail piece by piece, matching Runway&#39;s commercial Aleph 2.0.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>To edit a whole multi-shot scene consistently, don&#39;t edit it shot by shot: first make a cheap, blurry &quot;rough cut&quot; of the edit across the entire clip so every shot agrees, then render the full-quality version in order, always looking back at that rough cut.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>The engine is a diffusion model (Day 12, DDPM) built from Transformer blocks (Day 9), steered by text the way CLIP (Day 15) taught models to connect words and pictures. The paper&#39;s key move is combining two ways of reading a sequence you have already met: <strong>bidirectional</strong>, where every part looks at every other part (BERT, Day 10), and <strong>autoregressive</strong>, where you produce one piece at a time, left to right (GPT-3, Day 11). Among frontier days, it continues the generative video thread from Day 22 (keeping a &quot;world state&quot; so video stays consistent), Day 32 (FilmFlow, AI cinematography) and Day 37 (TAPESTRY, video models as robot brains).</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>By 2026, AI could edit a short clip from a sentence: remove a person, change the weather, restyle it as anime. But nearly all of those editors were built for a single shot a few seconds long. Real footage is a scene: a wide, a close-up, a reverse, back to the wide. Push a 15-second, five-shot sequence through a short-clip editor and three things go wrong. The edit lands on the wrong person after a cut, or vanishes. Details drift (the puppy&#39;s color slowly changes, the image gets oversaturated). And if you try to process the whole clip at once, the computing cost explodes, because every frame has to compare itself with every other frame. Behind all three sits a data problem: to teach a model this, you need thousands of &quot;before and after&quot; pairs of multi-shot videos where the same edit was applied correctly to the same subject in every shot, and nobody has those. Commercial tools (Runway&#39;s Aleph 2.0, Google&#39;s Gemini Omni Flash) had started to handle multiple shots, but how they do it is secret. MoviEdit is a fully described recipe.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-manufacture-the-training-data-you-can-t-find">1. Manufacture the training data you can&#39;t find</h3>
+<p><strong>What it is.</strong> Since nobody has thousands of correctly edited multi-shot pairs, the team built three automatic pipelines that create them, with no human labeling. They ended up with about 87,000 pairs (86,619 after filtering out about 120,000 bad ones), each around 15 seconds long at 540p (roughly DVD-quality) and 24 frames per second.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li><strong>Collect raw multi-shot footage from three places.</strong> Synchronized multi-camera recordings (2 to 4 cameras filming the same moment, which you can cut between to fake a multi-shot scene: 1,147 clips), real cinematic footage (32,474 clips), and multi-shot clips made by AI video generators (27,630 clips).</li>
+<li><strong>Make &quot;pixel-aligned&quot; edits</strong> (adding, removing or swapping an object, changing its appearance, restyling, changing the environment). The trick: take the first frame of every shot, lay them out in a grid as one image, and edit that grid with an image editor in one go. Because it is one image, the edit is consistent across shots (the puppy looks the same in every tile). Then an existing short-clip editor spreads each edited first frame through its own shot.</li>
+<li><strong>Make &quot;localization&quot; pairs</strong>, where the target video simply highlights, outlines or color-fills the subject. These teach the model <em>which</em> thing in each shot the instruction is about.</li>
+<li><strong>Make &quot;semi-pixel-aligned&quot; pairs</strong> for big changes where the pixels can&#39;t line up (turn live action into clay animation, change a character&#39;s whole look) by regenerating the scene with a multi-shot video generator.</li>
+<li><strong>Filter with an AI judge.</strong> A vision-language model (an AI that looks at images and answers questions in text) throws out pairs where the edit failed.</li>
+</ol>
+<p><strong>Analogy.</strong> It is like building a continuity training course for a new script supervisor by staging scenes yourself: you shoot the same moment from four cameras, then dress the set two different ways, so you know exactly what &quot;correct&quot; looks like in every angle.</p>
+<p><strong>Why it matters.</strong> The grid trick sidesteps a chicken-and-egg problem: you don&#39;t need a multi-shot editor to make multi-shot editing data.</p>
+
+<h3 id="2-draft-first-then-render-the-two-pass-editor">2. Draft first, then render: the two-pass editor</h3>
+<p><strong>What it is.</strong> The model edits in two passes, called the <strong>Draft Editor</strong> and the <strong>Render Editor</strong>. They are actually the same trained model (same weights) used in two modes.</p>
+<p>First, two definitions. A <strong>diffusion model</strong> makes images or video by starting from static (random noise) and removing it step by step until a picture appears, guided by an instruction. A <strong>latent</strong> is a compressed version of the video (a smaller grid of numbers) that the model works on instead of raw pixels, to save computing; an <strong>autoencoder</strong> (here a &quot;video VAE&quot;) squeezes video into latents and expands them back.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li><strong>Draft pass (bidirectional).</strong> The model takes about half the frames, at lower resolution, and edits them all at once. &quot;Bidirectional&quot; means every frame can look at every other frame, before and after. Because it sees the whole scene at once, shot 1 and shot 5 agree on what the puppy looks like and which character it replaces. Because it is small and blurry, this is affordable.</li>
+<li><strong>Render pass (autoregressive).</strong> Now the model renders the real, full-resolution video in fixed-size chunks, in order, from start to finish. &quot;Autoregressive&quot; means each chunk is made based on what came before. Each chunk looks at four things: the draft (for the big picture), the last few chunks it rendered (for smooth motion), the matching piece of the original footage (to keep everything that shouldn&#39;t change), and the instruction.</li>
+<li><strong>The result</strong>: global consistency from the draft, sharp detail from the render, and a cost that grows gently with length instead of exploding.</li>
+</ol>
+<p><strong>Analogy.</strong> This is an animatic before final animation, or an offline edit before the online. You first lay out the whole sequence cheaply so every shot agrees, then do the expensive finishing work shot by shot while keeping the animatic on the second monitor.</p>
+<p><strong>Why the draft is needed.</strong> The authors show that rendering chunk by chunk <em>without</em> a draft slowly drifts: colors oversaturate and the edited subject changes appearance, because small errors in each chunk get copied into the next. The draft is a fixed reference that keeps pulling the render back on model.</p>
+<p><strong>Two ways to steer it.</strong> You can give a text instruction (&quot;Remove the man in a black tactical suit&quot;), or give an edited still of any frame from any shot (fix one frame in Photoshop, and the model spreads that change through the whole clip). At test time it even accepts several edited frames from different shots.</p>
+
+<h3 id="3-make-it-fast-enough-to-use">3. Make it fast enough to use</h3>
+<p><strong>What it is.</strong> A 15-second clip (361 frames) originally took about 6 minutes on 8 high-end GPUs. Three standard speedups bring that down.</p>
+<p><strong>How it works.</strong></p>
+<ul>
+<li><strong>Sliding-window attention</strong>: each chunk only looks back at its recent neighbors, not the whole history (364 s down to 259 s).</li>
+<li><strong>KV caching</strong>: the model saves its notes on chunks it has already processed instead of recomputing them (down to 167 s).</li>
+<li><strong>Distillation</strong>: a faster &quot;student&quot; version is trained to imitate the full model in far fewer denoising steps (12 for the draft, 4 for the render). This brings it to <strong>11.8 seconds</strong>, about 31 times faster than the start.</li>
+</ul>
+<p><strong>Analogy.</strong> Proxy files and render caches: you stop re-rendering what you already rendered.</p>
+
+<h3 id="4-a-test-that-checks-the-edit-survives-the-cut">4. A test that checks the edit survives the cut</h3>
+<p><strong>What it is.</strong> <strong>MoviEdit-Bench</strong>, a new benchmark: 64 AI-generated multi-shot videos (4 to 6 shots, 15 seconds each) with 128 editing tasks across eight categories, such as one person, several people, a person and an animal, global style changes, and tricky changes of medium.</p>
+<p><strong>How it works.</strong> Each edit is scored on seven things: Did the background and other people stay untouched? Did the edit land on the right subject? Was the subject&#39;s motion and identity preserved? Is the edit consistent across shots? Does it match the instruction? Is the video quality good? (And for edited-frame mode, does it match the frame you supplied?) Scores mix pixel comparisons, AI image features and AI-judge answers, rolled into one &quot;overall edit success&quot; number from 0 to 1.</p>
+<p><strong>Why it matters.</strong> Before this, nobody was checking the exact failure filmmakers care about: the edit is right in shot 1 and wrong in shot 3.</p>
+
+<h2 id="walkthrough-replace-the-baby-girl-with-a-puppy">Walkthrough: &quot;Replace the baby girl with a puppy&quot;</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li><strong>Input.</strong> A 15-second, five-shot clip of a family at home: a wide of the room, a close-up of the baby, a parent&#39;s reaction, a two-shot, back to the wide. Instruction: &quot;Replace the baby girl with a puppy.&quot;</li>
+<li><strong>Draft.</strong> The model looks at about 180 low-res frames from all five shots at once. It figures out that the small figure in the wide, the face in the close-up and the bundle in the two-shot are the same baby, and roughs in one consistent puppy in all of them.</li>
+<li><strong>Render.</strong> It renders chunk 1 at full resolution, guided by the draft and the original footage. Chunk 2 uses the draft plus chunk 1, and so on. The cut points, timing, camera moves and the parents all stay exactly as shot.</li>
+<li><strong>What a short-clip editor might have done instead.</strong> Swapped the baby in shot 1, missed her in the two-shot, and drifted to a slightly different puppy by shot 5.</li>
+<li><strong>If it&#39;s wrong.</strong> Hand it one frame where the puppy looks exactly how you want, and it re-renders the clip to match.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Text-guided editing (overall edit success, 0 to 1):</strong> MoviEdit scored <strong>0.790</strong>, ahead of Runway&#39;s commercial Aleph 2.0 (0.764), Alibaba&#39;s HappyHorse-1.0 (0.623) and Google&#39;s Gemini Omni Flash (0.586). Open-source editors scored far lower, from Wan-Edit (0.378) down to an older &quot;add noise and regenerate&quot; method called SDEdit (0.193).</p>
+<p><strong>Where MoviEdit wins and loses.</strong> It changes the least of what should stay the same, and it is best at putting the edit on the right subject (about 90% precision and 86% recall by the AI judge). But Aleph 2.0 is still better on cross-shot consistency (0.981 vs 0.904) and on raw video quality (0.801 vs 0.762). So MoviEdit is more accurate; Aleph is smoother and prettier.</p>
+<p><strong>Edited-frame mode:</strong> a near tie. When you edit the first frame, Aleph edges ahead (0.806 vs 0.803). When you edit a frame from a later shot, MoviEdit edges ahead (0.786 vs 0.781). Both are far ahead of the others (HappyHorse about 0.49 to 0.52).</p>
+<p><strong>How the commercial tools failed.</strong> HappyHorse and Gemini Omni did make the edits but drifted from the source footage: shot transitions and timing were lost and motion was invented. Open-source tools carried artifacts from one shot into the next or edited the wrong thing after a cut.</p>
+<p><strong>Beyond what it was trained on.</strong> Trained only on clips up to 15 seconds, it handled 25-second clips with up to 17 shots, single long takes, and applying one edit across a set of separate videos at once.</p>
+<p><strong>More helps.</strong> Results improved steadily with more training data and more training steps, a sign the approach has headroom.</p>
+<p><strong>Why it is convincing.</strong> A research model built from a published recipe matching a leading commercial product is notable, and the benchmark is designed around the specific failure (the cut) rather than generic video quality.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Look-alikes confuse it.</strong> When two subjects look similar (two kids in matching outfits), it can edit the wrong one. Partly visible subjects are also hard.</li>
+<li><strong>Resolution.</strong> It works at 540p; Aleph 2.0 edits up to 30 seconds at 1080p. That gap matters for anything beyond social or previs.</li>
+<li><strong>It edits, it doesn&#39;t direct.</strong> It keeps motion and story the same. Changing what characters <em>do</em>, or the narrative, is listed as future work.</li>
+<li><strong>Home-made test.</strong> The benchmark videos are AI-generated, and the authors built the benchmark themselves. AI judges do part of the scoring, and no human viewer study is reported.</li>
+<li><strong>No model release mentioned.</strong> The benchmark is meant to be public, but the paper does not say the model weights or code will be released. The base model is also not named.</li>
+<li><strong>Still heavy.</strong> Even the fast version uses 8 data-center GPUs for about 12 seconds per clip, and training used 64 top-end GPUs.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The idea is already in commercial products, built in secret.</strong> Runway&#39;s <a href="https://runway.com/news/introducing-aleph-2-and-edit-studio">Aleph 2.0 and Edit Studio</a> (May 2026) edit clips up to 30 seconds at 1080p, apply one edit across multiple cuts, and take &quot;a frame with the edit you want&quot; as a reference, which is exactly MoviEdit&#39;s two input modes. MoviEdit is the first detailed public recipe for doing the same.</li>
+<li><strong>Adobe&#39;s own products already ship prompt-based video editing</strong>, but through a partner: since December 2025, <a href="https://techcrunch.com/2025/12/16/adobe-firefly-now-supports-prompt-based-video-editing-adds-more-third-party-models">Firefly&#39;s video editor uses Runway&#39;s Aleph</a> for instructions like &quot;change the sky to overcast.&quot; An in-house Adobe model like MoviEdit is the kind of research that could eventually replace that dependency, though Adobe has not announced that.</li>
+<li><strong>Google&#39;s <a href="https://www.phonearena.com/news/googles-newest-ai-model-lets-you-edit-video-by-just-talking-to-it_id180484">Gemini Omni Flash</a></strong> (I/O 2026) lets anyone edit video by talking to it in the Gemini app, Google Flow and, for free, YouTube Shorts. It is one of the baselines MoviEdit beat on this benchmark.</li>
+<li><strong>Research siblings.</strong> Agent-based approaches like &quot;Thinking on Shots&quot; (August 2026) attack the same multi-shot problem with an AI agent that reasons about the shots before editing, and multi-shot generators like HoloCine are what MoviEdit&#39;s team used to make some of its training data.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Not available to try.</strong> MoviEdit is a research model; there&#39;s no app, and the paper doesn&#39;t promise weights.</li>
+<li><strong>Short-clip editors are being left behind</strong> for real footage. Tools built for one few-second shot, and the older &quot;add noise and regenerate&quot; approach (SDEdit), scored lowest here.</li>
+<li><strong>Pro VFX still runs on traditional tools.</strong> Rotoscoping, tracking and compositing remain the standard for anything going to a theater; AI editors at 540p to 1080p are used for previs, social content, pitches and quick fixes. The paper doesn&#39;t claim otherwise.</li>
+<li><strong>Pure &quot;edit everything at once&quot; doesn&#39;t scale.</strong> Processing the whole long video at full resolution in one go is the approach this paper shows to be too expensive; the draft-then-render split is how it gets around it.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Diffusion image editing (SDEdit, 2021) -&gt; short single-shot video editors (Runway Aleph, Lucy Edit, Wan-Edit) -&gt; commercial multi-shot editors (Aleph 2.0, Gemini Omni Flash) -&gt; an open recipe: draft the whole scene, render it in order (MoviEdit) -&gt; likely, AI editors living inside the timeline of Premiere and Firefly.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Your own films.</strong> This is the paper closest to your craft so far. The real-world use is the &quot;reshoot you can&#39;t afford&quot;: a logo on a shirt that legal flagged, a boom in the shot, a prop that changed between takes, a costume a client wants in a different color, across every angle of the scene. The key practical lessons: these tools are strongest at keeping everything else untouched, they now take an edited still as direction (so your Photoshop skills become video skills), and they still break when two subjects look alike, so cover yourself by giving it one reference frame per character. Treat output at this resolution as previs or social, not festival master, for now.</p>
+<p><strong>Amelia.</strong> MoviEdit&#39;s hardest failure is the same as Amelia&#39;s: keeping track of <em>who is who</em> when the view changes, and getting confused by look-alikes. MoviEdit&#39;s answer, which is to look at the whole sequence at once for a cheap global draft before committing to each moment&#39;s detail, is a pattern worth stealing. For a conversation, that could mean a quick pass over the whole recording to settle &quot;these voices are the same person&quot; before writing per-person memories, rather than deciding speaker by speaker in real time and never revisiting.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Multi-shot video</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A clip made of several shots joined by cuts, like a real scene, rather than one continuous take.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Diffusion model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An AI that creates or edits images and video by starting from noise and cleaning it up step by step, guided by an instruction.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Bidirectional vs autoregressive</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Bidirectional means every frame can look at every other frame at once; autoregressive means frames are produced in order, each based on the ones before.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Latent</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A compressed numeric version of a video that the model works on to save computing, expanded back into pixels at the end.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Distillation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Training a faster &quot;student&quot; model to copy a slower &quot;teacher&quot; model&#39;s results in fewer steps.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Drift</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Small errors that compound across a long generation, so colors or a character&#39;s look gradually change.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Watch the examples on the <a href="https://multi-shot-edit.github.io/">project page</a> first; as a filmmaker you will learn more from five minutes of the before-and-after clips than from any table. Then read the paper&#39;s figure of the data pipeline (the grid trick) and the comparison figure against the commercial editors. Skip the inference-speed table, the distillation math and the external benchmarks in the appendix.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If any shot can be changed after the fact by typing a sentence, what is a &quot;take&quot; anymore? On a set where wardrobe, props and even who is in the frame can be swapped in post, which decisions should a director still insist on getting right in camera, and why?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.02737">MoviEdit: Long-form Multi-Shot Video Editing Made Easy (arXiv abstract)</a></li>
+<li><a href="https://arxiv.org/html/2611.02737">Full text (arXiv HTML)</a></li>
+<li><a href="https://multi-shot-edit.github.io/">MoviEdit project page</a></li>
+<li><a href="https://huggingface.co/papers/2611.02737">MoviEdit on Hugging Face Daily Papers</a></li>
+<li><a href="https://huggingface.co/papers">Hugging Face Daily Papers</a></li>
+<li><a href="https://runway.com/news/introducing-aleph-2-and-edit-studio">Introducing Aleph 2.0 and Edit Studio (Runway)</a></li>
+<li><a href="https://techcrunch.com/2025/12/16/adobe-firefly-now-supports-prompt-based-video-editing-adds-more-third-party-models">Adobe Firefly now supports prompt-based video editing (TechCrunch)</a></li>
+<li><a href="https://www.phonearena.com/news/googles-newest-ai-model-lets-you-edit-video-by-just-talking-to-it_id180484">Google&#39;s newest AI model lets you edit video by just talking to it (PhoneArena)</a></li>
+<li><a href="https://arxiv.org/html/2608.26809">Thinking on Shots: Consistent Multi-Shot Video Editing with Agentic Reasoning (arXiv)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/41/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 41</span>
+<span class="mt-1 block font-semibold">Collaborative Intelligence (a report card for AI as a teammate)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
