@@ -1,5 +1,5 @@
 import type { Icon } from "@phosphor-icons/react";
-import { Article, BaseballCap, Eyeglasses, Monitor, Metronome, PawPrint, VectorTwo } from "@phosphor-icons/react/ssr";
+import { Article, BaseballCap, Drop, Eyeglasses, Monitor, Metronome, PawPrint, VectorTwo } from "@phosphor-icons/react/ssr";
 
 export type Project = {
   name: string;
@@ -9,6 +9,12 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    name: "OySir",
+    description: "My pitch for a fragrance bottle shaped like an oyster, where you press the pearl to spray. Inspired by “Our Time” from Merrily We Roll Along.",
+    path: "/oysir/",
+    icon: Drop,
+  },
   {
     name: "Linear algebra, one idea a morning",
     description: "Short animated lessons and notes that walk through a full linear algebra course, one concept per day.",
