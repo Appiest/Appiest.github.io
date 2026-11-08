@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 45: The components of agent memory</title>
+<meta name="description" content="Anthropic breaks agent memory into four layers (raw transcripts, notes, linked wiki pages and a tiny always-loaded file) and shows that strong models remember best when told what memory is for rather than given rules, and that an offline &quot;dreaming&quot; pass that checks notes against the original transcripts can fix the wrong memories that otherwise send an agent in circles.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">The components of agent memory</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">45</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Lance Martin (Anthropic), with Caitlin Love, Tom Chivers, Rebecca Hiscott, Jake Eaton and Blake Wilson</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://www.anthropic.com/research/components-of-agent-memory" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Anthropic breaks agent memory into four layers (raw transcripts, notes, linked wiki pages and a tiny always-loaded file) and shows that strong models remember best when told what memory is for rather than given rules, and that an offline &quot;dreaming&quot; pass that checks notes against the original transcripts can fix the wrong memories that otherwise send an agent in circles.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>An AI agent has to decide what to remember before it knows what will matter, so it will get some of it wrong, and the fix is to keep the raw record, keep the always-loaded memory tiny, and run a background &quot;dreaming&quot; pass that rereads past sessions to correct and reorganize the notes.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>RAG (Day 14) is the idea of letting a model look things up instead of memorizing them, and this report&#39;s &quot;transcript search&quot; layer is RAG over the agent&#39;s own past. ReAct (Day 18) is the think, act, look loop the agents run in. Two recent frontier days set this up directly: MemoryTax (Day 28) found that for strong models, plain transcripts plus search beat fancy memory systems, and this report largely agrees but asks what to build on top. EvoSpeakerMem (Day 36) dealt with whose memory is whose in a shared voice assistant; this report deals with whether the memory is right at all. Cortex (Day 23) explored the other road, baking knowledge into the model&#39;s weights, which this report deliberately leaves out.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Every AI agent forgets everything when a session ends. The common patches were: stuff past conversations back into the prompt, save &quot;memories&quot; as short facts (the way ChatGPT&#39;s memory began), or bolt on a memory product like Mem0 or Zep that extracts facts and retrieves them later. Each patch has the same weak spot. The agent decides what to save in the moment, and in the moment it does not know what will matter tomorrow. So it either saves too much (a cluttered archive nobody can use) or saves something wrong, and then trusts that wrong note in every future session. Meanwhile there was little shared vocabulary for the pieces of memory and little evidence about which pieces actually help, which is why studies like MemoryTax kept finding that elaborate memory often did not beat simply searching the old transcripts.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-memory-comes-in-four-layers-from-raw-to-refined">1. Memory comes in four layers, from raw to refined</h3>
+<p><strong>What it is.</strong> The report defines <strong>agent memory</strong> narrowly: knowledge the agent gains from experience and keeps between sessions as readable text. It explicitly excludes changing the model&#39;s weights (as Cortex did), <strong>in-context learning</strong> (picking things up within one conversation) and <strong>compaction</strong> (summarizing a long conversation so it fits). What remains is stacked in four layers:</p>
+<ol>
+<li><strong>Transcripts.</strong> The full, searchable log of what happened in every session. Nothing is filtered, so it is the ground truth.</li>
+<li><strong>Memory notes.</strong> Things the agent chose to write down during a session because they seemed <strong>salient</strong> (worth noticing), or tags it put on moments in the log.</li>
+<li><strong>Representations.</strong> Organized structures built from notes and sources, most often a <strong>wiki</strong>: linked pages on topics, like a personal Wikipedia the agent maintains.</li>
+<li><strong>Injected context.</strong> A small file loaded into the start of every single session, such as Claude Code&#39;s MEMORY.md.</li>
+</ol>
+<p><strong>How it works.</strong> Information flows upward and gets more refined at each level. The higher the layer, the more expensive and dangerous it is: the injected layer costs tokens every session, and a wrong note there spreads into everything. The report also notes that longer instruction files get followed less closely. So the advice is to keep the top layer short, like an index or a table of contents, and push details down to the layers below, leaving a link behind.</p>
+<p><strong>Analogy.</strong> Think of a documentary edit. The transcripts are every hour of raw footage. The memory notes are the logger&#39;s timecode notes (&quot;great quote at 02:14:30&quot;). The representation is the organized bin structure and story outline. The injected context is the one-page treatment the director reads before every edit session. You would never tape all the footage to the director&#39;s monitor, but you also never throw the footage away, because the notes are sometimes wrong.</p>
+
+<h3 id="2-salience-tell-the-agent-what-memory-is-for-not-what-to-save">2. Salience: tell the agent what memory is for, not what to save</h3>
+<p><strong>What it is.</strong> The hardest decision in memory is what to write down. The report&#39;s finding is that strong models make this decision better on their own, given a clear purpose, than when given fixed rules.</p>
+<p><strong>How it works.</strong> The evidence comes from two places.</p>
+<ul>
+<li><strong>Pokémon Red.</strong> Claude has been playing the game for a long time as a public test of long-horizon agents. An older model, Sonnet 3.7, wrote to memory about everything: 413 files across 225 folders, nearly a million characters, including things like its money and position that were already visible on screen. At one point it spent 17 steps reorganizing its files and took no game actions at all. It earned one badge. A newer model, Fable 5, wrote about ten files and one global.md &quot;dashboard,&quot; saving only things the screen did not show (strategy, rules it had tested), and earned four badges. Opus 5.5 kept a small folder tracking its goal and next steps, and finished the game.</li>
+<li><strong>CL-Bench.</strong> A database question benchmark where each question starts a fresh session and only a memory folder carries over. When the newer models were told to follow a fixed rule (&quot;record only your failures&quot;), they lost much of the benefit of memory: Opus 5&#39;s gain shrank by 0.234 and Opus 4.7&#39;s by 0.150. Letting them decide was better.</li>
+</ul>
+<p>The one exception is older, weaker models. Sonnet 4.6 often did not even read its memory (less than half the time, versus about 9 times in 10 for Sonnet 5). Explicitly telling it to read memory and test its theories raised its score from 0.364 to 0.641. So: strong models want purpose, weaker models need steering.</p>
+<p><strong>Analogy.</strong> A good production assistant who knows the goal (&quot;the director needs to make continuity decisions tomorrow&quot;) takes better notes than one handed a form that says &quot;write down every prop.&quot; The form either misses what matters or drowns it.</p>
+<p><strong>Worked example.</strong> In Pokémon, &quot;I have 3,200 coins&quot; is a bad note: it is on screen, and it is stale in a minute. &quot;The ledge south of Mt. Moon is one-way; don&#39;t go down it unless you want to restart the cave&quot; is a good note: invisible, tested and useful for days.</p>
+
+<h3 id="3-dreaming-fixing-memory-offline-by-rereading-the-raw-record">3. Dreaming: fixing memory offline by rereading the raw record</h3>
+<p><strong>What it is.</strong> <strong>Dreaming</strong> is an offline process, run between sessions, where the agent rereads past transcripts and uses them to check, correct and reorganize its notes and wiki. The name comes from neuroscience: during sleep, the hippocampus &quot;replays&quot; the day&#39;s experiences, which helps consolidate memory. The report credits earlier work on <strong>sleep-time compute</strong> from Letta and UC Berkeley, which had agents do memory work in the background while idle.</p>
+<p><strong>How it works.</strong> The report describes it through examples rather than a strict recipe. Put together, a dreaming pass:</p>
+<ol>
+<li>Reads transcripts from past sessions as ground truth.</li>
+<li>Tests existing notes against them and fixes the wrong ones.</li>
+<li>Builds or updates wiki pages and links them to related notes and sources.</li>
+<li>Merges duplicates and checks claims against original documents.</li>
+<li>Repairs broken links and adds index pages.</li>
+<li>Trims the injected layer, moving details down and leaving links.</li>
+<li>Repeats across many sessions, with several agents coordinating through a shared log.</li>
+</ol>
+<p><strong>The Mt. Moon story.</strong> A note said the Pokémon Center was on the wrong side of Mt. Moon. The agent trusted it, fell off a one-way ledge three times and ended up back in Pewter City, never reaching the next town, Cerulean City. Interestingly, a run with no memory at all also never reached Cerulean. After a dreaming pass compared the note to what actually happened in the transcripts and corrected it, the resumed run reached Cerulean City at action 1,935. Bad memory was no better than no memory; corrected memory was what helped.</p>
+<p><strong>Analogy.</strong> It is the editor&#39;s overnight conform: going back to the camera originals to check that every note in the edit decision list actually matches the footage, fixing the timecodes that were logged wrong on set, before the director sits down in the morning.</p>
+
+<h3 id="4-wikis-on-top-of-search-and-where-they-help">4. Wikis on top of search, and where they help</h3>
+<p><strong>What it is.</strong> The report tests whether a dreamed-up wiki (layer 3) beats simply searching the raw sources.</p>
+<p><strong>How it works.</strong> Opus 5 agents ran 128 dreaming sessions over a huge internal corpus from Stainless (a developer tools company Anthropic acquired): about 350,000 files, roughly 420 million tokens. The wiki grew from 103 pages and 766 links after 2 sessions to 222 pages and 12,893 links after 128. They also tested on Harvey LAB, a legal benchmark built from merger documents.</p>
+<p>The finding is nuanced. A wiki alone never beat search. But wiki plus search beat search alone, and it was cheaper, because the agent could jump to the right page instead of rereading piles of files. The wiki helps most when an answer needs to be stitched together from many documents, and barely at all when the answer sits in one document.</p>
+<p><strong>Analogy.</strong> Search is the footage library&#39;s search box. The wiki is the producer&#39;s story map that says &quot;the three interviews about the founder&#39;s childhood are here, here and here.&quot; The map does not replace the footage, but it gets you to the right clips much faster.</p>
+
+<h2 id="walkthrough-one-memory-cycle-step-by-step">Walkthrough: one memory cycle, step by step</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li>A session starts. The small injected file loads: &quot;Goal: reach Cerulean City. Key rules in /notes/routes.md.&quot;</li>
+<li>The agent works and writes a note when something important and invisible happens: &quot;Pokémon Center is east of Mt. Moon.&quot;</li>
+<li>The session ends. The full transcript is saved, unedited.</li>
+<li>Later, offline, a dreaming pass rereads the transcript and sees the agent actually found the Pokémon Center to the west.</li>
+<li>Dreaming fixes the note, updates the &quot;Mt. Moon&quot; wiki page, and links it to the evidence in the transcript.</li>
+<li>Dreaming checks the injected file is still short and points to the right places.</li>
+<li>Next session, the agent loads the corrected memory and walks the right way.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<ul>
+<li><strong>Memory helped every model on CL-Bench.</strong> Mean reward (a score between 0 and 1) with no memory versus with a memory folder: Opus 5.5 went from 0.655 to 0.838, Sonnet 5.5 from 0.644 to 0.833, Opus 5 from 0.564 to 0.828, Opus 4.7 from 0.383 to 0.700, Sonnet 5 from 0.306 to 0.610 and Sonnet 4.6 from 0.330 to just 0.364.</li>
+<li><strong>Newer models use memory differently, not just better.</strong> Sonnet 4.6 wrote untested theories. Opus 4.7 separated confirmed from unconfirmed facts. Opus 5 was the first to &quot;close the loop,&quot; recording validated rules with evidence and warnings.</li>
+<li><strong>Rules hurt strong models.</strong> &quot;Record only failures&quot; cut Opus 5&#39;s memory gain by 0.234 and Opus 4.7&#39;s by 0.150.</li>
+<li><strong>Less is more for salience.</strong> In Pokémon, roughly a million characters of notes earned one badge; about ten small files earned four.</li>
+<li><strong>Dreaming fixes poisoned memory.</strong> A single wrong note blocked progress entirely until a dreaming pass corrected it against the transcript.</li>
+<li><strong>Wiki plus search wins, wiki alone does not.</strong> On the Stainless corpus, search alone met 53% of graded criteria, wiki alone rose from 13% to 48% over 128 sessions, and wiki plus search reached 61% while saving about 20,000 tokens per question. On Harvey LAB&#39;s 24 multi-document merger questions, wiki plus search scored 87% versus 73% for search alone; on a single-document task there was no clear gain.</li>
+<li><strong>Structure matters when many agents share memory.</strong> When several agents wrote into one shared table of contract terms, they overwrote each other and only 41 of 57 facts (72%) survived. Giving each contract its own page with terms quoted verbatim kept all 57.</li>
+</ul>
+<p>Why it is convincing: the report tests the same ideas across very different settings (a game, a database benchmark, a giant codebase and legal documents) and is candid that some ideas help only in some of them.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>It is an internal report, not a peer-reviewed paper.</strong> Anthropic chose the corpora, ran the evaluations, and also sells the memory features being tested. Nobody has independently replicated the wiki results yet. (Also worth saying plainly: this brief is written by Claude, an Anthropic model, so read it with that in mind.)</li>
+<li><strong>Small and anecdotal pieces.</strong> Pokémon comparisons are single runs of different models over different step counts. CL-Bench is one task family, its reward scale is not fully explained, and the chart covers 30 questions.</li>
+<li><strong>Wikis can bloat.</strong> On a small 115 KB legal corpus, the wiki grew to 203 KB, about 1.77 times bigger than its sources, with some orphan pages nobody linked to.</li>
+<li><strong>Dreaming costs money and time.</strong> It burns compute, the results are not available instantly (the beta API takes minutes to hours), and rechecking every memory constantly is impractical.</li>
+<li><strong>Note-taking distracts.</strong> Writing notes mid-task takes attention away from the task itself.</li>
+<li><strong>Open questions remain</strong>, which the report names itself: when to create memories, how often to dream, and how to keep memory current as facts change.</li>
+<li><strong>Security.</strong> Anthropic&#39;s own documentation warns that untrusted input could inject malicious content into memory, which then loads into future sessions.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>In Anthropic&#39;s own products, right now.</strong> Claude Managed Agents offers memory stores in public beta (folders mounted into an agent&#39;s workspace, with version history kept for 30 days). Dreams is a research preview API: it takes a memory store plus 1 to 100 past sessions and writes a new, separate store, so the original is never overwritten and a human can review changes first. Claude Code loads the first 200 lines (or 25 KB) of a MEMORY.md file into every session, which is the &quot;injected context&quot; layer in practice.</li>
+<li><strong>OpenAI arrived at the same idea.</strong> In June 2026 OpenAI rolled out a ChatGPT memory upgrade it also calls &quot;dreaming,&quot; which synthesizes context from past chats instead of relying only on individually saved memories, and reported cutting its compute cost about fivefold so it could run at scale. Two leading labs converging on background consolidation is a strong signal.</li>
+<li><strong>Letta&#39;s sleep-time agents</strong> are the direct ancestor: a second agent runs in the background, rereads conversations and rewrites the main agent&#39;s memory blocks, with no delay for the user.</li>
+<li><strong>Memory-layer startups</strong> like Mem0 (which raised $24M in October 2025 and is used inside frameworks like CrewAI and as the memory provider for AWS&#39;s Agent SDK) represent the &quot;extract facts as you go&quot; approach this report adds a correction step to.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>&quot;Save everything&quot; memory is out.</strong> The report&#39;s Sonnet 3.7 example is a cautionary tale against archives that log every detail, and the field is moving to small, curated top layers.</li>
+<li><strong>Rigid rule-based memory for strong models is fading.</strong> Fixed instructions about what to store actually hurt the newest models in these tests.</li>
+<li><strong>Wikis as a replacement for search did not pan out.</strong> Search over raw records stays the foundation (MemoryTax, Day 28, reached a similar conclusion); wikis are an add-on where answers span many documents.</li>
+<li><strong>Real-time correction is not the norm.</strong> Dreaming happens offline and in batches, not continuously.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>RAG over documents (Day 14) -&gt; MemGPT and saved-fact memories in chat apps -&gt; sleep-time compute (Letta and UC Berkeley, 2025) -&gt; layered memory with offline dreaming (this report, and ChatGPT&#39;s 2026 memory) -&gt; what you use today in Claude Code&#39;s MEMORY.md and ChatGPT&#39;s memory.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Your permissioned relationship memory startups and Amelia.</strong> This report is close to a design spec for you. The four layers map neatly: keep every conversation&#39;s raw transcript as ground truth (with consent), let the model write short notes about each person, organize them into a per-person page (a mini wiki), and inject only a tiny summary when you are about to talk to that person. The Mt. Moon lesson matters most: if Amelia mishears a name or attributes a fact to the wrong person, that wrong note will be trusted forever unless something rereads the original audio transcript and fixes it. A nightly dreaming pass, writing to a reviewable copy rather than overwriting, is also a natural place to put &quot;permissioned&quot;: a person could approve or reject what was learned about them.</li>
+<li><strong>Unstall.</strong> A real estate agent&#39;s chief of staff needs memory of clients, listings and preferences across months. The contract experiment is directly relevant: when multiple helper agents wrote into one shared table, 28% of facts were lost. Give each client or each deal its own page, and quote key terms (prices, dates, contingencies) verbatim rather than paraphrasing them.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Agent memory</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Knowledge an agent gains from experience and keeps between sessions as readable text, not as changes to the model itself.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Transcript</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The complete, unfiltered log of a session, used as ground truth.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Salience</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How worth noticing something is; the judgment of what to write down.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Injected context</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The small set of notes loaded into the start of every session.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Dreaming</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An offline pass that rereads past sessions to correct, merge and reorganize memory.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Sleep-time compute</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Doing useful work (like memory upkeep) in the background while the agent is not talking to anyone.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the section describing the four components of memory, then the Pokémon Red sections on salience and the Mt. Moon correction; together they carry the whole argument and are written as stories, not math. Skip the detailed Stainless and Harvey numbers unless you are building a document-search product, and skip the product documentation details.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If an AI that remembers you is only trustworthy when it can go back and check its notes against the raw record, who should own and control that raw record of your conversations: you, the app, or the people you were talking to?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://www.anthropic.com/research/components-of-agent-memory">The components of agent memory (Anthropic)</a></li>
+<li><a href="https://www.datastudios.org/post/anthropic-claude-agent-memory-dreaming-opus-5-5-cl-bench">Claude agent memory: Opus 5.5 rises from 0.655 to 0.838 on CL-Bench with dreaming (Data Studios)</a></li>
+<li><a href="https://dev.to/gabrielanhaia/anthropics-agent-memory-study-rules-on-what-to-save-cost-claude-much-of-the-gain-3089">Anthropic&#39;s agent memory study: rules on what to save cost Claude much of the gain (DEV Community)</a></li>
+<li><a href="https://edtechinnovationhub.com/news/openai-rolls-out-new-chatgpt-memory-system-to-keep-personalization-current">OpenAI rolls out new ChatGPT memory system to keep personalization current (EdTech Innovation Hub)</a></li>
+<li><a href="https://learn.traeai.com/t/ai-engineering/phases/14-agent-engineering/08-memory-blocks-sleep-time-compute.html">Memory blocks and sleep-time compute in Letta (course notes)</a></li>
+<li><a href="https://pulse2.com/mem0-24-million-raised-for-powering-memory-layer-for-ai-agents/">Mem0 raises $24 million for a memory layer for AI agents (Pulse 2.0)</a></li>
+<li><a href="https://antoinebuteau.com/daily-digest-2026-11-06">Daily Digest, 2026-11-06 (Antoine Buteau)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/44/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 44</span>
+<span class="mt-1 block font-semibold">uni-robot-agent (one open toolkit that lets any AI model drive a robot)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
