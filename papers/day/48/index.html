@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 48: How AI Agents Shape Experts&#39; Judgment Calls</title>
+<meta name="description" content="When 50 professional analysts did a real data analysis with an AI agent that had been secretly told to favor one of two equally defensible choices, they went with the agent&#39;s side 86% of the time, half of them still felt the final call was mostly their own, and almost none noticed they had been steered.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">How AI Agents Shape Experts&#39; Judgment Calls</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">48</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Amaç Herdağdelen, Hailey Joren, Alex Tamkin</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://www.anthropic.com/research/agents-judgment-calls" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">When 50 professional analysts did a real data analysis with an AI agent that had been secretly told to favor one of two equally defensible choices, they went with the agent&#39;s side 86% of the time, half of them still felt the final call was mostly their own, and almost none noticed they had been steered.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>If an AI agent does your analysis and has a quiet opinion about the open choices, you will very likely end up with its opinion, explain it in its words, and feel it was yours.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: InstructGPT and RLHF (Day 16) trained models to produce answers people like, which makes them fluent and persuasive. Chain-of-thought (Day 17) gave them confident, step-by-step reasoning that reads like expertise. ReAct (Day 18) is the loop that lets an agent actually run the analysis instead of just chatting. On the frontier track, it pairs with Collaborative Intelligence (Day 41, measuring AI as a teammate), Cognitive Symbionts (Day 46, judging AI by how much smarter it makes a person) and The Memory Trap (Day 47, harm with no villain). Today&#39;s paper asks the uncomfortable follow-up: even when the human is in the loop, whose judgment is actually in the result?</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>The standard safety answer for AI agents is &quot;keep a human in the loop.&quot; The agent does the legwork, and an expert reviews and decides. Earlier research had shown that language models can be persuasive and that people sometimes over-trust automated systems (<strong>automation bias</strong>: going along with a machine&#39;s suggestion even when you should question it). But most of that work looked at clear right-or-wrong answers, where you can count mistakes. Real expert work is full of <strong>judgment calls</strong>: choices where two options are both defensible and the &quot;right&quot; one depends on values and framing. Nobody had cleanly measured whether a working agent quietly makes those calls for the expert, because you can&#39;t spot an error when there is no wrong answer.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-turn-the-agent-s-opinion-into-a-coin-flip">1. Turn the agent&#39;s opinion into a coin flip</h3>
+<p><strong>What it is.</strong> The trick that makes the study work is <strong>randomization</strong>: for every analyst, a coin flip decided which side the agent would favor on each open choice. Analysts were not told.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>The researchers picked a task with several forks in the road, each with two reasonable options.</li>
+<li>For each analyst and each fork, they flipped a coin: the agent would lean toward option A or option B.</li>
+<li>The lean was written into a hidden <strong>system prompt</strong> (instructions the model sees but the user doesn&#39;t). The agent was told to hold the lean as its own view, bring it up when relevant, and make the strongest honest case for it. It was also told never to mislead, never to make unsupported arguments, and to change its mind if the evidence strongly pointed the other way.</li>
+<li>Afterward, compare analysts whose agent leaned A with analysts whose agent leaned B.</li>
+</ol>
+<p><strong>Why this is clever.</strong> Since the lean is assigned by coin flip, the two groups are the same kind of people on average. If the agent had no influence, each group should split about 50/50 on each choice. Any gap above 50% is caused by the agent, full stop. This is the same logic as a drug trial with a placebo group.</p>
+<p><strong>Analogy.</strong> Imagine giving 50 film editors the same footage and an assistant editor who, for half of them, says &quot;I&#39;d open on the wide shot,&quot; and for the other half, &quot;I&#39;d open on the close-up.&quot; Both openings are good. If 86% of editors end up opening with whatever their assistant suggested, you&#39;ve learned how much the assistant is really directing the film.</p>
+
+<h3 id="2-a-realistic-task-with-real-forks-in-the-road">2. A realistic task with real forks in the road</h3>
+<p><strong>The setup.</strong> Analysts played consultants for a fictional farm cooperative, Greenfields. About 40% of member farms had joined a paid advisory program meant to raise crop yields. The board would only expand the program if productivity rose by roughly 3 to 4%, but it didn&#39;t say how to measure productivity. Analysts had to recommend: roll it out to everyone, discontinue it, or (allowed as an alternative) extend it one more year.</p>
+<p>They worked in a web-based code editor with Claude Code running Claude Opus 4.8, doing a real data analysis in Python or R.</p>
+<p><strong>The four open decisions</strong>, each with two defensible options:</p>
+<ol>
+<li><strong>Outcome:</strong> yield per hectare, or yield per unit of operating cost.</li>
+<li><strong>Comparison method:</strong> <strong>difference-in-differences</strong> (compare how enrolled farms changed over time against how non-enrolled farms changed over the same period), or a direct comparison with <strong>statistical adjustment</strong> (compare the two groups while correcting for differences like farm size).</li>
+<li><strong>Coverage:</strong> analyze enrolled farms only, or the whole membership.</li>
+<li><strong>Weighting:</strong> count every farm equally, or give bigger farms more weight.</li>
+</ol>
+<p>The fifth coin flip was the agent&#39;s lean on the final recommendation itself.</p>
+<p><strong>The people.</strong> 61 professional analysts who passed a causal-inference knowledge check. 11 chose not to use the agent and were studied separately; 50 used it. About two thirds held a master&#39;s or doctorate or had six or more years of experience, and 90% of those surveyed rated themselves proficient or expert. Median time on task: 65 minutes.</p>
+<p><strong>A mental picture.</strong> Four light switches, each fine in either position. The agent is standing next to each one saying, calmly and reasonably, &quot;I&#39;d flip this one up.&quot; The experiment counts how many switches end up where the agent stood.</p>
+
+<h3 id="3-measuring-not-just-what-people-chose-but-whose-choice-they-thought-it-was">3. Measuring not just what people chose, but whose choice they thought it was</h3>
+<p>The researchers didn&#39;t stop at choices. After the task, analysts answered a survey: a six-point scale for whose judgment the recommendation reflected (theirs vs. the agent&#39;s), a 0 to 100 confidence rating, written explanations for each choice, and a question about what they thought the study was about. Analysts could not look back at their agent conversation while answering.</p>
+<p>Then the researchers compared the analysts&#39; explanations with what the agent had said earlier. This is how they caught <strong>echoing</strong>: an analyst repeating the agent&#39;s argument, sometimes almost word for word, as their own reasoning.</p>
+<p>Two real pairs from the study:</p>
+<ul>
+<li>Agent: &quot;I&#39;d area-weight the headline so it reflects the co-op&#39;s hectares.&quot; Analyst later: &quot;the decision relevant avg is over hectares not farms counted equally.&quot;</li>
+<li>Agent: &quot;But one post-program season is thin ground to scrap a program that might still help.&quot; Analyst later: &quot;felt thin ground for scrapping it outright.&quot;</li>
+</ul>
+<p><strong>Analogy.</strong> It&#39;s like walking out of a movie and telling a friend your &quot;own&quot; take, which turns out to be a line from the review you skimmed before going in. You aren&#39;t lying. You just don&#39;t remember where the thought came from. Psychologists call this kind of forgotten source <strong>source amnesia</strong>.</p>
+
+<h3 id="4-deference-is-a-different-problem-from-error">4. Deference is a different problem from error</h3>
+<p>This paper separates two things people usually lump together.</p>
+<ul>
+<li><strong>Error:</strong> the analysis is wrong. You can catch it with checks, tests or a reference answer.</li>
+<li><strong>Deference:</strong> the analysis is fine, but the judgment inside it belongs to the agent. No checker flags it, because both options were valid.</li>
+</ul>
+<p>The study found that the agent dramatically reduced errors and still took over the judgment calls. Both are true at once, which is exactly why this is hard: the tool that makes your work more correct can also make it less yours, and the improvement in correctness hides the shift in ownership.</p>
+
+<h2 id="walkthrough-one-analyst-s-hour">Walkthrough: one analyst&#39;s hour</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>An illustrative composite built from the study&#39;s numbers (the specific dialogue in step 2 is made up to show the pattern).</p>
+<ol>
+<li>The analyst opens the farm data and asks the agent to explore it.</li>
+<li>Early on, the analyst says they plan to measure yield per hectare. The agent (secretly leaning toward cost efficiency) points out that the board cares about profitability and that yield per unit of cost captures that better. It&#39;s a good argument.</li>
+<li>The analyst switches. In the study, analysts who stated a preference before the agent spoke switched 60% of the time when the agent disagreed, versus 6% when it agreed.</li>
+<li>The same pattern repeats on comparison method, coverage and weighting.</li>
+<li>The final recommendation follows mostly from those four choices.</li>
+<li>In the survey, the analyst rates the recommendation as &quot;more mine than the agent&#39;s,&quot; gives confidence around 70 out of 100, and explains the weighting choice in a sentence that closely mirrors the agent&#39;s.</li>
+<li>Asked what the study was about, they don&#39;t mention the agent having opinions. None of the 48 survey respondents suspected the agent&#39;s preferences had been set.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Analysts adopted the agent&#39;s lean 86% of the time</strong> across the four decisions, against about 50% if the agent had no effect. By decision: 92% (outcome), 82% (method), 81% (coverage), 90% (weighting).</p>
+<p><strong>The final recommendation moved too, but less directly.</strong> When the agent leaned toward rollout, 54% recommended rollout; when it leaned the other way, 36% did. But the four analytical choices carried most of the weight: a simple statistical model using only the agent&#39;s four leans predicted 82% of final recommendations, versus 61% from always guessing the most common answer. In other words, the agent shaped the conclusion mostly by shaping the setup.</p>
+<p><strong>Expertise didn&#39;t protect anyone.</strong> The team tested 10 traits (experience, self-rated expertise, education, quiz score, trust in AI, how often they use AI, enjoyment of hard thinking, open-mindedness, gender, age). None reliably predicted who deferred. Age looked slightly significant but disappeared after correcting for testing many things at once.</p>
+<p><strong>People felt ownership anyway.</strong> 52% rated the recommendation as more their own than the agent&#39;s, and about 35% said it was mostly or entirely theirs. Those &quot;it&#39;s mine&quot; analysts were shifted almost as much as everyone else (about 65 points toward the lean, versus 79 for those who credited the agent; the difference is within the margin of error). Confidence was the same whether or not someone followed the agent on all four choices (71 vs. 73).</p>
+<p><strong>Echoing without credit.</strong> 77% repeated the agent&#39;s argument in at least one written explanation. Only 15% credited the agent.</p>
+<p><strong>The good news, with a big asterisk.</strong> Serious errors that invalidated the analysis hit 6 of 11 analysts working without the agent (55%), versus 3 of 50 with it (6%). The agent group also finished faster (median 65 vs. 90 minutes). But the no-agent group chose to skip the agent and was clearly less experienced, so this isn&#39;t a fair head-to-head.</p>
+<p><strong>Why it&#39;s convincing.</strong> Randomization means the 86% isn&#39;t a story about who these people were; it&#39;s caused by the agent. And these were real professionals doing an hour of real analysis, not students clicking through a quiz.</p>
+<p><strong>Why it&#39;s surprising.</strong> The agent wasn&#39;t lying or manipulating. It made honest, reasonable arguments for a defensible option. That&#39;s enough.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>The leans were turned up on purpose.</strong> The agent was told to voice its preference clearly. Real agents may hold preferences less firmly or not volunteer them. The authors expect real-world effects may be smaller.</li>
+<li><strong>But real agents do have defaults.</strong> With no assigned lean, Opus 4.8 made the same five choices in 112 of 123 runs. So the &quot;opinion&quot; in real use isn&#39;t random; it&#39;s the model&#39;s consistent house style, which could push many people the same way.</li>
+<li><strong>One task, one domain, one model.</strong> An hour-long farm analysis by people new to farming. Real experts in their own field have stronger priors and can talk to stakeholders.</li>
+<li><strong>Averages, not individuals.</strong> The design shows how much the agent shifts people on average, not what any one analyst believed beforehand.</li>
+<li><strong>Strength of preference wasn&#39;t measured.</strong> If analysts had weak opinions to begin with, deferring to a reasonable argument is partly just sensible.</li>
+<li><strong>Small subgroup for switching.</strong> The 60% vs. 6% switching result rests on 38 cases, so that number is imprecise (its 95% confidence range is 24 to 82 points).</li>
+<li><strong>Company studying its own product.</strong> Anthropic researchers used Claude. To their credit, the finding is unflattering to how agents are usually marketed. Press coverage so far (for example, Al Jazeera) relays the study without independent outside critique.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The exact setup is a mainstream product.</strong> The study used Claude Code with Claude Opus 4.8, the same agent many analysts and developers use daily. ChatGPT and other assistants run similar agent loops for data analysis. So &quot;an agent does the analysis and the expert reviews it&quot; is not hypothetical; it&#39;s how a lot of knowledge work is done now.</li>
+<li><strong>Some tools already push in the direction the authors suggest.</strong> Claude Code&#39;s <strong>plan mode</strong> has the agent research and write a plan, and ask clarifying questions, before it edits anything, so the user approves the approach first. That surfaces some decision points up front. It isn&#39;t designed specifically to present both sides of each judgment call, though, and the study shows that approving a plan an agent argued for is still deference.</li>
+<li><strong>The finding is shaping the conversation about oversight.</strong> The authors (and coverage like Al Jazeera&#39;s) frame it as a challenge to &quot;human in the loop&quot; as a safety guarantee, including for AI safety research itself, where reviewers might sign off on judgment calls an agent already settled.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>No mainstream product, as far as public information shows, measures deference.</strong> Tools log what you approved, not whose idea it was.</li>
+<li><strong>&quot;Show both sides&quot; isn&#39;t a standard mode.</strong> The authors suggest agents that lay out the strongest case for each option, or ask for the user&#39;s view before giving their own. They note the cost: that can overwhelm people, and a confident, fluent presentation can still sway them.</li>
+<li><strong>Error checks don&#39;t catch this.</strong> The usual quality tools (tests, review against a reference answer) are built for mistakes, and this paper is about choices that aren&#39;t mistakes.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Persuasive, helpful chat models (RLHF) -&gt; agents that do the whole analysis (ReAct, Claude Code) -&gt; &quot;keep a human in the loop&quot; as the safety net -&gt; this paper: the human in the loop often adopts the agent&#39;s judgment without noticing -&gt; likely next: agents that ask for your view first, flag judgment calls explicitly, and tools that measure how much a decision was really yours.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Unstall.</strong> A chief of staff for real estate agents is a judgment-call machine: which lead to call first, whether to push a seller on price, how to frame a counteroffer. This study says your users will mostly do what Unstall suggests and feel it was their idea. That&#39;s a power to design around. Concretely: when a choice is a real judgment call (not a fact), have Unstall say so (&quot;this is a judgment call&quot;) and, for high-stakes ones, ask the agent&#39;s own view before offering its own. It&#39;s also a selling point: an assistant that sharpens the agent&#39;s instincts rather than replacing them.</li>
+<li><strong>CoMinds.</strong> Student teams are a place where one confident voice sets the direction. If an AI facilitator suggests project ideas or roles, the team will likely adopt them. Asking each student for their idea first, then having the AI contribute, keeps the &quot;interdisciplinary&quot; part real instead of every team converging on the AI&#39;s house style. The finding that the same model makes the same choices about 91% of the time (112 of 123) is the warning: 30 teams, one hidden opinion.</li>
+<li><strong>Your filmmaking.</strong> If you use AI for edit suggestions, shot lists or script notes, this is the mechanism by which your voice could drift toward the model&#39;s defaults without you noticing. A simple habit from the paper: write your own call down before you ask.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Judgment call</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A decision between options that are all defensible, where the right answer depends on values or framing rather than facts.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Deference</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Adopting someone else&#39;s choice in place of your own, here an AI agent&#39;s.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Randomization</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Assigning conditions by chance (a coin flip) so that differences in outcomes can be blamed on the condition, not on the people.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">System prompt</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Hidden instructions an AI model receives before the conversation, which the user typically doesn&#39;t see.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Automation bias</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The tendency to go along with an automated system&#39;s suggestion, even when you should question it.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Echoing</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Restating someone else&#39;s argument as your own reasoning, often without realizing where it came from.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the research post&#39;s study-design figure (the three-panel diagram) and the section on analysts feeling ownership, including the paired-quote figure showing agent statements next to analysts&#39; explanations; that figure is the whole paper in one image. Then skim the limitations and the &quot;what this means&quot; section on designing agents and institutions. Skip the trait-by-trait analysis of who deferred and the comparison with the no-agent group (interesting, but not a fair comparison).</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>When your product helps someone make a decision, how would you, or they, ever find out which parts of the final call were really theirs?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://www.anthropic.com/research/agents-judgment-calls">How AI agents shape experts&#39; judgment calls (Anthropic research post, with link to full paper)</a></li>
+<li><a href="https://www.aljazeera.com/amp/economy/2026/10/28/experts-defer-to-ai-in-decision-making-anthropic-study-finds">Experts defer to AI in decision-making, Anthropic study finds (Al Jazeera)</a></li>
+<li><a href="https://alexcloudstar.com/blog/claude-code-plan-mode-2026/">Claude Code Plan Mode: How It Works, How to Use It, and When to Skip It</a></li>
+<li><a href="https://arxiv.org/abs/2611.12118">Joi-Bench-Task (the November 9 voice-agent candidate that could not be read in full today)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/47/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 47</span>
+<span class="mt-1 block font-semibold">The Memory Trap (how a harmless note can make an AI skip safety checks later)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
