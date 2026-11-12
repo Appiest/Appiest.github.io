@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 49: World In-Context Learning for Agentic Robot Manipulation</title>
+<meta name="description" content="A frozen AI model watches one demonstration of a robot task, practices it in a simulator, and writes what it learns into a readable &#39;Task Memory&#39; document instead of retraining, and on 50 two-armed robot tasks this beat a trained robot policy that needed 50 demonstrations each, especially when the scenes looked different from practice.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">World In-Context Learning for Agentic Robot Manipulation</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">49</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Heng Fang, Zehui Guo, Yuehan Zhang, Mingyang Du, Dingkang Liang, Xiang Bai</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.12885" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">A frozen AI model watches one demonstration of a robot task, practices it in a simulator, and writes what it learns into a readable &#39;Task Memory&#39; document instead of retraining, and on 50 two-armed robot tasks this beat a trained robot policy that needed 50 demonstrations each, especially when the scenes looked different from practice.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Instead of teaching a robot by changing its brain (retraining), let a smart general AI practice in a simulator and keep a notebook; the notebook turns out to be as good as retraining and travels better to new places.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: RT-2 (Day 21) put a vision-language model directly in charge of a robot&#39;s movements, with skills baked into the weights; this paper is a deliberate alternative. ReAct (Day 18) is the think, act, observe loop the agent runs. GPT-3 (Day 11) showed <strong>in-context learning</strong> (a model picking up a new task from examples in its prompt, without retraining), and chain-of-thought (Day 17) gives the agent its step-by-step plans. Deep RL (Day 6) is the older idea of learning by trial and error in a simulated world. On the frontier track it sits next to GPT-6-Astra as a robot brain (Day 27), AW-0 (Day 31, a robot that writes its plan as code), The Trinity (Day 35, agents that build their own practice worlds), uni-robot-agent (Day 44, letting any AI model drive a robot), and Cortex (Day 23, which moves context into weights, the opposite direction from today&#39;s paper).</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>There are two ways to get a robot to do a new task. The dominant one is a <strong>trained policy</strong>: you record dozens or hundreds of human demonstrations, then adjust a neural network&#39;s weights until it imitates them. Big <strong>vision-language-action models (VLAs)</strong> like RT-2 and Google&#39;s Gemini Robotics work this way. They&#39;re good at what they&#39;ve seen but get worse when the scene changes (different lighting, clutter, table color), and every new task needs new data and new training. The other way is <strong>in-context learning</strong>: hand a big general AI model like GPT a demonstration and let it figure out the task in its prompt, no training at all. That&#39;s cheap and flexible, but it has lagged behind trained policies, because a demonstration recorded somewhere else tells the model nothing about what actually happens when it tries the task here. It never gets corrected, so small mistakes pile up.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-what-a-model-learns-in-context-is-meaning-not-pixels">1. What a model learns &quot;in context&quot; is meaning, not pixels</h3>
+<p><strong>What it is.</strong> The paper&#39;s starting observation: when a language model learns a task from its context, what it keeps is semantic (the steps, which object plays which role, rough geometry like &quot;grip the handle, place it to the left of the bowl&quot;), not what things looked like.</p>
+<p><strong>Why that matters.</strong> Trained policies learn partly from appearance, which is why they stumble when the scene looks different. If an AI&#39;s knowledge of a task is stored as words and relationships, then experience gathered in one world (a clean simulator) should still apply in another (a cluttered simulator, or the real world).</p>
+<p><strong>Analogy.</strong> A film crew that memorized &quot;the actor&#39;s mark is two steps left of the door&quot; can shoot on any set. A crew that memorized &quot;the mark is on the third floorboard from the blue rug&quot; is stuck the moment the set is redressed. In-context knowledge is the first kind.</p>
+<p><strong>The evidence.</strong> The strongest test is the randomized scenes (new backgrounds, lighting, distracting objects). RoboScript&#39;s agents kept 95% to 101% of their clean-scene success there. The best trained policy kept at most 65%.</p>
+
+<h3 id="2-world-in-context-learning-practice-in-a-world-learn-in-the-notes">2. World In-Context Learning: practice in a world, learn in the notes</h3>
+<p><strong>What it is.</strong> <strong>World In-Context Learning (WICL)</strong> is the paper&#39;s name for its method. A <strong>frozen</strong> model (its weights never change) starts from one demonstration, rehearses the task in a &quot;world&quot; (here a physics simulator), and writes the feedback into its context instead of its weights.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li><strong>Imitate.</strong> A &quot;reader&quot; role watches one demonstration and writes a first draft of the notes. An &quot;actor&quot; role tries the task on that same scene. A &quot;reviewer&quot; role looks at failures and revises the notes.</li>
+<li><strong>Rehearse.</strong> The actor practices on new random setups of the task in the simulator. After each failure the reviewer proposes a fix to the notes. The fix is only kept if a retry on a fresh setup succeeds. Bad advice can&#39;t sneak in.</li>
+<li><strong>Freeze.</strong> The finished notes become the <strong>Task Memory</strong>, locked in place.</li>
+<li><strong>Deploy.</strong> On a brand new scene the agent maps the memory onto what it sees, checks what it can reach, and acts. If a move fails, it backs off to a safe pose and keeps going rather than starting over.</li>
+</ol>
+<p><strong>Analogy.</strong> A stand-in actor watches one take of a stunt, then rehearses it ten times on a practice set while a coordinator watches and marks up the script. On shoot day the stand-in doesn&#39;t need retraining; they bring the marked-up script. That&#39;s the whole idea: the learning lives in the script, not in the actor&#39;s muscles.</p>
+<p><strong>Why it&#39;s different from earlier in-context robotics.</strong> Earlier methods gave the model a demonstration and hoped. WICL gives it a world to fail in first. The ablations (below) show that rehearsal is what makes the demonstration useful.</p>
+
+<h3 id="3-the-task-memory-a-readable-checked-document">3. The Task Memory: a readable, checked document</h3>
+<p><strong>What it is.</strong> The memory is a structured, human-readable document with: the roles of objects, the workflow (step order), relative grasp and placement specs (&quot;approach from above, place centered on the pad&quot;), fitted parameters (like how far to open the gripper), and lessons from failures.</p>
+<p><strong>The clever guardrail.</strong> A <strong>linter</strong> (an automatic checker, like spellcheck for rules) rejects any memory entry that contains absolute coordinates (&quot;move to x=0.31&quot;), simulator-only facts, or IDs for specific object instances. That forces the notes to stay general. Without it, the agent could cheat by writing a scene-specific script that breaks the moment anything moves.</p>
+<p><strong>Honest information boundaries.</strong> The acting agent only sees what a real robot could sense: color and depth cameras, its own joint positions, tool feedback, and the instruction. The simulator&#39;s perfect knowledge (exact object positions) is only available to the reviewer during learning, and only reaches the actor through the checked memory. Success is judged by the benchmark&#39;s official check, never by the agent saying &quot;done.&quot;</p>
+<p><strong>A mental picture.</strong> Imagine an entry for &quot;stack two bowls&quot;: <em>Roles: the larger bowl is the base. Workflow: grasp the smaller bowl at the rim with one arm, lift above the base, lower until contact, release. Lesson: grasping at the center fails because the gripper hits the bottom; grasp at the rim.</em> (This example is illustrative; the paper describes the structure, not this exact text.)</p>
+
+<h3 id="4-reflection-getting-better-without-retraining">4. Reflection: getting better without retraining</h3>
+<p>After deployment, a separate reflection agent reviews batches of past episodes (what the robot observed and whether it succeeded), spots patterns in failures, and writes a guidance document for the next batch. It&#39;s still all text; no weights change. Over three rounds across the 50 tasks this rescued 18, then 7, then 1 additional episode. Useful, but with quickly shrinking returns.</p>
+
+<h2 id="walkthrough-one-task-from-demo-to-real-robot">Walkthrough: one task from demo to real robot</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><ol>
+<li><strong>Skills first.</strong> Before any task, the system builds a toolkit of reusable skills: grasp, place, reachability checks. It splits a demonstration into basic actions, notices missing skills, and has a coding agent write and test new ones. It uses off-the-shelf tools for seeing (GroundingDINO and SAM 3, which find and outline objects named in text) and for moving (cuRobo, a motion planner that computes collision-free arm paths). Every action returns a &quot;receipt&quot;: where the arm was told to go, where it actually went, how open the gripper is, and whether it&#39;s holding something.</li>
+<li><strong>One demo.</strong> The model sees a single clean demonstration of, say, stacking two bowls.</li>
+<li><strong>Rehearsal in simulation.</strong> It practices on new random setups, fails, revises the notes, keeps only fixes that work.</li>
+<li><strong>Freeze the Task Memory.</strong></li>
+<li><strong>Test in randomized scenes.</strong> Different backgrounds, lighting, clutter. The memory still works because it describes roles and steps, not appearance.</li>
+<li><strong>Move to a real robot.</strong> Memories learned on a simulated two-armed robot (ALOHA) were moved to a physical two-armed PiPER robot with only a lightweight adapter (remapping parameters for the different arms), no new demonstrations and no new rehearsal.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>The benchmark.</strong> <strong>RoboTwin 2.0</strong>: 50 two-armed tabletop tasks in simulation, in &quot;clean&quot; and &quot;randomized&quot; settings, 10 episodes per task per setting.</p>
+<p><strong>Headline result.</strong> With GPT-6.1-Sol as the brain and one demonstration per task: 83.6% clean, 83.2% randomized, 83.4% mean. The strongest trained policy they compare against (4D-WAM, trained on 50 demonstrations per task) scored 81.5% clean but only 41.8% randomized, 61.7% mean. So: roughly tied on familiar scenes, and about twice as good on unfamiliar ones, with one fiftieth of the demonstrations.</p>
+<p><strong>It works with other models too.</strong> DeepSeek-V4.1-Flash reached 78.1% and GPT-5.6-Luna 77.9%. Better base models do better, which suggests the method rides on general AI progress for free.</p>
+<p><strong>Ablations</strong> (removing pieces, on a 10-task subset):</p>
+<ul>
+<li>Full frozen memory: 78.5%.</li>
+<li>Notes written from the demo with no practice in the world: 69.0%. Practice matters.</li>
+<li>Practice without the demonstration: 56.5% (versus 86.0% for the matched version with the demo). The demo gives a workable plan, and the simulator tests and fixes it. Neither is enough alone.</li>
+<li>No recovery after failed moves: 69.0%. Recovering mid-task is one of the most important parts.</li>
+<li>Removing the simulator&#39;s privileged information from the reviewer: 86.5% vs. 86.0%, no real difference. The gains don&#39;t come from &quot;cheating&quot; with perfect knowledge.</li>
+</ul>
+<p><strong>Real robot.</strong> Click a bell: 10/10. Grab a roller: 7/10. Move a playing card away: 7/10. Stack two bowls: 6/10. Most failures were gripper misalignment and depth-camera errors.</p>
+<p><strong>Cost and speed.</strong> Learning plus evaluating all 50 tasks cost about $1,911 in API fees with GPT-6.1-Sol, $739 with DeepSeek, and $308 with GPT-5.6-Luna. An evaluation episode took about 55 model calls and 2.3 million tokens; the median episode took 6.4 minutes, about 80% of it waiting for the model.</p>
+<p><strong>Why it&#39;s convincing.</strong> It covers every task in a standard benchmark, not a handpicked few, and the clean-vs-randomized gap is a direct test of the paper&#39;s central claim.</p>
+<p><strong>Why it&#39;s surprising.</strong> The robotics field has been betting heavily on training ever-bigger action models. This says a general model with no robot-specific training, plus practice and good notes, can match them on familiar scenes and beat them on unfamiliar ones.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Slow and expensive.</strong> Six-plus minutes and millions of tokens per attempt is far from a robot that reacts in real time. Trained policies run in milliseconds on local hardware.</li>
+<li><strong>Depends on commercial APIs.</strong> The authors note that changes in API service quality can move scores by several points, and you can&#39;t run it offline.</li>
+<li><strong>The comparison isn&#39;t perfectly controlled.</strong> The trained-policy numbers come from previously reported results, not rerun in the same session, so the 21.7-point gap is suggestive, not airtight.</li>
+<li><strong>Hard physical skills are unsolved.</strong> Floppy objects (cloth, cables) and tightly coordinated two-hand contact are out of reach. Trained policies like Gemini Robotics 2.5 are now folding pants and tying bows.</li>
+<li><strong>The agent overrates itself.</strong> In 28 to 29% of failures, the agent&#39;s own completion check said it had succeeded. That&#39;s why the official check matters.</li>
+<li><strong>Tiny real-world test.</strong> Four tasks, 40 episodes, simple objects.</li>
+<li><strong>It needs a good simulator.</strong> WICL only works if the practice world is faithful enough to the real one. Building that for every new environment is real work.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>LLMs as robot &quot;planners that write code&quot; are real.</strong> Google&#39;s Gemini models have been shown to write task code against a robot&#39;s control API without extra training, and to do dexterous tasks on an ALOHA robot from about 10 in-context demonstrations. That&#39;s the direct ancestor of this paper&#39;s &quot;learn in context&quot; approach.</li>
+<li><strong>Coding-agent harnesses for robots are an active research line.</strong> MAESTRO (University of Pennsylvania, CoRL 2026) has a vision-language coding agent assemble perception, planning and control tools into a robot policy and replan on failure; it matched or beat state-of-the-art VLAs zero-shot. RoboScript is in the same family, with rehearsal and a persistent Task Memory added.</li>
+<li><strong>Simulation as a practice space is going mainstream.</strong> Gemini Robotics 2.5 (Google DeepMind, November 10, 2026) uses Gemini 4 Argon as a simulation engine that builds digital twins from real camera scenes and generates practice runs. Different method (it feeds training), same instinct: let the robot fail in a world before the real one.</li>
+<li><strong>The code is open.</strong> RoboScript is on GitHub (pre-1.0, validated only on two-armed tabletop tasks).</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Production robots still run trained VLAs.</strong> The headline commercial systems, like Gemini Robotics 2.5 in Apptronik&#39;s Apollo humanoid at a Mercedes-Benz parts-packing pilot (96% success), store skill in weights because they need speed and fine dexterity. Nothing public shows a deployed product running a WICL-style loop.</li>
+<li><strong>Pure in-context control is too slow for live motion.</strong> Systems that use LLMs in robotics generally use them as the planner and hand off the actual movement to fast specialized tools or a VLA, as RoboScript itself does with cuRobo.</li>
+<li><strong>This is days old.</strong> No independent replication yet.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Learning by trial and error in simulation (deep RL) + learning from examples in a prompt (GPT-3) + think-act-observe agents (ReAct) -&gt; LLMs that write robot code -&gt; agent harnesses that orchestrate robot tools (MAESTRO) -&gt; this paper: practice in a simulator and keep a checked, reusable notebook -&gt; likely next: hybrids where an agent&#39;s notebook guides a fast trained VLA, and notebooks get distilled back into weights.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Standard Physics.</strong> Your app scans a real space with a phone. This paper&#39;s whole method depends on having a faithful &quot;world&quot; to practice in, and its memory rules (no absolute coordinates, relative geometry only, check reachability before acting) are exactly the kind of representation you&#39;d want for accessibility checks. A rule like &quot;a 36-inch clear path from the door to the counter&quot; is a semantic, transferable fact, the same kind of knowledge this paper shows travels across scenes. The bigger opportunity: a scan of a space is the raw material for the digital twins robots will practice in.</li>
+<li><strong>Your memory and continuity startups, and Amelia.</strong> This is a strong, measurable case for the idea you keep circling: an AI can get better at a job by writing and curating a readable memory instead of being retrained. Three design patterns worth stealing: only keep a memory update if it actually improves the next attempt; run a linter that blocks overly specific memories (in your world, things that shouldn&#39;t be stored or shouldn&#39;t generalize); and keep the memory human-readable so a person can inspect and correct it.</li>
+<li><strong>Arbor.</strong> If agents carry Task Memories that work across robots and scenes, those memories become tradeable assets. &quot;A verified Task Memory for stacking bowls on a PiPER&quot; is a plausible thing for one agent to sell or license to another.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">In-context learning</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A model picking up a new task from examples or notes in its prompt, without changing its weights.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Frozen model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A model whose weights are not updated; all learning happens in what you feed it.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Trained policy / VLA</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A neural network that maps camera images and instructions directly to robot movements, with the skill stored in its weights after training on demonstrations.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Task Memory</dt><dd class="mt-3 [&>*+*]:mt-3"><p>RoboScript&#39;s readable document of object roles, steps, relative grasp specs and lessons, learned through practice and then frozen.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Rehearsal</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Practicing the task in a simulator and only keeping note changes that lead to success on a fresh try.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Linter</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An automatic rule checker; here it blocks memories that mention exact coordinates or scene-specific details.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the introduction and look at the framework figure (the four-stage pipeline: skills, imitate, rehearse, deploy and reflect). Then read the main results table, focusing on the gap between clean and randomized for RoboScript vs. the trained policies, since that one comparison carries the paper&#39;s argument. Skim the ablation table. Skip the cost table details and the skill-building implementation unless you plan to run the code.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If an AI&#39;s skill lives in a readable notebook instead of hidden weights, who owns that notebook, and what would it take to trust one that another agent wrote?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.12885">World In-Context Learning for Agentic Robot Manipulation (arXiv)</a></li>
+<li><a href="https://arxivsignals.io/papers/2611.12885">Paper summary with tables and limitations (ArXivSignals)</a></li>
+<li><a href="https://hyper.ai/en/papers/2611.12885">Paper summary with method details (HyperAI)</a></li>
+<li><a href="https://github.com/ArcheOne-AI/RoboScript">RoboScript code and README (GitHub)</a></li>
+<li><a href="https://deepmind.google/blog/gemini-robotics-2-5-accelerates-real-world-physical-intelligence/">Gemini Robotics 2.5 accelerates real-world physical intelligence (Google DeepMind)</a></li>
+<li><a href="https://developers.googleblog.com/en/gemini-25-for-robotics-and-embodied-intelligence/">Gemini 2.5 for robotics and embodied intelligence (Google Developers Blog)</a></li>
+<li><a href="https://www.engineering.upenn.edu/~dineshj/publication/shi-2026-maestro/">MAESTRO: Orchestrating Robotics Modules with Coding Agents (University of Pennsylvania)</a></li>
+<li><a href="https://arxiv.org/html/2506.18088v1">RoboTwin 2.0 benchmark (arXiv)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/48/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 48</span>
+<span class="mt-1 block font-semibold">Judgment Calls (experts quietly adopt an AI agent&#39;s opinions and still feel they&#39;re their own)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
