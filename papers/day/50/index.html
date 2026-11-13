@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 50: An LLM Is All You Need: Data-Efficient Adaptation to Full-Duplex, Word-Level Spoken Dialogue</title>
+<meta name="description" content="Instead of training a voice AI on hundreds of thousands of hours of conversation so it can listen while it talks, this paper bolts a small 97M-parameter add-on onto a frozen general AI model that decides, every 80 milliseconds, whether to say a word, wait, back off or jump in, and after about 30 GPU-hours of training it holds its own against big open full-duplex systems while being the least likely to cut you off when you pause.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">An LLM Is All You Need: Data-Efficient Adaptation to Full-Duplex, Word-Level Spoken Dialogue</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">50</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Tairan Chen, Richard Yucheng He, Yihang Liu, Baodong Cao, Chen Xu</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.14774" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Instead of training a voice AI on hundreds of thousands of hours of conversation so it can listen while it talks, this paper bolts a small 97M-parameter add-on onto a frozen general AI model that decides, every 80 milliseconds, whether to say a word, wait, back off or jump in, and after about 30 GPU-hours of training it holds its own against big open full-duplex systems while being the least likely to cut you off when you pause.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>You don&#39;t need a giant purpose-built speech model to get an AI that talks like a person (listening while speaking, saying &quot;mhm,&quot; handling interruptions): you can teach an existing frozen AI the <em>rhythm</em> of conversation with a tiny add-on and about 30 GPU-hours of training.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: the Transformer (Day 9) and GPT-3 (Day 11) are the ancestors of the frozen &quot;brain&quot; this paper reuses; Whisper (Day 19) is the ancestor of the speech-hearing front ends these systems rely on; ReAct (Day 18) is the idea of a model interleaving thinking with acting, here applied to the act of <em>speaking</em>. On the frontier track it continues a voice thread: VISAGENT (Day 30, a phone line run by voice agents), StreamVibe (Day 33, an AI that knows when to speak up), EvoSpeakerMem (Day 36, keeping track of who is speaking) and especially Apriel Voice (Day 40), which ended with &quot;the open goal still ahead: a fully open, full-duplex speech-to-speech agent.&quot; Today&#39;s paper is a cheap route toward that goal. It also pushes back on something Day 40 suggested: that &quot;freeze the brain, train only the adapter&quot; recipes were being left behind.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Most voice assistants are polite walkie-talkies. You talk, they wait for silence, they answer. That&#39;s called <strong>half-duplex</strong> (only one side can transmit at a time). Real conversation is <strong>full-duplex</strong>: both people can make sound at once. We say &quot;mhm&quot; while the other person talks, we pause mid-sentence to think without giving up our turn, and we cut each other off. Getting AI to do this has worked, but expensively. Open systems like Kyutai&#39;s Moshi (2024) and NVIDIA&#39;s PersonaPlex (2026) model both people&#39;s audio as parallel streams and learn conversation timing from enormous amounts of recorded speech: the paper puts the usual budget at hundreds of thousands to millions of hours. That&#39;s out of reach for a university lab or a startup, and the resulting speech models tend to be weaker &quot;thinkers&quot; than a top text model, because so much of their capacity goes into handling raw audio. The cheaper alternative, a <strong>cascade</strong> (speech-to-text, then a text model, then text-to-speech), keeps the smart brain but feels robotic: it uses silence to guess when you&#39;re done, so it either cuts you off when you pause or waits awkwardly long.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-keep-the-brain-frozen-teach-it-only-the-timing">1. Keep the brain frozen; teach it only the timing</h3>
+<p><strong>What it is.</strong> The authors start with a general-purpose <strong>multimodal LLM</strong> (a large language model that can also take in audio, images and so on) and <strong>freeze</strong> it: its billions of weights never change. Everything new is learned by lightweight <strong>adapters</strong> (small extra layers inserted into the model, like clip-on lenses on a camera) plus a handful of new <strong>token embeddings</strong> (the model&#39;s internal &quot;meaning vectors&quot; for a few brand-new vocabulary items). The trainable part totals <strong>97 million parameters</strong>, a tiny fraction of a modern LLM.</p>
+<p><strong>Why that works.</strong> The bet is that a strong LLM already understands language, meaning and what a sensible reply looks like. What it lacks is <em>timing</em>: when to talk, when to stay quiet, when to toss in an &quot;mhm.&quot; That&#39;s a much smaller skill than understanding language from scratch, so it should need far less data.</p>
+<p><strong>Analogy.</strong> Hiring an experienced screenwriter to do live improv. You don&#39;t need to teach them dialogue. You need to teach them to watch their scene partner and time their lines. That&#39;s a weekend workshop, not a degree.</p>
+<p><strong>Why it matters.</strong> Because the brain is untouched, it doesn&#39;t forget what it knew (a common problem called <strong>catastrophic forgetting</strong>, where retraining a model on a new skill degrades old ones). And when a better base model comes out, you could in principle swap it in and retrain only the small add-on.</p>
+
+<h3 id="2-a-conversation-clock-one-decision-every-80-milliseconds">2. A conversation clock: one decision every 80 milliseconds</h3>
+<p><strong>What it is.</strong> The system runs on an <strong>80 ms frame clock</strong>: time is chopped into slices of 80 milliseconds (12.5 per second), and at every slice the &quot;thinker&quot; (see idea 3) must emit exactly <strong>one token</strong>. A token here is either a word piece to say, or one of several special <strong>control tokens</strong> that encode conversational moves. The abstract names three kinds: <strong>pauses</strong>, <strong>yields</strong> and <strong>onsets</strong>.</p>
+<p><strong>How it works, as a mental picture</strong> (illustrative; the exact token set and names are in the paper):</p>
+<ul>
+<li>While you&#39;re talking, the model keeps emitting &quot;stay quiet&quot; style tokens, 12.5 times a second, while still listening.</li>
+<li>You pause for half a second to think. The model has to decide: is that a turn ending, or just a breath? If it&#39;s a breath, it keeps waiting.</li>
+<li>You finish. The model emits an <strong>onset</strong> token (start speaking) and then words, one per frame.</li>
+<li>You cut in with &quot;wait, actually.&quot; The model emits a <strong>yield</strong> token (give up the floor) and stops.</li>
+</ul>
+<p><strong>The guardrail: a finite-state machine.</strong> A <strong>finite-state machine (FSM)</strong> is a simple rulebook with a few states (say &quot;listening,&quot; &quot;speaking,&quot; &quot;yielding&quot;) and allowed moves between them. It constrains which tokens are legal at each moment, so the model can&#39;t produce nonsense like &quot;start speaking&quot; while it&#39;s already speaking, or words while it&#39;s supposed to be silent.</p>
+<p><strong>Analogy.</strong> A drummer keeping time. Every beat, the drummer either plays a note or a rest. The FSM is the sheet music&#39;s rules: you can&#39;t end a bar you never started. Silence becomes an explicit choice, made on the beat, rather than an absence the system has to infer from a gap.</p>
+<p><strong>Why &quot;word-level.&quot;</strong> The thinker produces <em>words</em> (text tokens), not raw audio. That keeps the expensive LLM working in its native medium, and is why it can stay a strong reasoner.</p>
+
+<h3 id="3-thinker-and-talker-trained-separately">3. Thinker and talker, trained separately</h3>
+<p><strong>What it is.</strong> The system is split in two. The <strong>thinker</strong> (the frozen LLM plus adapters) listens and decides what to say and when, emitting that one-token-per-frame stream. The <strong>talker</strong> turns those tokens into actual voice. Crucially, the talker reads <em>only</em> the thinker&#39;s discrete tokens, nothing hidden inside the thinker.</p>
+<p><strong>Why that&#39;s a big deal.</strong> Because the only connection is a plain stream of tokens, the two halves can be <strong>trained independently</strong>. You can improve or replace the voice without touching the timing brain, and vice versa. (The thinker-talker split itself isn&#39;t new: Alibaba&#39;s Qwen2.5-Omni popularized it in 2025. But there the talker reads the thinker&#39;s internal states, which ties them together, and those systems were described as near-duplex rather than truly full-duplex.)</p>
+<p><strong>Analogy.</strong> A writer and a voice actor connected only by a teleprompter. The writer types words and stage directions (&quot;[pause]&quot;, &quot;[cut]&quot;); the actor performs them. You can recast the actor without rewriting the show.</p>
+
+<h3 id="4-a-four-stage-curriculum-about-30-gpu-hours">4. A four-stage curriculum, about 30 GPU-hours</h3>
+<p><strong>What it is.</strong> A <strong>curriculum</strong> is a training plan that teaches easy things before hard ones. The paper converts the frozen LLM into a full-duplex system in four stages, for about <strong>30 GPU-hours</strong> of total compute (one GPU running for about 30 hours, which rents for well under $100 in the cloud today).</p>
+<p><strong>How it probably flows</strong> (illustrative; the abstract gives the count and cost, not the stage contents): first teach the adapters to align with the new frame clock and special tokens, then teach basic turn-taking, then overlap and backchannels, then longer multi-turn conversations. Read the paper&#39;s method section for the actual stages and datasets.</p>
+<p><strong>For scale.</strong> If the big systems need hundreds of thousands of hours of speech data and many thousands of GPU-hours, this is several orders of magnitude cheaper. That&#39;s the paper&#39;s headline.</p>
+
+<h2 id="walkthrough-one-moment-of-conversation-frame-by-frame">Walkthrough: one moment of conversation, frame by frame</h2>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>An illustration of the behavior the paper is built to produce (not a transcript from the paper):</p>
+<ol>
+<li><strong>0.0 s.</strong> You: &quot;So I want to list the house on Elm, but...&quot; The thinker emits silent tokens, frame after frame, while listening.</li>
+<li><strong>1.6 s.</strong> You trail off for 600 ms to think. A naive system would see silence and start talking. The thinker keeps emitting &quot;wait&quot; tokens. (This is exactly the behavior the paper measures as <em>pause handling</em>, and where it scores best.)</li>
+<li><strong>2.2 s.</strong> You: &quot;...the seller wants to wait until spring.&quot; Mid-sentence, the thinker emits a short backchannel (&quot;mhm&quot;), which the talker voices softly while you continue.</li>
+<li><strong>3.4 s.</strong> You stop. The FSM allows an onset; the thinker emits it, then one word per frame: &quot;Got it, should I...&quot;</li>
+<li><strong>3.8 s.</strong> You interrupt: &quot;Actually, also check the comps.&quot; The thinker emits a yield; the talker stops mid-sentence. The frozen LLM, which heard everything, then answers the new request.</li>
+</ol>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Benchmarks.</strong> Two public tests of conversational behavior:</p>
+<ul>
+<li><strong>Full-Duplex-Bench</strong> measures four skills: <em>pause handling</em> (how often the model wrongly grabs the floor when you merely pause, called the <strong>takeover rate</strong>, lower is better), <em>backchanneling</em> (how often and how naturally it says &quot;mhm&quot;), <em>smooth turn-taking</em> (how fast it replies when you&#39;re actually done) and <em>interruption handling</em> (does it stop, and is what it says next coherent).</li>
+<li><strong>InteractionBench</strong>, which (per the abstract) also scores spoken-task accuracy, groundedness (sticking to facts it was given) and coherence over long conversations.</li>
+</ul>
+<p><strong>Headline results</strong>, as stated in the abstract:</p>
+<ul>
+<li><strong>Competitive overall</strong> with open-source full-duplex systems trained at large scale, despite using a sliver of the data and compute.</li>
+<li><strong>Least likely to take the floor when the user merely pauses.</strong> This is the most practically important win: being cut off mid-thought is the number one complaint about voice assistants.</li>
+<li><strong>Backchannels most often</strong> of the systems compared.</li>
+<li><strong>Leads on spoken-task accuracy, groundedness and coherence over long conversations.</strong> That&#39;s the payoff of keeping a strong frozen LLM: it stays smart.</li>
+</ul>
+<p>The abstract doesn&#39;t give the exact numbers or the full list of systems compared; those are in the paper&#39;s tables.</p>
+<p><strong>Why it&#39;s convincing.</strong> It&#39;s tested on public benchmarks that other full-duplex systems also report on, and it wins on the specific dimensions you&#39;d predict from its design: timing (because of the frame clock and FSM) and intelligence (because of the frozen LLM).</p>
+<p><strong>Why it&#39;s surprising.</strong> The field&#39;s assumption has been that natural conversational timing is learned from massive amounts of real two-person audio. This suggests timing is a small skill you can graft on, if the brain underneath is good.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>&quot;Competitive,&quot; not &quot;best.&quot;</strong> On some full-duplex measures it matches rather than beats the big systems. The abstract highlights where it leads; check the tables for where it trails.</li>
+<li><strong>Backchanneling &quot;most often&quot; isn&#39;t automatically good.</strong> Too many &quot;mhms&quot; is annoying. Full-Duplex-Bench also scores whether backchannel <em>timing</em> matches humans; whether this system wins on that too isn&#39;t clear from the abstract.</li>
+<li><strong>The voice is only as good as the talker.</strong> Since the talker only sees words and control tokens, it can&#39;t easily pick up on the user&#39;s tone. Emotional or prosodic nuance (sounding sympathetic, matching energy) is harder in a word-level design than in audio-native models like Moshi.</li>
+<li><strong>80 ms is a floor on reaction time.</strong> Every decision waits for the next frame. That&#39;s fine for conversation but adds up with the talker&#39;s own delay.</li>
+<li><strong>Benchmarks are not phone calls.</strong> Neither benchmark captures noisy rooms, crosstalk from several people, or bad cell connections.</li>
+<li><strong>Brand new, no replication yet</strong>, and the abstract doesn&#39;t mention a code or model release.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Full-duplex voice is now a product category.</strong> OpenAI&#39;s GPT-Live-1 arrived in ChatGPT in July 2026 and in the API on September 10, 2026, at $0.05 per minute, listening and talking at the same time and handing reasoning and tool calls to a separate backend model. OpenAI reports 80.1% on a full-duplex interactivity benchmark versus 45.4% for its previous realtime model, and Yelp uses it for phone reservations. That &quot;speech layer plus separate brain&quot; split is a close commercial cousin of this paper&#39;s thinker and talker.</li>
+<li><strong>The open field is crowded.</strong> A public tracker lists 40 full-duplex models, 12 released between September and November 2026 alone (including Amazon Nova 2.5 Sonic, Grok Voice 3.0, Gemini 3.8 Live and open-weight ones from Ant Group and NVIDIA). Kyutai&#39;s Moshi and NVIDIA&#39;s PersonaPlex remain the reference open systems this paper is measured against in spirit.</li>
+<li><strong>Thinker-talker is a mainstream architecture.</strong> Alibaba&#39;s Qwen Omni line uses it, valued because the LLM keeps its long context, tool calling and retrieval.</li>
+<li><strong>Benchmarks are standardizing.</strong> Full-Duplex-Bench (with v1.5, v2 and v3 versions) is the shared yardstick that both vendors (OpenAI quotes it) and academic papers like this one report on.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Most production voice agents still take strict turns.</strong> Industry write-ups describe cascaded speech-to-text, LLM and text-to-speech pipelines (on platforms like LiveKit and Pipecat) as still common, because they&#39;re simpler to control, audit and plug into tools. For scripted calls (IVR menus, data capture, regulated scripts) half-duplex remains a sensible choice.</li>
+<li><strong>&quot;Barge-in&quot; is often a switch, not a skill.</strong> Many deployed systems can be interrupted, but can&#39;t tell a real interruption from an &quot;mhm,&quot; so they stop talking whenever you make a sound.</li>
+<li><strong>This specific recipe</strong> is days old; nothing public runs it in a product.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Walkie-talkie voice assistants (Siri-era cascades) -&gt; audio-native full-duplex models trained on huge speech corpora (Moshi, 2024; PersonaPlex, 2026) -&gt; thinker-talker designs that keep a strong LLM (Qwen Omni, 2025) -&gt; commercial full-duplex APIs (GPT-Live-1, 2026) -&gt; this paper: full-duplex timing grafted onto a frozen LLM with a tiny add-on -&gt; likely next: anyone with a good open LLM and a weekend of GPU time can build a voice agent that doesn&#39;t cut people off.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<ul>
+<li><strong>Unstall.</strong> A voice-first chief of staff for real estate agents lives or dies on not interrupting. Agents talk in fragments while driving between showings (&quot;so the Elm listing... uh... tell the seller...&quot;). The metric this paper wins on, not taking the floor during pauses, is exactly the one your users will feel. Two practical takeaways: you may not need to pick between &quot;smart cascade that cuts people off&quot; and &quot;natural duplex model that&#39;s dumber,&quot; and the thinker-talker split means you could keep your own LLM, tools and memory, and rent or swap only the timing layer and voice. (Industry pieces also flag where call audio is stored and for how long as the real deployment question for hosted duplex APIs, which matters for client conversations.)</li>
+<li><strong>Amelia.</strong> Live speaker identification needs the same skill as full-duplex: tracking who holds the floor, frame by frame, including overlaps. The paper&#39;s representation, explicit tokens for onsets, yields and pauses on a fixed clock, is a clean way to log &quot;who started talking when and who gave way,&quot; which is exactly the timeline a per-person conversation memory needs.</li>
+<li><strong>Your memory and continuity startups.</strong> The frozen-brain design is a quiet argument for your thesis: keep the core model general, and put the specialized, swappable parts (timing, voice, memory) around it.</li>
+</ul>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Full-duplex</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Both sides of a conversation can speak and listen at the same time, like a phone call; half-duplex means taking strict turns, like a walkie-talkie.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Backchannel</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A short listener signal (&quot;mhm,&quot; &quot;right&quot;) that shows attention without taking the turn.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Frozen model with adapters</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A pretrained model whose weights stay fixed, with small trainable layers added to teach it a new skill.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Frame clock</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Chopping time into fixed slices (here 80 ms) and making exactly one decision per slice.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Finite-state machine</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A small rulebook of states and allowed transitions that keeps the model&#39;s moves legal.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Thinker-talker</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An architecture where one model decides what to say and another turns it into speech.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the introduction, then go straight to the method figure showing the thinker, the talker and the 80 ms clock, and the table of control tokens with the finite-state machine. Then read the Full-Duplex-Bench results table, focusing on the pause-handling takeover rate column, since that is the paper&#39;s clearest win. Skip the adapter implementation details and the curriculum hyperparameters unless you plan to build it.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If an AI never interrupts you and always says &quot;mhm&quot; at the right moment, it will feel like it&#39;s listening. How would your users, or you, tell the difference between an AI that sounds attentive and one that actually understood?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.14774">An LLM Is All You Need: Data-Efficient Adaptation to Full-Duplex, Word-Level Spoken Dialogue (arXiv)</a></li>
+<li><a href="https://arxiv.org/html/2503.04721v3">Full-Duplex-Bench: the benchmark&#39;s original paper (arXiv)</a></li>
+<li><a href="https://www.themoonlight.io/review/full-duplex-bench-a-benchmark-to-evaluate-full-duplex-spoken-dialogue-models-on-turn-taking-capabilities">Full-Duplex-Bench review: dimensions and metrics (Moonlight)</a></li>
+<li><a href="https://openai.com/index/introducing-gpt-live-1-in-the-api/">Introducing GPT-Live-1 in the API (OpenAI)</a></li>
+<li><a href="https://the-decoder.com/openais-gpt-live-1-api-lets-developers-build-apps-that-talk-and-listen-at-the-same-time/">OpenAI&#39;s GPT-Live-1 API lets developers build apps that talk and listen at the same time (The Decoder)</a></li>
+<li><a href="https://ibl.ai/blog/gpt-live-1-full-duplex-voice-api-enterprise">Full-duplex voice AI is a deployment decision, not latency (ibl.ai)</a></li>
+<li><a href="https://www.evalgent.com/blog/full-duplex-voice-agents">Full-Duplex Voice Agents: Simultaneous Speech (Evalgent)</a></li>
+<li><a href="https://ai.ksopyla.com/posts/voice-to-voice-models-2026-review/">Speech-to-Speech Models in 2026: Three Architectural Bets (Krzysztof Sopyła)</a></li>
+<li><a href="https://www.fullduplex.ai/models">Full-duplex model tracker (Fullduplex)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/49/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 49</span>
+<span class="mt-1 block font-semibold">World In-Context Learning (a robot that learns a task by practicing in a simulator and writing notes, not retraining)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
