@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 51: Discovering Effective Agent Memory Designs through Program Evolution</title>
+<meta name="description" content="Instead of hand-designing how an AI assistant remembers past conversations, the authors let a coding AI write, test and rewrite whole memory systems starting from nothing, and the winners beat every human-designed system they tried (by up to 12 points, at about a third of the cost) while rediscovering two simple rules: keep the original conversation, and process what you retrieve differently depending on what kind of question was asked.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Discovering Effective Agent Memory Designs through Program Evolution</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">51</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Xinheng Ding, Seyyed Saeid Cheshmi, Ziyang Zhang, Tairan Chen, Wenya Xie, Yu Hou, Rui Zhang, Zirui Liu (University of Minnesota, Stevens Institute of Technology)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.17068" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Instead of hand-designing how an AI assistant remembers past conversations, the authors let a coding AI write, test and rewrite whole memory systems starting from nothing, and the winners beat every human-designed system they tried (by up to 12 points, at about a third of the cost) while rediscovering two simple rules: keep the original conversation, and process what you retrieve differently depending on what kind of question was asked.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>If you let an AI repeatedly invent, test and fix memory systems for other AIs, it ends up with designs that beat the best hand-built ones, and the two lessons it keeps landing on are surprisingly human: don&#39;t throw away the original conversation, and handle a &quot;when did...&quot; question differently from a &quot;how many...&quot; question.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: RAG (Day 14) is the &quot;look it up, then answer&quot; idea every memory system here is built on; ReAct (Day 18) and chain-of-thought (Day 17) are the reasoning-then-acting habits the &quot;designer&quot; AI uses as it works; GPT-3 (Day 11) is the ancestor of the models doing both the designing and the answering. On the frontier track this is the latest chapter of a running memory thread: Cortex (Day 23), MemoryTax (Day 28, which found that fancy memory systems stop paying off once models get strong, and that raw conversation plus search often wins), Anthropic&#39;s memory layers and &quot;dreaming&quot; (Day 45, which also kept raw transcripts as the source of truth) and The Memory Trap (Day 47, on what goes wrong when an agent summarizes a conversation into an overly broad rule). It also borrows the &quot;AI that improves its own systems&quot; idea from The Trinity (Day 35). Today&#39;s paper is the strongest evidence yet for a conclusion those papers circled: summaries lose things, so keep the receipts.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>An AI assistant that remembers you across conversations needs a <strong>memory system</strong>: code that decides what to save from past chats, how to organize it, and what to pull back out when you ask something. Popular open systems such as Mem0, Zep, A-Mem, LightMem and SimpleMem are all designed by hand. Engineers pick a strategy (say, &quot;use an AI to extract short facts from each chat and store them in a database,&quot; or &quot;build a knowledge graph of people and events&quot;), tune it, and publish. That has two problems. First, the space of possible designs is huge, and humans tend to explore just a few corners of it. Second, nobody quite knows <em>which</em> choices are doing the work, because each system changes many things at once. Meanwhile, a different research line had shown that you can let an AI search for good programs automatically. Google DeepMind&#39;s AlphaEvolve (2025) uses an AI to propose code changes, scores each version automatically, and keeps the best, and it found algorithms better than ones humans had used for decades. Earlier attempts to apply this to memory mostly tweaked prompts or settings inside an existing design, and they optimized only for accuracy, ignoring cost.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-treat-a-memory-system-as-a-program-with-four-fill-in-the-blank-stages">1. Treat a memory system as a program with four fill-in-the-blank stages</h3>
+<p><strong>What it is.</strong> The authors define a standard &quot;shape&quot; every memory system must fit, called a <strong>lifecycle interface</strong> (a fixed list of steps a program has to implement, so any two programs can be compared fairly). There are four stages:</p>
+<ol>
+<li><strong>Build</strong>: read the whole conversation history once and turn it into a stored memory (facts, notes, an index, or just the raw text).</li>
+<li><strong>Retrieve</strong>: for a new question, pull out the pieces of memory that seem relevant.</li>
+<li><strong>Compose</strong>: arrange and process those pieces into the context the answering model will read. This stage is new: most systems skip straight from retrieve to answer.</li>
+<li><strong>Answer</strong>: a fixed model, with a fixed prompt, writes the answer. This part is never allowed to change, so any improvement must come from the memory design.</li>
+</ol>
+<p><strong>Analogy.</strong> Think of a film production: build is shooting and logging the footage, retrieve is finding the right takes, compose is the edit, and answer is the screening. The authors lock the screening room and let everything before it be redesigned.</p>
+<p><strong>Why it matters.</strong> Because every candidate fills in the same blanks, you can swap parts between systems. That later lets them take one piece invented by the search and drop it into five human-built systems to see whether it helps them too.</p>
+
+<h3 id="2-an-evolution-loop-with-a-designer-a-tester-and-a-critic">2. An evolution loop with a designer, a tester and a critic</h3>
+<p><strong>What it is.</strong> <strong>Program evolution</strong> means improving code the way breeders improve crops: make variations, keep the ones that do best, and breed from those. Here the &quot;variations&quot; are written by an AI.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li><strong>Start from a minimal seed.</strong> The search begins with deliberately dumb programs: one that remembers <em>nothing</em>, and (in one setting) one that just stuffs the entire history into the prompt. Starting from nothing means the search isn&#39;t anchored to any human design.</li>
+<li><strong>Propose.</strong> A <strong>proposer agent</strong> (in this paper, Claude Opus 4.8 at its highest reasoning setting) reads an archive of every past attempt: its code, its score, and notes on why it failed. It picks one or more &quot;parents,&quot; writes a new complete program, and states a <strong>design hypothesis</strong> (&quot;If I keep raw messages alongside extracted facts, questions about exact wording should improve&quot;). It can choose a small targeted fix or a completely different approach, and it is allowed to search the web for research ideas. It is explicitly told not to make cosmetic changes like rewording a prompt.</li>
+<li><strong>Sanity check.</strong> The new program is run on two or three questions to catch crashes. The proposer gets two tries to fix errors.</li>
+<li><strong>Test.</strong> Survivors run on a fixed <strong>search set</strong> (a slice of the benchmark used only during the search, here 20% of the data), recording accuracy and cost.</li>
+<li><strong>Diagnose.</strong> A separate <strong>diagnosis agent</strong> reads the code, the hypothesis and the wrong answers, traces each failure back to the stage that caused it (&quot;retrieval never returned the session where the user mentioned the dog&quot;), and writes notes for the next proposer. It is forbidden to suggest designs itself; its job is evidence.</li>
+<li><strong>Archive everything</strong>, including failures, so later rounds can revisit an older idea instead of only building on the current leader.</li>
+</ol>
+<p>Each run is 20 rounds, one new program per round.</p>
+<p><strong>Analogy.</strong> A writers&#39; room with a showrunner who pitches a new draft each week, a test screening that scores it, and a script doctor who explains exactly which scene lost the audience, with every past draft kept in a binder.</p>
+<p><strong>Keeping it honest.</strong> The other 80% of the data (the <strong>evaluation set</strong>) is locked away during the search and only used at the end to pick and report the final programs, so the search can&#39;t simply memorize the test. The authors also manually threw out winners that would not scale, such as programs that read the entire history with an AI on every question.</p>
+
+<h3 id="3-two-scorecards-accuracy-only-or-accuracy-and-cost">3. Two scorecards: accuracy only, or accuracy and cost</h3>
+<p><strong>What it is.</strong> They ran the search two ways. <strong>MAPE-A</strong> cares only about accuracy. <strong>MAPE-P</strong> cares about accuracy and <strong>lifecycle serving cost</strong> (the dollar cost of all the AI and embedding calls needed to build the memory and answer questions, spread across the number of questions, reported per 1,000 questions).</p>
+<p>With two goals, there is rarely one &quot;best&quot; program. Instead there is a <strong>Pareto frontier</strong>: the set of programs where you can&#39;t get more accuracy without paying more, or pay less without losing accuracy. Picture a menu where every dish on it is the best taste you can get at its price. MAPE-P keeps that whole menu as parents for the next round.</p>
+<p><strong>What happened.</strong> The accuracy-only searches behaved like a production that keeps adding reshoots: each round bolted on another operation to fix the remaining errors, and late gains got expensive. In one run, adding an AI step that wrote notes from every session at build time raised cost about sixfold for a small accuracy bump. The accuracy-and-cost searches branched out more, kept cheap ideas alive, and learned to <em>remove</em> expensive steps.</p>
+<p>The resulting designs spend effort in different places. Accuracy-only winners do heavy AI work up front, at build time (in one, note extraction was about 92% of the total cost). Cost-aware winners mostly skip that, store the raw conversation, use cheap keyword search, and do focused work only when a question actually arrives. They used 90% fewer AI calls on one benchmark and 40% fewer on the other, while staying competitive.</p>
+<p><strong>Mental picture.</strong> Two ways to prepare for an open-book exam: write detailed summary notes of every chapter in advance (expensive, and you might leave out the detail you need), or keep the textbook, tab it well, and read closely only the pages each question needs. When most chapters never get asked about, the second is far cheaper.</p>
+
+<h3 id="4-what-the-search-kept-rediscovering">4. What the search kept rediscovering</h3>
+<p>Across both benchmarks and both scorecards, the winning programs converged on two habits.</p>
+<p><strong>Habit one: keep the raw conversation as evidence.</strong> Every human-designed system tested either throws away the original chat after extracting facts, or never shows it to the answering model. The evolved systems keep extracted notes <em>and</em> the original back-and-forth, and retrieve both. Example: if you once told an assistant &quot;my sister&#39;s dog is a corgi named Biscuit, but she&#39;s thinking of renaming him,&quot; a fact extractor might save &quot;sister has a corgi named Biscuit&quot; and drop the renaming. The raw text still has it.</p>
+<p><strong>Habit two: process evidence according to what kind of question it is.</strong> The best design includes a compose step the authors call <strong>Query-Routed Scaffolding</strong> (RQS; a &quot;scaffold&quot; here is a small set of helper steps that structure the evidence before the final answer). It works in three steps:</p>
+<ol>
+<li><strong>Route.</strong> Simple rules on the question&#39;s wording sort it into one of six types: temporal (&quot;when...&quot;), aggregation (&quot;how many...&quot;), difference (&quot;how much more...&quot;), current value (&quot;what is my current...&quot;), preference, or direct lookup.</li>
+<li><strong>Scaffold.</strong> Each type gets its own treatment. For a temporal question, it pulls out dates and converts phrases like &quot;last week&quot; into real calendar dates using the session date, then does the date math in actual code. For &quot;how many&quot; questions, it extracts matching items from each session, removes duplicates and counts them in code, running the extraction twice and flagging disagreements.</li>
+<li><strong>Deliberate.</strong> One AI call reviews the scaffold&#39;s output against the evidence and writes a draft answer with a supporting quote, which is passed along to the fixed answering model.</li>
+</ol>
+<p><strong>Why that helps.</strong> Language models are notoriously shaky at arithmetic and counting, and at turning &quot;two weeks ago&quot; into a date. Handing those parts to plain code (an idea from earlier work called program-aided reasoning) removes a class of errors.</p>
+<p><strong>Worked example.</strong> Question: &quot;How many weeks ago did I start the pottery class?&quot; The router tags it temporal. The scaffold finds the session from March 3 where you said &quot;I start pottery next Monday,&quot; resolves &quot;next Monday&quot; to March 9, and computes the gap to today&#39;s date in code. The answering model now just reads off a number instead of doing calendar math in its head.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>The benchmarks.</strong> <strong>LoCoMo</strong> is ten very long, multi-session conversations between two people, with about 1,300 test questions (single-hop facts, multi-hop facts that need combining, open-domain and temporal). <strong>LongMemEval</strong> gives an assistant a long chat history and one question per history, across six types including temporal reasoning, multi-session, knowledge updates and preferences. Answers are graded by another AI (GPT-5 mini) using each benchmark&#39;s rubric.</p>
+<p><strong>The comparison.</strong> Seven baselines: stuffing the full history into the prompt, basic RAG, and five published memory systems (Mem0, A-Mem, LightMem, SimpleMem, Zep), all using the same answering model and the same embedding model so only the memory design differs.</p>
+<p><strong>The headline numbers.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Best human-built or baseline</th>
+<th>Evolved (accuracy-only)</th>
+<th>Evolved (accuracy + cost)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LoCoMo, GPT-4.1 mini</td>
+<td>Full context 80.9% ($12.54 per 1k questions)</td>
+<td>87.9% ($7.21)</td>
+<td>85.2% ($2.03)</td>
+</tr>
+<tr>
+<td>LoCoMo, Qwen3-30B (open model)</td>
+<td>Full context 70.0%; SimpleMem 69.3% ($3.24)</td>
+<td>78.6%</td>
+<td>81.3% ($1.14)</td>
+</tr>
+<tr>
+<td>LongMemEval, Qwen3-30B</td>
+<td>Plain RAG 66.0% ($2.62)</td>
+<td>77.0% ($52.84)</td>
+<td>72.3% ($5.76)</td>
+</tr>
+</tbody></table>
+<p>The &quot;12% at 35% of the cost&quot; in the abstract is the cost-aware LoCoMo program on the open Qwen model: 81.3% versus SimpleMem&#39;s 69.3%, at about a third of SimpleMem&#39;s cost. A striking side note: on LongMemEval, plain RAG beat all five fancy memory systems, which echoes Day 28.</p>
+<p><strong>It transfers.</strong> Programs evolved on one benchmark, run unchanged on the other, still beat all five published memory systems (and nearly matched or beat RAG). Programs evolved with GPT-4.1 mini still did well when the whole system was switched to Qwen, with one instructive exception: the accuracy-only LoCoMo program&#39;s temporal score collapsed from 80% to 44%, because it left date math to the answering model, and Qwen got it wrong (134 of its 145 temporal errors gave the conversation date instead of the event date). The cost-aware program had converted dates in code and kept 71%.</p>
+<p><strong>The ablations (switching parts off).</strong> Taking raw conversation snippets out of the best LongMemEval program cut accuracy by 6.5 points there and 12.2 points on LoCoMo; on questions about what the <em>assistant</em> had said earlier, accuracy fell 20 points. Taking out the routed scaffolding cut 6.25 and 4.4 points, mostly on temporal questions. Removing both cut 14 points.</p>
+<p><strong>The transplant.</strong> This is the most convincing part. They took the scaffolding module alone and bolted it onto all five human-built systems without changing their storage or retrieval. Every one improved on LongMemEval, by 2.75 to 9.25 points (LightMem jumped from 59.3% to 68.3%). Mem0 gained least, and the error analysis explains why: Mem0&#39;s failures were mostly cases where the needed information was never retrieved at all, and no amount of clever composing fixes missing evidence. Across systems, how complete the retrieved evidence was tracked accuracy very closely.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Only two question-answering benchmarks</strong>, both about recalling facts from chat history. Whether this works for agents that need to remember <em>how</em> to do things, or for open-ended tasks, is untested.</li>
+<li><strong>Small data, few runs.</strong> LoCoMo has only ten conversations, and the search used just two of them. LongMemEval got one search run per setting. The authors say outcomes vary between runs and final selection involved human judgment.</li>
+<li><strong>The router is simple word-matching rules</strong>, and its six categories were shaped by these benchmarks&#39; question types. Real users ask messier questions.</li>
+<li><strong>Cost excludes the search itself.</strong> Running a top model with maximum reasoning for 20 rounds, many times over, isn&#39;t free; the reported costs are only for serving the final program. Latency was not measured at all, which matters a lot for voice products.</li>
+<li><strong>Benchmarks reward exact recall.</strong> Neither tests privacy, forgetting on request, or the &quot;overgeneralized memory&quot; problem from Day 47, so a system that keeps everything raw scores well here without paying for the downsides of keeping everything.</li>
+<li><strong>AI grading AI.</strong> Correctness is judged by GPT-5 mini with fairly generous rubrics; that&#39;s standard practice but adds noise.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The search method is already a product.</strong> Google made AlphaEvolve, the best-known version of &quot;AI proposes code, automatic tests score it, repeat,&quot; generally available to Google Cloud customers in July 2026. Reported uses include Klarna doubling ML training throughput, JetBrains cutting code-completion latency 15 to 20%, and internal Google work on TPU chip design and the Spanner database. Those figures come from Google and its customers, not independent tests. An open-source alternative, OpenEvolve, exists. MAPE is the same family of idea pointed at memory systems, and its code is open.</li>
+<li><strong>The baselines are real products.</strong> Mem0 is a widely used open-source memory layer (over 60,000 GitHub stars) that plugs into LangChain, CrewAI, the OpenAI Agents SDK, AWS Bedrock and voice stacks like LiveKit and Pipecat. Its own blog describes storing <em>extracted</em> facts, which is exactly the habit this paper questions. Zep (built on its Graphiti knowledge graph), Letta (formerly MemGPT), Cognee, LangMem and AWS AgentCore Memory are other commercial or open options. Note that Mem0 reports much higher LoCoMo scores for its own newest version (92.5%) than this paper measured for the open-source version under a shared setup; benchmark numbers in this area swing a lot with configuration and grading.</li>
+<li><strong>&quot;Keep the raw transcript&quot; is spreading.</strong> Anthropic&#39;s managed memory for Claude agents stores plain text documents with version history rather than vectors, and its research (Day 45) treats raw transcripts as the source of truth. Independent papers this fall, including MemoryTax and &quot;naive RAG is stronger than we thought,&quot; point the same way.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li>No major product, as far as I could find, says it ships an <em>evolved</em> memory system. Today&#39;s commercial memory layers are still hand-designed.</li>
+<li>The pure &quot;summarize everything into facts and discard the conversation&quot; approach is under pressure from multiple directions, but it hasn&#39;t been abandoned; it remains the default in several popular libraries because it is compact and simple.</li>
+<li>Consumer memory in ChatGPT is closed: you can&#39;t inspect or customize how it works, so none of these design lessons are visible from outside.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Hand-designed memory (MemGPT, Mem0, Zep) plus AI-driven code search (FunSearch, AlphaEvolve) -&gt; whole memory programs evolved from scratch (MAPE) -&gt; what you&#39;d build today: store raw conversations plus light notes, retrieve both, and route each question to a specialized, code-assisted answering step.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Amelia and the relationship-continuity startups.</strong> This paper is close to a design spec for per-person conversation memory. Two concrete takeaways: keep the original utterances (with who said them and when) instead of only an AI-written profile, because the profile will drop the detail someone asks about later; and treat &quot;when did I last talk to Priya?&quot; and &quot;how many times has she mentioned her move?&quot; as different kinds of questions that get computed in code, not guessed by the model. The cost-aware result also argues for doing very little AI work when a conversation is recorded and spending effort only when a question arrives, which suits a product that listens all day. The flip side: &quot;keep everything raw&quot; is exactly what makes <em>permissioned</em> memory hard, so your consent and deletion layer has to sit on top of the raw store, not just the summaries.</p>
+<p><strong>Unstall.</strong> Real estate agents ask a chief of staff questions that are heavily temporal and countable (&quot;when did the Garcias say they&#39;d hear back on financing?&quot;, &quot;how many showings did we do on Elm Street?&quot;). The paper&#39;s single biggest failure mode was date math left to the model, and its biggest fix was resolving dates in code at the moment of the question. That is directly applicable.</p>
+<p><strong>Building any AI product.</strong> The evolution loop itself (a proposer, an automatic test set you never peek at, and a separate critic that only diagnoses) is a pattern you could run on your own pipelines, as long as you can write a scoring function.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Agent memory system</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The code that decides what an AI saves from past conversations, how it is stored, and what is pulled back out for a new question.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Program evolution</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Improving software by having an AI propose variations, automatically scoring them, and building on the best, over many rounds.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Lifecycle interface</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A fixed set of stages (build, retrieve, compose, answer) every candidate must implement, so designs can be compared and parts swapped.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Pareto frontier</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The set of options where you can&#39;t improve one goal (accuracy) without worsening another (cost).</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Ablation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Switching off one part of a system to measure how much that part was contributing.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Query-Routed Scaffolding (RQS)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Sorting each question by type and running type-specific helper steps (like date math or counting in code) on the retrieved evidence before answering.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read <strong>Section 4.3</strong> (Emergent Memory Designs and Component Analysis) with <strong>Figure 2</strong> and <strong>Table 3</strong>: it shows the winning design, the two habits, and the ablations in about a page. If you have a few minutes more, read <strong>Appendix D.5</strong>, which spells out exactly how the question routing and scaffolds work, and glance at <strong>Figure 4</strong> for the date-math failure. Skip Appendix C (data splits, pricing and configuration details) and the prompt templates in Appendix E unless you plan to run the code.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>The search was rewarded only for answering recall questions correctly and cheaply, and it learned to keep everything. If you added a third score for privacy (for example, &quot;forgets what a user asked it to forget&quot; or &quot;never reveals one person&#39;s memories to another&quot;), what do you think the winning designs would start doing differently, and would you trust an AI-designed system to get that part right?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.17068">Discovering Effective Agent Memory Designs through Program Evolution (arXiv 2611.17068)</a></li>
+<li><a href="https://github.com/ash-ding/MAPE">MAPE code repository</a></li>
+<li><a href="https://infoq.com/news/2026/07/alphaevolve-generally-available">InfoQ: AlphaEvolve generally available (July 2026)</a></li>
+<li><a href="https://mem0.ai/blog/ai-agent-memory-benchmark">Mem0: State of AI Agent Memory 2026</a></li>
+<li><a href="https://rickhigh.substack.com/p/eight-agent-memory-systems-none-of">Rick Hightower: Eight agent memory systems, none of them complete (July 2026)</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/50/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 50</span>
+<span class="mt-1 block font-semibold">Full-duplex on a budget (teaching a frozen AI to listen while it talks, in about 30 GPU-hours)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
