@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 52: Duo: A Reciprocal World Model for Full-Duplex Interaction</title>
+<meta name="description" content="Ant Research built Duo, an AI you talk to like a video call: every 0.7 seconds a &#39;brain&#39; model watches and listens to you and decides whether to speak or wait, and a second &#39;body&#39; model generates the AI&#39;s face, gestures and voice together as live video, passing 93% of the authors&#39; own quality checks while still missing about a quarter of conversational cues like jokes.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Duo: A Reciprocal World Model for Full-Duplex Interaction</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">52</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Hengyuan Cao, Biao Gong, Guoshan Lu, Qiyuan Zhang and others, with Zhenzhong Lan (Ant Research / inclusionAI)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.15131" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Ant Research built Duo, an AI you talk to like a video call: every 0.7 seconds a &#39;brain&#39; model watches and listens to you and decides whether to speak or wait, and a second &#39;body&#39; model generates the AI&#39;s face, gestures and voice together as live video, passing 93% of the authors&#39; own quality checks while still missing about a quarter of conversational cues like jokes.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Instead of gluing together a chatbot, a voice and a talking-head animation, Duo splits a video-call AI into two models that run in lockstep every 0.7 seconds: one decides <em>what to do</em> (speak or wait, and what to say), and one turns that decision directly into synchronized video and audio of a character, so the &quot;person&quot; on screen is generated live rather than animated from pre-made speech.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: diffusion models (Day 12) are the engine that paints each frame of the AI&#39;s video; the Transformer (Day 9) and GPT-3 (Day 11) are the ancestors of the &quot;brain&quot; model; Whisper (Day 19) is the ancestor of the speech-to-text step that turns your voice into words for the brain; CLIP (Day 15) is the early version of the trick of putting images and words into one shared space. On the frontier track it continues two threads at once. The voice thread: Day 50 taught a frozen AI the rhythm of full-duplex talk with a tiny &quot;speak or wait&quot; decider, and Duo does the same kind of decision but adds a face. The video thread: Day 22 (world-state video generation) and Day 32 (StreamVibe, video agents that react to changing intent) treated generated video as something an agent produces; Duo makes that video a live conversation partner.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Two research worlds had grown up separately. <strong>World models</strong> (AI systems that generate a simulated environment frame by frame as you act in it, like Google&#39;s Genie 3) can produce a place you walk through with a keyboard or gamepad, but nobody in that place notices you or talks back. The authors call these worlds &quot;lifeless&quot;: &quot;a world to explore, but no one to talk to.&quot; Meanwhile, <strong>talking-avatar</strong> products (Tavus, Anam, HeyGen&#39;s interactive avatars) put a face on a chatbot by chaining steps: transcribe your speech, have a language model write a reply, turn the reply into speech, then animate a face to match that audio. Each hand-off adds delay (vendor benchmarks put typical reply latency around 1.2 to 1.9 seconds), and because the face is animated <em>from</em> finished audio, it can&#39;t react to you while it&#39;s talking or while you&#39;re talking. On the research side, models such as Moshi had made <em>voice</em> full-duplex (both sides able to talk at once), and audio-driven animation systems such as EMO and OmniHuman made realistic faces from supplied speech. But nothing combined a model that decides when to participate with a model that generates the person&#39;s look and sound together, live.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-the-reciprocal-world-model-a-brain-intent-and-a-body-realization">1. The &quot;reciprocal world model&quot;: a brain (Intent) and a body (Realization)</h3>
+<p><strong>What it is.</strong> The paper&#39;s big framing idea is that a real &quot;world&quot; includes not just physics but <em>someone in it</em> who perceives and responds. They call this a <strong>Reciprocal World Model (RWM)</strong>: a system where the AI&#39;s responses become part of the world you see, which then shapes what you do next, which shapes its next response, and so on. It has two capabilities:</p>
+<ul>
+<li><strong>Intent</strong>: understanding what&#39;s going on and deciding how to respond (cognition and decisions).</li>
+<li><strong>Realization</strong>: expressing that decision as coherent, synchronized video and sound (behavior).</li>
+</ul>
+<p>Duo v1 builds each one as a separate model.</p>
+<p><strong>How it works.</strong></p>
+<ol>
+<li>The <strong>Intent Module</strong> is a multimodal language model (a model that reads both images and text), adapted from a pretrained vision-language model (the paper cites the Qwen team&#39;s work). It sees the overall instruction (for example, &quot;you are a friendly cooking coach&quot;), frames of your video, the transcript of what you&#39;ve said so far, and its own previous words.</li>
+<li>Every chunk, it outputs one of two <strong>actions</strong>: <code>&lt;wait&gt;</code> (keep listening, or keep finishing what I was already saying) or <code>&lt;speak&gt;</code> followed by the text it wants to say.</li>
+<li>Crucially, it passes on not just that text but its <strong>hidden states</strong>: the internal numbers the model computed while deciding. Think of hidden states as the model&#39;s private &quot;mood and meaning&quot; behind the words. Passing them along lets the body know <em>how</em> to say something (amused, concerned) and not only <em>what</em>.</li>
+<li>The <strong>Realization Module</strong> is a <strong>diffusion transformer</strong> (a Transformer that generates images or video by starting from random noise and cleaning it up step by step, as in Day 12), initialized from pretrained audio-and-video generator weights from the Chinese AI company MiniMax. It generates the AI character&#39;s next moment of video <em>and</em> stereo audio together, conditioned on: a <strong>reference image</strong> (a photo that fixes what the character looks like), the brain&#39;s hidden states, your audio and video, and its own recent output.</li>
+</ol>
+<p><strong>Analogy.</strong> It&#39;s a film set with a director and an actor who never stop rolling. The director (Intent) watches the scene and calls &quot;say this line, a bit warmly&quot; or &quot;hold, just listen.&quot; The actor (Realization) performs the line, face, voice and body together, in one take. Older avatar systems are more like dubbing: someone records the voice first, then an animator lip-syncs a puppet to it afterward.</p>
+<p><strong>Why it matters.</strong> Because voice and face come out of one generator, the lips, expression and tone are produced together instead of being matched after the fact. And because the brain&#39;s decision is separate, the system can choose to stay quiet, nod along, or jump in, rather than speaking only when it detects you&#39;ve stopped.</p>
+
+<h3 id="2-one-shared-clock-chopped-into-0-7-second-chunks-causal-chunk-conditioning">2. One shared clock, chopped into 0.7-second chunks (&quot;causal chunk conditioning&quot;)</h3>
+<p><strong>What it is.</strong> Everything in Duo runs on a single timeline cut into <strong>chunks</strong> of 17 video frames, which at 24 frames per second is about 0.71 seconds. Your speech, your video, the brain&#39;s decisions and the AI&#39;s generated video all sit on that same clock. <strong>Causal</strong> means &quot;can only use the past&quot;: each chunk is allowed to see only what had actually happened by the moment that chunk&#39;s decision is made, never anything later.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Your camera and microphone stream in. Your speech is transcribed by a speech recognizer, with each word time-stamped so the model only &quot;hears&quot; a word once you&#39;ve finished saying it, exactly as in real life.</li>
+<li>At each chunk boundary, the brain looks at everything up to that point and outputs <code>&lt;wait&gt;</code> or <code>&lt;speak&gt;</code>.</li>
+<li>The body generates the next chunk of the character&#39;s video and audio, using only the reference photo, the brain&#39;s signal and the clean (already finished) history. <strong>Attention masks</strong> (rules inside a Transformer that block certain inputs from being looked at) enforce this, so during training the model can&#39;t cheat by peeking at the future.</li>
+<li>That chunk plays to you while the next one is being computed. If you interrupt mid-sentence, your words land in the next chunk&#39;s inputs and the brain can change course.</li>
+</ol>
+<p><strong>A mental picture.</strong> Imagine a comic strip drawn live, one panel every 0.7 seconds. The artist can look at every earlier panel and at what you just did, but never at panels that don&#39;t exist yet. Training uses the same rule, so the model practices under the exact conditions it will face live.</p>
+<p><strong>Why it matters.</strong> Many video generators make a whole clip at once and can &quot;see&quot; the end while drawing the beginning. That&#39;s great for a finished film, useless for a conversation, because in conversation the future depends on what <em>you</em> haven&#39;t done yet.</p>
+
+<h3 id="3-three-stage-training-ending-with-dual-rollout-distillation">3. Three-stage training, ending with &quot;dual rollout distillation&quot;</h3>
+<p><strong>What it is.</strong> The two modules are trained separately, then trained together under live-like conditions and sped up.</p>
+<p><strong>How it works.</strong></p>
+<ol>
+<li><strong>Stage 1, train the brain.</strong> Fine-tune the Intent Module on conversations so it learns when to speak and what to say. Two clever touches: most chunks contain no new speech, so they <strong>rebalance</strong> the data so the model doesn&#39;t learn &quot;always wait&quot;; and they deliberately <strong>perturb the history</strong> (insert imperfect earlier replies) so the model learns to recover from its own mistakes. They use <strong>LoRA</strong>, a cheap way to fine-tune a big model by training a small add-on instead of every weight.</li>
+<li><strong>Stage 2, train the body.</strong> With the brain frozen, train the Realization Module with <strong>flow matching</strong> (a cousin of diffusion: the model learns the &quot;direction&quot; to push a noisy frame toward a clean one), on real and synthetic video-call data.</li>
+<li><strong>Stage 3, distill and practice on itself.</strong> <strong>Distillation</strong> means training a fast &quot;student&quot; to imitate a slow &quot;teacher.&quot; Here the body is compressed from many cleanup steps to just <strong>four</strong> per chunk (a method called Distribution Matching Distillation), which is what makes real time possible. The key twist is <strong>dual rollout</strong>: during this stage both modules run on <em>their own generated outputs</em> instead of on recorded ground truth. The brain writes its own replies, and the body conditions on video it generated itself.</li>
+</ol>
+<p><strong>Analogy.</strong> Rehearsing a play by reading lines off the script is different from performing it live, where you must keep going after your own flubs. Stages 1 and 2 are script reading. Dual rollout is the dress rehearsal: the model gets used to building on its own slightly-off previous moments, which is exactly what happens in a real call. Without it, small errors tend to snowball over a long session (researchers call this <strong>distribution shift</strong>, when the data a model sees at use time drifts from what it saw in training).</p>
+
+<h3 id="4-the-data-scripted-fake-video-calls-plus-real-recordings">4. The data: scripted fake video calls plus real recordings</h3>
+<p>To teach &quot;when to talk,&quot; you need lots of two-person video with natural back-and-forth, which is scarce. The team built two sources:</p>
+<ul>
+<li><strong>Synthetic calls</strong>: they wrote control cards and screenplays for everyday exchanges (planning, coaching, comforting, negotiating), turned them into prompts for a text-to-video generator, and filtered the results for problems such as the character&#39;s face changing, stray sounds, or the camera drifting.</li>
+<li><strong>Recorded data</strong>: single-person videos, two-person video conversations (recorded at the same time and at different times), live streams where a host reacts to audience comments, two-channel audio of real conversations, and open datasets.</li>
+</ul>
+<p>Live streams are a smart choice: a streamer answering a chat is basically a human doing exactly the &quot;watch, decide, respond on camera&quot; job Duo is learning.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Speed.</strong> On a single server with eight GPUs, one chunk&#39;s work takes about 330 to 650 milliseconds: 90 to 160 ms for the brain to decide, 200 to 450 ms to generate the video and audio at 768 by 576 resolution, and roughly 70 ms for decoding and overhead. Since each chunk covers 708 ms of playback, the system keeps up with real time. The catch: you also wait up to a full chunk for your own input to be collected, so the total delay from when you finish a sentence to when the AI&#39;s response begins can approach a second or more. That&#39;s in the same ballpark as commercial talking avatars, not faster.</p>
+<p><strong>Quality.</strong> The authors ran 30 live, real-time conversations and judged each one, at normal speed with sound, against six yes-or-no criteria (no partial credit). Overall it passed 168 of 180 checks (93.3%):</p>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Pass rate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Speaks the right language</td>
+<td>30/30</td>
+</tr>
+<tr>
+<td>Speech is intelligible</td>
+<td>30/30</td>
+</tr>
+<tr>
+<td>Character&#39;s face stays the same person</td>
+<td>30/30</td>
+</tr>
+<tr>
+<td>Voice emotion matches facial emotion</td>
+<td>29/30 (96.7%)</td>
+</tr>
+<tr>
+<td>Lips and sound are in sync</td>
+<td>27/30 (90%)</td>
+</tr>
+<tr>
+<td>Responds sensibly to what the user actually said or did</td>
+<td>22/30 (73.3%)</td>
+</tr>
+</tbody></table>
+<p><strong>The interesting part</strong> is where it fails. The &quot;body&quot; is nearly flawless; the &quot;brain&quot; is the weak link. Misses came from jokes and from meaning that only emerges when you combine what someone says with what you see. In one example, a user indoors talks about a shared bike stopped by rain, and the model misreads it as a request for advice.</p>
+<p><strong>Showcase.</strong> The paper&#39;s figures show the model in plan revision, visual guidance, collaborative design, negotiation, coaching, decision support and comforting conversations. Some of those panels come from offline, script-conditioned runs rather than fully live calls, which the paper labels.</p>
+<p><strong>Why it&#39;s convincing, and why it isn&#39;t yet.</strong> It&#39;s convincing because it&#39;s a working, released system that runs live, with a clear architecture. It&#39;s not yet proof because there is no comparison against any baseline (not even a standard chatbot-plus-avatar pipeline), the 30 conversations are small, and the authors scored their own system.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Self-graded and unbenchmarked.</strong> No outside evaluation, no baseline comparisons, and the paper doesn&#39;t report parameter counts or how much training data it used.</li>
+<li><strong>The brain hears you through a transcript.</strong> In v1, your voice reaches the Intent Module as speech-recognition text, so your tone of voice, sighs and laughter are mostly lost to the decision-maker. The release notes say direct audio-video conditioning is planned for v2.</li>
+<li><strong>Heavy hardware.</strong> The real-time setup uses eight GPUs; the released weights total about 153 GB. The offline demo needs two GPUs. This is not a phone app.</li>
+<li><strong>Short, single-user sessions.</strong> The authors themselves say timing, consistency over longer sessions, and recovery from misunderstandings need broader evaluation. There&#39;s no notion of multiple users or of remembering you between calls.</li>
+<li><strong>Licensing.</strong> The code is Apache-2.0, but the model weights use MiniMax&#39;s community license, whose grant, according to the release write-up, excludes the United States, the EU, the UK and South Korea. So a US startup can&#39;t simply ship it.</li>
+<li><strong>Deepfake risk.</strong> A system that generates a convincing live person from one reference photo is also a tool for impersonation on video calls. The paper doesn&#39;t discuss safety testing.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The pipeline version is a real industry.</strong> Tavus (Conversational Video Interface), Anam, HeyGen&#39;s interactive avatars and Synthesia sell real-time talking avatars for customer support, sales demos, tutoring and healthcare intake. They let you bring your own language model and voice. Anam&#39;s own benchmark (a vendor claim) reports median reply latency of about 1.24 seconds for Anam and 1.86 seconds for Tavus. These are the products Duo&#39;s &quot;one generator for face and voice, plus a speak-or-wait brain&quot; design is implicitly competing with.</li>
+<li><strong>Full-duplex voice is shipping, without a face.</strong> OpenAI&#39;s GPT-Live replaced ChatGPT&#39;s Advanced Voice Mode around July 2026 and is full-duplex (it decides many times a second whether to talk or listen), but launched without camera input. Google&#39;s Gemini Live can see through your camera and screen share. Neither generates a video of the assistant.</li>
+<li><strong>Interactive world models are in public preview.</strong> Google&#39;s Project Genie (built on Genie 3, launched to US AI Ultra subscribers in January 2026) lets you walk through generated worlds in real time, capped at 60-second sessions. That&#39;s the &quot;world to explore&quot; half of Duo&#39;s framing.</li>
+<li><strong>Duo itself is a research preview.</strong> inclusionAI released the code and four checkpoints on Hugging Face around November 12 to 13. There&#39;s no hosted version and, as far as I could find, no product built on it yet.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li>No major product I could find generates the assistant&#39;s face and voice together from a model that also decides turn-taking. Commercial avatars still animate a face <em>after</em> text-to-speech, and that stitched approach remains the default because each piece can be swapped and debugged separately.</li>
+<li>The &quot;world model&quot; label is contested. Most of the field uses it for physics and environment simulation (Genie, Dreamer); calling a conversational avatar a world model is the paper&#39;s own framing, and others may not adopt it.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Chatbot + text-to-speech + lip-synced avatar (Tavus, HeyGen) and full-duplex voice (Moshi, GPT-Live) and playable world models (Genie 3) -&gt; one system where a decision model drives a live audio-video generator (Duo) -&gt; what you can use today: the stitched avatar platforms; Duo is something to study and prototype with, not ship.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>As a filmmaker and for generative video.</strong> This is the clearest example yet of generated video becoming a <em>live performer</em> rather than a rendered clip. The director/actor split is a useful mental model for directing AI characters: identity is locked by a reference image (it held the same face in 30 of 30 sessions), and the &quot;performance&quot; is driven by a separate decision layer you could, in principle, script or steer. If you ever want a generated character who reacts to an audience or a co-star in real time (interactive film, a live installation, an AR companion), this is the architecture to understand, along with its current limit: it reads lines well but misses subtext.</p>
+<p><strong>Unstall.</strong> A real estate agent&#39;s chief of staff probably doesn&#39;t need a face, but Duo&#39;s results are a good lesson for the voice product: the <em>rendering</em> was nearly perfect, and the failures were all in the brain&#39;s judgment of when and how to respond. The explicit <code>&lt;speak&gt;</code>/<code>&lt;wait&gt;</code> action each chunk is a simple, inspectable design you could borrow for a voice agent that knows not to talk over an agent who&#39;s mid-showing.</p>
+<p><strong>Amelia.</strong> Duo treats the conversation as one user and one AI, and it hears speech only as a transcript. Amelia&#39;s problem (who is speaking, across several people, and what each has said before) is exactly the piece Duo leaves out. That&#39;s a gap, not a competitor, and it&#39;s a reminder that &quot;per-person context&quot; isn&#39;t something even frontier video agents handle yet.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Full-duplex</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Both sides of a conversation can talk and listen at the same time, the way people do, instead of strictly taking turns.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Reciprocal World Model (RWM)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The paper&#39;s name for a system where an AI perceives you, decides how to respond, and generates that response as part of the world you see, in a continuous loop.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Intent / Realization</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Duo&#39;s two modules; the first decides whether to speak or wait and what to say, the second turns that decision into synchronized video and audio of a character.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Causal (chunk) conditioning</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Generating each short slice of time using only what has already happened, never peeking at the future, so the system can run live.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Diffusion transformer with flow matching</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A video generator that starts from noise and repeatedly nudges it toward a clean frame, learning the direction of each nudge.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Distillation (and dual rollout)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Training a fast model to imitate a slow one; here done while both modules run on their own outputs, so they learn to cope with their own small errors.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read <strong>Section 3.1</strong> (the overview of the Reciprocal World Model, with its main architecture figure) to lock in the brain/body split, then <strong>Section 7.1</strong> (human evaluation), which is short and honest about where it fails. If you have a few minutes more, skim <strong>Section 5.1</strong> on synthetic data, since the screenplay-to-video-call pipeline is a filmmaker-friendly idea. Skip Sections 3.3 (the compression settings), 4.3 (the distillation math) and 6 (GPU scheduling) unless you plan to run the model.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>Duo&#39;s &quot;body&quot; almost never failed, but its &quot;brain&quot; missed a quarter of conversational cues like jokes. If you were directing a live AI character for an audience, would you rather it respond instantly and sometimes misread the room, or pause a beat longer to get it right, and how would you design the character so that a pause reads as thoughtful instead of broken?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.15131">Duo: A Reciprocal World Model for Full-Duplex Interaction (arXiv 2611.15131)</a></li>
+<li><a href="https://arxiv.org/html/2611.15131v1">Duo full text (arXiv HTML)</a></li>
+<li><a href="https://duo-v1.github.io/">Duo project page</a></li>
+<li><a href="https://huggingface.co/papers/2611.15131">Duo on Hugging Face Papers</a></li>
+<li><a href="https://www.orcarouter.ai/blog/duo-1-0-causal-base-quiet-weights-release">OrcaRouter: Duo-1.0-causal-base weights release notes</a></li>
+<li><a href="https://casrai.org/news/inclusionai-duo-v1-video-audio-model-2026">CASRAI: inclusionAI Duo v1 release</a></li>
+<li><a href="https://anam.ai/blog/tavus-conversational-video-interface-what-it-is">Anam: Anam vs Tavus real-time avatar platforms (vendor post, 2026)</a></li>
+<li><a href="https://apidog.com/blog/gpt-live-vs-gemini-live/">Apidog: GPT-Live vs Gemini Live</a></li>
+<li><a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/project-genie/">Google: Project Genie</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/51/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 51</span>
+<span class="mt-1 block font-semibold">MAPE (letting an AI invent better memory systems for AI)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
