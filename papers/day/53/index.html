@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 53: VibePrevisBench: Evaluating Agentic Coding for 4D Scene Generation in Blender</title>
+<meta name="description" content="A new benchmark gives 11 frontier coding agents 242 film-style briefs (scripts, photos, reference videos) and asks each to build a moving 3D &#39;graybox&#39; previs scene in Blender, then checks the scene&#39;s code against nearly 100,000 hidden facts: the best agent scores about 78 out of 100, camera work and reading reference images are the weak spots, and agents routinely look at their own renders, say &#39;looks right&#39;, and leave the errors in.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">VibePrevisBench: Evaluating Agentic Coding for 4D Scene Generation in Blender</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">53</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Yuzhe Chen, Muxi Diao, Lele Yang and others, with Jiale Cao (Tianjin University, Kling AI, BUPT, Zhongguancun Academy, PolyU)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.15789" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">A new benchmark gives 11 frontier coding agents 242 film-style briefs (scripts, photos, reference videos) and asks each to build a moving 3D &#39;graybox&#39; previs scene in Blender, then checks the scene&#39;s code against nearly 100,000 hidden facts: the best agent scores about 78 out of 100, camera work and reading reference images are the weak spots, and agents routinely look at their own renders, say &#39;looks right&#39;, and leave the errors in.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>The hottest new AI filmmaking workflow is: have a coding agent build a rough, untextured 3D version of your scene in Blender, render it, and hand that render to a video model to &quot;paint&quot; the final look. This paper is the first serious test of the first half of that pipeline, and it finds that today&#39;s best agents get staging mostly right but still botch camera angles, unusual camera moves and details mentioned only in prose, and are bad at noticing their own mistakes.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: the Transformer (Day 9) and GPT-3 (Day 11) are the ancestors of every agent tested; ReAct (Day 18) is the &quot;think, act, look at the result, think again&quot; loop the agents run inside Blender; diffusion (Day 12) is the engine of the video model that turns the rough render into finished footage; NeRF (Day 13) and Gaussian Splatting (Day 20) belong to the same family of &quot;rebuild 3D from images&quot; ideas the benchmark uses to extract ground truth from real videos; CLIP (Day 15) is the early version of the image-plus-language models that act as the judge. On the frontier track it sits right next to Day 26 (3DCodeVerse, 3D worlds written as code), Day 25 (OpenGCUA, agents that write code to operate software) and especially Day 32 (FilmFlow, an AI camera crew in a virtual set). FilmFlow showed agents <em>could</em> do virtual cinematography; this paper measures how well they actually do it.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Text-to-video models in 2026 (Seedance, Kling, Veo, Runway) make gorgeous shots but are hard to <em>direct</em>: you type &quot;low-angle orbit around the actor as she crosses to the window&quot; and get something roughly like it. Filmmakers have long solved this problem with <strong>previs</strong> (previsualization: a rough, often untextured 3D version of a scene, made before shooting, to lock down where everyone stands, how they move and where the camera goes). The new trick is to feed a previs render into a video model as a structural guide. But building previs takes trained 3D artists, so people started asking AI coding agents to write the Blender code instead. The catch: nobody could say how good those agents were. Existing 3D benchmarks used single objects or static rooms, short clips, and judged only whether the final picture &quot;looked right,&quot; never whether the underlying scene was actually correct.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-the-graybox-proxy-separate-where-things-are-from-what-things-look-like">1. The graybox proxy: separate &quot;where things are&quot; from &quot;what things look like&quot;</h3>
+<p><strong>What it is.</strong> A <strong>graybox proxy video</strong> is a render of a scene made only of plain gray boxes and simple shapes: a box for the sofa, a capsule for the actor, a camera moving through it. No textures, no lighting finesse. It carries the <strong>layout</strong> (where things are), the <strong>motion</strong> (who moves where, when) and the <strong>camera</strong> (angle, lens, movement, cuts), and nothing else.</p>
+<p><strong>How it works in the pipeline.</strong></p>
+<ol>
+<li>You write a brief (&quot;Two coworkers argue in an open-plan office; she storms toward the elevator; cut to a high angle as the doors close&quot;).</li>
+<li>A <strong>coding agent</strong> (an AI model that writes and runs code on its own, revising as it goes) writes a Blender Python program that builds the scene and animates it.</li>
+<li>Blender renders the graybox video.</li>
+<li>A <strong>controllable video generation</strong> model (a video model that accepts extra guidance beyond text, here Seedance 2.5) takes the graybox as a reference and paints realistic people, materials and light onto that exact staging.</li>
+</ol>
+<p>The paper calls the scene a <strong>4D scene</strong>: 3D space plus time. Every object has a position and orientation on every frame.</p>
+<p><strong>Analogy.</strong> It&#39;s a stage rehearsal in street clothes on a bare set with tape marks on the floor. Everyone knows their blocking, the camera operator knows the moves, and <em>then</em> costumes and lighting arrive. The video model is costumes and lighting. The agent is the director running the bare-stage rehearsal.</p>
+<p><strong>Why it matters.</strong> Errors in the graybox don&#39;t get fixed downstream; they get beautifully rendered. The paper&#39;s Figure 2 shows a weak agent&#39;s wrong high-angle camera and missed turns faithfully reproduced in the final Seedance video. So if you care about directing AI video, the quality of this rehearsal is the bottleneck.</p>
+
+<h3 id="2-the-benchmark-242-film-style-briefs-across-four-kinds-of-input">2. The benchmark: 242 film-style briefs across four kinds of input</h3>
+<p><strong>What it is.</strong> VibePrevisBench gives an agent a brief plus a list of named places and subjects and output specs (frame count, frame rate, resolution), and asks it to deliver an executable Blender program and its rendered proxy video. Tasks come in four flavors:</p>
+<ul>
+<li><strong>Scripts (94 tasks)</strong>: prose only, like a screenplay scene.</li>
+<li><strong>Reference videos (86)</strong>: &quot;rebuild this real clip&#39;s staging and camera.&quot;</li>
+<li><strong>Photos (39)</strong>: one to five photos of a real space to rebuild, then stage action in.</li>
+<li><strong>Continuations (23)</strong>: an opening frame plus a description of what happens next.</li>
+</ul>
+<p>They span seven everyday domains (homes, offices, streets, shops, industry, sports, nature) and 33 kinds of places. These aren&#39;t toy tasks: the median output is about <strong>40 seconds</strong> long, most tasks have <strong>multiple shots</strong>, and the median brief is 368 words.</p>
+<p><strong>How the &quot;answer key&quot; was made.</strong> Each task has hidden <strong>ground-truth facts</strong> (things that must be true in a correct scene, like &quot;the chair is left of the desk&quot; or &quot;shot 3 is from above head height&quot;).</p>
+<ul>
+<li>For scripts, the facts come from the scene the script was written from.</li>
+<li>For photos, they come mostly from 3D scan datasets where real object boxes and camera positions were measured.</li>
+<li>For videos, an automated pipeline of 3D-from-video tools (object segmentation, 3D reconstruction, human pose tracking) estimates the facts, and anything that can&#39;t be verified is marked unscorable and dropped.</li>
+</ul>
+<p>In total: about <strong>99,000 checks</strong>, a median of 408 per task.</p>
+<p><strong>Analogy.</strong> It&#39;s like a film school assignment with a strict continuity supervisor holding a secret 400-line checklist for every scene.</p>
+
+<h3 id="3-two-kinds-of-grading-check-the-scene-then-check-the-screen">3. Two kinds of grading: check the scene, then check the screen</h3>
+<p>This is the paper&#39;s cleverest design choice.</p>
+<p><strong>Scene Check (rule-based).</strong> The grader re-runs the agent&#39;s code, exports the exact 4D scene, and compares it to the hidden facts with deterministic rules (same input, same score, every time). Nine dimensions:</p>
+<ul>
+<li><strong>Entities</strong>: is every listed subject and prop there, with the right type and count?</li>
+<li><strong>Layout</strong>: relative positions, sides, distances, depth, left-to-right order on screen.</li>
+<li><strong>Spaces</strong>: the rooms or areas, their size, how they connect.</li>
+<li><strong>Picture structure</strong>: does each shot&#39;s depth and composition match the reference frames? (Only for tasks with reference images.)</li>
+<li><strong>Routes</strong>: where each subject is over time, and the order and direction of places they visit.</li>
+<li><strong>Events</strong>: does each action happen, when, in what order, with what posture and gait?</li>
+<li><strong>Camera</strong>: per-shot position, height, facing, lens, who&#39;s in frame, and camera moves.</li>
+<li><strong>Cuts</strong>: number of shots, cut times, transitions, shot length.</li>
+<li><strong>Physical validity</strong>: nothing passing through walls, floating, teleporting or wildly mis-sized.</li>
+</ul>
+<p>Scores are <strong>chance-corrected</strong>: the graders shuffle object placements to see what a random scene would score, and only credit the agent for doing better than that. Missing objects aren&#39;t a free pass either.</p>
+<p><strong>Screen Check (judged by a vision-language model).</strong> A <strong>VLM</strong> (vision-language model, an AI that reads images or video and text together) watches the proxy video at two frames per second. Here it&#39;s Gemini 4, with agent and object names hidden. It first writes a <strong>blind recap</strong> of the clip without seeing the brief. Then it gets the brief and a checklist built only from facts that already <em>passed</em> Scene Check, and rates each item yes, partial or no on four things: can you recognize the shapes and places, can you read the action, is the important thing visible at the key moment, do the story beats land?</p>
+<p><strong>Why two checks?</strong> Because a scene can be technically correct and still unreadable (the actor does sit down, but behind a pillar), or look fine in one frame while being wrong in 3D. The final score is simply the average: Overall = (Scene + Screen) / 2.</p>
+<p><strong>Analogy.</strong> Scene Check is the script supervisor with a tape measure. Screen Check is a test audience: &quot;could you actually tell what happened?&quot;</p>
+
+<h3 id="4-a-fair-realistic-harness-for-the-agents">4. A fair, realistic harness for the agents</h3>
+<p>Each agent got Blender 5.2 on an 8-core machine with no GPU, a four-hour time limit, no internet, no outside 3D assets and no access to the grader. GPT models ran in OpenAI&#39;s Codex CLI; all others ran in Claude Code. A small toolkit let agents tag objects with the task&#39;s IDs so the grader knew which box was &quot;Maria&quot; and which was &quot;the elevator.&quot; Agents could write code, render previews, look at frames and revise, which is exactly how a person would use these tools today.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>The scoreboard (Overall out of 100):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Agent</th>
+<th>Scene</th>
+<th>Screen</th>
+<th>Overall</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GPT-6 Astra</td>
+<td>70.0</td>
+<td>85.4</td>
+<td>77.7</td>
+</tr>
+<tr>
+<td>GPT-6.1 Sol</td>
+<td>69.0</td>
+<td>83.1</td>
+<td>76.1</td>
+</tr>
+<tr>
+<td>Gemini 4 Argon</td>
+<td>68.4</td>
+<td>81.7</td>
+<td>75.0</td>
+</tr>
+<tr>
+<td>Claude Opus 5.5</td>
+<td>68.4</td>
+<td>79.8</td>
+<td>74.1</td>
+</tr>
+<tr>
+<td>GPT-5.6 Sol</td>
+<td>62.9</td>
+<td>77.5</td>
+<td>70.2</td>
+</tr>
+<tr>
+<td>DeepSeek V4.1 Flash</td>
+<td>61.3</td>
+<td>77.9</td>
+<td>69.6</td>
+</tr>
+<tr>
+<td>Kimi K3</td>
+<td>61.5</td>
+<td>73.5</td>
+<td>67.5</td>
+</tr>
+<tr>
+<td>Gemini 3.8 Flash</td>
+<td>60.7</td>
+<td>68.7</td>
+<td>64.7</td>
+</tr>
+<tr>
+<td>GLM 5.3 Flash</td>
+<td>57.8</td>
+<td>69.5</td>
+<td>63.7</td>
+</tr>
+<tr>
+<td>Doubao Seed 2.1 Pro</td>
+<td>56.3</td>
+<td>66.2</td>
+<td>61.3</td>
+</tr>
+<tr>
+<td>Muse Spark 1.3</td>
+<td>57.2</td>
+<td>65.0</td>
+<td>61.1</td>
+</tr>
+</tbody></table>
+<p>Nobody comes close to solving it. Even taking the <em>best</em> agent&#39;s result on every single task, the combined score only reaches 80.6.</p>
+<p><strong>Finding 1: seeing is what separates the leaders.</strong> The gap between best and worst agents grows from 12 points on text-only scripts to about 20 points on photo tasks. On &quot;picture structure&quot; (matching a reference image&#39;s composition), the top four score 66 to 71 while the rest score 24 to 38. In other words, the frontier models can <em>read</em> a photo of a room and rebuild it; the cheaper models mostly can&#39;t.</p>
+<p><strong>Finding 2: the basics are fine, the hard asks get flattened.</strong> This is the part a filmmaker should memorize:</p>
+<ul>
+<li>When the reference was shot from a <strong>low angle</strong>, 66% of the agents&#39; shots came out at plain eye level anyway.</li>
+<li>Only <strong>4% of orbits stayed orbits</strong>; 47% turned into simple sideways moves.</li>
+<li>Every agent put <strong>32 to 41% of shots at the wrong camera height</strong>.</li>
+<li>Objects mentioned only in the prose went missing <strong>35%</strong> of the time, versus 11% for objects in the explicit list.</li>
+<li>Only <strong>36%</strong> of annotated story events were both correct in the scene <em>and</em> visible on screen. A test that delayed all action by just 4 seconds cost 9.8 points, so timing matters.</li>
+</ul>
+<p><strong>Finding 3: agents look, but don&#39;t fix.</strong> Agents viewed 13 to 40 rendered images per run, but looking more barely helped. In 1,377 of 2,582 runs where agents commented on their renders, they claimed the render matched the brief, and those runs had camera and event errors about as often as everyone else. It&#39;s the AI version of an assistant director glancing at the monitor and saying &quot;great, moving on.&quot;</p>
+<p><strong>Cost.</strong> Per task, from $0.73 (GLM 5.3 Flash) to $32.59 (GPT-6 Astra). GPT-6.1 Sol got 98% of the leader&#39;s score for 21% of the cost.</p>
+<p><strong>Why it&#39;s convincing.</strong> The rule-based grading is reproducible and checks the actual 3D scene, not just a vibe from the pixels; the tasks are long and multi-shot like real scenes; and the findings are specific enough to act on.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>The judge has a horse in the race.</strong> Gemini 4 is the Screen Check judge and also helped build some ground truth; the authors measured a 1.3-point advantage for its own model family.</li>
+<li><strong>Small slices.</strong> The photo ranking rests on only 39 tasks, and some ablations cover one agent and five tasks.</li>
+<li><strong>Automated answer keys for videos.</strong> Facts extracted from real videos come from a 3D-reconstruction pipeline, which can be wrong; unverifiable facts are dropped, which may skew toward easier facts.</li>
+<li><strong>Correlation, not cause.</strong> The &quot;look but don&#39;t fix&quot; finding is observational; the authors say so.</li>
+<li><strong>Only boxes.</strong> The benchmark deliberately ignores appearance, lighting, performance nuance and acting. It measures blocking and camera, which is the point, but it isn&#39;t a measure of a good film.</li>
+<li><strong>Not tested end to end at scale.</strong> The paper shows examples of proxy errors flowing into Seedance 2.5 videos, but doesn&#39;t score the final generated videos across the benchmark.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Agent plus Blender is a real workflow right now.</strong> BlenderMCP (now published as mcp-for-blender) is an open-source bridge that lets Claude and other models create objects, run Blender Python and look at viewport renders. It has about 33,000 GitHub stars. Creators publish exactly the pipeline this paper studies: for example, a September 2026 write-up builds a 10-second skateboard ad animatic with Claude, Blender and MCP, then uses it as a motion guide for a video model.</li>
+<li><strong>Video companies built product around it.</strong> ByteDance&#39;s Dreamina offers a Blender &quot;Clay Renderer&quot; plugin that renders your scene as a clay (graybox) video and uploads it as a reference for Seedance 2.5, and its own guide starts from a scene built with GPT-6 Astra. Krea&#39;s Seedance Studio and BudgetPixel Previs generate simple 3D scenes from text and use the flythrough as Seedance&#39;s camera reference.</li>
+<li><strong>Game engines are adding the same hooks.</strong> Unreal Engine 5.8 (June 2026) shipped an experimental MCP plugin that lets any LLM operate levels, assets and materials, and Epic demoed Claude Code furnishing a virtual apartment. Unreal Engine 6 plans built-in model integrations.</li>
+<li><strong>The benchmark itself</strong> is public: code on GitHub and tasks on Hugging Face, released with the paper.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Professional previs is still artist-driven.</strong> Studios like The Third Floor build previs with human artists in tools like Unreal and Maya; I found no evidence of a major studio handing previs to coding agents. This paper&#39;s numbers (a third of shots at the wrong camera height) explain why.</li>
+<li><strong>Many AI video tools skip 3D entirely.</strong> Higgsfield Cinema Studio and LTX Studio, for example, control the camera with presets and keyframes inside the video model, with no 3D scene to check. That&#39;s faster but gives you no verifiable layout.</li>
+<li><strong>&quot;Vibe&quot; previs is not production previs.</strong> Even the vendors&#39; own pages say the render is a reference, not a replacement for a real Blender pipeline, and that you must check the scene yourself.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Hand-built previs in Maya and Unreal -&gt; text-to-video with vague camera prompts (Sora, early Kling) -&gt; coding agents build graybox scenes that steer a video model (BlenderMCP, Dreamina Clay Renderer + Seedance 2.5) -&gt; benchmarks that grade the scene, not just the pixels (VibePrevisBench).</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>As a filmmaker.</strong> This is a cheat sheet for working with AI previs today. Write camera height, angle and moves <em>explicitly and as a list</em>, not buried in prose (prose-only details went missing three times as often). Expect orbits, low angles and precise timing to be flattened, and check those first. Never trust the agent&#39;s own &quot;the render matches&quot; line; do the item-by-item check the authors recommend. And pick the model by the task: if you&#39;re rebuilding a location from photos, the gap between frontier and cheap models is huge; for text-only blocking, a cheaper model gets you most of the way.</p>
+<p><strong>Standard Physics.</strong> Two of the benchmark&#39;s ideas transfer directly. First, rebuilding a real space from photos is exactly where agents differ most, and the best ones still miss; your scan-then-check pipeline will need a measured 3D source (like the scan datasets they used) rather than trusting a model&#39;s reading of photos. Second, the Scene Check design (export the 3D scene, then check hidden facts with deterministic rules plus a physical-validity pass) is essentially what an ADA checker does: &quot;is the doorway at least this wide, is there a clear turning circle.&quot; Rules on geometry, not a model&#39;s opinion of a picture, is the trustworthy way to grade a space.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Previs (previsualization)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A rough 3D version of a scene, made before shooting, to plan blocking, movement and camera.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Graybox proxy video</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An untextured render of plain shapes that carries only layout, motion and camera, used to steer a video model.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">4D scene</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A 3D scene plus time, where every object has a position and orientation on every frame.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Coding agent</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An AI model that writes code, runs it, looks at the result and revises on its own, here inside Blender.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Scene Check vs Screen Check</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Grading the actual 3D scene against hidden facts with fixed rules, versus having a vision-language model judge whether the rendered video is readable.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Chance correction</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Subtracting what a random arrangement would score, so agents only get credit for real accuracy.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read <strong>Section 4.3 (Observations and implications)</strong>: it&#39;s short, concrete, and contains the camera-height, orbit and &quot;look but don&#39;t fix&quot; numbers. Then look at <strong>Figure 2</strong> for a picture of how a weak proxy ruins the final Seedance video. If you have a few more minutes, skim <strong>Appendix A.2 (Task examples)</strong> to see what a real brief looks like. Skip Section 3.3 and Appendix B.2 (the scoring and chance-correction math) unless you plan to build a benchmark yourself.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>The agents in this paper were bad at catching their own mistakes, even when they looked at the render. If you were designing the next version of this pipeline, would you rather give the agent a second &quot;script supervisor&quot; agent with a strict checklist, or keep a human director in the loop only at the graybox stage, and what would each choice do to the cost and creative feel of making a short film?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.15789">VibePrevisBench (arXiv 2611.15789)</a></li>
+<li><a href="https://vibeprevisbench.github.io/VibePrevisBench.pdf">VibePrevisBench full paper (PDF, project page)</a></li>
+<li><a href="https://github.com/vibeprevisbench">VibePrevisBench on GitHub</a></li>
+<li><a href="https://huggingface.co/datasets/AidanYuzhe/vibeprevisbench">VibePrevisBench tasks on Hugging Face</a></li>
+<li><a href="https://github.com/ahujasid/blender-mcp">BlenderMCP / mcp-for-blender on GitHub</a></li>
+<li><a href="https://tau-home.com/en/post/claude-blender-mcp-ai-video-previs-workflow/">Tau Home: Building a 3D previs workflow for AI video with Claude and Blender MCP (Sept 2026)</a></li>
+<li><a href="https://dreamina.capcut.com/seedance/seedance-2-5-blender-model-workflow">Dreamina: Turn GPT-6 Astra Blender scenes into videos with Seedance 2.5</a></li>
+<li><a href="https://budgetpixel.com/learn/best-ai-previs-tools">BudgetPixel: Best AI previs tools 2026 (vendor comparison, Oct 2026)</a></li>
+<li><a href="https://thenextweb.com/news/epic-unreal-engine-6-ai-claude-gemini">The Next Web: Epic is building Claude and Gemini into Unreal Engine 6</a></li>
+<li><a href="https://thethirdfloorinc.com/what-we-do/animation">The Third Floor: what we do</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/52/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 52</span>
+<span class="mt-1 block font-semibold">Duo (an AI you video-call that generates its own face and voice in real time)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
