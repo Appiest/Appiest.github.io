@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 54: eDIAR: Training-Free Open-Speaker Streaming Diarization for Long Meetings and Large Archives via e-means</title>
+<meta name="description" content="Today&#39;s best live &#39;who spoke when&#39; models can only track a fixed number of voices (four or eight &#39;seats&#39;); eDIAR adds a small, retraining-free clustering step that splits a seat when two people end up sharing it, so a live system can handle 20 speakers and hour-long meetings at a steady cost, and it uses Meta&#39;s brand-new e-means clustering to link the same voice across a thousand-speaker archive in seconds.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">eDIAR: Training-Free Open-Speaker Streaming Diarization for Long Meetings and Large Archives via e-means</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">54</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Kyudan Jung, Jihwan Kim, Minwoo Lee, Eunji Shin and Jaegul Choo (KAIST AI, Ewha Womans University)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.18529" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Today&#39;s best live &#39;who spoke when&#39; models can only track a fixed number of voices (four or eight &#39;seats&#39;); eDIAR adds a small, retraining-free clustering step that splits a seat when two people end up sharing it, so a live system can handle 20 speakers and hour-long meetings at a steady cost, and it uses Meta&#39;s brand-new e-means clustering to link the same voice across a thousand-speaker archive in seconds.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>The newest live speaker-tracking models work like a table with a fixed number of seats: each voice gets a seat, and when the seats run out, new people get squeezed into someone else&#39;s chair. eDIAR leaves the model alone and adds a cheap &quot;is this seat actually two people?&quot; check, which turns a 4- or 8-speaker model into one with no speaker limit, keeps it stable over hours, and costs the same per second at minute 90 as at minute 1.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: Whisper (Day 19) is the transcription half of every &quot;who said what&quot; product, and diarization is the other half; the Transformer (Day 9) is inside the slot model; word2vec (Day 4) introduced the core move this paper relies on, turning something (there a word, here a voice) into a list of numbers where &quot;similar&quot; means &quot;close together.&quot; On the frontier track it is the direct sequel to Day 36 (EvoSpeakerMem, a voice assistant that builds a memory of who is who). That paper assumed you could reliably tell voices apart in the moment; this one makes that &quot;in the moment&quot; layer work for big rooms and long sessions. It also connects to Day 38 (EmbeddingGemma 2), since speaker embeddings are the same idea applied to voices.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p><strong>Speaker diarization</strong> means answering &quot;who spoke when&quot; in a recording: you get a timeline like &quot;Speaker 1: 0:00 to 0:14, Speaker 2: 0:12 to 0:30,&quot; with no names, just consistent labels. There were two families of systems, each with a hole. <strong>Clustering pipelines</strong> (the classic approach, used by tools like pyannote) cut audio into pieces, turn each piece into a voiceprint, and group similar voiceprints. They handle any number of people but work best offline, after the whole recording exists; simple live versions make early guesses they can never take back, so mistakes pile up over a long meeting. <strong>End-to-end neural diarizers</strong> (like NVIDIA&#39;s Streaming Sortformer and the new Nemotron 3 Diarization, released in September 2026) are fast, accurate, handle people talking over each other, and run live. But they have a fixed number of output <strong>slots</strong>: four for Sortformer, eight for Nemotron 3. Speaker number nine has nowhere to go. A board meeting, a classroom, a 12-person film crew call: all of these break the model.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-keep-the-slot-model-but-check-each-slot-for-two-people-in-one-chair">1. Keep the slot model, but check each slot for &quot;two people in one chair&quot;</h3>
+<p><strong>What a slot is.</strong> A slot model listens to audio in tiny 80-millisecond frames and, for each frame, outputs a probability for each slot: &quot;slot 1 is talking with 92% confidence, slot 3 with 4%.&quot; Each slot is supposed to belong to one person. The model is very good at the hard parts: noticing when <em>someone</em> starts talking, and handling two people speaking at once (called <strong>overlap</strong>).</p>
+<p><strong>The trick.</strong> eDIAR trusts the slot model for <em>when</em> and <em>how many people at once</em>, and only questions <em>who</em>. Step by step:</p>
+<ol>
+<li>Run the slot model (by default Nemotron 3, about 99 million parameters) as normal. A slot counts as active on a frame when its probability is above 0.55.</li>
+<li>Separately, compute a <strong>speaker embedding</strong> (a voiceprint: a list of 256 numbers summarizing what a voice sounds like over about 1.5 seconds) using a small, standard model called WeSpeaker ResNet34 (6.6 million parameters).</li>
+<li>Track which slots have been &quot;used&quot; (active for at least 2 seconds in total).</li>
+<li><strong>Do nothing special until every slot is used.</strong> If there are only five people in an eight-slot room, eDIAR behaves exactly like the slot model. This is why it rarely hurts.</li>
+<li>Once all slots are used, for each slot, gather the voiceprints from moments when <em>only that slot</em> was talking (clean &quot;solo&quot; frames) and ask: do these form one tight group or several? It tries splitting into 4, 3 and 2 groups and keeps the largest split where the groups are clearly different voices (their average voiceprints are not too similar) and each group has a real amount of speech (at least 2 seconds or 3% of the slot&#39;s solo time).</li>
+<li>Label each frame in that slot with whichever sub-group its voiceprint is closest to. Because the slot model already handled overlap, two overlapping slots still produce two overlapping labels.</li>
+</ol>
+<p><strong>Analogy.</strong> Think of a coat check with eight hooks. The attendant (the slot model) is fast and never drops a coat, but when coat number nine arrives it gets hung on a hook that&#39;s already taken. eDIAR is a second person who, once every hook is in use, looks at each hook and asks &quot;are these two different coats piled together?&quot; and if so, gives the second one its own ticket.</p>
+<p><strong>Worked example.</strong> A 12-person writers&#39; room on an 8-slot model. By minute 20 all 8 slots are used. Slot 3 has been Maya, but two newer voices, Theo and Priya, keep landing in slot 3 too. eDIAR gathers slot 3&#39;s solo voiceprints, tries 3 groups, finds three clearly separate voice clusters each with plenty of speech, and splits slot 3 into Maya, Theo and Priya. The meeting now has 10 labels instead of 8.</p>
+<p><strong>Training-free</strong> means nobody retrains the slot model or the voiceprint model; eDIAR is just logic and clustering wrapped around existing, downloadable models. <strong>Open-speaker</strong> means there is no built-in cap on how many people it can label.</p>
+
+<h3 id="2-live-but-allowed-to-change-its-mind-for-10-seconds">2. Live, but allowed to change its mind for 10 seconds</h3>
+<p><strong>The problem with going live.</strong> In a live system you must show a label right away. But early on you have little evidence, so you&#39;ll sometimes be wrong. Old live clustering systems either never corrected themselves (errors pile up) or re-examined the whole meeting each time (cost grows as the meeting gets longer, until it can&#39;t keep up).</p>
+<p><strong>eDIAR&#39;s compromise, step by step:</strong></p>
+<ol>
+<li>Audio arrives in chunks (about one second each in the main tests).</li>
+<li>After each chunk, re-run the slot-splitting step only on the <strong>last 90 seconds</strong>, a bounded window. Older audio isn&#39;t re-processed.</li>
+<li>Show labels immediately, but allow them to be <strong>revised until they are 10 seconds old</strong>. After that they&#39;re frozen.</li>
+<li><strong>Slot-anchored identities</strong>: when slot 3 gets re-split in a new window, the new sub-groups are matched to the IDs slot 3 already had (by voiceprint similarity, using the <strong>Hungarian algorithm</strong>, a standard method for finding the best one-to-one pairing between two lists). So Maya stays &quot;Speaker 3&quot; instead of being relabeled every few seconds. Sub-groups that match nobody get brand-new IDs.</li>
+</ol>
+<p><strong>Analogy.</strong> It&#39;s like live captions on TV that you sometimes see correct a word a second later. Viewers get text instantly, the system gets a short grace period to fix it, and then the line is locked so the transcript stops shifting.</p>
+<p><strong>Why it matters.</strong> Because the window is fixed at 90 seconds, each update costs about the same at hour three as at minute one. The paper measures about 56 milliseconds per update with 4 speakers and about 188 milliseconds with 10, flat across three-hour recordings, and labels appear on average 0.7 to 0.8 seconds after the words are spoken.</p>
+
+<h3 id="3-e-means-faster-grouping-for-huge-piles-of-voiceprints">3. e-means: faster grouping for huge piles of voiceprints</h3>
+<p><strong>What k-means is.</strong> <strong>Clustering</strong> means grouping data points so similar ones end up together. <strong>k-means</strong> is the classic recipe, invented decades ago: pick k centers, assign every point to its nearest center, move each center to the average of its points, repeat. The standard version is called <strong>Lloyd&#39;s algorithm</strong>, and it looks at every single point on every round, which gets slow with millions of points.</p>
+<p><strong>What e-means changes.</strong> e-means is a new algorithm from Meta&#39;s FAIR lab, published only a week before this paper (November 2026, by a team including the creators of the FAISS search library). Instead of looking at all points each round, it looks at small random batches and nudges each center a little toward that batch&#39;s average, using an <strong>exponential moving average</strong> (a running average where recent data counts more and old data fades gradually). The batch and step sizes come from rules the Meta team fitted from experiments, so it needs almost no tuning.</p>
+<p><strong>Analogy.</strong> Lloyd&#39;s algorithm re-surveys the whole country before moving each polling station. e-means polls a few hundred random people at a time and shifts the stations a bit after each poll. You get to the same answer in a fraction of the effort.</p>
+<p><strong>How eDIAR uses it.</strong> Inside meetings, for the slot splits. And for a second job: <strong>archive linking</strong>, finding the same person across many separate recordings. On a test archive of 1,248 recordings with 1,251 different speakers (about 29 hours, 1.16 million voiceprint frames), e-means grouped everything in about 14 seconds with a lower error (19.3%) than Lloyd&#39;s algorithm managed in about 44 seconds (21.0%). Two passes of e-means matched Lloyd&#39;s 25-pass quality in roughly a seventh of the time. One catch: you have to tell it how many speakers are in the archive.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p>The standard score is <strong>DER (diarization error rate)</strong>: the share of time that&#39;s labeled wrong, counting missed speech, speech detected where there was none, and speech given to the wrong person. Lower is better.</p>
+<p><strong>Ordinary meetings (fewer people than slots): about a tie.</strong> On short (7 to 8 minute) clips from standard test sets, live mode at a 1-second delay:</p>
+<ul>
+<li><strong>VoxConverse</strong> (TV debates and interviews): eDIAR 5.8 vs Nemotron 3 at 6.4.</li>
+<li><strong>AMI</strong> (office meetings): Sortformer is best at 8.3; eDIAR 9.1.</li>
+<li><strong>LibriSpeech open-speaker</strong> (synthetic conversations with 2 to 12 speakers): eDIAR 16.4 vs Nemotron 3 at 19.8 and Sortformer at 41.4.</li>
+</ul>
+<p>So: a small win on VoxConverse, a small loss on AMI, and a big win on the test set with many speakers. Offline (whole recording at once), the pattern is the same: 4.5 vs 5.5 on VoxConverse and 8.6 vs 18.1 on LibriSpeech against Nemotron 3.</p>
+<p><strong>Many speakers: the headline.</strong> On synthetic conversations with up to 20 speakers, eDIAR cut error from 66% to 44% on top of Nemotron 3, and from 81% to 44% on top of Sortformer. Simply bolting the method onto Sortformer, with no retraining, took it from 41.4 to 16.2 DER on the many-speaker test.</p>
+<p><strong>Hour-long meetings.</strong> On six one-hour meetings with 12 to 20 speakers, Sortformer&#39;s error climbed from 23% at 15 minutes to 57% at 45 minutes, as people kept getting crammed into its four slots. eDIAR and the Nemotron 3 model stayed far below that, with eDIAR about half a point ahead of Nemotron 3 alone.</p>
+<p><strong>Cheap to run.</strong> Peak GPU memory on a 3.2-hour recording was 0.43 GB for eDIAR versus 9.6 GB for Streaming Sortformer, and it runs well faster than real time (it needs roughly 7% to 25% of the audio&#39;s length to process it).</p>
+<p><strong>Why it&#39;s convincing.</strong> It&#39;s a small, honest idea: it doesn&#39;t claim to beat the slot model where the slot model is fine, it fixes the specific failure (running out of slots) and shows exactly how much that failure costs.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Small and clean test sets.</strong> The real meeting sets have only 15 or 16 meetings each, and the many-speaker and archive tests use read or interview speech, not messy real meetings with 15 people.</li>
+<li><strong>Tuned on the same data.</strong> The thresholds (0.55, 0.6, 2 seconds and so on) were set on half of each test corpus. That&#39;s common but means real-world performance may be a bit worse.</li>
+<li><strong>Fast back-and-forth hurts.</strong> On long meetings with many people and rapid turn-taking, the authors report its error can grow past the slot model&#39;s own.</li>
+<li><strong>English only, close mics.</strong> No other languages, and no far-field rooms (one mic in the middle of a big room), which is exactly where many real products live.</li>
+<li><strong>Archive linking needs the head count.</strong> You must tell it how many unique people are in the archive, which you usually don&#39;t know.</li>
+<li><strong>Anonymous labels only.</strong> It says &quot;Speaker 7,&quot; not &quot;Maya.&quot; Naming people is a separate step.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The slot models it extends are brand-new and in use.</strong> NVIDIA released Nemotron 3 Diarization as open weights in September 2026: about 100 million parameters, up to eight speakers, live latencies down to a third of a second, commercial use allowed. It topped a public diarization leaderboard (VoiceArena) at launch. Streaming Sortformer, its four-speaker predecessor, is in NVIDIA&#39;s NeMo toolkit.</li>
+<li><strong>e-means is public.</strong> Meta FAIR open-sourced it in early November 2026, reporting 8 to 15 times faster clustering than FAISS on CPU. eDIAR is one of the first published uses outside Meta.</li>
+<li><strong>eDIAR itself is usable.</strong> The model is on Hugging Face and a demo Space takes an audio upload and returns a color-coded speaker timeline plus a standard RTTM file (the common &quot;who spoke when&quot; file format). The paper says code is in the project repository.</li>
+<li><strong>Diarization is everywhere in meeting products.</strong> Commercial APIs such as pyannoteAI (with a live model, Live-1), AssemblyAI, Deepgram and Speechmatics sell speaker labels to meeting-notes apps and recorders. Clustering-based systems like pyannote&#39;s have no speaker cap, which is why eDIAR&#39;s &quot;remove the cap&quot; contribution matters mainly for the newer neural, slot-based models.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Not in a shipping product yet</strong> that I could find. It was posted four days ago.</li>
+<li><strong>Diarization is not identification.</strong> Commercial diarization APIs return per-meeting labels that reset each session; recognizing the same person across recurring meetings (re-identification) is usually something developers build themselves with a voiceprint database. Gladia&#39;s guide on the topic says outright that this layer is not provided by its API. eDIAR&#39;s archive linking is a research step toward that, not a product feature.</li>
+<li><strong>The old &quot;fully offline&quot; approach is fading for live products.</strong> Clustering everything after the meeting is accurate but too slow for live captions or a live assistant, which is why streaming slot models took over, and why their slot cap became the bottleneck.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Offline voiceprint clustering (k-means, pyannote) -&gt; end-to-end neural diarizers with fixed slots (EEND, then Sortformer, then Nemotron 3) -&gt; slot models plus targeted clustering for unlimited speakers (eDIAR) -&gt; what live meeting tools and voice assistants will need for big rooms.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Amelia.</strong> This is almost exactly Amelia&#39;s first layer. Live speaker identification has to answer &quot;who is talking right now&quot; before per-person memory can attach anything to anyone. Three concrete takeaways: (1) if you build on Nemotron 3 or Sortformer, you will hit the slot cap the moment Amelia is used at a dinner party, a class or a team meeting, and eDIAR is a free, retraining-free way around it; (2) the &quot;show a label now, allow corrections for 10 seconds, then freeze&quot; pattern is a good product rule for Amelia&#39;s UI too: don&#39;t commit a memory to a person until their label has settled; (3) archive linking is the bridge from &quot;Speaker 4 in tonight&#39;s meeting&quot; to &quot;the same Maya from last week,&quot; which is the core of per-person memory, but note the paper&#39;s own warning that this can re-identify people across recordings, so consent has to be designed in from the start.</p>
+<p><strong>Permissioned relationship memory.</strong> The ethics note in this paper is a useful line for your pitch: voiceprints that link people across recordings are biometric data (Gladia&#39;s guide notes they fall under GDPR), so &quot;permissioned&quot; isn&#39;t a nice-to-have, it&#39;s the legal shape of the product.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Speaker diarization</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Labeling &quot;who spoke when&quot; in audio, with consistent anonymous labels rather than names.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Slot</dt><dd class="mt-3 [&>*+*]:mt-3"><p>One of the fixed output channels in a neural diarizer, each meant to hold one speaker; the number of slots caps how many speakers it can label.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Speaker embedding (voiceprint)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A short list of numbers that summarizes what a voice sounds like, so that similar voices have similar numbers.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Clustering / k-means</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Grouping similar points; k-means picks k group centers and repeatedly moves them to the average of their nearest points.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">e-means</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Meta&#39;s November 2026 replacement for standard k-means that updates centers from small random batches with a running average, reaching the same quality several times faster.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">DER (diarization error rate)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The share of audio time that is labeled wrong; lower is better.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read <strong>Section 1 (Introduction)</strong> for the slot-cap problem and the four contributions in plain language, then look at <strong>Figure 1</strong>: it shows in four small charts the many-speaker result, the hour-long meeting result, and the flat cost per update. If you have more time, read the <strong>Ethics statement</strong> at the end, since it&#39;s directly relevant to Amelia. Skip the threshold details and the appendix ablations unless you&#39;re implementing it.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>eDIAR can tell that two voices in different recordings are probably the same person, but not who that person is. For Amelia, should the moment of naming someone (&quot;that&#39;s Maya&quot;) be something the user does explicitly, something each person agrees to themselves, or something the system infers and asks to confirm, and how does each choice change what people would be comfortable saying in front of it?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.18529">eDIAR (arXiv 2611.18529)</a></li>
+<li><a href="https://arxiv.org/html/2611.18529v1">eDIAR full paper (arXiv HTML)</a></li>
+<li><a href="https://huggingface.co/papers/2611.18529">eDIAR on Hugging Face Papers</a></li>
+<li><a href="https://huggingface.co/spaces/hugging-apps/ediar">eDIAR demo Space on Hugging Face</a></li>
+<li><a href="https://mixed-news.com/en/nvidia-nemotron-3-diarization-eight-speakers-100m-parameters/">Mixed News: Nvidia&#39;s Nemotron 3 Diarization tracks eight speakers</a></li>
+<li><a href="https://letsdatascience.com/news/meta-fair-open-sources-e-means-a-faster-k-means-replacing-ll-707a9c1d">Let&#39;s Data Science: Meta FAIR open-sources e-means</a></li>
+<li><a href="https://www.pyannote.ai/blog/top-7-speaker-diarization-apis-and-models-in-2026">pyannoteAI: Top 7 speaker diarization APIs and models in 2026</a></li>
+<li><a href="https://www.gladia.io/blog/speaker-re-identification-across-recurring-meetings">Gladia: Speaker re-identification across recurring meetings</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/53/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 53</span>
+<span class="mt-1 block font-semibold">VibePrevisBench (can AI agents block out your film in 3D?)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
