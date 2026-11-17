@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OA Practice IDE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: a HackerRank-style split. Problem on the left, editor over a console on the right, a thin top bar with the timer. */
+:root {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --ink: #1c2230;
+  --muted: #5d6779;
+  --line: #dde1e8;
+  --accent: #2550c8;
+  --accent-ink: #ffffff;
+  --soft: #eef2fb;
+  --code-bg: #f7f8fa;
+  --good: #1d7a46;
+  --good-bg: #e5f4ea;
+  --bad: #b42318;
+  --bad-bg: #fdecea;
+  --warn: #9a5b00;
+  --warn-bg: #fff4dc;
+  --tok-kw: #7b30c9;
+  --tok-str: #1d7a46;
+  --tok-num: #b0520a;
+  --tok-com: #8a93a3;
+  --tok-def: #2550c8;
+  --tok-builtin: #0e7490;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-code: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12151c; --panel: #1a1e27; --ink: #e4e8f0; --muted: #98a2b5; --line: #2c3240;
+    --accent: #6d8ff0; --accent-ink: #0f1420; --soft: #222a3c; --code-bg: #151922;
+    --good: #5cc98a; --good-bg: #173123; --bad: #f2857a; --bad-bg: #3a1c1a; --warn: #f0b85a; --warn-bg: #3a2c12;
+    --tok-kw: #c49bff; --tok-str: #7ed6a0; --tok-num: #f0a868; --tok-com: #6b7488; --tok-def: #8fb0ff; --tok-builtin: #5fd0e0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12151c; --panel: #1a1e27; --ink: #e4e8f0; --muted: #98a2b5; --line: #2c3240;
+  --accent: #6d8ff0; --accent-ink: #0f1420; --soft: #222a3c; --code-bg: #151922;
+  --good: #5cc98a; --good-bg: #173123; --bad: #f2857a; --bad-bg: #3a1c1a; --warn: #f0b85a; --warn-bg: #3a2c12;
+  --tok-kw: #c49bff; --tok-str: #7ed6a0; --tok-num: #f0a868; --tok-com: #6b7488; --tok-def: #8fb0ff; --tok-builtin: #5fd0e0;
+  color-scheme: dark;
+}
+
+/* BASICS */
+
+.CodeMirror {
+  /* Set height, width, borders, and global font properties here */
+  font-family: monospace;
+  height: 300px;
+  color: black;
+  direction: ltr;
+}
+
+/* PADDING */
+
+.CodeMirror-lines {
+  padding: 4px 0; /* Vertical padding around content */
+}
+.CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
+  padding: 0 4px; /* Horizontal padding of content */
+}
+
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  background-color: white; /* The little square between H and V scrollbars */
+}
+
+/* GUTTER */
+
+.CodeMirror-gutters {
+  border-right: 1px solid #ddd;
+  background-color: #f7f7f7;
+  white-space: nowrap;
+}
+.CodeMirror-linenumbers {}
+.CodeMirror-linenumber {
+  padding: 0 3px 0 5px;
+  min-width: 20px;
+  text-align: right;
+  color: #999;
+  white-space: nowrap;
+}
+
+.CodeMirror-guttermarker { color: black; }
+.CodeMirror-guttermarker-subtle { color: #999; }
+
+/* CURSOR */
+
+.CodeMirror-cursor {
+  border-left: 1px solid black;
+  border-right: none;
+  width: 0;
+}
+/* Shown when moving in bi-directional text */
+.CodeMirror div.CodeMirror-secondarycursor {
+  border-left: 1px solid silver;
+}
+.cm-fat-cursor .CodeMirror-cursor {
+  width: auto;
+  border: 0 !important;
+  background: #7e7;
+}
+.cm-fat-cursor div.CodeMirror-cursors {
+  z-index: 1;
+}
+.cm-fat-cursor .CodeMirror-line::selection,
+.cm-fat-cursor .CodeMirror-line > span::selection, 
+.cm-fat-cursor .CodeMirror-line > span > span::selection { background: transparent; }
+.cm-fat-cursor .CodeMirror-line::-moz-selection,
+.cm-fat-cursor .CodeMirror-line > span::-moz-selection,
+.cm-fat-cursor .CodeMirror-line > span > span::-moz-selection { background: transparent; }
+.cm-fat-cursor { caret-color: transparent; }
+@-moz-keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+@-webkit-keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+@keyframes blink {
+  0% {}
+  50% { background-color: transparent; }
+  100% {}
+}
+
+/* Can style cursor different in overwrite (non-insert) mode */
+.CodeMirror-overwrite .CodeMirror-cursor {}
+
+.cm-tab { display: inline-block; text-decoration: inherit; }
+
+.CodeMirror-rulers {
+  position: absolute;
+  left: 0; right: 0; top: -50px; bottom: 0;
+  overflow: hidden;
+}
+.CodeMirror-ruler {
+  border-left: 1px solid #ccc;
+  top: 0; bottom: 0;
+  position: absolute;
+}
+
+/* DEFAULT THEME */
+
+.cm-s-default .cm-header {color: blue;}
+.cm-s-default .cm-quote {color: #090;}
+.cm-negative {color: #d44;}
+.cm-positive {color: #292;}
+.cm-header, .cm-strong {font-weight: bold;}
+.cm-em {font-style: italic;}
+.cm-link {text-decoration: underline;}
+.cm-strikethrough {text-decoration: line-through;}
+
+.cm-s-default .cm-keyword {color: #708;}
+.cm-s-default .cm-atom {color: #219;}
+.cm-s-default .cm-number {color: #164;}
+.cm-s-default .cm-def {color: #00f;}
+.cm-s-default .cm-variable,
+.cm-s-default .cm-punctuation,
+.cm-s-default .cm-property,
+.cm-s-default .cm-operator {}
+.cm-s-default .cm-variable-2 {color: #05a;}
+.cm-s-default .cm-variable-3, .cm-s-default .cm-type {color: #085;}
+.cm-s-default .cm-comment {color: #a50;}
+.cm-s-default .cm-string {color: #a11;}
+.cm-s-default .cm-string-2 {color: #f50;}
+.cm-s-default .cm-meta {color: #555;}
+.cm-s-default .cm-qualifier {color: #555;}
+.cm-s-default .cm-builtin {color: #30a;}
+.cm-s-default .cm-bracket {color: #997;}
+.cm-s-default .cm-tag {color: #170;}
+.cm-s-default .cm-attribute {color: #00c;}
+.cm-s-default .cm-hr {color: #999;}
+.cm-s-default .cm-link {color: #00c;}
+
+.cm-s-default .cm-error {color: #f00;}
+.cm-invalidchar {color: #f00;}
+
+.CodeMirror-composing { border-bottom: 2px solid; }
+
+/* Default styles for common addons */
+
+div.CodeMirror span.CodeMirror-matchingbracket {color: #0b0;}
+div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
+.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
+.CodeMirror-activeline-background {background: #e8f2ff;}
+
+/* STOP */
+
+/* The rest of this file contains styles related to the mechanics of
+   the editor. You probably shouldn't touch them. */
+
+.CodeMirror {
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+.CodeMirror-scroll {
+  overflow: scroll !important; /* Things will break if this is overridden */
+  /* 50px is the magic margin used to hide the element's real scrollbars */
+  /* See overflow: hidden in .CodeMirror */
+  margin-bottom: -50px; margin-right: -50px;
+  padding-bottom: 50px;
+  height: 100%;
+  outline: none; /* Prevent dragging from highlighting the element */
+  position: relative;
+  z-index: 0;
+}
+.CodeMirror-sizer {
+  position: relative;
+  border-right: 50px solid transparent;
+}
+
+/* The fake, visible scrollbars. Used to force redraw during scrolling
+   before actual scrolling happens, thus preventing shaking and
+   flickering artifacts. */
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  position: absolute;
+  z-index: 6;
+  display: none;
+  outline: none;
+}
+.CodeMirror-vscrollbar {
+  right: 0; top: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.CodeMirror-hscrollbar {
+  bottom: 0; left: 0;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+.CodeMirror-scrollbar-filler {
+  right: 0; bottom: 0;
+}
+.CodeMirror-gutter-filler {
+  left: 0; bottom: 0;
+}
+
+.CodeMirror-gutters {
+  position: absolute; left: 0; top: 0;
+  min-height: 100%;
+  z-index: 3;
+}
+.CodeMirror-gutter {
+  white-space: normal;
+  height: 100%;
+  display: inline-block;
+  vertical-align: top;
+  margin-bottom: -50px;
+}
+.CodeMirror-gutter-wrapper {
+  position: absolute;
+  z-index: 4;
+  background: none !important;
+  border: none !important;
+}
+.CodeMirror-gutter-background {
+  position: absolute;
+  top: 0; bottom: 0;
+  z-index: 4;
+}
+.CodeMirror-gutter-elt {
+  position: absolute;
+  cursor: default;
+  z-index: 4;
+}
+.CodeMirror-gutter-wrapper ::selection { background-color: transparent }
+.CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }
+
+.CodeMirror-lines {
+  cursor: text;
+  min-height: 1px; /* prevents collapsing before first draw */
+}
+.CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
+  /* Reset some styles that the rest of the page might have set */
+  -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+  border-width: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  white-space: pre;
+  word-wrap: normal;
+  line-height: inherit;
+  color: inherit;
+  z-index: 2;
+  position: relative;
+  overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-variant-ligatures: contextual;
+  font-variant-ligatures: contextual;
+}
+.CodeMirror-wrap pre.CodeMirror-line,
+.CodeMirror-wrap pre.CodeMirror-line-like {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
+.CodeMirror-linebackground {
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  z-index: 0;
+}
+
+.CodeMirror-linewidget {
+  position: relative;
+  z-index: 2;
+  padding: 0.1px; /* Force widget margins to stay inside of the container */
+}
+
+.CodeMirror-widget {}
+
+.CodeMirror-rtl pre { direction: rtl; }
+
+.CodeMirror-code {
+  outline: none;
+}
+
+/* Force content-box sizing for the elements where we expect it */
+.CodeMirror-scroll,
+.CodeMirror-sizer,
+.CodeMirror-gutter,
+.CodeMirror-gutters,
+.CodeMirror-linenumber {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.CodeMirror-measure {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.CodeMirror-cursor {
+  position: absolute;
+  pointer-events: none;
+}
+.CodeMirror-measure pre { position: static; }
+
+div.CodeMirror-cursors {
+  visibility: hidden;
+  position: relative;
+  z-index: 3;
+}
+div.CodeMirror-dragcursors {
+  visibility: visible;
+}
+
+.CodeMirror-focused div.CodeMirror-cursors {
+  visibility: visible;
+}
+
+.CodeMirror-selected { background: #d9d9d9; }
+.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+.CodeMirror-crosshair { cursor: crosshair; }
+.CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #d7d4f0; }
+.CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #d7d4f0; }
+
+.cm-searching {
+  background-color: #ffa;
+  background-color: rgba(255, 255, 0, .4);
+}
+
+/* Used to force a border model for a node */
+.cm-force-border { padding-right: .1px; }
+
+@media print {
+  /* Hide the cursor when printing */
+  .CodeMirror div.CodeMirror-cursors {
+    visibility: hidden;
+  }
+}
+
+/* See issue #2901 */
+.cm-tab-wrap-hack:after { content: ''; }
+
+/* Help users use markselection to safely style text background */
+span.CodeMirror-selectedtext { background: none; }
+
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.55 var(--font-body); display: flex; flex-direction: column; overflow: hidden; }
+button, select, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code, pre, .mono { font-family: var(--font-code); font-size: 12.5px; }
+
+/* Top bar */
+.top { display: flex; align-items: center; gap: 12px; padding: 8px 16px; background: var(--panel); border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.brand { font-weight: 700; letter-spacing: -0.01em; display: flex; align-items: baseline; gap: 8px; }
+.brand small { font-weight: 500; color: var(--muted); font-size: 12px; }
+.top .spacer { flex: 1; }
+.pill { display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 500; border: 1px solid var(--line); background: var(--bg); white-space: nowrap; }
+.dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.pill.ready .dot { background: var(--good); }
+.pill.loading .dot { background: var(--warn); animation: pulse 1s infinite alternate; }
+.pill.failed .dot { background: var(--bad); }
+@keyframes pulse { to { opacity: .3; } }
+@media (prefers-reduced-motion: reduce) { .pill.loading .dot { animation: none; } }
+.timer { display: flex; align-items: center; gap: 6px; }
+.timer .clock { font: 600 15px var(--font-code); font-variant-numeric: tabular-nums; min-width: 58px; text-align: center; padding: 2px 8px; border-radius: 6px; background: var(--bg); border: 1px solid var(--line); }
+.timer .clock.low { color: var(--bad); border-color: var(--bad); }
+.btn { border: 1px solid var(--line); background: var(--panel); padding: 5px 12px; border-radius: 6px; font-weight: 500; font-size: 13px; }
+.btn:hover:not(:disabled) { border-color: var(--accent); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.ghost { border-color: transparent; background: transparent; }
+.btn.small { padding: 3px 8px; font-size: 12px; }
+select.btn { padding-right: 8px; }
+
+/* Main split */
+.main { flex: 1; display: grid; grid-template-columns: 220px minmax(320px, 1fr) minmax(420px, 1.25fr); min-height: 0; }
+.list { border-right: 1px solid var(--line); background: var(--panel); overflow-y: auto; padding: 10px 8px; }
+.list h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 6px 8px 8px; }
+.pitem { display: grid; grid-template-columns: 22px 1fr auto; gap: 6px; align-items: center; width: 100%; text-align: left; padding: 7px 8px; border: 0; border-radius: 6px; background: transparent; }
+.pitem:hover { background: var(--soft); }
+.pitem.active { background: var(--soft); box-shadow: inset 3px 0 0 var(--accent); }
+.pitem .num { font: 500 11px var(--font-code); color: var(--muted); }
+.pitem .name { font-weight: 500; font-size: 13px; line-height: 1.3; }
+.pitem .tp { display: block; font-size: 11px; color: var(--muted); font-weight: 400; }
+.score { font: 600 11px var(--font-code); padding: 1px 6px; border-radius: 4px; color: var(--muted); }
+.score.full { background: var(--good-bg); color: var(--good); }
+.score.part { background: var(--warn-bg); color: var(--warn); }
+.list .mockbox { margin: 14px 8px 6px; padding: 10px; border: 1px dashed var(--line); border-radius: 8px; font-size: 12px; color: var(--muted); display: grid; gap: 8px; }
+
+.problem { overflow-y: auto; padding: 20px 24px 40px; background: var(--panel); border-right: 1px solid var(--line); }
+.problem h1 { font-size: 21px; line-height: 1.25; margin: 0 0 6px; text-wrap: balance; }
+.meta { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.tag { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--soft); color: var(--accent); }
+.tag.easy { background: var(--good-bg); color: var(--good); }
+.tag.medium { background: var(--warn-bg); color: var(--warn); }
+.problem p { max-width: 68ch; margin: 0 0 10px; }
+.problem h3 { font-size: 13px; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+.problem code { background: var(--code-bg); border: 1px solid var(--line); padding: 0 4px; border-radius: 4px; }
+.problem ul { margin: 0; padding-left: 20px; }
+.sample { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 10px; }
+.sample .row { display: grid; grid-template-columns: 82px 1fr; border-bottom: 1px solid var(--line); }
+.sample .row:last-child { border-bottom: 0; }
+.sample .k { padding: 6px 10px; font-size: 12px; color: var(--muted); background: var(--code-bg); border-right: 1px solid var(--line); }
+.sample .v { padding: 6px 10px; font-family: var(--font-code); font-size: 12.5px; overflow-x: auto; white-space: pre; }
+.sample .why { font-family: var(--font-body); white-space: normal; font-size: 13px; }
+.history { display: grid; gap: 4px; }
+.hrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center; font-size: 12px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; }
+.hrow .when { color: var(--muted); }
+.note { font-size: 12px; color: var(--muted); }
+
+.work { display: grid; grid-template-rows: auto minmax(160px, 1fr) 6px minmax(120px, var(--console-h, 40%)); min-height: 0; background: var(--panel); }
+.edbar { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.edbar .spacer { flex: 1; }
+.editor { min-height: 0; position: relative; overflow: hidden; }
+.editor .CodeMirror { height: 100%; font-family: var(--font-code); font-size: 13.5px; line-height: 1.6; background: var(--panel); color: var(--ink); }
+.CodeMirror-gutters { background: var(--code-bg); border-right: 1px solid var(--line); }
+.CodeMirror-linenumber { color: var(--tok-com); }
+.CodeMirror-cursor { border-left: 2px solid var(--accent); }
+.CodeMirror-selected, .CodeMirror-focused .CodeMirror-selected { background: var(--soft) !important; }
+.CodeMirror-activeline-background { background: var(--code-bg); }
+.CodeMirror-matchingbracket { color: var(--ink) !important; background: var(--soft); outline: 1px solid var(--accent); }
+.cm-s-default .cm-keyword { color: var(--tok-kw); }
+.cm-s-default .cm-string { color: var(--tok-str); }
+.cm-s-default .cm-number { color: var(--tok-num); }
+.cm-s-default .cm-comment { color: var(--tok-com); font-style: italic; }
+.cm-s-default .cm-def { color: var(--tok-def); font-weight: 500; }
+.cm-s-default .cm-builtin { color: var(--tok-builtin); }
+.cm-s-default .cm-variable, .cm-s-default .cm-variable-2, .cm-s-default .cm-property { color: var(--ink); }
+.cm-s-default .cm-operator { color: var(--muted); }
+.cm-s-default .cm-meta { color: var(--tok-num); }
+.cm-s-default .cm-atom { color: var(--tok-num); }
+.splitter { background: var(--line); cursor: row-resize; }
+.splitter:hover { background: var(--accent); }
+
+.console { display: flex; flex-direction: column; min-height: 0; }
+.tabs { display: flex; align-items: center; gap: 2px; padding: 0 8px; border-bottom: 1px solid var(--line); background: var(--code-bg); }
+.tab { border: 0; background: transparent; padding: 8px 12px; font-size: 13px; font-weight: 500; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tab.active { color: var(--ink); border-bottom-color: var(--accent); }
+.tabs .spacer { flex: 1; }
+.tabs .actions { display: flex; gap: 6px; padding: 5px 0; }
+.pane { flex: 1; overflow-y: auto; padding: 12px 14px; display: none; }
+.pane.active { display: block; }
+.summary { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+.summary .big { font-size: 17px; font-weight: 700; }
+.summary .big.good { color: var(--good); }
+.summary .big.bad { color: var(--bad); }
+.bar { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; flex: 1; min-width: 120px; max-width: 260px; }
+.bar > i { display: block; height: 100%; background: var(--good); }
+.case { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 8px; overflow: hidden; }
+.case > header { display: flex; align-items: center; gap: 8px; padding: 6px 10px; font-size: 13px; }
+.case > header .ms { margin-left: auto; font: 11px var(--font-code); color: var(--muted); }
+.badge { font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 4px; }
+.b-pass { background: var(--good-bg); color: var(--good); }
+.b-fail, .b-error { background: var(--bad-bg); color: var(--bad); }
+.b-tle { background: var(--warn-bg); color: var(--warn); }
+.b-wait, .b-skip, .b-custom { background: var(--soft); color: var(--muted); }
+.case .body { border-top: 1px solid var(--line); }
+.kv { display: grid; grid-template-columns: 96px 1fr; border-bottom: 1px solid var(--line); }
+.kv:last-child { border-bottom: 0; }
+.kv .k { font-size: 12px; color: var(--muted); padding: 5px 10px; background: var(--code-bg); border-right: 1px solid var(--line); }
+.kv .v { font: 12.5px var(--font-code); padding: 5px 10px; white-space: pre-wrap; word-break: break-word; }
+.kv .v.err { color: var(--bad); }
+details.case > summary { list-style: none; cursor: pointer; }
+details.case > summary::-webkit-details-marker { display: none; }
+.errbox { border: 1px solid var(--bad); background: var(--bad-bg); color: var(--bad); padding: 10px 12px; border-radius: 8px; font: 12.5px var(--font-code); white-space: pre-wrap; }
+.empty { color: var(--muted); font-size: 13px; padding: 4px 0; max-width: 60ch; }
+.empty kbd { font: 11px var(--font-code); border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; background: var(--panel); }
+textarea.custom { width: 100%; min-height: 64px; resize: vertical; font: 13px var(--font-code); padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--code-bg); }
+
+/* Claude review */
+.chat { display: grid; gap: 10px; }
+.msg { padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); max-width: 74ch; }
+.msg.user { background: var(--soft); border-color: transparent; justify-self: end; max-width: 60ch; }
+.msg .who { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+.msg p { margin: 0 0 8px; }
+.msg p:last-child { margin-bottom: 0; }
+.msg pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; overflow-x: auto; margin: 6px 0 8px; }
+.msg code { background: var(--code-bg); padding: 0 3px; border-radius: 3px; }
+.msg pre code { background: none; padding: 0; }
+.msg ul, .msg ol { margin: 0 0 8px; padding-left: 20px; }
+.msg h4 { margin: 10px 0 4px; font-size: 13px; }
+.ask { display: flex; gap: 8px; margin-top: 10px; position: sticky; bottom: -12px; background: var(--panel); padding: 8px 0 12px; }
+.ask input { flex: 1; border: 1px solid var(--line); border-radius: 6px; padding: 6px 10px; background: var(--code-bg); }
+
+/* Overlay */
+.overlay { position: fixed; inset: 0; background: rgb(10 14 22 / .55); display: none; align-items: center; justify-content: center; z-index: 50; padding: 16px; }
+.overlay.show { display: flex; }
+.dialog { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; max-width: 440px; width: 100%; box-shadow: 0 20px 60px rgb(0 0 0 / .25); }
+.dialog h2 { margin: 0 0 8px; font-size: 18px; }
+.dialog p { margin: 0 0 12px; color: var(--muted); }
+.dialog .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.mockline { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+
+.mockbar { display: none; align-items: center; gap: 8px; padding: 6px 16px; background: var(--warn-bg); color: var(--warn); font-size: 13px; font-weight: 500; border-bottom: 1px solid var(--line); }
+.mockbar.show { display: flex; }
+.mockbar .spacer { flex: 1; }
+
+@media (max-width: 1100px) {
+  .main { grid-template-columns: 1fr 1.2fr; }
+  .list { display: none; }
+  .psel { display: inline-block !important; }
+}
+@media (max-width: 760px) {
+  body { overflow: auto; }
+  .main { display: block; }
+  .problem { border-right: 0; border-bottom: 1px solid var(--line); }
+  .work { height: 90vh; }
+}
+.psel { display: none; }
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">OA Practice IDE <small>Python 3 · HackerRank style</small></div>
+  <select class="btn psel" id="psel" aria-label="Select a problem"></select>
+  <span class="spacer"></span>
+  <div class="timer" aria-label="Timer">
+    <select class="btn small" id="tlen" aria-label="Timer length">
+      <option value="25">25 min</option>
+      <option value="35" selected>35 min</option>
+      <option value="45">45 min</option>
+    </select>
+    <span class="clock" id="clock">35:00</span>
+    <button class="btn small" id="tstart">Start</button>
+    <button class="btn small ghost" id="treset">Reset</button>
+  </div>
+  <span class="pill loading" id="pystatus"><span class="dot"></span><span id="pytext">Python is loading</span></span>
+  <span class="pill" id="savestatus" title="Your code and submissions save in this browser."><span class="dot"></span><span id="savetext">Saving</span></span>
+</div>
+<div class="mockbar" id="mockbar">
+  <span id="mocktext">Mock test in progress.</span>
+  <span class="spacer"></span>
+  <button class="btn small" id="mockend">End the test</button>
+</div>
+<div class="main">
+  <nav class="list" aria-label="Problems">
+    <h2>Problems</h2>
+    <div id="plist"></div>
+    <div class="mockbox">
+      <strong style="color:var(--ink)">Mock test</strong>
+      <span>2 random problems, 70 minutes. No Claude help until the end, the same as the real screen.</span>
+      <button class="btn" id="mockstart">Start a mock test</button>
+    </div>
+  </nav>
+  <article class="problem" id="problem"></article>
+  <section class="work">
+    <div class="edbar">
+      <span class="mono">solution.py</span><span>·</span><span>Python 3</span>
+      <span class="spacer"></span>
+      <button class="btn small ghost" id="resetcode" title="Replace your code with the start code">Reset code</button>
+    </div>
+    <div class="editor" id="editor"></div>
+    <div class="splitter" id="splitter" role="separator" aria-label="Resize the console"></div>
+    <div class="console">
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="results" role="tab">Test results</button>
+        <button class="tab" data-tab="custom" role="tab">Custom input</button>
+        <button class="tab" data-tab="claude" role="tab">Claude</button>
+        <span class="spacer"></span>
+        <div class="actions">
+          <button class="btn" id="run" title="Run the samples (Ctrl or Cmd + Enter)">Run code</button>
+          <button class="btn primary" id="submit" title="Run all hidden tests (Ctrl or Cmd + Shift + Enter)">Submit</button>
+        </div>
+      </div>
+      <div class="pane active" id="pane-results"></div>
+      <div class="pane" id="pane-custom">
+        <p class="empty">Write the arguments the same way as a function call. Example: <code>"eceba", 2</code>. The page runs your function and the reference solution, then shows the two results.</p>
+        <textarea class="custom" id="custominput" spellcheck="false" aria-label="Custom input"></textarea>
+        <div style="margin:8px 0 12px"><button class="btn" id="runcustom">Run custom input</button></div>
+        <div id="customout"></div>
+      </div>
+      <div class="pane" id="pane-claude">
+        <div id="chat" class="chat"></div>
+        <div class="ask">
+          <input id="askin" placeholder="Ask Claude about your code" aria-label="Ask Claude">
+          <button class="btn" id="asksend">Send</button>
+          <button class="btn primary" id="review">Review my code</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="overlay" id="overlay"><div class="dialog" id="dialog"></div></div>
+
+<script id="harness" type="text/plain">
+import sys, io, time, copy, random, ast, json, traceback
+from js import _oaPost as postMessage
+
+def _post(d):
+    postMessage(json.dumps(d))
+
+def _norm(x):
+    if isinstance(x, (list, tuple)):
+        return [_norm(i) for i in x]
+    return x
+
+def _r(x, n=400):
+    s = repr(x)
+    return s if len(s) <= n else s[:n] + " ... (" + str(len(s)) + " characters)"
+
+def _tb(e):
+    frames = [f for f in traceback.extract_tb(e.__traceback__) if f.filename == "solution.py"]
+    out = ["  Line %d, in %s\n    %s" % (f.lineno, f.name, (f.line or "").strip()) for f in frames]
+    msg = "%s: %s" % (type(e).__name__, e)
+    return ("\n".join(out) + "\n" if out else "") + msg
+
+def _parse(s):
+    return ast.literal_eval("(" + s + ",)")
+
+def _run(mode, code, fn, ref_src, samples_json, custom):
+    ns = {}
+    exec(ref_src, ns)
+    ref = ns["ref"]
+    cases = []
+    if mode == "custom":
+        try:
+            cases.append(("custom", _parse(custom)))
+        except Exception as e:
+            _post({"type": "input_error", "error": "The page cannot read your custom input. Write it like the arguments of a call, for example: \"abc\", 2\n" + type(e).__name__ + ": " + str(e)})
+            return
+    else:
+        for s in json.loads(samples_json):
+            cases.append(("sample", _parse(s)))
+        if mode == "submit":
+            for a in ns["EDGE"]:
+                cases.append(("edge", a))
+            rng = random.Random(2027)
+            for _ in range(10):
+                cases.append(("random", ns["rand"](rng)))
+            cases.append(("large", ns["big"](random.Random(99))))
+    _post({"type": "plan", "kinds": [k for k, _ in cases]})
+    user_ns = {"__name__": "solution"}
+    old = sys.stdout
+    sys.stdout = io.StringIO()
+    try:
+        exec(compile(code, "solution.py", "exec"), user_ns)
+    except SyntaxError as e:
+        sys.stdout = old
+        _post({"type": "compile_error", "error": "%s on line %s: %s\n    %s" % (type(e).__name__, e.lineno, e.msg, (e.text or "").rstrip())})
+        return
+    except Exception as e:
+        sys.stdout = old
+        _post({"type": "compile_error", "error": _tb(e)})
+        return
+    finally:
+        sys.stdout = old
+    f = user_ns.get(fn)
+    if not callable(f):
+        _post({"type": "compile_error", "error": "Your code has no function named %s. Do not change the name of the function." % fn})
+        return
+    for i, (kind, args) in enumerate(cases):
+        ref_err = None
+        try:
+            t = time.perf_counter()
+            expected = ref(*copy.deepcopy(args))
+            ref_ms = (time.perf_counter() - t) * 1000
+        except Exception as e:
+            expected, ref_ms, ref_err = None, 0, str(e)
+        limit = max(1500, 12 * ref_ms) if kind == "large" else 2000
+        _post({"type": "start", "i": i, "watch": int(limit + 6000)})
+        buf = io.StringIO()
+        sys.stdout = buf
+        got, err = None, None
+        t = time.perf_counter()
+        try:
+            got = f(*copy.deepcopy(args))
+        except RecursionError:
+            err = "RecursionError: maximum recursion depth exceeded.\nUse a loop with a stack or a queue in place of recursion."
+        except Exception as e:
+            err = _tb(e)
+        finally:
+            sys.stdout = old
+        ms = (time.perf_counter() - t) * 1000
+        if kind == "custom" and ref_err:
+            status = "error" if err else "custom"
+        elif err:
+            status = "error"
+        elif _norm(got) != _norm(expected):
+            status = "fail"
+        elif ms > limit:
+            status = "tle"
+        else:
+            status = "pass"
+        show = kind != "large"
+        _post({"type": "case", "i": i, "kind": kind, "status": status, "ms": round(ms, 1), "limit": round(limit),
+               "args": [_r(a) for a in args] if show else None,
+               "expected": _r(expected) if show and ref_err is None else None,
+               "got": _r(got) if show and err is None else None,
+               "error": err, "stdout": buf.getvalue()[:4000], "ref_error": ref_err})
+    _post({"type": "done"})
+</script>
+
+<script id="workersrc" type="text/plain">
+const _oaFetch = self.fetch.bind(self);
+self.fetch = async (u, o) => {
+  const r = await _oaFetch(u, o);
+  const url = String(u && u.url || u);
+  if (url.endsWith(".wasm") && r.ok && !(r.headers.get("content-type") || "").includes("wasm")) {
+    return new Response(await r.arrayBuffer(), { status: 200, headers: { "Content-Type": "application/wasm" } });
+  }
+  return r;
+};
+let py = null;
+self._oaPost = (s) => self.postMessage(s);
+self.addEventListener("securitypolicyviolation", (e) => self.postMessage(JSON.stringify({ type: "log", text: "BLOCKED in the worker: " + e.blockedURI + " (rule: " + e.effectiveDirective + ")" })));
+self.onmessage = async (e) => {
+  const m = e.data;
+  if (m.type === "init") {
+    try {
+      const PYO = m.base;
+      importScripts(PYO + "pyodide.js");
+      self.postMessage(JSON.stringify({ type: "log", text: "Worker: pyodide.js loaded. Downloading the runtime." }));
+      py = await loadPyodide({ indexURL: PYO });
+      py.runPython(m.harness);
+      self.postMessage(JSON.stringify({ type: "ready" }));
+    } catch (err) {
+      self.postMessage(JSON.stringify({ type: "fatal", error: String(err && err.message || err) }));
+    }
+  } else if (m.type === "run") {
+    try {
+      py.globals.get("_run")(m.mode, m.code, m.fn, m.ref, JSON.stringify(m.samples), m.custom || "");
+    } catch (err) {
+      self.postMessage(JSON.stringify({ type: "crash", error: String(err && err.message || err) }));
+    }
+  }
+};
+</script>
+
+<script id="data" type="application/json">[{"id": "min-deletions", "title": "Unique Character Counts", "topic": "Hash map + greedy", "level": "Medium", "fn": "minDeletions", "params": ["s"], "stub": "def minDeletions(s: str) -> int:\n    # Write your code here\n    pass\n", "body": "<p>A string <code>s<\/code> has only lowercase English letters. The string is <em>good<\/em> if no two different letters occur the same number of times.<\/p><p>Find the minimum number of characters that you must delete from <code>s<\/code> to make it good.<\/p>", "cons": ["1 &le; len(s) &le; 100,000", "s has only lowercase English letters"], "samples": [{"args": "\"aaabbbcc\"", "argv": ["'aaabbbcc'"], "out": "2", "why": "Delete two of the 'b' letters. Then a = 3, b = 1, c = 2."}, {"args": "\"abcabc\"", "argv": ["'abcabc'"], "out": "3", "why": "Keep a = 2. Delete one 'b' and both 'c' letters. That is 1 + 2 = 3 deletions."}], "hidden": 17, "ref": "CmZyb20gY29sbGVjdGlvbnMgaW1wb3J0IENvdW50ZXIKZGVmIHJlZihzKToKICAgIHVzZWQ9c2V0KCk7IGQ9MAogICAgZm9yIGYgaW4gc29ydGVkKENvdW50ZXIocykudmFsdWVzKCksIHJldmVyc2U9VHJ1ZSk6CiAgICAgICAgd2hpbGUgZj4wIGFuZCBmIGluIHVzZWQ6CiAgICAgICAgICAgIGYtPTE7IGQrPTEKICAgICAgICB1c2VkLmFkZChmKQogICAgcmV0dXJuIGQKRURHRT1bKCJhIiwpLCgiYWFhYSIsKSwoImFhYWJiYmNjYyIsKSwoImFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6IiwpLCgiYWFiYmNjZGRlZSIsKSwoImJiY2ViYWIiLCldCmRlZiByYW5kKHJuZyk6CiAgICByZXR1cm4gKCIiLmpvaW4ocm5nLmNob2ljZSgiYWJjZGVmIikgZm9yIF8gaW4gcmFuZ2Uocm5nLnJhbmRpbnQoMSw2MCkpKSwpCmRlZiBiaWcocm5nKToKICAgIHJldHVybiAoIiIuam9pbihybmcuY2hvaWNlKCJhYmNkZWZnaGlqa2xtbm9wcXJzdHV2d3h5eiIpIGZvciBfIGluIHJhbmdlKDEwMDAwMCkpLCkK"}, {"id": "longest-window", "title": "Longest Balanced Window", "topic": "Sliding window", "level": "Medium", "fn": "longestWindow", "params": ["s", "k"], "stub": "def longestWindow(s: str, k: int) -> int:\n    # Write your code here\n    pass\n", "body": "<p>You get a string <code>s<\/code> and an integer <code>k<\/code>.<\/p><p>Find the length of the longest substring of <code>s<\/code> that has <strong>at most<\/strong> <code>k<\/code> different letters.<\/p>", "cons": ["1 &le; len(s) &le; 100,000", "0 &le; k &le; 26", "s has only lowercase English letters"], "samples": [{"args": "\"eceba\", 2", "argv": ["'eceba'", "2"], "out": "3", "why": "The substring \"ece\" has 2 different letters. Its length is 3."}, {"args": "\"aa\", 1", "argv": ["'aa'", "1"], "out": "2", "why": "The full string has 1 different letter."}], "hidden": 17, "ref": "CmRlZiByZWYocyxrKToKICAgIGNudD17fTsgbGVmdD0wOyBiZXN0PTAKICAgIGZvciByLGMgaW4gZW51bWVyYXRlKHMpOgogICAgICAgIGNudFtjXT1jbnQuZ2V0KGMsMCkrMQogICAgICAgIHdoaWxlIGxlbihjbnQpPms6CiAgICAgICAgICAgIGNudFtzW2xlZnRdXS09MQogICAgICAgICAgICBpZiBjbnRbc1tsZWZ0XV09PTA6IGRlbCBjbnRbc1tsZWZ0XV0KICAgICAgICAgICAgbGVmdCs9MQogICAgICAgIGJlc3Q9bWF4KGJlc3Qsci1sZWZ0KzEpCiAgICByZXR1cm4gYmVzdApFREdFPVsoImFiYyIsMCksKCJhIiwxKSwoImFiY2FiYyIsNSksKCJ6enp6enoiLDEpLCgiYWJhY2NjIiwyKSwoImFiY2FkY2FjYWNhY2EiLDMpXQpkZWYgcmFuZChybmcpOgogICAgcmV0dXJuICgiIi5qb2luKHJuZy5jaG9pY2UoImFiY2RlIikgZm9yIF8gaW4gcmFuZ2Uocm5nLnJhbmRpbnQoMSw1MCkpKSwgcm5nLnJhbmRpbnQoMCw1KSkKZGVmIGJpZyhybmcpOgogICAgcmV0dXJuICgiIi5qb2luKHJuZy5jaG9pY2UoImFiY2RlZmdoaWoiKSBmb3IgXyBpbiByYW5nZSgxMDAwMDApKSwgNSkK"}, {"id": "pair-count", "title": "Pairs With a Target Sum", "topic": "Hash map", "level": "Easy", "fn": "countPairs", "params": ["nums", "k"], "stub": "def countPairs(nums: list[int], k: int) -> int:\n    # Write your code here\n    pass\n", "body": "<p>You get a list of integers <code>nums<\/code> and an integer <code>k<\/code>.<\/p><p>Count the pairs of indices <code>(i, j)<\/code> with <code>i &lt; j<\/code> and <code>nums[i] + nums[j] == k<\/code>.<\/p>", "cons": ["0 &le; len(nums) &le; 100,000", "-10<sup>9<\/sup> &le; nums[i], k &le; 10<sup>9<\/sup>"], "samples": [{"args": "[1, 5, 7, -1, 5], 6", "argv": ["[1, 5, 7, -1, 5]", "6"], "out": "3", "why": "The pairs are (1, 5), (1, 5), and (7, -1)."}, {"args": "[2, 2, 2], 4", "argv": ["[2, 2, 2]", "4"], "out": "3", "why": "Each pair of the three 2s works. There are 3 pairs."}], "hidden": 17, "ref": "CmRlZiByZWYobnVtcyxrKToKICAgIHNlZW49e307IGM9MAogICAgZm9yIHggaW4gbnVtczoKICAgICAgICBjKz1zZWVuLmdldChrLXgsMCkKICAgICAgICBzZWVuW3hdPXNlZW4uZ2V0KHgsMCkrMQogICAgcmV0dXJuIGMKRURHRT1bKFs1XSwxMCksKFs1LDVdLDEwKSwoWzEsMSwxLDFdLDIpLChbLTEsMSwwLDBdLDApLChbXSwzKSwoWzMsMSw0LDEsNSw5LDIsNl0sNyldCmRlZiByYW5kKHJuZyk6CiAgICBuPXJuZy5yYW5kaW50KDAsNDApOyByZXR1cm4gKFtybmcucmFuZGludCgtMTAsMTApIGZvciBfIGluIHJhbmdlKG4pXSwgcm5nLnJhbmRpbnQoLTEwLDEwKSkKZGVmIGJpZyhybmcpOgogICAgcmV0dXJuIChbcm5nLnJhbmRpbnQoMSwxMDAwKSBmb3IgXyBpbiByYW5nZSgxMDAwMDApXSwgMTAwMCkK"}, {"id": "balanced-brackets", "title": "Balanced Brackets", "topic": "Stack", "level": "Easy", "fn": "isBalanced", "params": ["s"], "stub": "def isBalanced(s: str) -> bool:\n    # Write your code here\n    pass\n", "body": "<p>A string <code>s<\/code> has only the characters <code>( ) [ ] { }<\/code>.<\/p><p>Return <code>True<\/code> if each open bracket closes with the same type of bracket, in the correct order. Otherwise, return <code>False<\/code>. An empty string is balanced.<\/p>", "cons": ["0 &le; len(s) &le; 100,000"], "samples": [{"args": "\"{[()]}\"", "argv": ["'{[()]}'"], "out": "True", "why": "Each bracket closes in the correct order."}, {"args": "\"([)]\"", "argv": ["'([)]'"], "out": "False", "why": "The ']' closes before the ')'. The order is not correct."}], "hidden": 19, "ref": "CmRlZiByZWYocyk6CiAgICBzdD1bXTsgbT17JyknOicoJywnXSc6J1snLCd9Jzoneyd9CiAgICBmb3IgYyBpbiBzOgogICAgICAgIGlmIGMgaW4gJyhbeyc6IHN0LmFwcGVuZChjKQogICAgICAgIGVsc2U6CiAgICAgICAgICAgIGlmIG5vdCBzdCBvciBzdFstMV0hPW1bY106IHJldHVybiBGYWxzZQogICAgICAgICAgICBzdC5wb3AoKQogICAgcmV0dXJuIG5vdCBzdApFREdFPVsoIiIsKSwoIigiLCksKCIpIiwpLCgiKFspXSIsKSwoIntbXX0iLCksKCIoKCgoKCgiLCksKCIoKSgpKCkiLCksKCJ9eyIsKV0KZGVmIHJhbmQocm5nKToKICAgIG49cm5nLnJhbmRpbnQoMSwyMCkKICAgIGlmIHJuZy5yYW5kb20oKTwwLjU6CiAgICAgICAgc3Q9W107b3V0PVtdCiAgICAgICAgZm9yIF8gaW4gcmFuZ2Uobik6CiAgICAgICAgICAgIGlmIHN0IGFuZCBybmcucmFuZG9tKCk8MC41OgogICAgICAgICAgICAgICAgb3V0LmFwcGVuZCh7JygnIDonKScsJ1snOiddJywneyc6J30nfVtzdC5wb3AoKV0pCiAgICAgICAgICAgIGVsc2U6CiAgICAgICAgICAgICAgICBjPXJuZy5jaG9pY2UoJyhbeycpOyBzdC5hcHBlbmQoYyk7IG91dC5hcHBlbmQoYykKICAgICAgICB3aGlsZSBzdDogb3V0LmFwcGVuZCh7JygnIDonKScsJ1snOiddJywneyc6J30nfVtzdC5wb3AoKV0pCiAgICAgICAgcmV0dXJuICgiIi5qb2luKG91dCksKQogICAgcmV0dXJuICgiIi5qb2luKHJuZy5jaG9pY2UoIigpW117fSIpIGZvciBfIGluIHJhbmdlKG4pKSwpCmRlZiBiaWcocm5nKToKICAgIHJldHVybiAoIihbeyIgKiAzMzMzMyArICJ9XSkiICogMzMzMzMsKQo="}, {"id": "max-water", "title": "Container With Most Water", "topic": "Two pointers", "level": "Medium", "fn": "maxWater", "params": ["heights"], "stub": "def maxWater(heights: list[int]) -> int:\n    # Write your code here\n    pass\n", "body": "<p>You get a list <code>heights<\/code>. Each value is the height of a vertical line at that index.<\/p><p>Select two lines. Together with the x-axis, they make a container. The water in the container is <code>(j - i) * min(heights[i], heights[j])<\/code>. Return the maximum water.<\/p>", "cons": ["2 &le; len(heights) &le; 100,000", "0 &le; heights[i] &le; 10,000"], "samples": [{"args": "[1, 8, 6, 2, 5, 4, 8, 3, 7]", "argv": ["[1, 8, 6, 2, 5, 4, 8, 3, 7]"], "out": "49", "why": "Use the lines at index 1 (height 8) and index 8 (height 7): 7 &times; 7 = 49."}, {"args": "[1, 1]", "argv": ["[1, 1]"], "out": "1", "why": "1 &times; 1 = 1."}], "hidden": 17, "ref": "CmRlZiByZWYoaCk6CiAgICBsbyxoaT0wLGxlbihoKS0xOyBiZXN0PTAKICAgIHdoaWxlIGxvPGhpOgogICAgICAgIGJlc3Q9bWF4KGJlc3QsKGhpLWxvKSptaW4oaFtsb10saFtoaV0pKQogICAgICAgIGlmIGhbbG9dPGhbaGldOiBsbys9MQogICAgICAgIGVsc2U6IGhpLT0xCiAgICByZXR1cm4gYmVzdApFREdFPVsoWzEsMV0sKSwoWzAsMCwwXSwpLChbNSw1LDUsNV0sKSwoWzEsMiwzLDQsNV0sKSwoWzUsNCwzLDIsMV0sKSwoWzIsMV0sKV0KZGVmIHJhbmQocm5nKToKICAgIHJldHVybiAoW3JuZy5yYW5kaW50KDAsMzApIGZvciBfIGluIHJhbmdlKHJuZy5yYW5kaW50KDIsNDApKV0sKQpkZWYgYmlnKHJuZyk6CiAgICByZXR1cm4gKFtybmcucmFuZGludCgwLDEwMDAwKSBmb3IgXyBpbiByYW5nZSgxMDAwMDApXSwpCg=="}, {"id": "subarray-sum", "title": "Subarrays With Sum K", "topic": "Prefix sums", "level": "Medium", "fn": "countSubarrays", "params": ["nums", "k"], "stub": "def countSubarrays(nums: list[int], k: int) -> int:\n    # Write your code here\n    pass\n", "body": "<p>You get a list of integers <code>nums<\/code> and an integer <code>k<\/code>. The list can have negative numbers.<\/p><p>Count the contiguous subarrays whose sum is equal to <code>k<\/code>.<\/p>", "cons": ["1 &le; len(nums) &le; 100,000", "-1,000 &le; nums[i] &le; 1,000", "-10<sup>7<\/sup> &le; k &le; 10<sup>7<\/sup>"], "samples": [{"args": "[1, 1, 1], 2", "argv": ["[1, 1, 1]", "2"], "out": "2", "why": "The subarrays [1, 1] at index 0 and at index 1."}, {"args": "[1, 2, 3], 3", "argv": ["[1, 2, 3]", "3"], "out": "2", "why": "The subarrays [1, 2] and [3]."}], "hidden": 17, "ref": "CmRlZiByZWYobnVtcyxrKToKICAgIHByZT0wOyBzZWVuPXswOjF9OyBjPTAKICAgIGZvciB4IGluIG51bXM6CiAgICAgICAgcHJlKz14CiAgICAgICAgYys9c2Vlbi5nZXQocHJlLWssMCkKICAgICAgICBzZWVuW3ByZV09c2Vlbi5nZXQocHJlLDApKzEKICAgIHJldHVybiBjCkVER0U9WyhbMV0sMSksKFsxXSwwKSwoWzAsMCwwXSwwKSwoWzEsLTEsMSwtMV0sMCksKFstMiwtM10sLTUpLChbMyw0LDcsMiwtMywxLDQsMl0sNyldCmRlZiByYW5kKHJuZyk6CiAgICByZXR1cm4gKFtybmcucmFuZGludCgtNSw1KSBmb3IgXyBpbiByYW5nZShybmcucmFuZGludCgxLDQwKSldLCBybmcucmFuZGludCgtNiw2KSkKZGVmIGJpZyhybmcpOgogICAgcmV0dXJuIChbcm5nLnJhbmRpbnQoLTMsMykgZm9yIF8gaW4gcmFuZ2UoMTAwMDAwKV0sIDIpCg=="}, {"id": "merge-intervals", "title": "Merge Intervals", "topic": "Sorting", "level": "Medium", "fn": "mergeIntervals", "params": ["intervals"], "stub": "def mergeIntervals(intervals: list[list[int]]) -> list[list[int]]:\n    # Write your code here\n    pass\n", "body": "<p>You get a list of intervals. Each interval is <code>[start, end]<\/code>.<\/p><p>Merge all intervals that overlap. Two intervals that touch, like <code>[1, 4]<\/code> and <code>[4, 5]<\/code>, also overlap. Return the merged intervals, sorted by start.<\/p>", "cons": ["1 &le; len(intervals) &le; 100,000", "0 &le; start &le; end &le; 10<sup>8<\/sup>"], "samples": [{"args": "[[1, 3], [2, 6], [8, 10], [15, 18]]", "argv": ["[[1, 3], [2, 6], [8, 10], [15, 18]]"], "out": "[[1, 6], [8, 10], [15, 18]]", "why": "[1, 3] and [2, 6] overlap. They become [1, 6]."}, {"args": "[[4, 5], [1, 4]]", "argv": ["[[4, 5], [1, 4]]"], "out": "[[1, 5]]", "why": "The intervals touch at 4."}], "hidden": 16, "ref": "CmRlZiByZWYoaXYpOgogICAgaXY9c29ydGVkKGl2KTsgb3V0PVtdCiAgICBmb3IgcyxlIGluIGl2OgogICAgICAgIGlmIG91dCBhbmQgczw9b3V0Wy0xXVsxXTogb3V0Wy0xXVsxXT1tYXgob3V0Wy0xXVsxXSxlKQogICAgICAgIGVsc2U6IG91dC5hcHBlbmQoW3MsZV0pCiAgICByZXR1cm4gb3V0CkVER0U9WyhbWzEsNF1dLCksKFtbMSw0XSxbNCw1XV0sKSwoW1sxLDEwXSxbMiwzXSxbNCw1XV0sKSwoW1s1LDZdLFsxLDJdXSwpLChbWzEsMV0sWzEsMV1dLCldCmRlZiByYW5kKHJuZyk6CiAgICBvdXQ9W10KICAgIGZvciBfIGluIHJhbmdlKHJuZy5yYW5kaW50KDEsMTUpKToKICAgICAgICBhPXJuZy5yYW5kaW50KDAsMzApOyBvdXQuYXBwZW5kKFthLGErcm5nLnJhbmRpbnQoMCw2KV0pCiAgICByZXR1cm4gKG91dCwpCmRlZiBiaWcocm5nKToKICAgIG91dD1bXQogICAgZm9yIF8gaW4gcmFuZ2UoMTAwMDAwKToKICAgICAgICBhPXJuZy5yYW5kaW50KDAsMTAqKjcpOyBvdXQuYXBwZW5kKFthLGErcm5nLnJhbmRpbnQoMCw1MCldKQogICAgcmV0dXJuIChvdXQsKQo="}, {"id": "meeting-rooms", "title": "Minimum Meeting Rooms", "topic": "Heap", "level": "Medium", "fn": "minRooms", "params": ["intervals"], "stub": "def minRooms(intervals: list[list[int]]) -> int:\n    # Write your code here\n    pass\n", "body": "<p>Each item in <code>intervals<\/code> is a meeting <code>[start, end]<\/code>. A meeting uses its room from <code>start<\/code> up to, but not including, <code>end<\/code>. Thus a meeting that starts at time 5 can use the room of a meeting that ends at time 5.<\/p><p>Return the minimum number of rooms for all the meetings.<\/p>", "cons": ["1 &le; len(intervals) &le; 100,000", "0 &le; start &lt; end &le; 10<sup>7<\/sup>"], "samples": [{"args": "[[0, 30], [5, 10], [15, 20]]", "argv": ["[[0, 30], [5, 10], [15, 20]]"], "out": "2", "why": "The meeting [0, 30] overlaps with the two other meetings, but those two do not overlap."}, {"args": "[[7, 10], [2, 4]]", "argv": ["[[7, 10], [2, 4]]"], "out": "1", "why": "The meetings do not overlap."}], "hidden": 16, "ref": "CmltcG9ydCBoZWFwcQpkZWYgcmVmKGl2KToKICAgIGl2PXNvcnRlZChpdik7IGg9W107IGJlc3Q9MAogICAgZm9yIHMsZSBpbiBpdjoKICAgICAgICB3aGlsZSBoIGFuZCBoWzBdPD1zOiBoZWFwcS5oZWFwcG9wKGgpCiAgICAgICAgaGVhcHEuaGVhcHB1c2goaCxlKTsgYmVzdD1tYXgoYmVzdCxsZW4oaCkpCiAgICByZXR1cm4gYmVzdApFREdFPVsoW1sxLDJdXSwpLChbWzEsNV0sWzUsMTBdXSwpLChbWzEsNV0sWzIsNl0sWzMsN11dLCksKFtbMSwxMF0sWzIsM10sWzMsNF0sWzQsNV1dLCksKFtbMCwxXSxbMCwxXSxbMCwxXV0sKV0KZGVmIHJhbmQocm5nKToKICAgIG91dD1bXQogICAgZm9yIF8gaW4gcmFuZ2Uocm5nLnJhbmRpbnQoMSwxNSkpOgogICAgICAgIGE9cm5nLnJhbmRpbnQoMCwzMCk7IG91dC5hcHBlbmQoW2EsYStybmcucmFuZGludCgxLDgpXSkKICAgIHJldHVybiAob3V0LCkKZGVmIGJpZyhybmcpOgogICAgb3V0PVtdCiAgICBmb3IgXyBpbiByYW5nZSgxMDAwMDApOgogICAgICAgIGE9cm5nLnJhbmRpbnQoMCwxMCoqNik7IG91dC5hcHBlbmQoW2EsYStybmcucmFuZGludCgxLDEwMDApXSkKICAgIHJldHVybiAob3V0LCkK"}, {"id": "eating-speed", "title": "Minimum Eating Speed", "topic": "Binary search on the answer", "level": "Medium", "fn": "minSpeed", "params": ["piles", "h"], "stub": "def minSpeed(piles: list[int], h: int) -> int:\n    # Write your code here\n    pass\n", "body": "<p>There are piles of bananas. <code>piles[i]<\/code> is the number of bananas in pile i. You have <code>h<\/code> hours.<\/p><p>Each hour, you select one pile and eat <code>k<\/code> bananas from it. If the pile has fewer than <code>k<\/code> bananas, you eat all of them, and you eat no more in that hour.<\/p><p>Return the minimum integer speed <code>k<\/code> that lets you eat all the bananas in <code>h<\/code> hours.<\/p>", "cons": ["1 &le; len(piles) &le; 100,000", "len(piles) &le; h &le; 10<sup>9<\/sup>", "1 &le; piles[i] &le; 10<sup>9<\/sup>"], "samples": [{"args": "[3, 6, 7, 11], 8", "argv": ["[3, 6, 7, 11]", "8"], "out": "4", "why": "At speed 4, the hours are 1 + 2 + 2 + 3 = 8."}, {"args": "[30, 11, 23, 4, 20], 5", "argv": ["[30, 11, 23, 4, 20]", "5"], "out": "30", "why": "You have one hour for each pile, so k must be the largest pile."}], "hidden": 17, "ref": "CmRlZiByZWYocGlsZXMsaCk6CiAgICBsbyxoaT0xLG1heChwaWxlcykKICAgIHdoaWxlIGxvPGhpOgogICAgICAgIG1pZD0obG8raGkpLy8yCiAgICAgICAgaWYgc3VtKChwK21pZC0xKS8vbWlkIGZvciBwIGluIHBpbGVzKTw9aDogaGk9bWlkCiAgICAgICAgZWxzZTogbG89bWlkKzEKICAgIHJldHVybiBsbwpFREdFPVsoWzFdLDEpLChbMTAwMDAwMDAwMF0sMiksKFs1LDUsNV0sMyksKFs1LDUsNV0sMTUpLChbMzAsMTEsMjMsNCwyMF0sNiksKFszMTI4ODQ0NzBdLDMxMjg4NDQ2OSldCmRlZiByYW5kKHJuZyk6CiAgICBuPXJuZy5yYW5kaW50KDEsMTApOyBwaWxlcz1bcm5nLnJhbmRpbnQoMSw1MCkgZm9yIF8gaW4gcmFuZ2UobildCiAgICByZXR1cm4gKHBpbGVzLCBybmcucmFuZGludChuLCBuKzQwKSkKZGVmIGJpZyhybmcpOgogICAgcGlsZXM9W3JuZy5yYW5kaW50KDEsMTAqKjkpIGZvciBfIGluIHJhbmdlKDEwMDAwMCldCiAgICByZXR1cm4gKHBpbGVzLCAxNTAwMDApCg=="}, {"id": "grid-path", "title": "Shortest Path in a Grid", "topic": "BFS", "level": "Medium", "fn": "shortestPath", "params": ["grid"], "stub": "def shortestPath(grid: list[str]) -> int:\n    # Write your code here\n    pass\n", "body": "<p>You get a grid as a list of strings. <code>'.'<\/code> is an open cell. <code>'#'<\/code> is a wall.<\/p><p>Start at the top-left cell. Each move goes up, down, left, or right to an open cell. Return the minimum number of moves to get to the bottom-right cell. If you cannot get there, or if the start or the end is a wall, return <code>-1<\/code>.<\/p>", "cons": ["1 &le; rows, columns &le; 400", "Each string has the same length"], "samples": [{"args": "[\"..#\", \"#..\", \"#..\"]", "argv": ["['..#', '#..', '#..']"], "out": "4", "why": "One path is right, down, right, down: 4 moves."}, {"args": "[\".#\", \"#.\"]", "argv": ["['.#', '#.']"], "out": "-1", "why": "Walls block all paths."}], "hidden": 16, "ref": "CmZyb20gY29sbGVjdGlvbnMgaW1wb3J0IGRlcXVlCmRlZiByZWYoZ3JpZCk6CiAgICBSLEM9bGVuKGdyaWQpLGxlbihncmlkWzBdKQogICAgaWYgZ3JpZFswXVswXT09JyMnIG9yIGdyaWRbUi0xXVtDLTFdPT0nIyc6IHJldHVybiAtMQogICAgZD1bWy0xXSpDIGZvciBfIGluIHJhbmdlKFIpXTsgZFswXVswXT0wOyBxPWRlcXVlKFsoMCwwKV0pCiAgICB3aGlsZSBxOgogICAgICAgIHIsYz1xLnBvcGxlZnQoKQogICAgICAgIGZvciBkcixkYyBpbiAoKDEsMCksKC0xLDApLCgwLDEpLCgwLC0xKSk6CiAgICAgICAgICAgIG5yLG5jPXIrZHIsYytkYwogICAgICAgICAgICBpZiAwPD1ucjxSIGFuZCAwPD1uYzxDIGFuZCBncmlkW25yXVtuY109PScuJyBhbmQgZFtucl1bbmNdPT0tMToKICAgICAgICAgICAgICAgIGRbbnJdW25jXT1kW3JdW2NdKzE7IHEuYXBwZW5kKChucixuYykpCiAgICByZXR1cm4gZFtSLTFdW0MtMV0KRURHRT1bKFsiLiJdLCksKFsiIyJdLCksKFsiLiMiLCIjLiJdLCksKFsiLi4iLCIjLiJdLCksKFsiLi4uLiIsIiMjIy4iLCIuLi4uIiwiLiMjIyIsIi4uLi4iXSwpXQpkZWYgcmFuZChybmcpOgogICAgUj1ybmcucmFuZGludCgxLDgpOyBDPXJuZy5yYW5kaW50KDEsOCkKICAgIHJldHVybiAoWyIiLmpvaW4oJyMnIGlmIHJuZy5yYW5kb20oKTwwLjI1IGVsc2UgJy4nIGZvciBfIGluIHJhbmdlKEMpKSBmb3IgXyBpbiByYW5nZShSKV0sKQpkZWYgYmlnKHJuZyk6CiAgICBSPUM9NDAwCiAgICBnPVtbIiMiIGlmIHJuZy5yYW5kb20oKTwwLjIgZWxzZSAiLiIgZm9yIF8gaW4gcmFuZ2UoQyldIGZvciBfIGluIHJhbmdlKFIpXQogICAgZ1swXVswXT0nLic7IGdbUi0xXVtDLTFdPScuJwogICAgcmV0dXJuIChbIiIuam9pbihyKSBmb3IgciBpbiBnXSwpCg=="}, {"id": "count-islands", "title": "Number of Islands", "topic": "DFS", "level": "Medium", "fn": "countIslands", "params": ["grid"], "stub": "def countIslands(grid: list[str]) -> int:\n    # Write your code here\n    pass\n", "body": "<p>You get a grid as a list of strings. <code>'1'<\/code> is land. <code>'0'<\/code> is water.<\/p><p>An island is a group of land cells that connect up, down, left, or right. Diagonal cells do not connect. Return the number of islands.<\/p><p>Hint for Python: a recursive DFS on a 400 &times; 400 island goes deeper than the recursion limit.<\/p>", "cons": ["1 &le; rows, columns &le; 400", "Each string has the same length"], "samples": [{"args": "[\"11000\", \"11000\", \"00100\", \"00011\"]", "argv": ["['11000', '11000', '00100', '00011']"], "out": "3", "why": "There are three groups of land."}, {"args": "[\"101\", \"010\", \"101\"]", "argv": ["['101', '010', '101']"], "out": "5", "why": "No two land cells connect, so each one is an island."}], "hidden": 16, "ref": "CmRlZiByZWYoZ3JpZCk6CiAgICBSLEM9bGVuKGdyaWQpLGxlbihncmlkWzBdKTsgc2Vlbj1zZXQoKTsgbj0wCiAgICBmb3IgciBpbiByYW5nZShSKToKICAgICAgICBmb3IgYyBpbiByYW5nZShDKToKICAgICAgICAgICAgaWYgZ3JpZFtyXVtjXT09JzEnIGFuZCAocixjKSBub3QgaW4gc2VlbjoKICAgICAgICAgICAgICAgIG4rPTE7IHN0PVsocixjKV07IHNlZW4uYWRkKChyLGMpKQogICAgICAgICAgICAgICAgd2hpbGUgc3Q6CiAgICAgICAgICAgICAgICAgICAgYSxiPXN0LnBvcCgpCiAgICAgICAgICAgICAgICAgICAgZm9yIGRyLGRjIGluICgoMSwwKSwoLTEsMCksKDAsMSksKDAsLTEpKToKICAgICAgICAgICAgICAgICAgICAgICAgeCx5PWErZHIsYitkYwogICAgICAgICAgICAgICAgICAgICAgICBpZiAwPD14PFIgYW5kIDA8PXk8QyBhbmQgZ3JpZFt4XVt5XT09JzEnIGFuZCAoeCx5KSBub3QgaW4gc2VlbjoKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHNlZW4uYWRkKCh4LHkpKTsgc3QuYXBwZW5kKCh4LHkpKQogICAgcmV0dXJuIG4KRURHRT1bKFsiMCJdLCksKFsiMSJdLCksKFsiMTExIiwiMTExIl0sKSwoWyIxMDEiLCIwMTAiLCIxMDEiXSwpLChbIjEiLCIwIiwiMSJdLCldCmRlZiByYW5kKHJuZyk6CiAgICBSPXJuZy5yYW5kaW50KDEsOCk7IEM9cm5nLnJhbmRpbnQoMSw4KQogICAgcmV0dXJuIChbIiIuam9pbignMScgaWYgcm5nLnJhbmRvbSgpPDAuNDUgZWxzZSAnMCcgZm9yIF8gaW4gcmFuZ2UoQykpIGZvciBfIGluIHJhbmdlKFIpXSwpCmRlZiBiaWcocm5nKToKICAgIHJldHVybiAoWyIxIio0MDAgZm9yIF8gaW4gcmFuZ2UoNDAwKV0sKQo="}, {"id": "min-coins", "title": "Coin Change", "topic": "Dynamic programming", "level": "Medium", "fn": "minCoins", "params": ["coins", "amount"], "stub": "def minCoins(coins: list[int], amount: int) -> int:\n    # Write your code here\n    pass\n", "body": "<p>You get a list of coin values <code>coins<\/code> and a total <code>amount<\/code>. You have an unlimited number of each coin.<\/p><p>Return the minimum number of coins that add up to <code>amount<\/code>. If no group of coins makes the amount, return <code>-1<\/code>.<\/p>", "cons": ["1 &le; len(coins) &le; 12", "1 &le; coins[i] &le; 10,000", "0 &le; amount &le; 20,000"], "samples": [{"args": "[1, 2, 5], 11", "argv": ["[1, 2, 5]", "11"], "out": "3", "why": "11 = 5 + 5 + 1."}, {"args": "[2], 3", "argv": ["[2]", "3"], "out": "-1", "why": "Coins of value 2 cannot make 3."}], "hidden": 17, "ref": "CmRlZiByZWYoY29pbnMsYW1vdW50KToKICAgIElORj1mbG9hdCgnaW5mJyk7IGRwPVswXStbSU5GXSphbW91bnQKICAgIGZvciB4IGluIHJhbmdlKDEsYW1vdW50KzEpOgogICAgICAgIGZvciBjIGluIGNvaW5zOgogICAgICAgICAgICBpZiBjPD14IGFuZCBkcFt4LWNdKzE8ZHBbeF06IGRwW3hdPWRwW3gtY10rMQogICAgcmV0dXJuIGRwW2Ftb3VudF0gaWYgZHBbYW1vdW50XSE9SU5GIGVsc2UgLTEKRURHRT1bKFsxXSwwKSwoWzJdLDMpLChbMl0sNCksKFs1LDNdLDcpLChbMTg2LDQxOSw4Myw0MDhdLDYyNDkpLChbN10sMSldCmRlZiByYW5kKHJuZyk6CiAgICBjb2lucz1zb3J0ZWQoc2V0KHJuZy5yYW5kaW50KDEsMTUpIGZvciBfIGluIHJhbmdlKHJuZy5yYW5kaW50KDEsNCkpKSkKICAgIHJldHVybiAoY29pbnMsIHJuZy5yYW5kaW50KDAsNjApKQpkZWYgYmlnKHJuZyk6CiAgICByZXR1cm4gKFszLDcsMTEsMjksNTMsOTcsMTMxLDE5NywzMTEsNDE5XSwgMjAwMDApCg=="}]</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
+<script>
+(() => {
+"use strict";
+const PROBLEMS = JSON.parse(document.getElementById("data").textContent);
+const byId = Object.fromEntries(PROBLEMS.map(p => [p.id, p]));
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const decodeRef = (b64) => decodeURIComponent(escape(atob(b64)));
+
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+};
+
+const state = {
+  pid: store.get("oa.pid") && byId[store.get("oa.pid")] ? store.get("oa.pid") : PROBLEMS[0].id,
+  codes: {},
+  best: {},          // pid -> {passed,total}
+  history: [],
+  running: false,
+  ready: false,
+  mock: null,        // {ids:[a,b], endAt, scores:{}}
+  chats: {},         // pid -> [{role, content, shown}]
+  db: null,
+  sample: null,
+};
+PROBLEMS.forEach(p => { state.codes[p.id] = store.get("oa.code." + p.id) || p.stub; });
+
+/* ---------- Editor ---------- */
+const cm = CodeMirror($("editor"), {
+  value: state.codes[state.pid], mode: "python", lineNumbers: true, indentUnit: 4, tabSize: 4,
+  indentWithTabs: false, matchBrackets: true, autoCloseBrackets: true, styleActiveLine: true,
+  extraKeys: {
+    Tab: (c) => c.somethingSelected() ? c.indentSelection("add") : c.replaceSelection("    ", "end"),
+    "Shift-Tab": (c) => c.indentSelection("subtract"),
+    "Ctrl-Enter": () => run("run"), "Cmd-Enter": () => run("run"),
+    "Shift-Ctrl-Enter": () => run("submit"), "Shift-Cmd-Enter": () => run("submit"),
+    "Ctrl-/": "toggleComment", "Cmd-/": "toggleComment",
+  },
+});
+let saveT = null;
+cm.on("change", () => {
+  state.codes[state.pid] = cm.getValue();
+  clearTimeout(saveT);
+  saveT = setTimeout(() => store.set("oa.code." + state.pid, state.codes[state.pid]), 400);
+});
+window.addEventListener("keydown", (e) => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "Enter" && !cm.hasFocus()) { e.preventDefault(); run(e.shiftKey ? "submit" : "run"); }
+});
+
+/* ---------- Problem list and statement ---------- */
+function scoreChip(pid) {
+  const b = state.best[pid];
+  if (!b) return '<span class="score">—</span>';
+  const cls = b.passed === b.total ? "full" : "part";
+  return `<span class="score ${cls}">${b.passed}/${b.total}</span>`;
+}
+function visibleProblems() { return state.mock ? state.mock.ids.map(i => byId[i]) : PROBLEMS; }
+function renderList() {
+  $("plist").innerHTML = visibleProblems().map((p) => {
+    const n = PROBLEMS.indexOf(p) + 1;
+    return `<button class="pitem ${p.id === state.pid ? "active" : ""}" data-pid="${p.id}">
+      <span class="num">${String(n).padStart(2, "0")}</span>
+      <span class="name">${esc(p.title)}<span class="tp">${esc(p.topic)}</span></span>
+      ${state.mock ? "" : scoreChip(p.id)}</button>`;
+  }).join("");
+  $("psel").innerHTML = visibleProblems().map(p => `<option value="${p.id}" ${p.id === state.pid ? "selected" : ""}>${PROBLEMS.indexOf(p) + 1}. ${esc(p.title)}</option>`).join("");
+}
+$("plist").addEventListener("click", (e) => { const b = e.target.closest(".pitem"); if (b) openProblem(b.dataset.pid); });
+$("psel").addEventListener("change", (e) => openProblem(e.target.value));
+
+function renderProblem() {
+  const p = byId[state.pid];
+  const lvl = p.level.toLowerCase();
+  const samples = p.samples.map((s, i) => `
+    <div class="sample">
+      <div class="row"><div class="k">Input</div><div class="v">${esc(p.params.map((n, j) => n + " = " + s.argv[j]).join("\n"))}</div></div>
+      <div class="row"><div class="k">Output</div><div class="v">${esc(s.out)}</div></div>
+      <div class="row"><div class="k">Why</div><div class="v why">${s.why}</div></div>
+    </div>`).join("");
+  const hist = state.mock ? "" : `
+    <h3>Your submissions</h3>
+    <div class="history" id="history">${historyHtml()}</div>`;
+  $("problem").innerHTML = `
+    <h1>${esc(p.title)}</h1>
+    <div class="meta">
+      ${state.mock ? "" : `<span class="tag">${esc(p.topic)}</span>`}
+      <span class="tag ${lvl}">${esc(p.level)}</span>
+    </div>
+    ${p.body}
+    <h3>Function</h3>
+    <p>Complete <code>${esc(p.fn)}</code>. Return the answer. Do not print it.</p>
+    <h3>Constraints</h3>
+    <ul>${p.cons.map(c => `<li>${c}</li>`).join("")}</ul>
+    <h3>Samples</h3>
+    ${samples}
+    <p class="note">Submit runs the samples and ${p.hidden} hidden tests: edge cases, random cases, and one large case that checks speed.</p>
+    ${hist}`;
+}
+function historyHtml() {
+  if (!state.history.length) return '<div class="note">No submissions yet.</div>';
+  return state.history.map(h => {
+    const d = new Date(h.ts);
+    const cls = h.passed === h.total ? "b-pass" : (h.passed > 0 ? "b-tle" : "b-fail");
+    return `<div class="hrow"><span class="when">${d.toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" })}</span>
+      <span class="badge ${cls}">${h.passed}/${h.total}</span><span class="note">${h.mode === "mock" ? "mock test" : "practice"}</span></div>`;
+  }).join("");
+}
+function openProblem(pid) {
+  state.pid = pid;
+  store.set("oa.pid", pid);
+  cm.setValue(state.codes[pid]);
+  cm.clearHistory();
+  renderList(); renderProblem();
+  $("pane-results").innerHTML = emptyResults();
+  $("customout").innerHTML = "";
+  $("custominput").value = byId[pid].samples[0].args;
+  renderChat();
+  loadHistory();
+}
+function emptyResults() {
+  const warn = runtime === "main" ? `<p class="note">Page mode: an infinite loop freezes this page. If that happens, reload the page. Your code stays saved.</p>` : "";
+  const log = !state.ready ? `<h4 style="margin:12px 0 4px;font-size:12px;color:var(--muted)">Python load log</h4><pre class="kv v" id="diag" style="border:1px solid var(--line);border-radius:6px;margin:0">${esc(diag.join("\n"))}</pre>` : "";
+  return warn + log + `<p class="empty">Click <strong>Run code</strong> to test the samples, or <strong>Submit</strong> to run all hidden tests.<br>Keys: <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Enter</kbd> runs. Add <kbd>Shift</kbd> to submit.</p>`;
+}
+$("resetcode").addEventListener("click", () => {
+  confirmBox("Reset the code?", "This replaces your code with the start code. You cannot undo this after you leave the problem.", "Reset", () => { cm.setValue(byId[state.pid].stub); });
+});
+
+/* ---------- Python runtime: a worker if the frame allows it, else the page itself ---------- */
+const _oaFetch = self.fetch.bind(self);
+self.fetch = async (u, o) => {
+  const r = await _oaFetch(u, o);
+  const url = String(u && u.url || u);
+  if (url.endsWith(".wasm") && r.ok && !(r.headers.get("content-type") || "").includes("wasm")) {
+    return new Response(await r.arrayBuffer(), { status: 200, headers: { "Content-Type": "application/wasm" } });
+  }
+  return r;
+};
+const PYO = "https://cdn.jsdelivr.net/pyodide/v0.26.4/full/";
+let worker = null, watch = null, current = null, queued = null, loadTimer = null, runtime = "worker", mainPy = null;
+const diag = [];
+function logDiag(t) {
+  diag.push(new Date().toLocaleTimeString() + "  " + t);
+  if (!state.ready) { const el = $("diag"); if (el) el.textContent = diag.join("\n"); }
+}
+document.addEventListener("securitypolicyviolation", (e) => logDiag(`BLOCKED by the frame: ${e.blockedURI || "(inline)"} (rule: ${e.effectiveDirective})`));
+window.addEventListener("unhandledrejection", (e) => logDiag("Error: " + (e.reason && e.reason.message || e.reason)));
+window.addEventListener("error", (e) => logDiag("Error: " + e.message));
+function setPy(cls, text) { $("pystatus").className = "pill " + cls; $("pytext").textContent = text; }
+function startWorker() {
+  state.ready = false;
+  setPy("loading", "Python is loading");
+  try {
+    const blob = new Blob([$("workersrc").textContent], { type: "text/javascript" });
+    worker = new Worker(URL.createObjectURL(blob));
+  } catch (e) { logDiag("Worker blocked: " + (e.message || e)); worker = null; startMain(); return; }
+  logDiag("Worker started. Downloading Python in the worker.");
+  worker.onmessage = (e) => onWorker(JSON.parse(e.data));
+  worker.onerror = (e) => { logDiag("Worker error: " + (e.message || "no message")); stopWorker(); startMain(); };
+  clearTimeout(loadTimer);
+  loadTimer = setTimeout(() => { if (!state.ready) { logDiag("Worker gave no answer in 20 seconds."); stopWorker(); startMain(); } }, 20000);
+  worker.postMessage({ type: "init", base: PYO, harness: $("harness").textContent });
+}
+function stopWorker() { clearTimeout(loadTimer); if (worker) { try { worker.terminate(); } catch (e) {} } worker = null; }
+function startMain() {
+  runtime = "main";
+  state.ready = false;
+  setPy("loading", "Python is loading (page mode)");
+  window._oaPost = (s) => onWorker(JSON.parse(s));
+  const go = async () => {
+    try {
+      logDiag("pyodide.js loaded from " + PYO + ". Downloading the Python runtime (about 12 MB).");
+      mainPy = await loadPyodide({ indexURL: PYO });
+      logDiag("Python runtime started.");
+      mainPy.runPython($("harness").textContent);
+      onWorker({ type: "ready" });
+    } catch (e) { onWorker({ type: "fatal", error: String(e && e.message || e) }); }
+  };
+  logDiag("Page mode: downloading pyodide.js.");
+  if (window.loadPyodide) { go(); return; }
+  const sc = document.createElement("script");
+  sc.src = PYO + "pyodide.js";
+  sc.onload = go;
+  sc.onerror = () => onWorker({ type: "fatal", error: "The browser could not load pyodide.js from " + PYO });
+  document.head.appendChild(sc);
+  clearTimeout(loadTimer);
+  loadTimer = setTimeout(() => { if (!state.ready) { setPy("failed", "Python did not load"); showFatal("Python did not load in 60 seconds. Check your internet connection."); } }, 60000);
+}
+function showFatal(msg) {
+  $("pane-results").innerHTML = `<div class="errbox">${esc(msg)}\nReload the page to try again.</div><h4 style="margin:12px 0 4px">Load log</h4><pre class="kv v" id="diag" style="border:1px solid var(--line);border-radius:6px">${esc(diag.join("\n"))}</pre>`;
+}
+function onWorker(m) {
+  if (m.type === "log") { logDiag(m.text); return; }
+  if (m.type === "ready") {
+    clearTimeout(loadTimer);
+    state.ready = true; setPy("ready", runtime === "main" ? "Python ready (page mode)" : "Python ready");
+    logDiag("Ready.");
+    if (!current) $("pane-results").innerHTML = emptyResults();
+    if (queued) { const q = queued; queued = null; send(q); }
+    return;
+  }
+  if (m.type === "fatal") { logDiag("Failed: " + m.error); setPy("failed", "Python failed to load"); showFatal("The Python runtime did not start: " + m.error); return; }
+  if (!current) return;
+  const r = current;
+  if (m.type === "plan") { r.cases = m.kinds.map(k => ({ kind: k, status: "wait" })); r.render(); }
+  else if (m.type === "start") {
+    clearTimeout(watch);
+    r.active = m.i;
+    watch = setTimeout(() => onTimeout(m.i), m.watch);
+  }
+  else if (m.type === "case") { clearTimeout(watch); r.cases[m.i] = m; r.render(); }
+  else if (m.type === "compile_error" || m.type === "input_error") { r.error = m.error; finish(); }
+  else if (m.type === "crash") {
+    r.error = "Python stopped with an internal error. This can happen after very deep recursion.\n" + m.error;
+    finish();
+    if (runtime === "worker") { stopWorker(); startWorker(); }
+  }
+  else if (m.type === "done") finish();
+}
+function onTimeout(i) {
+  const r = current; if (!r || runtime !== "worker") return;
+  stopWorker();
+  r.cases[i] = { ...r.cases[i], status: "tle", timeout: true };
+  for (let j = i + 1; j < r.cases.length; j++) if (r.cases[j].status === "wait") r.cases[j].status = "skip";
+  finish();
+  startWorker();
+}
+function send(job) {
+  if (!state.ready) { queued = job; current.render(); return; }
+  if (runtime === "worker") { worker.postMessage(job); return; }
+  setTimeout(() => {
+    try { mainPy.globals.get("_run")(job.mode, job.code, job.fn, job.ref, JSON.stringify(job.samples), job.custom || ""); }
+    catch (e) { onWorker({ type: "crash", error: String(e && e.message || e) }); }
+  }, 40);
+}
+function setRunning(on) {
+  state.running = on;
+  ["run", "submit", "runcustom"].forEach(id => $(id).disabled = on);
+  $("submit").textContent = on && current && current.mode === "submit" ? "Running" : "Submit";
+}
+
+function run(mode) {
+  if (state.running) return;
+  const p = byId[state.pid];
+  const code = cm.getValue();
+  showTab(mode === "custom" ? "custom" : "results");
+  current = {
+    mode, pid: p.id, code, cases: [], error: null, active: -1,
+    render() { mode === "custom" ? renderCustom(this) : renderResults(this); },
+  };
+  setRunning(true);
+  current.render();
+  send({ type: "run", mode, code, fn: p.fn, ref: decodeRef(p.ref), samples: p.samples.map(s => s.args), custom: $("custominput").value });
+}
+function finish() {
+  clearTimeout(watch);
+  const r = current;
+  setRunning(false);
+  r.done = true;
+  r.render();
+  if (r.mode === "submit") recordSubmit(r);
+  else if (r.mode === "run") saveLatest(r);
+}
+$("run").addEventListener("click", () => run("run"));
+$("submit").addEventListener("click", () => run("submit"));
+$("runcustom").addEventListener("click", () => run("custom"));
+
+/* ---------- Results ---------- */
+const KIND = { sample: "Sample", edge: "Hidden: edge case", random: "Hidden: random case", large: "Hidden: large input (speed)", custom: "Custom input" };
+const STATUS = { pass: "Passed", fail: "Wrong answer", error: "Runtime error", tle: "Time limit exceeded", wait: "Waiting", skip: "Not run", custom: "Done" };
+function caseBody(c, p) {
+  const rows = [];
+  if (c.args) rows.push(["Input", p.params.map((n, j) => n + " = " + c.args[j]).join("\n")]);
+  if (c.kind === "large") rows.push(["Input", "Large input. Hidden for size."]);
+  if (c.expected != null) rows.push(["Expected", c.expected]);
+  if (c.got != null) rows.push(["Your output", c.got]);
+  if (c.error) rows.push(["Error", c.error, "err"]);
+  if (c.timeout) rows.push(["Note", "Your code did not finish. Look for an infinite loop or a solution that is too slow.", "err"]);
+  else if (c.status === "tle") rows.push(["Time", `${c.ms} ms. The limit is ${c.limit} ms. Look for a faster method.`, "err"]);
+  if (c.stdout) rows.push(["Printed", c.stdout.replace(/\n$/, "")]);
+  if (c.ref_error) rows.push(["Note", "The reference solution cannot use this input. Check that it follows the constraints."]);
+  return `<div class="body">${rows.map(([k, v, cls]) => `<div class="kv"><div class="k">${k}</div><div class="v ${cls || ""}">${esc(v)}</div></div>`).join("")}</div>`;
+}
+function renderResults(r) {
+  const p = byId[r.pid];
+  const pane = $("pane-results");
+  if (r.error) { pane.innerHTML = `<div class="errbox">${esc(r.error)}</div>`; return; }
+  if (!r.cases.length) { pane.innerHTML = `<p class="empty">${state.ready ? "Running" : "Python is loading. Your code runs when it is ready."}</p>`; return; }
+  const done = r.cases.filter(c => !["wait"].includes(c.status));
+  const passed = r.cases.filter(c => c.status === "pass").length;
+  const total = r.cases.length;
+  let head = "";
+  if (r.done) {
+    const all = passed === total;
+    const label = r.mode === "submit" ? (all ? "All tests passed" : `${passed} of ${total} tests passed`) : (all ? "Samples passed" : `${passed} of ${total} samples passed`);
+    head = `<div class="summary"><span class="big ${all ? "good" : "bad"}">${label}</span>
+      <span class="bar"><i style="width:${(100 * passed / total).toFixed(1)}%"></i></span>
+      ${r.mode === "submit" && !state.mock ? `<button class="btn small" id="reviewnow">${state.sample ? "Review with Claude" : "Copy for Claude"}</button>` : ""}</div>`;
+    if (r.mode === "run" && passed === total) head += `<p class="note" style="margin:-4px 0 10px">The samples pass. Submit to run the hidden tests.</p>`;
+  } else head = `<div class="summary"><span class="big">Running ${Math.min(done.length + 1, total)} of ${total}</span></div>`;
+  const items = r.cases.map((c, i) => {
+    const hidden = c.kind !== "sample";
+    const open = (!hidden && (c.status !== "pass" || r.mode === "run")) ? "open" : "";
+    const label = `${KIND[c.kind]} ${c.kind === "sample" ? i + 1 : ""}`;
+    const showBody = c.status !== "wait" && c.status !== "skip";
+    return `<details class="case" ${open}>
+      <summary><header><span class="badge b-${c.status}">${STATUS[c.status]}</span><span>${esc(label)}</span>
+      ${c.ms != null ? `<span class="ms">${c.ms} ms</span>` : ""}</header></summary>
+      ${showBody ? caseBody(c, p) : ""}</details>`;
+  }).join("");
+  pane.innerHTML = head + items + (r.mode === "submit" && r.done ? `<p class="note">Practice mode shows the input of hidden tests. The real HackerRank test does not.</p>` : "");
+  const rb = $("reviewnow"); if (rb) rb.addEventListener("click", () => { showTab("claude"); if (state.sample) review(); else copyForClaude(); });
+}
+function renderCustom(r) {
+  const p = byId[r.pid];
+  const out = $("customout");
+  if (r.error) { out.innerHTML = `<div class="errbox">${esc(r.error)}</div>`; return; }
+  const c = r.cases[0];
+  if (!c || c.status === "wait") { out.innerHTML = `<p class="empty">${state.ready ? "Running" : "Python is loading."}</p>`; return; }
+  let verdict = c.status;
+  out.innerHTML = `<div class="case"><header><span class="badge b-${verdict}">${verdict === "pass" ? "Same as expected" : STATUS[verdict]}</span><span>Custom input</span>${c.ms != null ? `<span class="ms">${c.ms} ms</span>` : ""}</header>${caseBody(c, p)}</div>`;
+}
+
+/* ---------- Saving (db) ---------- */
+function setSave(cls, text) { $("savestatus").className = "pill " + cls; $("savetext").textContent = text; }
+async function initDb() {
+  let db = null;
+  try { db = await (window.claude && window.claude.use ? window.claude.use("db") : null); } catch (e) { db = null; }
+  if (!db) {
+    setSave("ready", "Saved in this browser");
+    localAttempts().forEach(a => { const b = state.best[a.pid]; if (!b || b.total !== a.total || a.passed > b.passed) state.best[a.pid] = { passed: a.passed, total: a.total }; });
+    renderList(); renderProblem(); loadHistory(); return;
+  }
+  state.db = db;
+  setSave("ready", "Saving on");
+  try {
+    const snap = await db.collection("latest").get();
+    snap.docs.forEach(d => { const v = d.data(); if (v && v.bestTotal) state.best[d.id] = { passed: v.bestPassed, total: v.bestTotal }; });
+    renderList();
+  } catch (e) { setSave("failed", "Saving: cannot read"); }
+  loadHistory();
+}
+function localAttempts() { try { return JSON.parse(store.get("oa.attempts") || "[]"); } catch (e) { return []; } }
+async function loadHistory() {
+  state.history = [];
+  if (state.mock) return;
+  if (!state.db) { state.history = localAttempts().filter(a => a.pid === state.pid).sort((a, b) => b.ts - a.ts).slice(0, 5); refreshHistory(); return; }
+  const pid = state.pid;
+  try {
+    const snap = await state.db.collection("attempts").where("pid", "==", pid).orderBy("ts", "desc").limit(5).get();
+    if (pid !== state.pid) return;
+    state.history = snap.docs.map(d => d.data());
+  } catch (e) { /* keep empty */ }
+  refreshHistory();
+}
+function refreshHistory() { const h = $("history"); if (h) h.innerHTML = historyHtml(); }
+function summarize(r) {
+  return r.cases.map((c, i) => ({ i, kind: c.kind, status: c.status, ms: c.ms ?? null,
+    args: c.args ? c.args.join(", ").slice(0, 300) : null, expected: c.expected ? String(c.expected).slice(0, 200) : null,
+    got: c.got ? String(c.got).slice(0, 200) : null, error: c.error ? String(c.error).slice(0, 400) : null }));
+}
+async function saveLatest(r, extra) {
+  if (!state.db) return;
+  const b = state.best[r.pid];
+  const body = { pid: r.pid, title: byId[r.pid].title, code: r.code, ts: Date.now(), lastMode: r.mode,
+    lastPassed: r.cases.filter(c => c.status === "pass").length, lastTotal: r.cases.length,
+    bestPassed: b ? b.passed : 0, bestTotal: b ? b.total : 0, lastError: r.error || null, ...(extra || {}) };
+  try { await state.db.doc("latest/" + r.pid).set(body); } catch (e) { setSave("failed", "Saving failed"); }
+}
+async function recordSubmit(r) {
+  const passed = r.error ? 0 : r.cases.filter(c => c.status === "pass").length;
+  const total = r.error ? byId[r.pid].samples.length + byId[r.pid].hidden : r.cases.length;
+  const b = state.best[r.pid];
+  if (!b || b.total !== total || passed > b.passed) state.best[r.pid] = { passed, total };
+  if (state.mock) { const prev = state.mock.scores[r.pid]; if (!prev || passed > prev.passed) state.mock.scores[r.pid] = { passed, total }; }
+  renderList();
+  if (!state.db) {
+    const list = localAttempts();
+    list.push({ pid: r.pid, passed, total, ts: Date.now(), mode: state.mock ? "mock" : "practice" });
+    store.set("oa.attempts", JSON.stringify(list.slice(-300)));
+    loadHistory();
+    return;
+  }
+  const doc = { pid: r.pid, title: byId[r.pid].title, code: r.code, passed, total, ts: Date.now(),
+    mode: state.mock ? "mock" : "practice", error: r.error || null, cases: summarize(r) };
+  try { await state.db.collection("attempts").add(doc); } catch (e) { setSave("failed", "Saving failed"); }
+  await saveLatest(r);
+  loadHistory();
+}
+
+/* ---------- Claude review ---------- */
+function md(src) {
+  const blocks = [];
+  let s = String(src).replace(/```(\w*)\n?([\s\S]*?)```/g, (_, l, code) => { blocks.push(`<pre><code>${esc(code.replace(/\n$/, ""))}</code></pre>`); return `\u0000${blocks.length - 1}\u0000`; });
+  s = esc(s);
+  const inline = (t) => t.replace(/`([^`]+)`/g, "<code>$1</code>").replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>").replace(/(^|\W)\*([^*\n]+)\*(?=\W|$)/g, "$1<em>$2</em>");
+  const out = []; let list = null;
+  const close = () => { if (list) { out.push(`</${list}>`); list = null; } };
+  for (const line of s.split("\n")) {
+    let m;
+    if (/^\u0000\d+\u0000$/.test(line.trim())) { close(); out.push(line.trim()); }
+    else if ((m = line.match(/^#{1,6}\s+(.*)/))) { close(); out.push(`<h4>${inline(m[1])}</h4>`); }
+    else if ((m = line.match(/^\s*[-*]\s+(.*)/))) { if (list !== "ul") { close(); out.push("<ul>"); list = "ul"; } out.push(`<li>${inline(m[1])}</li>`); }
+    else if ((m = line.match(/^\s*\d+[.)]\s+(.*)/))) { if (list !== "ol") { close(); out.push("<ol>"); list = "ol"; } out.push(`<li>${inline(m[1])}</li>`); }
+    else if (!line.trim()) { close(); }
+    else { close(); out.push(`<p>${inline(line)}</p>`); }
+  }
+  close();
+  return out.join("").replace(/\u0000(\d+)\u0000/g, (_, i) => blocks[+i]);
+}
+function chatFor(pid) { return state.chats[pid] || (state.chats[pid] = []); }
+function renderChat() {
+  const box = $("chat");
+  const msgs = chatFor(state.pid);
+  const locked = !!state.mock;
+  $("review").disabled = locked || !state.sample;
+  $("asksend").disabled = locked || !state.sample;
+  $("askin").disabled = locked || !state.sample;
+  document.querySelector(".ask").style.display = state.sample ? "" : "none";
+  if (locked) { box.innerHTML = `<p class="empty">Claude review is off during a mock test, the same as the real screen. It comes back when the test ends.</p>`; return; }
+  if (!state.sample) {
+    box.innerHTML = `<p class="empty"><strong>Copy for Claude</strong> copies the problem, your code, and your latest test results. Paste it into your Claude chat. Claude finds bugs, gives the Big O, and gives one hint.</p>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><button class="btn primary" id="copyclaude">Copy for Claude</button><span class="note" id="copynote"></span></div>
+      <textarea class="custom" id="copytext" style="display:none;margin-top:10px;min-height:160px" readonly aria-label="Text for Claude"></textarea>`;
+    $("copyclaude").onclick = copyForClaude;
+    return;
+  }
+  if (!msgs.length) { box.innerHTML = `<p class="empty"><strong>Review my code</strong> sends your code and your latest test results to Claude. Claude finds bugs, gives the Big O, and gives one hint. Claude does not give the full answer unless you ask for it.</p>`; return; }
+  box.innerHTML = msgs.filter(m => m.shown !== false).map(m => `<div class="msg ${m.role === "user" ? "user" : ""}"><div class="who">${m.role === "user" ? "You" : "Claude"}</div>${m.role === "user" ? `<p>${esc(m.label || m.content)}</p>` : md(m.content || "Thinking...")}</div>`).join("");
+  const pane = $("pane-claude"); pane.scrollTop = pane.scrollHeight;
+}
+function contextText() {
+  const p = byId[state.pid];
+  const tmp = document.createElement("div"); tmp.innerHTML = p.body;
+  const r = current && current.pid === p.id && current.done ? current : null;
+  let res = "No test results yet.";
+  if (r) {
+    if (r.error) res = "The code did not run:\n" + r.error;
+    else {
+      const passed = r.cases.filter(c => c.status === "pass").length;
+      res = `${r.mode === "submit" ? "Submit" : "Run"}: ${passed} of ${r.cases.length} tests passed.\n` +
+        r.cases.filter(c => c.status !== "pass").slice(0, 6).map(c => `- ${KIND[c.kind] || c.kind}: ${STATUS[c.status]}` +
+          (c.args ? `\n  input: ${c.args.join(", ").slice(0, 300)}` : "") + (c.expected != null ? `\n  expected: ${String(c.expected).slice(0, 200)}` : "") +
+          (c.got != null ? `\n  got: ${String(c.got).slice(0, 200)}` : "") + (c.error ? `\n  error: ${c.error.slice(0, 300)}` : "") +
+          (c.status === "tle" ? `\n  time: ${c.ms ?? "did not finish"} ms, limit ${c.limit ?? "?"} ms` : "")).join("\n");
+    }
+  }
+  return `PROBLEM: ${p.title}\n${tmp.textContent}\nConstraints: ${p.cons.map(c => { tmp.innerHTML = c; return tmp.textContent; }).join("; ")}\nFunction: ${p.fn}\n\nSTUDENT CODE (Python):\n\`\`\`python\n${cm.getValue()}\n\`\`\`\n\nTEST RESULTS:\n${res}`;
+}
+const COACH = `You are a coding coach. The student is practicing for a Microsoft Software Engineer Intern HackerRank screen in Python. The student knows C++ from USACO and is relearning Python.
+Rules for your answer:
+- Write only in ASD-STE100 Simplified Technical English: short sentences (20 words or fewer), active voice, simple common words, one instruction in each sentence.
+- Do not use em dashes.
+- Use Markdown. Keep it under 220 words unless the student asks for more.
+- Do not write the full corrected solution unless the student asks for it. Small code fragments of 1 to 3 lines are OK.
+- Refer to line numbers when you talk about a bug.`;
+async function askClaude(userText, label) {
+  if (!state.sample) return;
+  const msgs = chatFor(state.pid);
+  msgs.push({ role: "user", content: userText, label });
+  const reply = { role: "assistant", content: "" };
+  msgs.push(reply);
+  renderChat();
+  ["review", "asksend"].forEach(id => $(id).disabled = true);
+  try {
+    const convo = msgs.slice(0, -1).map(m => ({ role: m.role, content: m.content }));
+    const res = await state.sample(convo, { onText: ({ text }) => { reply.content = text; renderChat(); }, cache: false });
+    reply.content = res.text || reply.content;
+  } catch (e) {
+    reply.content = e && e.code === "rate_limited" ? "Claude is busy. Wait one minute, then try again." :
+      e && e.code === "not_granted" ? "Claude review is not allowed in this view." : "Claude did not answer. Try again.";
+  }
+  renderChat();
+}
+function reviewPrompt() {
+  return `${COACH}\n\nReview this attempt. Give: 1) what is wrong, with a test input that shows each bug, 2) the time and space complexity and whether it is fast enough for the constraints, 3) Python errors or style problems, 4) one hint for the next step.\n\n${contextText()}`;
+}
+async function copyForClaude() {
+  const text = reviewPrompt();
+  try { await navigator.clipboard.writeText(text); $("copynote").textContent = "Copied. Paste it into your Claude chat."; }
+  catch (e) { const t = $("copytext"); t.style.display = "block"; t.value = text; t.select(); $("copynote").textContent = "Your browser blocked the copy. Select the text below and copy it."; }
+}
+function review() {
+  askClaude(`${COACH}\n\nReview this attempt. Give: 1) what is wrong, with a test input that shows each bug, 2) the time and space complexity and whether it is fast enough for the constraints, 3) Python errors or style problems, 4) one hint for the next step.\n\n${contextText()}`, "Review my code.");
+}
+$("review").addEventListener("click", review);
+function ask() {
+  const q = $("askin").value.trim(); if (!q) return;
+  $("askin").value = "";
+  const first = chatFor(state.pid).length === 0;
+  askClaude(first ? `${COACH}\n\nThe student asks: ${q}\n\n${contextText()}` : `${q}\n\n(My current code and results:)\n${contextText()}`, q);
+}
+$("asksend").addEventListener("click", ask);
+$("askin").addEventListener("keydown", (e) => { if (e.key === "Enter") ask(); });
+async function initSample() {
+  try { state.sample = await (window.claude && window.claude.use ? window.claude.use("sample") : null); } catch (e) { state.sample = null; }
+  renderChat();
+}
+
+/* ---------- Tabs and splitter ---------- */
+function showTab(name) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
+  document.querySelectorAll(".pane").forEach(p => p.classList.toggle("active", p.id === "pane-" + name));
+}
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => showTab(t.dataset.tab)));
+(() => {
+  const sp = $("splitter"), work = document.querySelector(".work");
+  let drag = false;
+  sp.addEventListener("pointerdown", (e) => { drag = true; sp.setPointerCapture(e.pointerId); });
+  sp.addEventListener("pointerup", () => { drag = false; cm.refresh(); });
+  sp.addEventListener("pointermove", (e) => {
+    if (!drag) return;
+    const rect = work.getBoundingClientRect();
+    const h = Math.min(Math.max(rect.bottom - e.clientY, 110), rect.height - 200);
+    work.style.setProperty("--console-h", h + "px");
+  });
+})();
+
+/* ---------- Timer ---------- */
+const timer = { total: 35 * 60, left: 35 * 60, endAt: null, t: null };
+function fmt(s) { s = Math.max(0, Math.round(s)); return `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`; }
+function tick() {
+  if (timer.endAt) timer.left = (timer.endAt - Date.now()) / 1000;
+  $("clock").textContent = fmt(timer.left);
+  $("clock").classList.toggle("low", timer.left <= 300);
+  if (timer.endAt && timer.left <= 0) {
+    stopTimer(); timer.left = 0; $("clock").textContent = "00:00";
+    if (state.mock) endMock(true); else infoBox("Time is up", "Stop and look at your result. On the real test, a correct slow solution gets partial points. You can keep working here.");
+  }
+  if (state.mock) $("mocktext").textContent = `Mock test in progress: ${fmt(timer.left)} left. Submit each problem before the time ends.`;
+}
+function startTimer() { timer.endAt = Date.now() + timer.left * 1000; clearInterval(timer.t); timer.t = setInterval(tick, 250); $("tstart").textContent = "Pause"; }
+function stopTimer() { clearInterval(timer.t); timer.endAt = null; $("tstart").textContent = "Start"; }
+$("tstart").addEventListener("click", () => {
+  if (state.mock) return;
+  if (timer.endAt) { tick(); stopTimer(); } else { if (timer.left <= 0) timer.left = timer.total; startTimer(); }
+});
+$("treset").addEventListener("click", () => { if (state.mock) return; stopTimer(); timer.left = timer.total; tick(); });
+$("tlen").addEventListener("change", (e) => { if (state.mock) return; stopTimer(); timer.total = timer.left = +e.target.value * 60; tick(); });
+
+/* ---------- Mock test ---------- */
+function startMock() {
+  const pool = PROBLEMS.map(p => p.id).sort(() => Math.random() - 0.5);
+  const ids = pool.slice(0, 2).sort((a, b) => PROBLEMS.indexOf(byId[a]) - PROBLEMS.indexOf(byId[b]));
+  state.mock = { ids, scores: {} };
+  ids.forEach(id => { state.codes[id] = byId[id].stub; });
+  $("mockbar").classList.add("show");
+  ["tstart", "treset", "tlen"].forEach(id => $(id).disabled = true);
+  stopTimer(); timer.total = timer.left = 70 * 60; startTimer();
+  openProblem(ids[0]);
+  showTab("results");
+}
+function endMock(timeUp) {
+  const m = state.mock; if (!m) return;
+  stopTimer();
+  const lines = m.ids.map(id => `<div class="mockline"><span>${esc(byId[id].title)}</span><strong>${m.scores[id] ? m.scores[id].passed + " / " + m.scores[id].total + " passed" : "not submitted"}</strong></div>`).join("");
+  state.mock = null;
+  $("mockbar").classList.remove("show");
+  ["tstart", "treset", "tlen"].forEach(id => $(id).disabled = false);
+  timer.total = timer.left = +$("tlen").value * 60; tick();
+  renderList(); renderProblem(); renderChat(); loadHistory();
+  infoBox(timeUp ? "Time is up" : "Mock test ended", `<p>Your scores on the hidden tests:</p>${lines}<p style="margin-top:12px">Claude review is on again. Open each problem and click <strong>Review my code</strong>.</p>`, true);
+}
+$("mockstart").addEventListener("click", () => confirmBox("Start a mock test?", "You get 2 random problems and 70 minutes. Claude review is off until the end. The start code replaces your saved code for these 2 problems.", "Start", startMock));
+$("mockend").addEventListener("click", () => confirmBox("End the mock test now?", "Your score is the best submit on each problem.", "End test", () => endMock(false)));
+
+/* ---------- Dialogs ---------- */
+function confirmBox(title, text, ok, fn) {
+  $("dialog").innerHTML = `<h2>${esc(title)}</h2><p>${esc(text)}</p><div class="row"><button class="btn" id="dno">Cancel</button><button class="btn primary" id="dyes">${esc(ok)}</button></div>`;
+  $("overlay").classList.add("show");
+  $("dno").onclick = () => $("overlay").classList.remove("show");
+  $("dyes").onclick = () => { $("overlay").classList.remove("show"); fn(); };
+  $("dyes").focus();
+}
+function infoBox(title, html, raw) {
+  $("dialog").innerHTML = `<h2>${esc(title)}</h2>${raw ? html : `<p>${esc(html)}</p>`}<div class="row"><button class="btn primary" id="dok">OK</button></div>`;
+  $("overlay").classList.add("show");
+  $("dok").onclick = () => $("overlay").classList.remove("show");
+  $("dok").focus();
+}
+
+/* ---------- Start ---------- */
+renderList(); renderProblem();
+$("pane-results").innerHTML = emptyResults();
+$("custominput").value = byId[state.pid].samples[0].args;
+renderChat();
+try { startWorker(); } catch (e) { startMain(); }
+initDb();
+initSample();
+setTimeout(() => cm.refresh(), 50);
+})();
+</script>
+</body>
+</html>
