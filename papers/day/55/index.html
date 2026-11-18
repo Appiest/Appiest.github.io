@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 55: ScaleVLA: Scaling Vision-Language-Action Models to 552 Billion Parameters</title>
+<meta name="description" content="Robot &#39;brains&#39; usually sit on top of small 2 to 8 billion parameter vision-language models; ScaleVLA plugs in a frozen 552-billion-parameter frontier model instead, trains only a small action module on top, and finds the robot learns a task from 10 demonstrations better than a small-brained robot does from 50, copes better with unfamiliar setups, and still answers in about a fifth of a second.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">ScaleVLA: Scaling Vision-Language-Action Models to 552 Billion Parameters</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">55</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Ruixi Yu, Dairu Liu, Xuchuan Chen, Zekun Qi and others, with He Wang and Li Yi (Tsinghua, Peking University, Shanghai Jiao Tong University, Galbot)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.21607" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Robot &#39;brains&#39; usually sit on top of small 2 to 8 billion parameter vision-language models; ScaleVLA plugs in a frozen 552-billion-parameter frontier model instead, trains only a small action module on top, and finds the robot learns a task from 10 demonstrations better than a small-brained robot does from 50, copes better with unfamiliar setups, and still answers in about a fifth of a second.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>If you give a robot a much bigger &quot;understanding&quot; brain, even one you never retrain, it learns physical skills from far fewer examples and handles surprises better, and the cost in reaction time is smaller than you&#39;d expect: 276 times the parameters, only about 1.9 times slower.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track, this is the direct descendant of <strong>RT-2 (Day 21)</strong>, which first showed that a web-trained vision-language model could be turned into a robot controller. It also uses <strong>CLIP (Day 15)</strong>-style vision-language understanding inside the backbone, the <strong>Transformer (Day 9)</strong> everywhere, and a cousin of <strong>diffusion (Day 12)</strong>, called flow matching, to produce smooth motions. On the frontier track, it sits next to Day 27 (GPT-6-Astra as a robot brain), Day 37 (TAPESTRY) and Day 44 (uni-robot-agent): all asking &quot;how much of a robot&#39;s skill can be borrowed from a big pretrained model?&quot; This paper answers one narrow version very cleanly: what if you just make that model enormous?</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>A <strong>VLA (vision-language-action model)</strong> is a robot brain that takes in camera images and an instruction (&quot;plug in the charger&quot;) and outputs motor commands. Since RT-2 in 2023, the recipe has been: start from a <strong>VLM (vision-language model)</strong>, an AI that understands images and text, then attach something that outputs actions. But in practice almost every VLA uses a small VLM, typically 2 to 8 billion parameters (π0 about 3 billion, OpenVLA 7 billion, NVIDIA&#39;s GR00T N1.7 uses a 2-billion-parameter backbone). The reason is speed: a robot has to react in a fraction of a second, and giant chatbot-scale models were assumed to be far too slow. Meanwhile robots still need lots of human demonstrations per task, and still fail when the room, objects or lighting change slightly. Nobody had tested cleanly whether a truly frontier-sized model (hundreds of billions of parameters) would help, because nobody had made one fast enough to try.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-a-frozen-giant-eye-and-mind-plus-a-small-trainable-hand">1. A frozen giant &quot;eye and mind,&quot; plus a small trainable &quot;hand&quot;</h3>
+<p><strong>The setup.</strong> ScaleVLA has two parts:</p>
+<ul>
+<li><strong>The backbone</strong> is DeepSeek-V4.1-Flash, a 552-billion-parameter model that understands images and text. It is <strong>frozen</strong>, meaning its weights are never changed during robot training. It just looks at the camera images and the instruction and produces a rich description of the scene, not in words but as a long list of numbers per piece of the image and text (each list is 5,120 numbers wide). These are called <strong>features</strong>: the model&#39;s internal summary of &quot;what&#39;s here and what matters.&quot;</li>
+<li><strong>The action head</strong> is a much smaller network, trained from scratch, that reads those features plus the robot&#39;s current joint positions and outputs the next stretch of movement. Its design is copied from NVIDIA&#39;s GR00T N1.7 so the comparison is fair.</li>
+</ul>
+<p><strong>A detail that matters.</strong> The backbone is a &quot;language model&quot; that normally reads and then writes text. ScaleVLA stops it halfway: it runs only the part that <em>reads and understands</em> (the encoder, 20 layers) and never runs the part that writes (the decoder). Robots don&#39;t need the model to talk, only to understand.</p>
+<p><strong>Step by step, during training:</strong></p>
+<ol>
+<li>Collect demonstrations: a human remotely steers the robot through the task many times (<strong>teleoperation</strong>).</li>
+<li>Run every camera frame and instruction through the frozen backbone once and save the features to disk.</li>
+<li>Train only the action head to map &quot;saved features + robot state&quot; to &quot;what the human did next.&quot;</li>
+</ol>
+<p>Because step 2 happens once, training is cheap: the giant model is never updated, and its output is reused.</p>
+<p><strong>Analogy.</strong> Think of hiring a world-class art director who has seen millions of films (the backbone) and a new camera operator (the action head). You don&#39;t retrain the art director. You just have them describe every shot in rich detail, and the operator learns to move the camera from those descriptions. The better the descriptions, the faster the operator learns.</p>
+<p><strong>Why it&#39;s surprising.</strong> Many robotics researchers assumed you <em>must</em> fine-tune the backbone for it to understand physical tasks. RT-2, for example, trained its backbone further on robot data. ScaleVLA shows a frozen frontier model&#39;s understanding is already good enough to be useful as-is.</p>
+
+<h3 id="2-outputting-smooth-motion-with-flow-matching">2. Outputting smooth motion with flow matching</h3>
+<p><strong>Action chunks.</strong> Instead of one motor command at a time, the action head predicts a short sequence of upcoming movements at once, called an <strong>action chunk</strong> (for example, the next fraction of a second of arm and gripper positions). That makes motion smoother and means the slow backbone only has to run once per chunk, not once per tiny movement.</p>
+<p><strong>Flow matching.</strong> This is how the action head produces a chunk. It&#39;s a close relative of diffusion (Day 12):</p>
+<ol>
+<li>Start with a chunk of pure random noise: a meaningless jumble of arm positions.</li>
+<li>The network predicts a &quot;direction to move&quot; (a <strong>velocity</strong>) that turns this noise toward a sensible motion, given the scene features.</li>
+<li>Take a step in that direction. Repeat. ScaleVLA uses just <strong>4 steps</strong>.</li>
+<li>The result is a smooth, realistic chunk of motion.</li>
+</ol>
+<p><strong>Analogy.</strong> Imagine a sculptor starting from a random lump of clay and, in four confident passes, shaping it into the right pose. Diffusion is the same idea; flow matching just learns straighter paths, so fewer passes are needed.</p>
+<p>The action head itself is a 32-layer <strong>diffusion transformer (DiT)</strong>, a Transformer used for this &quot;shape noise into an output&quot; job, which keeps &quot;looking back&quot; at the scene features at every layer through <strong>cross-attention</strong> (the mechanism that lets one sequence read from another).</p>
+
+<h3 id="3-a-fair-head-to-head-test-of-brain-size">3. A fair head-to-head test of brain size</h3>
+<p>The paper&#39;s real contribution is a <strong>controlled comparison</strong>: same action head, same data, same training steps, same rule for picking the final checkpoint, and only the backbone changes. They test six backbones: Qwen3-VL at 2B and 32B, NVIDIA&#39;s Cosmos-Reason2 at 2B, 8B and 32B, and the 552B DeepSeek model. For smaller backbones they read features from a layer about halfway through, matching the &quot;encoder only&quot; choice for the big one.</p>
+<p><strong>Why this matters.</strong> Most robotics papers change many things at once (new data, new architecture, bigger model), so you can&#39;t tell what caused the improvement. Here, any difference is mostly the backbone. (Mostly: see Limitations.)</p>
+
+<h3 id="4-making-a-552b-model-fast-enough-for-a-robot">4. Making a 552B model fast enough for a robot</h3>
+<p>How can something this big drive a robot in real time?</p>
+<ul>
+<li><strong>Mixture of experts (MoE).</strong> The backbone is split into many specialist sub-networks (&quot;experts&quot;), and for each piece of input only a few are switched on. So most of its 552 billion parameters sit idle on any given step. Think of a hospital with hundreds of specialists where each patient sees only two or three.</li>
+<li><strong>Run it once per chunk.</strong> All four flow-matching steps reuse the same backbone features.</li>
+<li><strong>Split it across GPUs.</strong> The model runs on four NVIDIA H200 GPUs at once (called <strong>tensor and expert parallelism</strong>: dividing each layer, and the experts, across chips).</li>
+</ul>
+<p>Result: a median of <strong>216 milliseconds per action chunk</strong> in simulation (141 for the backbone, 72 for the action head) versus 115 milliseconds for the 2B setup on one GPU. On the real robot, round trip including networking was 384 milliseconds. So 276 times more parameters cost about 1.9 times the reaction time. Important caveat: the robot isn&#39;t carrying four H200s. The model runs on a server and the robot talks to it.</p>
+
+<h3 id="worked-example-teaching-a-new-task-with-10-demos">Worked example: teaching a new task with 10 demos</h3>
+<details class="walkthrough group">
+<summary class="inline-flex cursor-pointer list-none items-center gap-1.5 rounded-md py-1 text-meta font-semibold text-accent [&::-webkit-details-marker]:hidden"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-3.5 transition-transform duration-200 group-open:rotate-90"><path d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"/></svg><span class="group-open:hidden">Walk through it</span><span class="hidden group-open:inline">Hide the walkthrough</span></summary>
+<div class="mt-3 [&>*+*]:mt-4"><p>Say you want a robot arm to &quot;put the bowl on the plate&quot; in a simulated kitchen (the LIBERO-Goal benchmark).</p>
+<ul>
+<li>With a <strong>2B backbone</strong> and 5 demonstrations, it succeeds 39% of the time. With 50 demonstrations, 86%.</li>
+<li>With the <strong>552B backbone</strong> and 5 demonstrations, 77%. With just <strong>10 demonstrations, 88%</strong>, already better than the small brain with five times the data.</li>
+</ul>
+<p>For a harder, longer task set (LIBERO-Long), at 5 demos: 24% (2B) versus 62% (552B).</p>
+<p>In plain terms: each human demonstration is worth roughly five times as much when the robot&#39;s understanding is better. Demonstrations are the expensive part of robotics (a person has to steer the robot by hand every time), so this is the economically important result.</p>
+</div>
+</details>
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Simulated benchmarks.</strong> <strong>LIBERO</strong> is a standard set of simulated tabletop tasks for a robot arm, in four groups (spatial layouts, different objects, different goals, long multi-step tasks).</p>
+<ul>
+<li>Average success: ScaleVLA <strong>96.1%</strong>, versus 90.7 to 94.0% for the five smaller backbones, and versus published systems π0 (94.2%), CoT-VLA (83.9%) and OpenVLA (76.5%). The gap is small here because everyone is near the ceiling.</li>
+</ul>
+<p><strong>Generalization (the more interesting test).</strong> <strong>LIBERO-PRO</strong> takes LIBERO tasks and changes things the model wasn&#39;t trained on (moved objects, swapped items, reworded instructions), with no retraining.</p>
+<ul>
+<li>ScaleVLA <strong>45.1%</strong> versus at most <strong>31.3%</strong> for the best smaller backbone (Cosmos 8B) and 23 to 29% for the 2B ones. Still low in absolute terms, but a 14-point jump is large.</li>
+</ul>
+<p><strong>Kitchens.</strong> <strong>RoboCasa</strong> is a simulated home-kitchen benchmark with lots of variety.</p>
+<ul>
+<li>With 30 demos per task: <strong>30.7%</strong> versus 22 to 26% for others. With 100 demos: <strong>54.9%</strong> versus 43 to 46%. The gap grew with more data rather than shrinking, which suggests the big brain isn&#39;t just a shortcut for low-data settings.</li>
+</ul>
+<p><strong>Two-handed dexterity.</strong> <strong>DexJoCo</strong>, five simulated tasks using two hands.</p>
+<ul>
+<li>With objects randomized: <strong>42.1%</strong> versus 32 to 38%. With everything randomized: 24.4% versus 22.1%, a much smaller edge. Assembly tasks stayed near zero for everyone (at most 1.3%).</li>
+</ul>
+<p><strong>A real robot.</strong> One two-armed task on real hardware: pick up a charger, hand it to the other arm, and insert the plug into a socket.</p>
+<table>
+<thead>
+<tr>
+<th>Policy</th>
+<th>Normal setup</th>
+<th>Unfamiliar setup</th>
+<th>Time to insert</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2B backbone + action head</td>
+<td>4/10</td>
+<td>5/15</td>
+<td>86 s</td>
+</tr>
+<tr>
+<td>π0.5 backbone + same action head</td>
+<td>8/10</td>
+<td>7/15</td>
+<td>81 s</td>
+</tr>
+<tr>
+<td>ScaleVLA (552B)</td>
+<td>9/10</td>
+<td>8/15</td>
+<td>58 s</td>
+</tr>
+</tbody></table>
+<p>The authors note the gains were concentrated in the fiddly part: lining up the plug with the socket, which needs precise, contact-sensitive control.</p>
+<p><strong>Why it&#39;s convincing.</strong> The controlled design, the consistent direction of results across four benchmarks plus a real robot, and especially the &quot;10 demos beats 50&quot; sample-efficiency result.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Scale isn&#39;t perfectly isolated.</strong> The giant model is also a different architecture (mixture of experts) and receives more input tokens (568 versus 212 for the small model). The authors say themselves they couldn&#39;t separate these effects from pure size.</li>
+<li><strong>Small real-world test.</strong> One real task, 25 trials per policy, success judged by a human operator, and one training run (one random seed) per model.</li>
+<li><strong>Fixed training budget.</strong> All models got the same number of training steps. The appendix notes the small model was still improving, so with longer training the gap might shrink.</li>
+<li><strong>Heavy hardware.</strong> Four H200 data-center GPUs per robot brain is not something you put inside a robot or a home. It&#39;s a server-side setup.</li>
+<li><strong>Hard things stay hard.</strong> Assembly, rearranged environments, and precise insertion in unfamiliar positions remain mostly unsolved, even at 552B.</li>
+<li><strong>The &quot;π0.5&quot; row isn&#39;t the real π0.5.</strong> It&#39;s π0.5&#39;s backbone with this paper&#39;s action head, so it&#39;s not a fair comparison to Physical Intelligence&#39;s actual product model.</li>
+<li><strong>Release unclear.</strong> The paper lists a project page but doesn&#39;t say whether code or trained models will be released.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The two-part design is the industry standard.</strong> &quot;Pretrained vision-language backbone + action module that outputs chunks of continuous motion&quot; is how most VLAs are built today. Physical Intelligence&#39;s π0 pairs a roughly 3-billion-parameter vision-language model with a 300-million-parameter flow-matching &quot;action expert&quot; predicting about 50 future actions at a time. NVIDIA&#39;s open GR00T N1.7 (April 2026, 3B total) uses a 2B Cosmos-Reason2 backbone and a 32-layer diffusion transformer action head, and is the exact head ScaleVLA copied. Figure AI&#39;s Helix uses a similar split: a roughly 7B &quot;slow thinking&quot; model and an 80M fast controller.</li>
+<li><strong>Galbot, the company behind this paper, deploys robots commercially.</strong> Its wheeled humanoid Galbot G1 started working in a Beijing pharmacy in March 2026 (finding, picking and packing medicines), and in September 2026 it opened three autonomous &quot;GalbotStore&quot; retail shops in Hong Kong run by a humanoid store manager that takes orders, fetches products and talks to customers. The paper doesn&#39;t say whether ScaleVLA runs in these products. Treat it as research from a company with real deployments, not as their product model.</li>
+<li><strong>The frozen-backbone idea has precedent.</strong> Some VLAs (for example ChatVLA-2) already freeze their backbone during an action-only training stage. ScaleVLA&#39;s novelty is doing this at frontier scale and measuring the payoff.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Not in shipping robots, as far as I could find.</strong> It was posted two days ago, and four H200s per robot is impractical for most deployments today.</li>
+<li><strong>Production VLAs stay small, on purpose.</strong> Commercial systems favor 2B to 7B backbones because they need to run on the robot itself or cheaply, and because they want high control rates. Figure markets Helix as running onboard; Google released an on-device version of Gemini Robotics. ScaleVLA pushes in the opposite direction, so the likely real-world path is a cloud &quot;big brain&quot; or using the giant model to teach (distill into) a small one, which the paper does not test.</li>
+<li><strong>RT-2&#39;s &quot;actions as text tokens&quot; approach has largely been replaced.</strong> RT-2 output motor commands as words in the model&#39;s vocabulary. Today&#39;s systems, including this one, use a separate action module producing continuous motion via diffusion or flow matching, which is smoother and more precise.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>RT-2 (2023, a VLM fine-tuned to output actions as text) -&gt; π0, GR00T, Helix (small VLM + flow-matching action expert) -&gt; ScaleVLA (frozen frontier-size VLM + same action expert) -&gt; likely next: cloud-hosted big brains or big models distilled into small onboard ones.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Standard Physics.</strong> Your scan-a-space accessibility check is a &quot;spatial understanding&quot; problem, not a robot-control problem, but this paper&#39;s central finding transfers: a frozen, very large vision-language model already encodes a lot of useful physical understanding (where things are, what fits where), and you can train a small task-specific head on top of it with few labeled examples. For Standard Physics, that suggests not training your own perception from scratch: use a strong pretrained vision model&#39;s features and train a small module that flags ADA issues (door widths, ramp slopes, clearance) from a modest number of labeled scans.</p>
+<p><strong>Startups in general (the economics lesson).</strong> The &quot;10 demos beats 50&quot; result is a business lesson as much as a technical one: when labeled data is your most expensive input, a stronger frozen foundation model can be cheaper overall even if it costs more to run. That trade-off (pay for compute, save on data collection) is one you&#39;ll face in Unstall and Amelia too, wherever getting real labeled examples from users is slow.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">VLA (vision-language-action model)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A robot brain that takes camera images and an instruction and outputs motor commands.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Frozen backbone</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A pretrained model used as-is, with its weights never updated during new training; only the parts added on top learn.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Action chunk</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A short sequence of upcoming robot movements predicted all at once, instead of one command at a time.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Flow matching</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A way to generate outputs by starting from random noise and moving it, in a few learned steps, toward a realistic result (here, a smooth motion).</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Mixture of experts (MoE)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A model made of many specialist sub-networks where only a few are used for each input, so a huge model can run with a fraction of its compute.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Sample efficiency</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How few examples a system needs to learn a task well.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the <strong>Introduction</strong> for the argument in plain language, then look at the <strong>sample-efficiency table (Table 7)</strong> for LIBERO-Goal and LIBERO-Long at 5, 10, 25 and 50 demonstrations: it&#39;s the single clearest picture of what the bigger brain buys. If you have more time, read the <strong>real-robot section (Table 8)</strong> for the charger task. Skip the appendix training details and readout-layer choices unless you&#39;re implementing it.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If a frozen frontier model already &quot;understands&quot; physical scenes well enough to teach a robot from ten demos, where should a startup spend its money: on collecting more demonstrations, on renting bigger models, or on figuring out how to shrink a big model&#39;s understanding into something small enough to run on a phone or a robot?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.21607">ScaleVLA (arXiv 2611.21607)</a></li>
+<li><a href="https://arxiv.org/html/2611.21607">ScaleVLA full paper (arXiv HTML)</a></li>
+<li><a href="https://hyper.ai/en/papers/2611.21607">ScaleVLA summary on HyperAI</a></li>
+<li><a href="https://huggingface.co/blog/nvidia/gr00t-n1-7">NVIDIA Isaac GR00T N1.7 on the Hugging Face blog</a></li>
+<li><a href="https://www.turingpost.com/p/vlaplus">Turing Post: VLA models explained</a></li>
+<li><a href="https://blog.pebblous.ai/project/PhysicalAI/physical-ai/en/">Pebblous: What is a VLA model? (2026 edition)</a></li>
+<li><a href="https://news.cgtn.com/news/2026-03-13/China-s-first-pharmacy-robot-goes-into-service-in-Beijing-1LtZ7juLcZ2/p.html">CGTN: China&#39;s first pharmacy robot goes into service in Beijing (Galbot G1)</a></li>
+<li><a href="https://www.thestandard.com.hk/news/article/342052/Mainland-embodied-AI-firm-Galbot-opens-first-autonomous-retail-stores-in-HK">The Standard: Galbot opens first autonomous retail stores in Hong Kong</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/54/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 54</span>
+<span class="mt-1 block font-semibold">eDIAR (live &#39;who spoke when&#39; that no longer runs out of seats)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
