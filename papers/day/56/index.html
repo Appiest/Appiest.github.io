@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 56: Gamer: A Generalist Vision-Language-Action Foundation Model for Long-Horizon Real-Time Game Agent</title>
+<meta name="description" content="miHoYo, the studio behind Genshin Impact and Honkai: Star Rail, trained an open AI agent that watches the screen and presses keys and moves the mouse in real time, thinks only at key moments, writes itself progress notes when its memory fills up, and learns from its own attempts; it beats far bigger general-purpose AI models at live play, mainly because those models collapse when the game doesn&#39;t pause for them.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Gamer: A Generalist Vision-Language-Action Foundation Model for Long-Horizon Real-Time Game Agent</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">56</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Run Luo, Kuan Zhang, Qi Deng, Yukun Chen and others (miHoYo Honkai AI R&amp;D Team, with several universities)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.18397" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">miHoYo, the studio behind Genshin Impact and Honkai: Star Rail, trained an open AI agent that watches the screen and presses keys and moves the mouse in real time, thinks only at key moments, writes itself progress notes when its memory fills up, and learns from its own attempts; it beats far bigger general-purpose AI models at live play, mainly because those models collapse when the game doesn&#39;t pause for them.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>The hard part of an AI that uses software like a person is not being smart, it&#39;s being smart <em>on time</em>: the best general-purpose AI models lose roughly 17 to 35 points when a game keeps running while they think, and Gamer wins by being trained for that pressure (react fast, think rarely, take notes, learn from practice) and by a serving engine that cuts its reaction time from 1.3 seconds to 65 milliseconds.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: <strong>DQN (Day 6)</strong> was the first AI to learn games from raw screen pixels; Gamer is its grown-up version, playing modern 3D games with a language model inside. It uses the <strong>Transformer (Day 9)</strong>, <strong>GPT-3 (Day 11)</strong>-style large-scale pretraining, and a vision-language backbone in the spirit of <strong>CLIP (Day 15)</strong>. Its &quot;think only when needed&quot; behavior is a descendant of <strong>Chain-of-Thought (Day 17)</strong>, and its loop of think, act, observe is <strong>ReAct (Day 18)</strong> running 5 times a second. Learning from its own attempts comes from the <strong>RLHF (Day 16)</strong> family, and its overall shape, &quot;pixels and instructions in, motor commands out,&quot; is the <strong>RT-2 (Day 21)</strong> recipe applied to a keyboard and mouse instead of a robot arm. On the frontier track it sits beside <strong>OpenGCUA (Day 25)</strong> and <strong>CoworkOS (Day 43)</strong> (agents using computers), <strong>ScaleVLA (Day 55)</strong> (the robot version of the same idea), and <strong>MemoryTax (Day 28)</strong> (when memory is worth it).</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>There were two kinds of game-playing AI, and neither was good enough. The first kind, like DQN and DeepMind&#39;s AlphaStar, was superhuman at one game but useless at any other, and often got special access to the game&#39;s internals. The second kind used big general AI models (the GPT, Claude and Gemini family) as &quot;computer-use agents&quot;: take a screenshot, think, choose a click, take another screenshot. That works for filling in a web form, which waits for you. It fails in a live 3D game, which does not: by the time the model has finished reasoning, the enemy has moved and the jump is missed. Earlier specialist game agents (ByteDance&#39;s Game-TARS, DeepMind&#39;s SIMA 2, NVIDIA&#39;s NitroGen, Lumine) made progress, but the paper&#39;s comparison table notes that most were either not real-time, not trained with reinforcement learning, or not open-source. Nobody had put all of it together in one open system: real-time control, long tasks lasting many minutes, memory, and learning from practice.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-act-like-a-player-screen-in-keyboard-and-mouse-out-30-times-a-second">1. Act like a player: screen in, keyboard and mouse out, 30 times a second</h3>
+<p><strong>What it is.</strong> Gamer is a <strong>VLA (vision-language-action model)</strong>: an AI that takes in images and text and outputs actions. Here the images are screenshots, the text is the task (&quot;finish the side quest Bestial Ferocity&quot;), and the actions are raw keyboard and mouse input. No game API, no access to the game&#39;s code or hidden state. It sees exactly what a human sees.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Five times a second (every 200 milliseconds), it grabs a screenshot. It also keeps the last 20 frames as short-term visual context.</li>
+<li>The model, built on top of Alibaba&#39;s open Qwen vision-language models (an 8-billion-parameter version and a 35-billion one), reads the frames, the task and its notes.</li>
+<li>It writes out its action as a short line of text, like <code>X Y Z ; g1 ; g2 ; g3 ; g4 ; g5 ; g6</code>. X and Y are how far to move the mouse, Z is scroll, and g1 to g6 are six tiny 33-millisecond slices saying which keys are held down in each.</li>
+<li>The game executes those six slices, and the loop repeats.</li>
+</ol>
+<p>So one decision every 200 milliseconds gets turned into six control updates, giving roughly <strong>30 actions per second</strong>, like a human&#39;s continuous movement rather than a robot&#39;s stop-and-go clicks. Notice there&#39;s no special &quot;action head&quot; bolted on (compare ScaleVLA yesterday, which used a separate motion module): the action is just more text the language model writes.</p>
+<p><strong>Two clever training tricks.</strong></p>
+<ul>
+<li><strong>Random key remapping.</strong> During training, they randomly shuffle which keys do what (&quot;jump&quot; might be Space in one clip, F in another). This forces the model to learn <em>what an action does</em> rather than memorizing &quot;press Space.&quot; Like learning to drive by renting a different car every week: you learn driving, not one dashboard.</li>
+<li><strong>Repeat-aware loss decay.</strong> Holding W to walk forward produces hundreds of identical &quot;W is down&quot; steps, which would drown out the rare, important moments (starting, stopping, turning). They give less training weight to each repeated step, so the model pays attention to <em>changes</em>.</li>
+</ul>
+<p><strong>Analogy.</strong> A traditional AI agent is like a chess player mailing in moves. Gamer is like a racing driver: hands on the wheel, small corrections constantly.</p>
+
+<h3 id="2-think-only-at-decision-points-sparse-thinking">2. Think only at decision points (&quot;sparse thinking&quot;)</h3>
+<p><strong>What it is.</strong> Since Chain-of-Thought (Day 17), we know AI models do better when they &quot;think out loud&quot; before answering. But thinking costs time, and at 5 decisions per second there isn&#39;t time to write a paragraph before every step.</p>
+<p><strong>How it works.</strong> The model itself decides, at each step, whether to think first. On routine steps (keep running down this corridor) it outputs the action immediately. At important moments (a fork in the road, a new target, a new on-screen prompt, a task switch) it writes a short <code>&lt;think&gt;</code> note first (&quot;The door is locked; the key was on the table in the previous room; go back&quot;) and then acts. There&#39;s no separate &quot;router&quot; deciding this. It&#39;s learned behavior, trained from about 1.2 million human-written-style thinking annotations attached to roughly 1,000 hours of curated Honkai: Star Rail gameplay.</p>
+<p><strong>Analogy.</strong> An experienced driver doesn&#39;t consciously think about every steering adjustment. They think at intersections. Gamer is trained to have intersections.</p>
+
+<h3 id="3-write-yourself-notes-before-you-forget-memory-compaction">3. Write yourself notes before you forget (&quot;memory compaction&quot;)</h3>
+<p><strong>The problem.</strong> An AI model has a <strong>context window</strong>: a limit on how much it can &quot;see&quot; at once, like a desk that only holds so many papers. A 20-minute quest at 5 screenshots per second overflows it fast.</p>
+<p><strong>How it works.</strong></p>
+<ol>
+<li>When the context is about to fill up, the same model writes a <strong>memory summary</strong>: completed objectives, failed attempts, important locations, resources, and the remaining plan.</li>
+<li>Older raw history is then thrown away, and the summary stays. If even the summaries overflow, the oldest summaries go first.</li>
+<li>Recent steps are kept in full detail.</li>
+</ol>
+<p>Again, there&#39;s no separate memory system. Writing a note is just another thing the model outputs, in the same stream as its thoughts and actions. The training data included about 223,000 example notes, roughly one every 16 seconds of play.</p>
+<p><strong>A nice engineering detail.</strong> Models keep a working cache of what they&#39;ve already read (the <strong>KV cache</strong>, short for key-value cache), so they don&#39;t reread everything at every step. Normally, deleting old history would force a full reread. Gamer&#39;s engine keeps the cache for what remains and just renumbers its positions, saving a large amount of compute.</p>
+<p><strong>Analogy.</strong> A film editor on a long project doesn&#39;t keep every take in their head. At the end of each day they write a log: &quot;Scene 12 done, scene 14 needs a reshoot because of lighting, still need B-roll of the market.&quot; Tomorrow they work from the log plus today&#39;s footage.</p>
+
+<h3 id="4-learn-from-practice-in-real-time-ta-grpo">4. Learn from practice, in real time (TA-GRPO)</h3>
+<p>After learning by imitation, Gamer practices. It plays tasks many times and improves from the results, which is <strong>reinforcement learning (RL)</strong>: learning by trial and reward.</p>
+<p><strong>How it works.</strong></p>
+<ol>
+<li>Run the same task 8 times in parallel (32 live game instances at once, on 64 data-center GPUs).</li>
+<li>A checker reads the real game state and scores how far each attempt got. No AI judge, no guessing: the game itself says &quot;milestone reached&quot; or not. The agent never sees this hidden state; only the trainer does.</li>
+<li>Because long tasks are split by the memory notes into segments, they compare <em>segments that reached the same stage</em>: &quot;of the 8 attempts at this part of the quest, which went better than average?&quot;</li>
+<li>Better-than-average segments are reinforced, worse ones discouraged. Within a segment, later actions get a bit more of the credit, on the assumption that actions closer to the result mattered more. The authors are careful to say this is a rule of thumb, not proof.</li>
+</ol>
+<p>This is a variant of <strong>GRPO (Group Relative Policy Optimization)</strong>, the &quot;try several times, compare to the group average&quot; method popularized by DeepSeek. The &quot;TA&quot; means <strong>temporal-aware</strong>, for the timing-based credit.</p>
+<p><strong>The key insight: practice at real speed.</strong> They compared practicing with the real-time engine against a slow setup running at 0.6 frames per second. The real-time version learned faster on all eight navigation tasks, while several slow runs collapsed late in training. If you practice in slow motion, you learn habits that fail at full speed.</p>
+
+<h3 id="5-the-engine-that-makes-it-fast-streaming-vllm">5. The engine that makes it fast (Streaming-vLLM)</h3>
+<p>A model that takes 1.3 seconds per decision can&#39;t play a live game. The team built a serving system they call Streaming-vLLM (built on vLLM, a popular open-source tool for running AI models) with several tricks:</p>
+<ul>
+<li><strong>Keep each player&#39;s cache warm</strong> between turns instead of starting fresh each time.</li>
+<li><strong>Predict the boring parts.</strong> The action format is rigid (numbers, semicolons, key names), so a simple rule-based guesser proposes the structural tokens and the model only has to confirm them. This is <strong>speculative decoding</strong>: a cheap guesser drafts, the real model checks.</li>
+<li><strong>Send actions early.</strong> As soon as the first 33-millisecond key slice is confirmed, it&#39;s sent to the game, even before the rest of the line is written.</li>
+</ul>
+<p>Result: request time dropped from <strong>1,306 ms to 65 ms</strong>, a 20 times speedup, on an NVIDIA H200 GPU with the 35-billion-parameter model.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Live versus paused play (the headline result).</strong> They tested on four public game benchmarks (Minecraft tasks, the classic shooter Doom, and two multi-game suites) under two conditions: the game pauses while the AI thinks, or it keeps running.</p>
+<ul>
+<li>Top general-purpose models from OpenAI, Anthropic, DeepSeek and others lost <strong>17 to 35 points on average</strong> when the game kept running. One OpenAI model dropped from about 82% to 9% on the Minecraft tasks.</li>
+<li>Gamer&#39;s 35B model scored <strong>31.5 on average, the highest</strong>, and was the only model that did <em>better</em> live than paused (+3.4 points). The best general model scored about 17.6 live.</li>
+<li>Caveat: on one benchmark (GameWorld) the big general models still scored higher than Gamer. Gamer&#39;s lead comes mostly from Minecraft-style and action-heavy tests.</li>
+</ul>
+<p><strong>Long quests in Honkai: Star Rail</strong> (held-out side quests, scored as the share of 30 or 55 checkpoints reached, not full completion):</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Quest 1</th>
+<th>Quest 2</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Base Qwen model, no game training</td>
+<td>0%</td>
+<td>13.9%</td>
+</tr>
+<tr>
+<td>Gamer after pretraining</td>
+<td>34.4%</td>
+<td>47.9%</td>
+</tr>
+<tr>
+<td>Gamer after instruction tuning</td>
+<td>72.2%</td>
+<td>69.1%</td>
+</tr>
+<tr>
+<td>Gamer after practice (RL)</td>
+<td><strong>80.0%</strong></td>
+<td><strong>83.6%</strong></td>
+</tr>
+<tr>
+<td>Best general-purpose model</td>
+<td>23.3%</td>
+<td>45.5%</td>
+</tr>
+</tbody></table>
+<p><strong>Puzzles and minigames</strong> (40 new instances across seven types): Gamer after practice <strong>49.7%</strong>, versus 17.1% for the best general model. Practice alone took one navigation puzzle from 50% to 95.8%.</p>
+<p><strong>What does more data buy? (GameScaling.)</strong> In a companion study (120 training runs, models from 0.8 to 27 billion parameters, 50 to 1,600 hours of gameplay), more gameplay reliably helped on the games trained on and similar ones. But for <em>very different</em> unseen games, more data gave essentially <strong>no further improvement</strong>. That&#39;s an honest and important negative result.</p>
+<p><strong>Why it&#39;s convincing.</strong> Real commercial games, scoring based on the true game state, a clear stage-by-stage improvement (pretrain, then tune, then practice), and the live-versus-paused comparison exposes a weakness of today&#39;s general agents that most benchmarks hide.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Not truly general yet.</strong> The Star Rail tests use new quests in a game it trained on heavily. The authors&#39; own scaling study shows gains don&#39;t carry to distant, unfamiliar games.</li>
+<li><strong>Not &quot;beating&quot; a game.</strong> Quest scores measure checkpoints reached across runs, not uninterrupted completion.</li>
+<li><strong>Ingredients aren&#39;t separated.</strong> The paper doesn&#39;t isolate how much each piece (sparse thinking, memory notes, TA-GRPO) contributes. The live-versus-slow practice comparison also changes more than one thing at once.</li>
+<li><strong>Expensive.</strong> Practice used 64 H200 GPUs, and serving the fast version still needs data-center hardware. The authors say serving cost is a real limitation.</li>
+<li><strong>Shallow thinking.</strong> They note tasks that need deep deliberation may hit a ceiling, and suggest a two-level design (a slow planner plus a fast actor) as future work.</li>
+<li><strong>Partly open.</strong> Code is Apache-2.0 and some checkpoints are on Hugging Face, but the Star Rail data and any models trained on it are withheld, and the fast Streaming-vLLM engine is listed as &quot;coming soon.&quot;</li>
+<li><strong>Fair-play concerns.</strong> An agent that plays through the normal screen and controls is also, in principle, an undetectable bot. The authors explicitly say they don&#39;t endorse cheating.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Game agents are a busy research race.</strong> Google DeepMind&#39;s SIMA 2 (powered by Gemini) plays games like No Man&#39;s Sky and Valheim through the normal screen and controls, and DeepMind announced a research partnership with the makers of EVE Online in August 2026. NVIDIA&#39;s NitroGen (open weights on Hugging Face, CVPR 2026) was trained on 40,000 hours of gameplay video. Tencent&#39;s PLAYER-1 (October 2026) uses a similar &quot;pretrain, then practice in synthetic games&quot; approach. Gamer is the first of these from a major game <em>studio</em>, and it is open-source.</li>
+<li><strong>Automated game testing is the nearest real use.</strong> NetEase&#39;s Titan agent tested two commercial online RPGs, completed 95% of assigned tasks and found four previously unknown bugs (reported September 2025). Amazon Web Services publishes a guide to building game-testing agents. Gamer&#39;s own page lists game testing and accessibility as intended uses. I could not confirm whether miHoYo uses Gamer internally for testing.</li>
+<li><strong>The same pattern runs through computer-use agents.</strong> &quot;Screenshot in, keyboard and mouse out&quot; is how today&#39;s computer-use agents from the major labs operate. Gamer&#39;s contribution is showing what changes when the screen won&#39;t wait.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Not in shipped games as a player or companion.</strong> DeepMind&#39;s post describes AI companions and adaptive non-player characters as possibilities, not deployments. The only live feature it mentions is a Gemini-based help assistant in EVE Online, which answers questions rather than playing.</li>
+<li><strong>&quot;Pause and think&quot; agents are falling short for anything live.</strong> This paper&#39;s main evidence is that general-purpose models used in screenshot-by-screenshot mode lose much of their skill in real time. The direction is moving toward specialized fast models (like Gamer) or two-level designs where a big model plans and a small one acts.</li>
+<li><strong>Single-game superhuman bots (AlphaStar, OpenAI Five) were not productized.</strong> They were research milestones that didn&#39;t transfer. The field has moved to generalist agents that use human interfaces.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>DQN (2015, one Atari game from pixels) -&gt; AlphaStar and OpenAI Five (superhuman at one game) -&gt; SIMA, Game-TARS, NitroGen (one agent, many games, human controls) -&gt; Gamer (real-time, memory, practice, open) -&gt; likely next: fast &quot;actor&quot; models paired with slow &quot;planner&quot; models, used first for game testing.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Unstall and Amelia: real time changes everything.</strong> The paper&#39;s sharpest lesson is that an AI that&#39;s excellent when the world waits can be poor when it doesn&#39;t. A phone call with a real estate agent, or a live conversation Amelia is tracking, is a world that doesn&#39;t pause. Gamer&#39;s recipe maps over directly: respond immediately on routine turns, &quot;think&quot; only at decision points (a new request, a conflict in the schedule, a speaker change), and start sending output before the full answer is finished. When you test Unstall, test it live with realistic timing, not turn-by-turn, because this paper shows the two can give very different scores.</p>
+<p><strong>Your memory startups: notes, not transcripts.</strong> Gamer&#39;s memory is not a recording of everything. It&#39;s a self-written log of what&#39;s done, what failed and what&#39;s next, written by the same model right before older detail is dropped. That&#39;s a practical template for long Unstall sessions: keep recent conversation in full, compress older parts into structured notes (decisions made, open loops, what didn&#39;t work). Note that Gamer&#39;s memory is about <em>task progress</em>, not about <em>people</em>, so for relationship memory it&#39;s a useful pattern, not a full answer.</p>
+<p><strong>Arbor: the cost of no API.</strong> Gamer shows how much engineering it takes for an agent to operate through a human interface: data-center GPUs and a 20 times speedup just to keep up. That&#39;s an argument for what Arbor is building. When agents can talk through a proper protocol instead of pretending to be humans clicking on screens, a huge amount of cost disappears.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">VLA (vision-language-action model)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An AI that takes images and text in and outputs actions; here, keyboard and mouse input.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Sparse thinking</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The model decides for itself when to reason before acting, and skips reasoning on routine steps.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Context window</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How much an AI model can &quot;see&quot; at once; long tasks overflow it unless something is summarized or dropped.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Memory compaction</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Replacing old detailed history with a short self-written summary so the model can keep going.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">GRPO (Group Relative Policy Optimization)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Try a task several times, score each attempt, and push the model toward attempts that beat the group average.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Speculative decoding</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A cheap guesser drafts the next few output tokens and the real model just checks them, which is much faster.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the <strong>Introduction</strong> and the <strong>comparison table</strong> that lines Gamer up against Game-TARS, Lumine and SIMA 2. Then go straight to the <strong>benchmark table with real-time versus time-paused scores</strong> in the experiments section: the numbers in parentheses are the whole story. Skim the <strong>memory compaction section</strong> if you want ideas for Unstall. Skip the GameScaling curve-fitting details, the RL math, and the inference kernel appendix.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If the best &quot;smart&quot; AI models fall apart when the world won&#39;t wait for them, should the next generation of assistants be one big model, or a fast &quot;reflex&quot; model that handles the moment plus a slow &quot;thinker&quot; it consults only at decision points, and what would that split look like in a voice assistant you&#39;d actually trust on a live call?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.18397">Gamer (arXiv 2611.18397)</a></li>
+<li><a href="https://arxiv.org/html/2611.18397v1">Gamer full paper (arXiv HTML)</a></li>
+<li><a href="https://huggingface.co/papers/2611.18397">Gamer on Hugging Face Daily Papers</a></li>
+<li><a href="https://www.alphaxiv.org/abs/2611.18397">Gamer summary on alphaXiv</a></li>
+<li><a href="https://mihoyo-gamer.github.io/">Gamer project page</a></li>
+<li><a href="https://github.com/RainBowLuoCS/Gamer">Gamer code repository</a></li>
+<li><a href="https://deepmind.google/blog/from-atari-to-eve-online-building-on-15-years-of-ai-research-in-games/">Google DeepMind: Exploring new frontiers of AI and games research (SIMA 2, EVE Online)</a></li>
+<li><a href="https://arxiv.org/pdf/2512.04797">SIMA 2: A Generalist Embodied Agent for Virtual Worlds</a></li>
+<li><a href="https://openaccess.thecvf.com/content/CVPR2026/html/Magne_NitroGen_An_Open_Foundation_Model_for_Generalist_Gaming_Agents_CVPR_2026_paper.html">NitroGen: An Open Foundation Model for Generalist Gaming Agents (CVPR 2026)</a></li>
+<li><a href="https://huggingface.co/nvidia/NitroGen">NitroGen model on Hugging Face</a></li>
+<li><a href="https://arxiv.org/html/2511.08892v1">Lumine: An Open Recipe for Building Generalist Agents in 3D Open Worlds</a></li>
+<li><a href="https://arxiv.org/pdf/2610.20584">PLAYER-1: Learning to Play from Synthetic Experience (Tencent)</a></li>
+<li><a href="https://decrypt.co/342085/study-ai-outpaces-humans-game-testing">Decrypt: New Study Shows AI Outpaces Humans in Game Testing (NetEase Titan)</a></li>
+<li><a href="https://aws.amazon.com/blogs/gametech/building-an-ai-game-testing-agent-with-amazon-bedrock/">AWS for Games: Building an AI game testing agent with Amazon Bedrock</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/55/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 55</span>
+<span class="mt-1 block font-semibold">ScaleVLA (a giant frozen AI brain makes robots learn from fewer demos)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
