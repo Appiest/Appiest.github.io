@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 57: π^4: A Foundation Model for 4D Scene Geometry and Motion</title>
+<meta name="description" content="Give π^4 a single photo, a pile of photos or a video, with no information about the camera, and in one pass it rebuilds the 3D shape of the scene, where every camera was, how big things really are, which objects are moving and where every point travels over time, using a model less than half the size of most rivals.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">π^4: A Foundation Model for 4D Scene Geometry and Motion</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">57</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Yifan Wang, Weiguang Zhao, Ni Yang, Haoyu Guo, Junting Dong, Weinan Zhang, Chunhua Shen (Shanghai AI Laboratory, Shanghai Jiao Tong University, Zhejiang University)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.23144" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Give π^4 a single photo, a pile of photos or a video, with no information about the camera, and in one pass it rebuilds the 3D shape of the scene, where every camera was, how big things really are, which objects are moving and where every point travels over time, using a model less than half the size of most rivals.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>&quot;4D&quot; means 3D plus time: π^4 is one compact model that looks at ordinary, uncalibrated pictures or video and hands back a measured 3D world in which things move, which until recently took a stack of separate tools and slow optimization.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: it is a <strong>Transformer (Day 9)</strong> through and through, and it is the fast, learned answer to the question <strong>NeRF (Day 13)</strong> and <strong>3D Gaussian Splatting (Day 20)</strong> both start from: &quot;where were the cameras, and what is the shape of the scene?&quot; Those methods need that answer handed to them first; π^4 produces it. Its idea of turning a 2D match into a 3D point by looking it up on a reconstructed surface echoes how <strong>RT-2 (Day 21)</strong> and other robot models need the world in 3D to act in it. On the frontier track it sits beside <strong>3DCodeVerse (Day 26)</strong> and <strong>VibePrevisBench (Day 53)</strong> (building 3D scenes), <strong>TAPESTRY (Day 37)</strong> and <strong>ScaleVLA (Day 55)</strong> (robots that need to understand space), and <strong>Gamer (Day 56)</strong>, which also leaned on video game data.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>For decades, turning photos into 3D meant <strong>structure from motion (SfM)</strong>: find the same feature (a window corner, a sign) in many photos, then solve a big math puzzle to work out where each camera stood and where each point sits in space. The standard tool, COLMAP, is accurate but slow, breaks on blurry or textureless images, and assumes nothing in the scene moves. Starting around 2024, a new family of <strong>feed-forward</strong> models (DUSt3R, then Meta&#39;s VGGT, which won the CVPR 2025 best paper award, then π^3 from this same lab) learned to do it in a single pass of a neural network: photos in, 3D points and camera positions out, in seconds. But each tool did one job. Separate models tracked moving points across video (CoTracker), separate ones spotted moving objects, separate ones guessed real-world scale. Models that tried to handle moving scenes (MonST3R, Track4World, ARROW) were large, often over 1.3 billion parameters. Nobody had a single, compact model that did geometry, cameras, real scale, motion tracking and moving-object detection together, from any kind of input.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-one-model-any-input-no-camera-settings-no-main-photo">1. One model, any input, no camera settings, no &quot;main&quot; photo</h3>
+<p><strong>What it is.</strong> π^4 accepts a single image, an unordered stack of photos, or a video. It needs no <strong>camera calibration</strong>: the lens details (focal length, distortion) and the camera&#39;s position, which older pipelines must know or estimate first.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Each image is cut into small square patches and read by <strong>DINOv3</strong>, a large pretrained image model from Meta that already &quot;understands&quot; what it sees. Its outputs are short lists of numbers per patch called <strong>tokens</strong>.</li>
+<li>The tokens go into the <strong>geometry branch</strong>, which alternates two kinds of <strong>attention</strong> (the Transformer&#39;s way of letting each piece of input look at the others): first each patch looks at the other patches in its own image, then at patches in all the other images. That second step is where &quot;this corner in photo 3 is the same corner in photo 7&quot; gets worked out.</li>
+<li>For each image it outputs a <strong>pointmap</strong>: for every pixel, how far away that spot is and in which direction, so every pixel becomes a 3D point. It also outputs that image&#39;s <strong>camera pose</strong> (where the camera stood and which way it pointed) and a confidence score per pixel.</li>
+</ol>
+<p><strong>The &quot;no main photo&quot; trick.</strong> Older models like VGGT pick the first image as the reference and describe everything relative to it, so changing the order of your photos can change the answer. π^4 inherits from π^3 a design called <strong>permutation-equivariant</strong>: shuffle the inputs and you get the same results, just shuffled. It does this by never telling the model which image came first, and by training it only on <em>relative</em> facts (&quot;camera A is this far from camera B&quot;), so the model invents its own shared coordinate system.</p>
+<p><strong>Analogy.</strong> Imagine handing a stack of holiday snapshots to someone who has never been to the place. A good detective can still sketch a floor plan and mark where you stood for each shot, without needing the photos in order or any camera settings. π^4 is that detective, and it doesn&#39;t care which photo you handed over first.</p>
+
+<h3 id="2-real-world-scale-from-pictures-alone">2. Real-world scale from pictures alone</h3>
+<p><strong>The problem.</strong> From photos alone, a dollhouse and a real house can look identical. Most reconstruction models therefore give shape without size: correct proportions, unknown units.</p>
+<p><strong>How it works.</strong> Alongside the geometry, a small extra part of the model looks at the whole set of images and predicts one number: the scale factor that converts its internal units into meters. It is trained on datasets where the true size is known, using all the cues a person uses (the size of doors, cars, chairs, people). Multiply everything by that number, and the 3D world comes out in meters, with no ruler, LiDAR sensor or alignment step at use time.</p>
+<p><strong>Worked example.</strong> Film a hallway on your phone. π^4 rebuilds the hallway, then predicts &quot;multiply by 2.7.&quot; A doorway that measured 0.33 units wide in its internal space becomes about 0.9 meters, which is roughly a standard door.</p>
+
+<h3 id="3-track-motion-in-2d-then-lift-it-into-3d">3. Track motion in 2D, then lift it into 3D</h3>
+<p>This is the paper&#39;s most elegant idea, and the reason the name went from π^3 to π^4: it adds time.</p>
+<p><strong>The problem.</strong> To follow a point on a moving object (a skater&#39;s hand, a passing car) through 3D space, you could try to predict 3D motion directly. That&#39;s hard: errors in depth and errors in motion pile on top of each other.</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>A second part of the model, the <strong>motion branch</strong>, has its own weights and looks at the same image tokens. It is also nudged by what the geometry branch already worked out about each patch (a technique called <strong>conditioning</strong>: feeding one network&#39;s results into another as hints).</li>
+<li>You pick a <strong>query image</strong> (say, frame 1 of a video). For every pixel in it, the motion branch predicts <em>where that same point appears in each other image</em>: a flat, 2D answer like &quot;pixel (200, 340) in frame 1 is at pixel (215, 338) in frame 12.&quot; This is called <strong>correspondence</strong>. It also predicts whether the point is visible there or hidden behind something.</li>
+<li>Now the lift: frame 12 already has its own 3D pointmap from the geometry branch. So π^4 just looks up the 3D point at pixel (215, 338) in frame 12&#39;s pointmap. That&#39;s where the point is in 3D at that moment.</li>
+<li>Do this for every frame and you have a <strong>3D track</strong>: the path of that point through space over time.</li>
+</ol>
+<p><strong>Analogy.</strong> Instead of asking &quot;where in the room is the skater&#39;s hand now?&quot;, which is hard, π^4 asks &quot;where in this photo is the hand?&quot; (easier, you just need to spot it) and then reads the 3D position off a map of the room it has already built. A 2D question plus a 3D map gives a 3D answer.</p>
+<p><strong>A design choice worth noticing.</strong> The geometry branch is trained first, then frozen while the motion branch learns. The motion part can&#39;t damage the geometry part. That&#39;s a clean way to add a new skill to a working model.</p>
+
+<h3 id="4-which-things-are-moving">4. Which things are moving?</h3>
+<p>A small extra head (an output layer) marks <strong>moving-object masks</strong>: which pixels belong to things that move during the clip. It combines the motion branch&#39;s signals with features from Meta&#39;s SAM 2, a well-known model for cutting objects out of images. One sensible rule: if an object moves at any point in the clip, it counts as &quot;moving&quot; in every frame where it appears, even when it pauses. A parked car stays background; a person who stops for a second is still a person.</p>
+
+<h3 id="5-think-in-loops-to-stay-small">5. Think in loops to stay small</h3>
+<p><strong>What it is.</strong> Most Transformers stack many different layers, each with its own weights. π^4&#39;s decoders reuse the <em>same</em> block of layers over and over, feeding the output back in. This is a <strong>looped decoder</strong>. The geometry branch was trained with 8 to 16 loops and runs 16 at test time. The motion branch runs 8.</p>
+<p><strong>Why it matters.</strong> Reusing weights means far fewer parameters for the same amount of &quot;thinking.&quot; The whole system, geometry plus motion, is about <strong>0.5 billion parameters</strong>, and the geometry model alone that they benchmark is 343 million. Rivals: VGGT 1.26 billion, π^3 959 million, MapAnything 1.23 billion, Track4World 1.72 billion. (One small rival, DVLT, is 117 million, so &quot;less than half the size of most baselines&quot; is accurate but not &quot;of all.&quot;)</p>
+<p><strong>Analogy.</strong> Instead of a 24-person assembly line where each worker does one step, it&#39;s one skilled craftsperson who goes over the piece 16 times, refining it each pass.</p>
+
+<h3 id="6-where-the-training-data-came-from">6. Where the training data came from</h3>
+<p>The model learned from a large mix of public 3D and video datasets (indoor scans, driving footage, landmark photos, synthetic animations), plus three things worth knowing:</p>
+<ul>
+<li><strong>About 10,000 3D scene assets</strong> rendered into training images, including deliberately strange camera angles and lens types (fisheye-like and barrel distortion) so the model isn&#39;t thrown by a phone&#39;s ultra-wide lens.</li>
+<li><strong>Internet videos</strong> where moving foreground objects were masked out and filled in, so an earlier version of the model could label the static background, and those labels were reused for training.</li>
+<li><strong>GameRealm</strong>, a dataset built from video games with collaborators. Game engines know the exact 3D position of every surface and every moving point, so they give perfect answers for training, something you can&#39;t get from real footage. It makes up about 4.5% of the geometry training mix and about 20.5% of the motion mix. (Same lesson as Gamer yesterday: games are becoming a major training ground for AI that understands the physical world.)</li>
+</ul>
+<p>Training took 64 data-center GPUs and roughly 400,000 update steps in total.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Geometry (the main result).</strong> They compared π^4 with nine strong models across 16 test settings: depth from a single image, depth across video, camera positions, and full multi-view reconstruction. Ranking every model in every setting and averaging, π^4 came first with an average rank of <strong>3.00</strong>, just ahead of Pi3X (an improved π^3) at 3.10, then π^3 at 3.85. VGGT averaged 7.76 and MapAnything 7.96. π^4 was best on video depth, camera positions and multi-view reconstruction, and not best on single-image depth. On one well-known video depth test (Sintel), its error was 0.160, the lowest in the table (Track4World 0.181, Pi3X 0.189).</p>
+<p><strong>Long sequences.</strong> On six routes of the Oxford Spires dataset (361 to 800 frames each, all in one pass), π^4 cut camera-path error by <strong>47.2%</strong> and shape error by <strong>24.1%</strong> compared with DVLT, a recent rival built for this kind of long input. (In the tables I read only in summary, several larger rivals ran out of memory on most routes.) The paper also shows scenes with <strong>over 1,000 images</strong> processed in one pass, even though training never used more than 64 at once.</p>
+<p><strong>Motion and moving objects.</strong> Here the abstract&#39;s own word is &quot;competitive,&quot; and that&#39;s fair: from the result tables (which I read in less detail), π^4 lands close to the specialist trackers and segmenters but is usually not first. CoWTracker and ARROW still lead on some tracking measures, and the GMOS segmenter leads on average for moving-object masks. The point is that one half-billion-parameter model gets near the specialists on every task at once.</p>
+<p><strong>Why it&#39;s convincing.</strong> Many baselines, many datasets, one consistent ranking method, and the size advantage is verifiable. Why it&#39;s surprising: a smaller model that also does tracking matches or beats bigger models that only do geometry.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Real-world scale isn&#39;t its strongest suit.</strong> In the metric-scale comparison (which I read only in summary), Pi3X has a lower average scale error than π^4, and errors on the order of 10 to 20% are typical across these models. That&#39;s fine for a rough room layout and not fine for measurements that need centimeter accuracy.</li>
+<li><strong>Tricky motion.</strong> The authors note it can mistake a moving object for background when the background has little texture (a blank wall) or when the moving thing fills most of the frame.</li>
+<li><strong>Drift far from the origin.</strong> Camera position errors grow for cameras far from where the reconstruction starts.</li>
+<li><strong>Not always better than slow methods.</strong> It doesn&#39;t consistently match careful optimization-based pipelines, especially on sequences much longer than it trained on.</li>
+<li><strong>Non-commercial license.</strong> Code and weights are released, but under CC BY-NC 4.0, which forbids commercial use. You can experiment with it, not ship it in a product.</li>
+<li><strong>Needs a real GPU.</strong> The repo reports about 12 GB of GPU memory for 150 frames at low resolution. This is a server model, not a phone model, today.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Feed-forward 3D is replacing the old pipeline in research and tools.</strong> Meta&#39;s VGGT repository now exports directly to COLMAP&#39;s format and feeds gsplat, a popular Gaussian splatting library, so people can make splats (Day 20) from photos without the slow classic step. Meta relicensed VGGT&#39;s code for commercial use in 2025 and offers a separate commercial checkpoint by application.</li>
+<li><strong>One API for the whole family.</strong> Meta and Carnegie Mellon&#39;s MapAnything (Apache 2.0 code, with an Apache-licensed checkpoint) wraps VGGT, DUSt3R, MASt3R, Pi3-X, Depth Anything 3 and others behind one interface. That&#39;s a sign this family has become a standard toolbox, and π^4 is the newest entrant.</li>
+<li><strong>Robots.</strong> VGGT-SLAM 2.0 runs a VGGT-based mapping system in real time on board a ground robot with an NVIDIA Jetson Thor (about 3.5 frames per second). The 3D-MIX research module adds frozen VGGT features to robot &quot;brain&quot; models (the VLA kind from Day 21 and Day 55) and reports about a 7% average gain on an out-of-domain robot benchmark.</li>
+<li><strong>ByteDance&#39;s Depth Anything 3</strong> reports beating VGGT by about 36% on camera accuracy, showing how fast the leaderboard moves: π^4 now ranks above both in its own comparison.</li>
+</ul>
+<p>I could not find a named consumer product that publicly says it runs π^4 or VGGT inside it. Phone scanning apps generally don&#39;t disclose their models, and π^4&#39;s license rules out commercial use for now.</p>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Classic structure from motion isn&#39;t gone,</strong> but it&#39;s being pushed to the &quot;final polish&quot; step. Feed-forward models give a fast first answer; slow optimization still wins when you need the last bit of accuracy, as this paper admits.</li>
+<li><strong>Separate per-task tools are fading.</strong> Stacking a depth model, a camera solver, a tracker and a segmenter is being replaced by single models (MapAnything for geometry, π^4 for geometry plus motion).</li>
+<li><strong>Phone LiDAR scanning (Apple&#39;s RoomPlan-style apps) is a different route.</strong> It measures depth with a sensor rather than inferring it. Models like π^4 aim to get similar results from any ordinary camera, including old footage.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>COLMAP structure from motion (slow, static scenes) -&gt; DUSt3R and VGGT (one fast pass, static scenes) -&gt; π^3 (no reference photo) -&gt; π^4 (adds time: tracking, moving objects and real scale in one compact model) -&gt; likely next: the same thing running live, feeding robots, AR headsets and video generators.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Standard Physics.</strong> This is the core technology your product depends on: phone footage in, measured 3D room out, with no special sensor. π^4 shows what the research frontier can do (walk through a building with any phone and get geometry plus real scale in one pass), and also exactly where it falls short for you. ADA checks hinge on small measurements (a 32-inch clear door width, a 1:12 ramp slope, 60 inches of turning space), and a 10% scale error turns a compliant door into a failing one. The practical takeaway: models like this are great for the layout, but you&#39;ll want a scale anchor (LiDAR on newer iPhones, or a known-size object like a sheet of paper in frame) for the numbers you actually report. And for a product, look at MapAnything&#39;s or VGGT&#39;s commercially licensed versions, not π^4.</p>
+<p><strong>Your filmmaking.</strong> Working out where the camera was in every frame, and which things are moving, is what VFX artists call <strong>matchmoving</strong> or camera tracking, and it usually means hours in specialized software. A model like π^4 does a version of it in one pass from ordinary footage. For generative video and previs (Days 32 and 53), that&#39;s how you&#39;d place a virtual object or character into a real shot so it stays locked in place as the camera moves.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">4D reconstruction</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Rebuilding a scene&#39;s 3D shape plus how it changes over time.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Feed-forward model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A network that produces its answer in a single pass, with no slow step-by-step solving afterward.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Camera pose</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Where a camera stood and which way it pointed when it took a picture.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Pointmap</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An image where every pixel stores a 3D position instead of a color.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Permutation-equivariant</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Shuffling the inputs just shuffles the outputs; the order you give images in doesn&#39;t change the answer.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Looped decoder</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A network that reuses the same layers several times in a row, getting more thinking from fewer parameters.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Look at <strong>Figure 1</strong> (what goes in and what comes out) and read <strong>Section 3</strong>, especially the part on lifting 2D correspondences into 3D tracks; it&#39;s short and the core trick is there. Then glance at <strong>Table 2</strong> for the main geometry ranking. Skim <strong>Section 4</strong> if you&#39;re curious about GameRealm and the training data. Skip the loss-function details and the per-dataset tracking tables.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>π^4 gets its sharpest motion labels from video games, because game engines know the truth about every surface. If more and more AI that &quot;understands the real world&quot; is trained on game worlds, what kinds of real places, people or objects will it be worst at, and how would you test that before trusting it to measure a real building?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.23144">π^4 paper (arXiv 2611.23144)</a></li>
+<li><a href="https://arxiv.org/pdf/2611.23144">π^4 paper PDF</a></li>
+<li><a href="https://huggingface.co/papers/2611.23144">π^4 on Hugging Face Papers</a></li>
+<li><a href="https://github.com/yyfz/Pi4">π^4 code repository</a></li>
+<li><a href="https://huggingface.co/papers/month/2026-11">Hugging Face Papers, November 2026</a></li>
+<li><a href="https://github.com/facebookresearch/vggt">VGGT code repository (Meta)</a></li>
+<li><a href="https://github.com/facebookresearch/map-anything">MapAnything code repository (Meta and CMU)</a></li>
+<li><a href="https://alphasignal.ai/news/meta-and-cmu-s-mapanything-replaces-12-separate-3d-vision-tools-with-one-model">AlphaSignal: MapAnything replaces 12 separate 3D vision tools with one model</a></li>
+<li><a href="https://arxiv.org/pdf/2601.19887">VGGT-SLAM 2.0: Real-time Dense Feed-forward Scene Reconstruction</a></li>
+<li><a href="https://arxiv.org/pdf/2603.24393">3D-MIX for VLA: integrating VGGT-based 3D information into robot models</a></li>
+<li><a href="https://arxiv.org/pdf/2511.10647">Depth Anything 3: Recovering the Visual Space from Any Views</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/56/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 56</span>
+<span class="mt-1 block font-semibold">Gamer (an AI that plays games live, through the screen, keyboard and mouse)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
