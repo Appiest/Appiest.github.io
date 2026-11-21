@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 58: FastFrames: Video Generation at Interactive Latency</title>
+<meta name="description" content="Apple researchers found that the slow part of live AI video is not the famous diffusion step but the plumbing around it, rebuilt that plumbing, and got an open video model to answer each new input with a fresh frame in about 36 milliseconds, roughly 7.6 times faster than the previous fastest model and quick enough to feel instant.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">FastFrames: Video Generation at Interactive Latency</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">58</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Gene Chou, Guandao Yang, Fujun Luan, Lars Mescheder, Wei Dong, Stephan R. Richter, Vladlen Koltun (Apple, Cornell University)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.23226" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Apple researchers found that the slow part of live AI video is not the famous diffusion step but the plumbing around it, rebuilt that plumbing, and got an open video model to answer each new input with a fresh frame in about 36 milliseconds, roughly 7.6 times faster than the previous fastest model and quick enough to feel instant.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>To make AI video you can steer live, like a video game, you don&#39;t mainly need a faster &quot;brain&quot;; you need to stop wasting time unpacking and filing each frame, and FastFrames shows that fixing those two chores makes a 1.3 billion parameter model respond in 36 milliseconds per frame.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: the video model underneath is a <strong>diffusion model (Day 12)</strong> built on a <strong>Transformer (Day 9)</strong>, generating video one piece at a time the way <strong>sequence to sequence models (Day 5)</strong> generated sentences one word at a time. Its new decoder is a small <strong>convolutional network (AlexNet, Day 3)</strong> with shortcut-style blocks descended from <strong>ResNet (Day 8)</strong>, and it is sharpened with the &quot;forger versus detective&quot; training trick from <strong>GANs (Day 7)</strong>. On the frontier track it is the speed piece that <strong>Any Time, Any Space (Day 22)</strong>, <strong>Agentic World Action Models (Day 31)</strong>, <strong>StreamVibe (Day 33)</strong> and <strong>TAPESTRY (Day 37)</strong> all quietly need, and it complements the filmmaking tools in <strong>FilmFlow (Day 32)</strong> and <strong>MoviEdit (Day 42)</strong>.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>Most AI video models (Wan, HunyuanVideo, Veo, Sora) are <strong>bidirectional</strong>: they create a whole clip at once, so every frame can &quot;see&quot; every other frame. That gives great quality, but you wait tens of seconds to minutes, and you can&#39;t change anything mid-clip. Since late 2024 a second family, <strong>autoregressive video diffusion</strong>, generates video frame by frame (or chunk by chunk), so you can steer it as it goes: press &quot;turn left&quot; and the next frames turn left. The key papers were CausVid (MIT and Adobe), Self Forcing, and Causal Forcing++, and the field mostly measured success in <strong>frames per second (FPS)</strong>. The authors argue FPS is the wrong number. A model that spits out 30 frames in one batch every second can claim 30 FPS while still making you wait a full second after you press a key. And even the fastest open model, Causal Forcing++, took about 272 milliseconds to show the effect of a new input, around five times too slow to feel instant. Everyone was busy cutting diffusion steps, which, it turns out, was no longer where the time went.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-measure-the-right-thing-latency-not-frame-rate">1. Measure the right thing: latency, not frame rate</h3>
+<p><strong>What it is.</strong> The paper defines <strong>end-to-end per-frame latency</strong>: the time from a new input (a steering command, a camera move) to the first finished image that shows its effect. It flips that into <strong>responses per second (RPS)</strong>: 1 divided by latency in seconds. Their target is 50 milliseconds or less, which is 20 RPS, based on research showing people start noticing delay around 50 to 60 milliseconds.</p>
+<p><strong>Analogy.</strong> A restaurant that serves 30 dishes per minute sounds fast. But if it only sends food out in one big batch every few minutes, your table still waits. FPS counts dishes; latency asks how long <em>you</em> wait after ordering.</p>
+<p><strong>Why this matters.</strong> Once you measure waiting time instead of throughput, you&#39;re forced to look at every step between &quot;input arrives&quot; and &quot;pixels on screen,&quot; not just the famous one.</p>
+
+<h3 id="2-profile-first-the-diffusion-step-wasn-t-the-bottleneck">2. Profile first: the diffusion step wasn&#39;t the bottleneck</h3>
+<p>Here&#39;s the paper&#39;s most useful lesson, and it&#39;s a simple one. They timed every part of Causal Forcing++ on one NVIDIA B200 (a top-end data-center GPU). Some terms first:</p>
+<ul>
+<li>A <strong>latent</strong> is a compressed version of the video. Instead of working on millions of pixels, the model works on a small grid of numbers. A <strong>VAE</strong> (variational autoencoder) is the pair of networks that packs video into latents (the encoder) and unpacks latents back into pixels (the <strong>decoder</strong>).</li>
+<li>A <strong>DiT</strong> (diffusion transformer) is the model that does the actual creative work in latent space, turning noise into a frame over a few <strong>diffusion steps</strong>.</li>
+<li>A <strong>KV cache</strong> is the model&#39;s notebook. As a Transformer processes each frame, it stores summary &quot;keys&quot; and &quot;values&quot; (KV) so later frames can look back at earlier ones without recomputing everything. That&#39;s how frame 50 remembers what frame 10 looked like.</li>
+</ul>
+<p><strong>Worked example: where 272 milliseconds went.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Diffusion step 1 (DiT pass)</td>
+<td>41.6 ms</td>
+</tr>
+<tr>
+<td>Diffusion step 2 (DiT pass)</td>
+<td>41.6 ms</td>
+</tr>
+<tr>
+<td>Extra DiT pass just to update the KV cache</td>
+<td>41.6 ms</td>
+</tr>
+<tr>
+<td>VAE decoder: latents to pixels</td>
+<td>147 ms</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>about 272 ms</strong></td>
+</tr>
+</tbody></table>
+<p>Only about 30% of the time is the diffusion everyone was optimizing. The VAE decoder alone costs as much as three and a half DiT passes. Cutting from two diffusion steps to one only saves about 15% and makes the video worse. So the authors went after the other 70%.</p>
+<p><strong>Analogy.</strong> It&#39;s like a film shoot where everyone is trying to make the actors deliver lines faster, when most of the day is actually spent on lighting changes and moving the camera truck.</p>
+
+<h3 id="3-replace-the-slow-unpacker-with-a-tiny-pixel-decoder">3. Replace the slow unpacker with a tiny &quot;pixel decoder&quot;</h3>
+<p><strong>The problem.</strong> The standard Wan VAE decoder is a heavy network that rebuilds full-resolution video from the latents, carefully, layer by layer, at high resolution. That takes 147 ms.</p>
+<p><strong>How FastFrames does it, step by step.</strong></p>
+<ol>
+<li>Keep the big video model (the DiT) completely <strong>frozen</strong>: no changes to its weights at all.</li>
+<li>Build a new, small <strong>pixel decoder</strong> that does almost all of its thinking on the small latent grid instead of at full resolution. It uses three lightweight <strong>causal</strong> 3D convolution blocks (&quot;causal&quot; means each frame may look at past frames but never future ones, which is necessary for live generation).</li>
+<li>At the very end, one simple layer turns each latent token straight into a finished patch of pixels: a 16 by 16 pixel square across 4 frames. Tile all the patches together and you get 480 by 832 video.</li>
+<li><strong>Training, stage 1: copy the teacher.</strong> Run the old VAE decoder on about 150,000 generated videos and teach the new decoder to produce the same pixels. The loss (the score the training tries to minimize) mixes a few things: how close the pixels are, whether edges match, whether motion between frames matches.</li>
+<li><strong>Training, stage 2: sharpen with a critic.</strong> Copying the teacher alone makes things slightly blurry. So they add <strong>adversarial training</strong> (the GAN idea from Day 7): a &quot;discriminator&quot; built on Meta&#39;s DINOv3 image model tries to tell real video from the decoder&#39;s output, and the decoder learns to fool it. This brings back fine detail like strands of hair and raindrops.</li>
+</ol>
+<p><strong>Result.</strong> About 64 million parameters (slightly <em>smaller</em> than the old 73 million parameter decoder) but <strong>1 millisecond instead of 147</strong>. Same-ish size, about 150 times faster, because it does the expensive work on a small grid.</p>
+<p><strong>Analogy.</strong> The old decoder is a painter who repaints every frame from scratch on a huge canvas. The new one is a printer that has learned to stamp each small square of the picture directly from a compact code.</p>
+<p>A small but telling detail: they also tried gently fine-tuning the big video model itself, and it became unstable. Freezing the expensive model and training cheap add-ons around it was the reliable path.</p>
+
+<h3 id="4-replace-the-extra-pass-with-a-tiny-note-taker">4. Replace the &quot;extra pass&quot; with a tiny note-taker</h3>
+<p><strong>The problem.</strong> After making each new frame, these models run the whole DiT one more time on the finished, clean frame, just to write better notes into the KV cache for future frames. In a two-step model, that&#39;s one third of all the heavy computation. Simply skipping it makes the video fall apart over time (the paper shows this degrading in Figure 6).</p>
+<p><strong>How FastFrames does it.</strong> Train a small separate network to <em>predict</em> what those cleaned-up notes would have been. It reads the frame through the DiT&#39;s own front door (its frozen patch embedding), runs four small Transformer blocks, then uses one tiny &quot;repair head&quot; per DiT layer to fix the notes the cheap pass left behind. The repair heads start at zero, so at first they change nothing, and they learn only the corrections that matter.</p>
+<p><strong>Result.</strong> About 2 ms for the small model (6 ms for the large one), instead of a full 41.6 ms pass.</p>
+<p><strong>Analogy.</strong> Instead of re-reading the whole chapter to update your study notes, a sharp assistant who has watched you do it thousands of times writes the update for you in a few seconds.</p>
+
+<h3 id="5-ordinary-engineering-done-well">5. Ordinary engineering, done well</h3>
+<p>The rest is careful systems work, which the paper is refreshingly honest about:</p>
+<ul>
+<li><strong>Keeping memory in place</strong> instead of reallocating it every frame, precomputing tables that never change, and fusing small operations together.</li>
+<li><strong>Split-KV attention</strong>: break the long notebook (about 32,760 tokens) into five segments, process them in parallel, and merge the results. This alone cut 13%.</li>
+<li><strong>CUDA graphs</strong>: recording the whole sequence of GPU instructions once and replaying it, so the computer doesn&#39;t spend time deciding what to do next.</li>
+<li>Together these cut one DiT pass from 41.6 ms to 16.4 ms for the small model.</li>
+<li><strong>Eight GPUs at once</strong> (context parallelism): split each frame&#39;s work across eight GPUs that swap notes once per layer over a very fast connection. That brings a DiT pass for the small model to 5.8 ms.</li>
+</ul>
+<p><strong>The new budget for FastFrames-S</strong> (one GPU): two DiT passes at about 16 ms each, plus about 2 ms of note-taking, plus about 1 ms of decoding, comes to roughly <strong>35 to 36 ms</strong>. Same frozen video model, same quality setting, a 7.6 times shorter wait.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p>They built two versions, both from Alibaba&#39;s open Wan 2.1 video models: <strong>FastFrames-S</strong> (1.3 billion parameters) and <strong>FastFrames-L</strong> (14.3 billion). All main tests are at 480p (832 by 480).</p>
+<p><strong>Speed (Table 1).</strong></p>
+<ul>
+<li>FastFrames-S: <strong>36 ms per response on one GPU (about 28 RPS)</strong>, versus 272 ms for Causal Forcing++, 662 ms for CausVid and 717 ms for Self Forcing. On eight GPUs: <strong>14 ms (about 71 RPS)</strong>.</li>
+<li>FastFrames-L: 158 ms on one GPU, <strong>45 ms on eight GPUs (about 22 RPS)</strong>. The best comparable large model, Krea Realtime (14.3 billion parameters), takes 1,675 ms.</li>
+<li>For scale: the original bidirectional Wan 2.1 1.3B takes about 30 seconds, and HunyuanVideo 1.5 about 26 minutes, because they make the whole clip at once.</li>
+</ul>
+<p><strong>Quality.</strong> On <strong>VBench</strong>, a standard automatic scorecard for video quality and prompt-matching (higher is better), FastFrames-S scored 84.23 against 84.11 for Causal Forcing++, and FastFrames-L scored 84.44 against 84.42 for Krea Realtime. These gaps are tiny. The honest reading is &quot;the same quality, many times faster,&quot; not &quot;better.&quot;</p>
+<p><strong>It works on other people&#39;s models too.</strong> They bolted the same tricks onto two existing open models: LingBot (a world model you steer with camera moves) went from 842 ms to 52 ms on eight GPUs, and RealWonder (which responds to physical forces like pushes) went from 1,141 ms to 51 ms. That&#39;s the convincing part: the recipe isn&#39;t tied to one model.</p>
+<p><strong>Why it&#39;s surprising.</strong> The field had spent two years squeezing diffusion steps. A careful stopwatch showed most of the time was elsewhere, and fixing it was mostly cheap add-on networks plus good engineering.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Data-center hardware.</strong> Every number is on NVIDIA B200 GPUs, among the most expensive chips available; the eight-GPU numbers need a whole server. The authors say older H100s run about 25 to 50% slower (from the appendix, read in summary). Running on a phone, laptop or headset is a goal, not a result.</li>
+<li><strong>Low resolution.</strong> Main results are 480p. At 720p the small model takes about 127 ms on one GPU (appendix, read in summary), back above the &quot;feels instant&quot; line.</li>
+<li><strong>Quality isn&#39;t improved, just kept.</strong> VBench differences are within a fraction of a point, and I found no human viewer study in the parts I read.</li>
+<li><strong>Add-ons are per model.</strong> The pixel decoder and note-taker have to be retrained for every base model; you can&#39;t reuse them.</li>
+<li><strong>The hard parts of world models remain.</strong> Long-term consistency (does the room look the same when you turn back?) and physical plausibility are listed as future work. Speed doesn&#39;t fix a world that drifts.</li>
+<li><strong>Steering is still slowish.</strong> Models that take camera or action inputs run slower, partly because of how those inputs are fed in. The authors suggest a fix but don&#39;t test it.</li>
+<li><strong>License.</strong> Apple posted both models on Hugging Face under its own research license (tagged &quot;apple-amlr&quot;), and the LingBot demo parts are non-commercial (CC BY-NC-SA). I didn&#39;t read the full license text, so check the terms before building anything commercial on it.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Real-time &quot;world models&quot; are now products.</strong> Google DeepMind&#39;s Genie 3 runs at 720p and 24 frames per second, and since January 2026 US Google AI Ultra subscribers can explore its worlds for 60 seconds at a time in Project Genie. Waymo built its own driving simulator on Genie 3. Decart launched Oasis 3 in June 2026, an autoregressive, frame-by-frame driving world model sold by API at $0.02 per second. A tracker page (run by a vendor, so treat with care) also lists Runway&#39;s GWM-1, PixVerse R1 and Odyssey-3, and a research preview of Genie 4 in late October 2026.</li>
+<li><strong>These are all built on the same basic recipe FastFrames speeds up:</strong> generate frame by frame, distill to very few diffusion steps, and train the model on its own outputs. FastFrames is open, so it&#39;s a public example of the speed engineering that companies like Decart describe only in general terms (Decart credits an in-house &quot;optimization stack&quot;).</li>
+<li><strong>Apple released code and weights.</strong> Both FastFrames-S and FastFrames-L, including the intermediate training checkpoints for the large model, are on Hugging Face, and the two pages had about 600 likes between them within days.</li>
+</ul>
+<p>I could not find any product that says it uses FastFrames itself yet, which is unsurprising four days after release.</p>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Bidirectional models still win for finished clips.</strong> For a polished ten-second shot (an ad, a music video), whole-clip models like Wan, Veo and Kling still give the best quality, because you can afford to wait. FastFrames-style models are for interaction, not for final renders.</li>
+<li><strong>FPS as the headline number is on its way out</strong> for interactive work, if this paper&#39;s argument catches on.</li>
+<li><strong>The heavy VAE decoder in the live loop</strong> is the thing this paper argues should go. It stays useful for training and offline generation.</li>
+<li><strong>Independent checks are missing.</strong> One write-up notes that nobody outside Apple has reproduced the numbers yet.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Whole-clip diffusion video (Wan, Sora: great but slow) -&gt; autoregressive video diffusion (CausVid, Self Forcing, Causal Forcing++: steerable but about a quarter second behind) -&gt; FastFrames (profile the whole pipeline, replace the decoder and the extra pass: about 36 ms) -&gt; what you&#39;ll use: AI video worlds, games and previs tools that react as you move.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Your filmmaking and generative video.</strong> A model that answers a camera move in 50 ms is the difference between &quot;render and wait&quot; and <strong>live directing</strong>: moving a virtual camera through a generated scene and seeing the shot immediately, the way previs and virtual production already work with game engines. The LingBot result (camera-steered world model, 842 ms down to 52 ms) is exactly that use case. It&#39;s still 480p and data-center only, so think of it as a preview of where previs tools are heading in a year or two, not something to shoot with today.</p>
+<p><strong>Unstall and Amelia (and every voice product you build).</strong> The paper&#39;s real lesson travels: before optimizing the famous model, put a stopwatch on every step from input to output. In voice agents the equivalent trap is spending weeks on the language model when the delay is actually in speech recognition finalizing, text-to-speech warming up, or network round trips. Their &quot;latency, not throughput&quot; framing maps directly onto &quot;time until the agent starts speaking,&quot; which is the number users feel.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Autoregressive video diffusion</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Generating video frame by frame, each new frame made by a diffusion model that looks back at earlier frames, so it can be steered as it goes.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Latency (per-frame, end-to-end)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The wait from a new input to the first frame that shows its effect; RPS (responses per second) is one divided by that wait.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">VAE decoder</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The network that unpacks a compact latent code back into full pixels; here, the hidden bottleneck.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">KV cache</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A Transformer&#39;s stored notes about earlier input, letting new frames refer back without recomputing.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Distillation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Training a small or fast &quot;student&quot; to imitate a slow &quot;teacher,&quot; here used to copy the old decoder and the extra notes pass.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Adversarial training</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Improving a generator by pitting it against a critic that tries to spot fakes (the GAN idea).</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the <strong>Introduction (Section 1)</strong> with <strong>Figure 2</strong>, the timing breakdown: it&#39;s the whole argument in one picture. Then read <strong>Section 3.2</strong> on the pixel decoder, the clearest new idea, and look at <strong>Table 1</strong> for speed against quality. Skip the loss equations and the multi-GPU parallelism details in Section 3.4 unless you&#39;re curious about systems engineering.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If AI video becomes fast enough to respond to your every move, the line between a film, a game and a conversation starts to blur. As a filmmaker, what do you keep control of in a story the viewer can steer frame by frame, and what would you want to hand over?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.23226">FastFrames paper (arXiv 2611.23226)</a></li>
+<li><a href="https://arxiv.org/html/2611.23226">FastFrames paper, HTML version</a></li>
+<li><a href="https://arxiv.org/pdf/2611.23226">FastFrames paper PDF</a></li>
+<li><a href="https://huggingface.co/apple/FastFrames-S">FastFrames-S on Hugging Face (Apple)</a></li>
+<li><a href="https://huggingface.co/apple/FastFrames-L">FastFrames-L on Hugging Face (Apple)</a></li>
+<li><a href="https://letsdatascience.com/news/fastframes-brings-autoregressive-video-diffusion-to-interact-6508da0f">Let&#39;s Data Science: FastFrames brings autoregressive video diffusion to interactive latency</a></li>
+<li><a href="https://www.orcarouter.ai/blog/fastframes-video-generation-apple-interactive-latency">OrcaRouter: FastFrames video generation at interactive latency</a></li>
+<li><a href="https://arxiv.org/pdf/2412.07772">CausVid: From Slow Bidirectional to Fast Autoregressive Video Diffusion Models</a></li>
+<li><a href="https://techcrunch.com/2026/06/10/decarts-new-world-model-can-simulate-hours-of-photorealistic-driving-with-some-caveats/">TechCrunch: Decart&#39;s new world model can simulate hours of photorealistic driving</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Genie_(AI_model)">Wikipedia: Genie (world model)</a></li>
+<li><a href="https://en.wikipedia.org/wiki/World_model_(artificial_intelligence)">Wikipedia: World model (artificial intelligence)</a></li>
+<li><a href="https://livegen.ai/best/real-time-ai-video-models">LiveGen: Real-time AI video and world models release tracker</a></li>
+<li><a href="https://huggingface.co/papers/trending">Hugging Face Trending Papers</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/57/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 57</span>
+<span class="mt-1 block font-semibold">π^4 (one model turns any photos or video into a moving 3D scene)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
