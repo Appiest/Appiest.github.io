@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 59: Depth Pro 2: Sharp and Temporally Consistent Metric Monocular Depth</title>
+<meta name="description" content="Apple trained one Transformer that looks at either a single photo or a stretch of video and tells you how far away every pixel is in real meters, with crisp edges and without the flicker that plagued earlier video depth tools, and released models from 24 million to 872 million parameters, including Core ML versions for Apple devices.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Depth Pro 2: Sharp and Temporally Consistent Metric Monocular Depth</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">59</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Peiyun Hu, Marko Mihajlovic, Lyndon Duong, Lahav Lipson, Wei Dong, Amaël Delaunoy, Stephan R. Richter, Vladlen Koltun (Apple)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.26603" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Apple trained one Transformer that looks at either a single photo or a stretch of video and tells you how far away every pixel is in real meters, with crisp edges and without the flicker that plagued earlier video depth tools, and released models from 24 million to 872 million parameters, including Core ML versions for Apple devices.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Earlier depth models made you choose between sharp edges (single-photo models) and steady, flicker-free video (multi-frame models); Depth Pro 2 is one network that gives you both, in real-world meters, at full resolution, fast enough to run live.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track, the model is a <strong>vision Transformer</strong>, the <strong>Transformer (Day 9)</strong> applied to image patches instead of words, and its final &quot;unpacking&quot; stage is a convolutional decoder in the line of <strong>AlexNet (Day 3)</strong> and <strong>ResNet (Day 8)</strong>. Its output is exactly the kind of geometry that <strong>NeRF (Day 13)</strong> and <strong>3D Gaussian Splatting (Day 20)</strong> need to build 3D scenes. On the frontier track it sits right next to <strong>π^4 (Day 57)</strong>, which recovers full 4D scene geometry and motion, and it comes from the same Apple group behind <strong>FastFrames (Day 58)</strong> (Wei Dong, Stephan Richter and Vladlen Koltun are on both papers), with the same obsession: make it work in real time.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p><strong>Monocular depth estimation</strong> means looking at an image from one ordinary camera (no laser, no second lens) and guessing how far away each pixel is. In 2024, Apple&#39;s original <strong>Depth Pro</strong> made a splash: from one photo, in about 0.3 seconds, it produced a 2.25 megapixel depth map in real meters, with unusually sharp edges, and could even guess the camera&#39;s focal length. But it worked one photo at a time. Run it on video and each frame was judged separately, so the depth <strong>flickered</strong>: a wall would seem to breathe in and out by a few centimeters from frame to frame. Video-focused models such as Video Depth Anything (ByteDance) and DepthCrafter fixed the flicker by looking at many frames together, but they usually worked at lower resolution, so edges came out soft and smeared. The paper&#39;s starting observation is that the field had split into two camps: <strong>multi-frame methods favor consistency, single-frame methods favor sharpness</strong>. Nobody had both, and most did not give real meters either.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<h3 id="1-one-network-for-photos-and-video-just-let-frames-talk-to-each-other">1. One network for photos and video: just let frames talk to each other</h3>
+<p><strong>What it is.</strong> Depth Pro 2 is a single model that accepts either one image or a group of video frames and outputs one depth map per frame. A photo is simply treated as a video that is one frame long.</p>
+<p><strong>Some terms first.</strong></p>
+<ul>
+<li>A <strong>vision Transformer (ViT)</strong> chops an image into small square <strong>patches</strong> (here 16 by 16 pixels), turns each patch into a list of numbers called a <strong>token</strong>, and lets every token &quot;pay attention&quot; to every other token to understand the scene.</li>
+<li><strong>Attention</strong> is the Transformer&#39;s way of letting one piece of the input look at other pieces and decide which ones matter.</li>
+<li>A <strong>backbone</strong> is the big pretrained part of the network that understands images in general. Here it starts from <strong>DINOv3</strong>, Meta&#39;s self-taught image model, chosen because it was trained to produce detailed, pixel-level features.</li>
+</ul>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>Every frame is split into patch tokens.</li>
+<li>In the first third of the network&#39;s layers, each frame only looks at itself (<strong>within-frame attention</strong>). This builds up a good understanding of each picture on its own.</li>
+<li>In the remaining two thirds, the layers alternate: one layer looks within the frame, the next looks <strong>across frames</strong>, letting a patch of wall in frame 10 compare itself with the same wall in frames 9 and 11.</li>
+<li>A decoder turns the final tokens back into a full-size depth map for each frame.</li>
+</ol>
+<p>The clever part is that the cross-frame layers reuse the same attention machinery the single-image model already had. No new building blocks were bolted on, which is why one set of weights handles both photos and video.</p>
+<p><strong>Two ways to run video.</strong> In <strong>buffered</strong> mode, the model processes clips of 16 frames that overlap by 4 and blends the overlaps smoothly (good for editing footage after the fact). In <strong>unbuffered</strong>, or streaming, mode it looks only at the current frame plus the previous 15, keeping notes on past frames in a rolling memory, so it can run live on a camera feed. (&quot;Causal&quot; is the technical word: it never peeks at the future.)</p>
+<p><strong>Analogy.</strong> Imagine a surveyor estimating distances in a slideshow. Shown one slide, they guess from experience. Shown several slides of the same room, they can cross-check: &quot;the doorway was 3 meters away a moment ago and the camera moved forward slightly, so it can&#39;t suddenly be 3.4 meters now.&quot; That cross-checking is what kills flicker.</p>
+<p><strong>Evidence it matters.</strong> An outside overview of the paper (alphaXiv, not verified in the paper text) reports that removing the cross-frame attention roughly triples the flicker score in their ablation test.</p>
+
+<h3 id="2-sharp-edges-come-from-working-at-full-resolution-in-one-pass">2. Sharp edges come from working at full resolution, in one pass</h3>
+<p><strong>The problem.</strong> A depth map is only as useful as its edges. If the edge of a person&#39;s hair or a door frame is blurry, the depth &quot;bleeds&quot; from the person onto the wall behind them. When you then build 3D from it, you get <strong>flying pixels</strong>: little smears of points floating in midair between foreground and background.</p>
+<p><strong>The paper&#39;s argument.</strong> Boundary sharpness tracks <strong>processing resolution</strong>. Many models shrink the image to something like 500 pixels wide to save compute, then stretch the answer back up. Detail lost in shrinking never comes back. The original Depth Pro got around this by cutting the image into tiles and stitching them. Diffusion-based depth models (like DepthCrafter) get detail by running many slow generation steps.</p>
+<p><strong>What Depth Pro 2 does.</strong> It runs the image at its <strong>native resolution in a single pass</strong> through the Transformer. No tiles, no diffusion steps. Two smaller design choices help:</p>
+<ul>
+<li>The decoder (a <strong>DPT</strong> decoder, short for Dense Prediction Transformer, which gathers features from several depths of the network at different scales) uses learned upsampling layers instead of simple blurry stretching.</li>
+<li>During training, they never smooth or interpolate the ground-truth depth, because averaging the depth of a foreground object and the wall behind it creates exactly the in-between &quot;flying&quot; values they want to avoid.</li>
+</ul>
+<p><strong>Mental picture.</strong> Think of tracing a portrait. If you trace a thumbnail and then blow it up to poster size, the outline gets fuzzy. If you trace at poster size, the line stays crisp. Depth Pro 2 traces at poster size, and it can afford to because a Transformer at 1080p is now fast enough on modern hardware.</p>
+
+<h3 id="3-real-meters-separate-shape-from-zoom">3. Real meters: separate &quot;shape&quot; from &quot;zoom&quot;</h3>
+<p><strong>The problem.</strong> From one photo, distance is ambiguous. A toy car close to the lens and a real car far away can look identical. What breaks the tie is the camera&#39;s <strong>focal length</strong>, roughly how zoomed in the lens is. Get the zoom wrong and every distance in the scene is off by the same factor.</p>
+<p><strong>Some terms.</strong></p>
+<ul>
+<li><strong>Metric depth</strong> means distance in real units (meters), as opposed to <strong>relative depth</strong>, which only says &quot;this is closer than that.&quot;</li>
+<li><strong>Inverse depth</strong> is 1 divided by distance. Networks like it because near objects get big, precise numbers and the far-away sky shrinks toward zero instead of shooting off to infinity.</li>
+<li><strong>Field of view (FOV)</strong> is how wide an angle the camera sees, which is just another way of expressing focal length.</li>
+</ul>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>The main network predicts inverse depth that has been divided by the focal length. In other words, it learns the scene&#39;s <em>shape</em> in a way that does not depend on the zoom.</li>
+<li>To turn that into meters, you multiply by the focal length.</li>
+<li>If the photo has <strong>EXIF</strong> data (the hidden camera info most phones save, including focal length), it uses that.</li>
+<li>If not, a small separate network (23.5 million parameters, also built on DINOv3) looks at the image and guesses the field of view. It was trained on photos from Flickr where the true focal length is known from EXIF. For video, it guesses on each frame and takes the middle value (the median), so one weird frame can&#39;t throw off the whole clip.</li>
+</ol>
+<p><strong>Worked example.</strong> Say the network says a doorway&#39;s focal-normalized inverse depth is 0.0005, and your phone&#39;s photo reports a focal length of 1,500 pixels. Inverse depth = 0.0005 x 1,500 = 0.75, so distance = 1 / 0.75, about 1.33 meters. (Illustrative numbers, not from the paper; the point is that shape and zoom are handled separately and multiplied at the end.)</p>
+<p><strong>Why it&#39;s a good design.</strong> When the camera info is there, you get it for free and exactly. When it is not, the guesser adds only about 0.5% to 8% extra compute, depending on model size. The new guesser is also much better than the old one: it gets the field of view within 25% on 88.6% of test images, versus 71.7% for the original Depth Pro.</p>
+
+<h3 id="4-training-on-mostly-fake-worlds-with-four-simple-rules">4. Training on mostly fake worlds, with four simple rules</h3>
+<p><strong>The data.</strong> Real-world depth labels are noisy and have holes (laser scanners miss glass, sky and thin objects). So they trained on <strong>19 datasets with a strong focus on synthetic ground truth</strong>: computer-rendered scenes where the exact distance of every pixel is known. Per the paper&#39;s data table (read only in summary), this includes a huge internal Apple synthetic set and a smaller internal set of real handheld smartphone video labeled with a time-of-flight depth sensor, plus public sets like Hypersim (indoor rooms), TartanAir, Virtual KITTI 2 and Waymo driving data. Each training example is a clip of 1 to 32 frames, so photos and video are mixed in the same batches.</p>
+<p><strong>The four losses.</strong> A <strong>loss</strong> is the score training tries to drive down. Depth Pro 2 simply adds four together, with no special weighting:</p>
+<ol>
+<li><strong>Metric accuracy</strong>: how far off the predicted depth is from the true depth, in real units (only on data that has real-unit labels). It is <strong>trimmed</strong>, meaning the worst few percent of pixels are ignored so a handful of bad labels can&#39;t dominate.</li>
+<li><strong>Scale-and-shift-invariant accuracy</strong>: is the <em>shape</em> right, even if the overall size is off? This lets them use data that only has relative depth.</li>
+<li><strong>Gradient matching</strong>: do depth <em>edges</em> line up with the true edges, at several zoom levels? This is the sharpness rule, used only on synthetic data where edges are perfect.</li>
+<li><strong>Multi-view consistency</strong>: if you take the predicted depth in one frame and project it into another frame using the known camera motion, does it agree? This is the anti-flicker rule.</li>
+</ol>
+<p><strong>Analogy.</strong> It&#39;s like training a set designer with four critics: one checks measurements with a tape, one checks proportions, one checks that edges are clean, and one walks around the set to make sure it looks the same from every angle.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p>They built four sizes: <strong>S</strong> (24 million parameters), <strong>B</strong> (97 million), <strong>L</strong> (334 million) and <strong>H+</strong> (872 million), and tested on standard benchmarks without training on them (<strong>zero-shot</strong>).</p>
+<p><strong>Speed.</strong> On one NVIDIA B200 data-center GPU, the smallest model streams <strong>1080p video at 53 frames per second</strong> and the largest at <strong>8 frames per second</strong>. Each extra past frame kept in memory adds only about 1 millisecond of delay.</p>
+<p><strong>Sharpness.</strong> Measured by <strong>boundary F1</strong> (how well predicted depth edges match true edges; higher is better), the largest model ranks first on average across five test sets, ahead of a newer sharp-edge method (InfiniDepth) and well ahead of the original Depth Pro.</p>
+<p><strong>Steadiness.</strong> Measured by <strong>jitter</strong> (how much depth wobbles frame to frame; lower is better), on the Sintel animated-film benchmark the big model scores 1.39 versus 2.09 for DepthCrafter, 2.55 for Video Depth Anything Large, 2.47 for Depth Anything 3, and 11.26 for the original Depth Pro. So it is about eight times steadier than its predecessor and noticeably steadier than the dedicated video models, while also being sharper than them.</p>
+<p><strong>Accuracy in meters.</strong> Across video benchmarks, the largest model&#39;s average rank is 1.2 (first almost everywhere), against 3.0 for UniDepthV2, 3.8 for UniK3D and 6.8 for the original Depth Pro. On the KITTI driving benchmark, 97 to 98% of pixels are within 25% of the true distance.</p>
+<p><strong>A practical bonus test.</strong> They used the depth maps to fake portrait-mode background blur (<strong>bokeh</strong>) and compared to real photos. Depth Pro 2 beat Depth Anything 3 and the original Depth Pro by about half a decibel to three quarters of a decibel in image quality, a modest but consistent win.</p>
+<p><strong>Why it&#39;s convincing.</strong> The usual story in this field is a tradeoff: improve one number and another gets worse. Here one model leads on accuracy, sharpness and steadiness at the same time, at every size, and the authors released every size so anyone can check.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Non-commercial weights.</strong> The model weights are licensed &quot;exclusively for Research Purposes,&quot; defined as non-commercial research. You can learn from it and prototype, but you cannot ship it in a paid product without a different agreement. (The code license I did not read.)</li>
+<li><strong>Data you can&#39;t reproduce.</strong> Much of the training data is internal to Apple, including the real smartphone video. Outsiders can test the models but cannot rebuild them from scratch.</li>
+<li><strong>Big training budget.</strong> Per the paper&#39;s training section (read in summary), it took 100,000 steps on 128 B200 GPUs. And the headline speeds are on a B200, among the most expensive chips there is. The Core ML versions run on Apple silicon Macs, but I did not find phone speeds.</li>
+<li><strong>Quirks the README warns about.</strong> Smaller models give the sky a finite depth of &quot;several kilometers,&quot; so you need to clip far values. Video assumes one focal length for the whole clip, so zooming mid-shot will throw off the scale. The first few frames of a live stream are less stable while the memory fills up. Feeding a much smaller image loses detail and can shift the scale.</li>
+<li><strong>Focal guesser has a comfort zone.</strong> Per the paper (read in summary), it is reliable when the image&#39;s short side is roughly 384 to 768 pixels and gets worse outside that.</li>
+<li><strong>Metrics have blind spots.</strong> The authors themselves note that one common consistency metric rewards blurry predictions, which is why they also report jitter and edge scores. And the paper estimates depth, not full 3D reconstruction or camera motion; for that you&#39;d combine it with other tools.</li>
+<li>I did not find a dedicated limitations section in the parts I read, and the conclusion was not read.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Depth Pro (version 1) is already a standard building block.</strong> It is built into Hugging Face&#39;s Transformers library as <code>DepthProForDepthEstimation</code>, so developers can call it in a few lines of Python. Depth Pro 2 is released the same way, on GitHub and Hugging Face, with exported <strong>Core ML</strong> models and a Mac demo that runs a live camera feed (Apple silicon, macOS 15 or later).</li>
+<li><strong>Your iPhone already does single-photo depth.</strong> iOS 26&#39;s <strong>Spatial Scenes</strong> turns ordinary 2D photos into a 3D parallax effect on the Lock Screen and in Photos. 9to5Mac quotes Apple describing it as &quot;advanced computer vision techniques running on the Neural Engine to reconstruct depth from flat images.&quot; Apple has not said which model powers it, so I can&#39;t confirm any link to Depth Pro.</li>
+<li><strong>Creative tools use depth models every day.</strong> ComfyUI, the popular node-based tool for AI image and video workflows, has native support for ByteDance&#39;s <strong>Depth Anything 3</strong>, with workflows for image depth, video depth, camera pose and 3D reconstruction. Depth maps like these are how creators relight shots, add fog, composite elements behind actors, or guide AI image and video generators.</li>
+<li><strong>Room scanning is a crowded app category.</strong> The App Store has many LiDAR-based room measuring and floor-plan apps. These rely on the depth sensor in Pro iPhones; models like Depth Pro 2 are what could bring similar measurements to phones and cameras without that sensor.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Not in commercial products (yet), by license.</strong> Because the weights are research-only, any startup that wants depth in a shipping product today is more likely to use the Apache 2.0 licensed sizes of Depth Anything 3 (Base, Small, Metric-Large, Mono-Large) or a phone&#39;s built-in LiDAR.</li>
+<li><strong>Per-frame depth for video is on its way out.</strong> Running a single-photo model frame by frame, the way people used Depth Pro version 1 on footage, is what this paper replaces. Dedicated video models already did better on flicker; Depth Pro 2 argues you no longer have to give up sharpness for that.</li>
+<li><strong>Tiling and diffusion for sharpness may fade.</strong> The original Depth Pro&#39;s tile-and-stitch approach and slow diffusion-based depth models (like DepthCrafter) are exactly what the &quot;one pass at native resolution&quot; design aims to make unnecessary.</li>
+<li><strong>It does not replace full 3D reconstruction.</strong> Models such as Depth Anything 3, VGGT and π^4 also recover camera position and multi-view geometry. Depth Pro 2 is the &quot;how far is each pixel&quot; piece, not the whole map.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Stereo cameras and laser sensors (special hardware) -&gt; single-photo depth from deep networks (MiDaS, Depth Anything: shape but not meters) -&gt; Depth Pro (sharp, metric, one photo) and Video Depth Anything (steady video, softer edges) -&gt; Depth Pro 2 (sharp, metric and steady in one model) -&gt; what you&#39;ll use: phone apps that measure, scan and add 3D effects from any camera.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Standard Physics.</strong> This is the most direct connection. Your app scans a space with a phone and checks it against ADA rules, which are all about real distances: door clear width, ramp slope, counter height, turning space. Depth Pro 2 gives <strong>metric depth from any camera</strong>, uses your phone&#39;s saved focal length automatically, keeps edges crisp exactly where it counts (door frames, handrails, counter edges), and holds steady across a walk-through video. That could mean supporting phones without LiDAR, or using it as a second opinion to clean up noisy LiDAR scans. Two caveats before you plan around it: the license is research-only, so prototype with it but look at Apache-licensed alternatives for the shipping product; and you&#39;d still want to test its errors on real doorways, because &quot;within 25%&quot; is far too loose for an ADA pass or fail call.</p>
+<p><strong>Your filmmaking.</strong> A steady, sharp depth map for every frame of footage shot on any camera is a quiet superpower in post: depth-based relighting, fog and atmosphere, rack-focus and bokeh after the fact, and placing CG elements behind actors. The paper&#39;s own bokeh test is aimed squarely at that use.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Monocular depth estimation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Guessing how far away each pixel is from a single ordinary camera image, with no extra sensors.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Metric depth</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Distance in real units like meters, as opposed to relative depth, which only orders things near to far.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Focal length / field of view</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How zoomed in the camera is; it sets the overall scale of every distance in the scene.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Temporal consistency (jitter)</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Whether depth stays steady from one video frame to the next instead of flickering.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Boundary sharpness</dt><dd class="mt-3 [&>*+*]:mt-3"><p>How cleanly depth changes at object edges; blurry edges create &quot;flying pixels&quot; when you build 3D.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Cross-frame attention</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A Transformer layer where patches in one frame look at patches in other frames, letting the model cross-check across time.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the <strong>Introduction (Section 1)</strong>, which lays out the sharpness versus consistency tradeoff and why resolution is the key, and then <strong>Section 3.1</strong> on the architecture and the focal-length estimator. Glance at the results tables comparing jitter and boundary F1 against the video baselines. Skip the loss formulas and the long appendix tables unless you&#39;re curious about a specific benchmark. If you want to try it, the GitHub README is short and practical, with tips like clipping sky depth.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>If any phone camera can measure a room to within a few centimeters, accessibility audits could become something a tenant, not just a certified inspector, can do in two minutes. What would need to be true, technically and legally, for a city to accept a phone scan as evidence that a building is or isn&#39;t compliant?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.26603">Depth Pro 2 paper (arXiv 2611.26603)</a></li>
+<li><a href="https://arxiv.org/html/2611.26603">Depth Pro 2 paper, HTML version</a></li>
+<li><a href="https://github.com/apple-aiml-research/ml-depth-pro-2">Depth Pro 2 code (Apple, GitHub)</a></li>
+<li><a href="https://huggingface.co/apple/DepthPro2">Depth Pro 2 model card (Hugging Face)</a></li>
+<li><a href="https://huggingface.co/papers/2611.26603">Depth Pro 2 on Hugging Face Daily Papers</a></li>
+<li><a href="https://www.alphaxiv.org/abs/2611.26603">alphaXiv overview of Depth Pro 2</a></li>
+<li><a href="https://machinelearning.apple.com/research/depth-pro">Apple Machine Learning Research: Depth Pro (2024)</a></li>
+<li><a href="https://huggingface.co/docs/transformers/v5.11.0/model_doc/depth_pro.md">Hugging Face Transformers: DepthPro model documentation</a></li>
+<li><a href="https://9to5mac.com/2025/06/10/psa-spatial-scenes-will-work-on-any-iphone-running-ios-26/">9to5Mac: Spatial Scenes will work on any iPhone running iOS 26</a></li>
+<li><a href="https://stereoscopy.blog/2025/09/21/new-ios-26-ushers-in-spatial-scene-convert-any-photo-to-a-dynamic-3-d-scene/">Stereoscopy Blog: iOS 26 Spatial Scene converts any photo to a 3D scene</a></li>
+<li><a href="https://docs.comfy.org/tutorials/utility/depth-anything-3">ComfyUI docs: Depth Anything 3</a></li>
+<li><a href="https://raw.githubusercontent.com/ByteDance-Seed/Depth-Anything-3/main/README.md">Depth Anything 3 README (ByteDance Seed)</a></li>
+<li><a href="https://arxiv.org/html/2501.12375v3">Video Depth Anything paper</a></li>
+<li><a href="https://apps.apple.com/us/app/-/id6755496543">Example LiDAR room-measuring app on the App Store</a></li>
+<li><a href="https://huggingface.co/papers">Hugging Face Daily Papers</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/58/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 58</span>
+<span class="mt-1 block font-semibold">FastFrames (AI video that reacts faster than you can notice)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
