@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 60: ForceHarness: Turning Force into Action and Physics for Frozen Frontier Models</title>
+<meta name="description" content="Instead of retraining a big AI model to feel force, ForceHarness wraps an unchanged frontier model in a set of touch-aware tools that handle contact on their own and report back in plain physical terms like &quot;this bottle weighs 0.42 kg, give or take 0.03&quot;, lifting GPT-6 Astra&#39;s success on real contact-heavy robot tasks from 3.3% to 90.0%.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">ForceHarness: Turning Force into Action and Physics for Frozen Frontier Models</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">60</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Ke Sun, Kevin Yuchen Ma, Yike Zhang, Yanzhe Chen, Mike Zheng Shou (Show Lab, National University of Singapore)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.21099" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">Instead of retraining a big AI model to feel force, ForceHarness wraps an unchanged frontier model in a set of touch-aware tools that handle contact on their own and report back in plain physical terms like &quot;this bottle weighs 0.42 kg, give or take 0.03&quot;, lifting GPT-6 Astra&#39;s success on real contact-heavy robot tasks from 3.3% to 90.0%.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>Frontier AI models can already steer a robot arm by looking at pictures, but pictures can&#39;t show weight, friction or how hard a screw is biting; ForceHarness gives the model a toolbox that feels those things for it and reports them as simple physics, and the model goes from almost always failing to almost always succeeding, with no retraining at all.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track, it is a direct descendant of <strong>ReAct (Day 18)</strong>: the model thinks, calls a tool, reads the result, and thinks again. It answers a question <strong>RT-2 (Day 21)</strong> left open: RT-2 showed web-trained models could steer robots, but only through vision. On the frontier track it continues <strong>GPT-6-Astra as a robot brain (Day 27)</strong> and <strong>uni-robot-agent (Day 44)</strong>, which both treated a frozen frontier model as a robot&#39;s planner, and it is the opposite bet from <strong>ScaleVLA (Day 55)</strong>, which trained a giant robot-specific model.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>There are two ways to make an AI control a robot. One is to <strong>train a robot policy</strong>: collect hundreds of human demonstrations per task and teach a network to copy them. Vision-language-action models (VLAs) like π0.5 are the big version of this. The other is to take an <strong>off-the-shelf frontier model</strong> (the GPT and Gemini class, used through an API) and let it call robot functions like &quot;move gripper here,&quot; with no robot training at all. The second approach got surprisingly good at tasks you can solve by looking. But a huge share of real manipulation is about <strong>contact</strong>: pushing a USB plug in until it seats, sorting bottles by weight, wiping a whiteboard hard enough to clean it but not so hard you snap something. A camera can&#39;t see force. And attempts to add force to trained policies were disappointing: the October 2026 ForceBench study found that the best way of feeding a wrist force sensor into a π0.5 policy reached only about 35% average success in simulation, and that whether force helped at all depended heavily on the design. Meanwhile, frontier models were &quot;frozen&quot;: you can&#39;t retrain GPT-6 Astra to understand a stream of sensor numbers. So the question was whether you could give a frozen model a sense of touch purely through the tools around it.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<p>The paper names two problems and solves each with a layer, plus a bottom layer that gets clean force readings in the first place.</p>
+<p><strong>Some terms first.</strong></p>
+<ul>
+<li>A <strong>harness</strong> is the software wrapped around an AI model: which tools it can call, what it sees, and what rules keep it safe. The model itself is unchanged.</li>
+<li>A <strong>frozen model</strong> is one whose internal weights are not changed by training. You only change its inputs and tools.</li>
+<li><strong>Force/torque (F/T)</strong>: force is a push or pull in a direction (measured in newtons); torque is a twisting force (newton meters).</li>
+<li><strong>Zero-shot</strong> means doing a task with no examples or practice on that task.</li>
+</ul>
+
+<h3 id="1-feel-force-without-a-force-sensor">1. Feel force without a force sensor</h3>
+<p><strong>The problem.</strong> Most force-aware robots use an expensive <strong>wrist F/T sensor</strong> between the arm and the gripper. The robot in this paper, a Franka FR3, has none.</p>
+<p><strong>What they do instead.</strong> The FR3 has a <strong>torque sensor in each of its seven joints</strong>, and Franka&#39;s own software already estimates outside forces from them. ForceHarness turns those joint readings into a single estimate of the push or pull at the hand. The math step (a least-squares solve using the arm&#39;s <strong>Jacobian</strong>, the table that links joint twisting to hand movement) is just &quot;work backwards from how hard each joint is straining to what must be pushing on the hand.&quot;</p>
+<p><strong>The fiddly but essential part: calibration.</strong> Joint sensors drift. So the harness re-zeroes (&quot;tares,&quot; like a kitchen scale) whenever the arm is at rest, re-zeroes again before each empty-handed move, waits for the arm to settle before averaging, and reports <strong>changes</strong> relative to a reference taken within the same episode, rather than absolute numbers.</p>
+<p><strong>Analogy.</strong> You don&#39;t need a scale in your palm to feel that a suitcase is heavy; your shoulder and elbow tell you. The harness reads the robot&#39;s &quot;shoulder and elbow.&quot;</p>
+
+<h3 id="2-let-fast-reflexes-live-under-the-slow-brain-self-terminating-force-primitives">2. Let fast reflexes live under the slow brain: self-terminating force primitives</h3>
+<p><strong>The problem.</strong> A frontier model called through an API takes <strong>several seconds</strong> to decide each step. Contact happens in milliseconds. If the model had to say &quot;push 1 mm more... now 1 mm more&quot; while pressing a plug into a port, it would be far too slow, and it might jam something before the next instruction arrived.</p>
+<p><strong>What a primitive is.</strong> A <strong>primitive</strong> is a small, pre-written skill the model can call by name, like a reflex. ForceHarness offers <strong>twelve of them in five groups</strong>: approach and make contact, hold a force, search and seat (for insertion), turn under load (for screws and knobs), and measure. Coverage names examples like search, wiggle, screw, slide and lift.</p>
+<p><strong>How a primitive runs, step by step.</strong></p>
+<ol>
+<li>The model calls, say, &quot;press down until contact.&quot;</li>
+<li>The primitive runs a fast control loop on the robot itself. It uses the arm&#39;s built-in <strong>impedance controller</strong>, which makes the arm behave like a spring: aim the target slightly past where the hand is, and the gap times the spring stiffness equals the force applied. To hold a chosen force, it nudges the target faster or slower depending on how far off the force is (an <strong>admittance</strong> law).</li>
+<li>The primitive <strong>ends itself</strong> when something meaningful happens: contact is made, the motion stalls, resistance suddenly drops (the plug seated, the latch gave), the goal is reached, or a safety cap is hit. It does <strong>not</strong> end on a timer.</li>
+<li>Control returns to the model with a report of what happened.</li>
+</ol>
+<p>Under all of this, a fixed <strong>guard</strong> enforces force, speed and workspace limits no matter what the model asks for.</p>
+<p><strong>Analogy.</strong> A film director doesn&#39;t tell the stunt driver how to move the steering wheel each millisecond. They say &quot;drive until you hit the mark, then stop,&quot; and the stunt driver&#39;s trained reflexes handle the rest. The model is the director; the primitives are the stunt team.</p>
+
+<h3 id="3-translate-force-into-physics-the-model-can-reason-about">3. Translate force into physics the model can reason about</h3>
+<p><strong>The problem.</strong> Even if you hand a language model a list of force readings (&quot;Fz: -4.11, -4.13, -4.09...&quot;), it can&#39;t reliably interpret them. The paper&#39;s ablations show this is especially true of smaller models.</p>
+<p><strong>What the physics translation layer does.</strong> After a primitive runs, simple, fixed estimators turn the force trace into <strong>named physical quantities, each with an uncertainty</strong>, and return those as the tool result. Examples:</p>
+<ul>
+<li><strong>Mass</strong>: average vertical force divided by gravity.</li>
+<li><strong>Friction coefficient</strong>: average sideways force divided by average pressing force.</li>
+<li><strong>Center-of-mass offset</strong>: how lopsided an object is.</li>
+<li><strong>Contact height</strong>: where a surface actually is.</li>
+<li><strong>Stiffness</strong>: how much something gives when pressed (firm versus soft).</li>
+<li><strong>Insertion advance</strong>: how far a plug or peg actually went in.</li>
+</ul>
+<p>Each comes with status flags but <strong>no task-specific thresholds</strong>. The layer never says &quot;this is the heavy bottle.&quot; It says the measurement, and the model decides.</p>
+<p><strong>Worked example (illustrative numbers, not from the paper).</strong> Task: sort two identical-looking bottles by weight. The model calls &quot;lift and measure&quot; on bottle A. The arm lifts, settles, averages its readings, and the tool returns: mass 0.42 kg, uncertainty 0.03 kg. It does the same for bottle B: 0.71 kg, uncertainty 0.03 kg. The model can now reason in plain language: &quot;B is clearly heavier, the gap is far bigger than the uncertainty, put B on the right.&quot; Without force, the model was guessing from pixels, which is why GPT-6 Astra scored zero on this task without the harness.</p>
+<p><strong>Why uncertainty matters.</strong> If the two masses had come back 0.42 and 0.44 with uncertainty 0.03, a sensible model would measure again rather than commit. Giving it error bars lets it know when it doesn&#39;t know.</p>
+
+<h3 id="4-a-test-where-the-key-fact-is-hidden-hiddenphys">4. A test where the key fact is hidden: HiddenPhys</h3>
+<p>To measure this fairly, the authors built <strong>HiddenPhys</strong>, a seven-task simulated benchmark in <strong>MuJoCo</strong> (a standard physics simulator): Weight, CoM (center of mass), Wipe, Stack, Peg, Latch and Lock. In each task, one physical variable that matters (mass, center of mass, surface height, how stiff a mechanism is) is <strong>hidden</strong> and randomized each episode within a stated range. You cannot succeed by looking; you have to feel. The benchmark also counts <strong>damage</strong>: pressing a handle harder than a set threshold counts as breaking it.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Real robot (the headline).</strong> On a Franka FR3 with no wrist sensor, six real tasks (USB insertion, screw driving, eggplant peeling, whiteboard wiping, bottle weight sorting and firmness probing), 10 tries each:</p>
+<ul>
+<li>GPT-6 Astra without force: <strong>2 of 60 (3.3%)</strong>, and zero on bottle sorting and firmness probing.</li>
+<li>GPT-6 Astra with ForceHarness: <strong>54 of 60 (90.0%)</strong>.</li>
+<li>A second frontier model, reported as GPT-6.1 Sol, with ForceHarness: <strong>47 of 60 (78.3%)</strong>.</li>
+</ul>
+<p><strong>ForceBench (someone else&#39;s benchmark).</strong> On the public ForceBench simulation tasks (eight tasks, including weight sorting and drawer pulling), ForceHarness adds <strong>17.5 percentage points</strong> per the abstract. The summaries I read put the frontier model with the harness at roughly 82 to 88%, versus about 35% for the best force-aware policy trained on 200 demonstrations per task in the original ForceBench paper. A striking side note: the frozen model <strong>without</strong> force already beat the trained policies, and with force one task (Drawer Pull) went from 0 of 10 to 10 of 10.</p>
+<p><strong>HiddenPhys.</strong> GPT-6 Astra goes from <strong>62.1% to 96.4%</strong> (135 of 140) with the harness, with <strong>zero</strong> damaged handles. A hand-written expert controller, built specifically for each task, scored about the same (136 of 140, with one damage). Trained policies (Diffusion Policy, π0.5 and ForceVLA, each given about 200 expert demonstrations per task) did worse and damaged handles often, and adding wrist force to them gave no consistent gain. When the hidden values were pushed outside the training range, ForceHarness degraded less.</p>
+<p><strong>Ablations (what each piece is worth).</strong></p>
+<ul>
+<li>The self-terminating primitives alone, even without the physics feedback, improved contact success and sharply cut damage.</li>
+<li>For smaller models, getting physical quantities beat getting raw force numbers or force plots.</li>
+<li>Turn-by-turn feedback helped the model recover after failures.</li>
+</ul>
+<p><strong>Why it&#39;s convincing.</strong> The result isn&#39;t just &quot;bigger number.&quot; It&#39;s a frozen, general model with zero demonstrations matching an expert&#39;s hand-tuned controller and beating policies trained on hundreds of demos, on a benchmark built so that vision alone cannot win. And the real-robot jump (3% to 90%) is large enough that it isn&#39;t noise; explainx reports a significance test with p below 0.01.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Slow and pay-per-step.</strong> Every decision is an API call taking seconds and costing money, which caps how long an episode can be. Fine for sorting bottles; not for catching something.</li>
+<li><strong>Hand-designed toolbox.</strong> The twelve primitives and the physics estimators were written by people. A task needing a skill not on the menu (say, kneading dough) would need new tools. The model&#39;s generality is only as wide as its toolbox.</li>
+<li><strong>Benchmark caveat.</strong> Per explainx, the ForceBench seeds used while developing the tools were not all held out; the project page reportedly labels which rows are held out. And reported ForceBench per-model numbers differ between the summaries I read (82.5% versus 87.5% for the same model), so wait for the paper&#39;s own table before quoting them.</li>
+<li><strong>Smaller models still struggle</strong> on some tasks even with translated physics.</li>
+<li><strong>Sensing in simulation is easier.</strong> In the simulated benchmarks, object positions were given to the model as noisy text, not images, so vision was partly bypassed there.</li>
+<li><strong>One robot, small trial counts.</strong> Real results are 10 tries per task on one Franka arm. Joint-torque estimates are good on Franka because it has torque sensors in every joint; cheaper arms without them would need something like FACTR 2&#39;s learned estimator (below).</li>
+<li>I could not read the paper&#39;s own limitations section from this run.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>The &quot;frontier model as robot brain&quot; pattern is a real product.</strong> Google DeepMind&#39;s <strong>Gemini Robotics ER 2</strong> (July 2026) is publicly available to developers through the Gemini API and Google AI Studio. Google describes it as a high-level &quot;brain&quot; that hands motor control to lower-level models, and says developers can declare low-level control interfaces, like VLA models or navigation APIs, as tools it calls. That is the same architecture ForceHarness uses. Google&#39;s post does not mention force or contact sensing, which is exactly the gap this paper fills.</li>
+<li><strong>The hardware already supports it.</strong> Franka&#39;s FR3 spec lists &quot;7 integrated torque sensors,&quot; and its software exposes estimated external forces and torques at 1,000 times a second. ForceHarness uses that existing signal rather than buying a wrist sensor.</li>
+<li><strong>The code is open.</strong> Per explainx, the code is on GitHub under an MIT license, with a dataset of 1,423 expert episodes on Hugging Face, so anyone with an FR3 or the simulator can try it.</li>
+<li><strong>Sensorless force is a live research line.</strong> FACTR 2 (June 2026) estimates outside force on commodity arms with a small learned model trained on about 10 minutes of free motion, even on a cheap arm with no torque sensors at all. Pair that with a harness like this one and force-aware agents could reach inexpensive robots.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Not the mainstream way robots learn force yet.</strong> Most force research still trains policies on demonstrations. A survey of 53 force- and touch-aware robot learning papers (August 2026) found the field concentrated on peg-in-hole, wiping and pick-and-place, and named expensive, hard-to-simulate force data as a major bottleneck. ForceHarness sidesteps the data problem, but it is one paper, days old.</li>
+<li><strong>Raw-sensor-in, action-out for frozen models is out.</strong> Feeding a frozen model raw numbers or force plots is what this paper argues against, and its ablations back that.</li>
+<li><strong>Not for fast, dynamic tasks.</strong> Anything needing sub-second decisions from the top-level model (catching, balancing, fast assembly lines) still belongs to trained low-level controllers.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>Hand-coded force control in factories (decades old, one task per program) -&gt; learned force-aware policies trained on demonstrations (ForceVLA, ForceBench designs, around 35% average in sim) -&gt; frozen frontier models calling vision-based robot tools (Gemini Robotics ER, Day 27, Day 44) -&gt; ForceHarness: the same frozen models calling touch-aware tools that speak physics -&gt; what you might use: a general AI that can be told &quot;tighten that until it&#39;s snug&quot; and actually feel when it&#39;s snug.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Arbor, and agent tool design in general.</strong> The paper&#39;s deepest lesson isn&#39;t about robots: <strong>the biggest gains came from redesigning the tools, not the model.</strong> Two rules stand out. First, put fast loops under the slow model and have tools return when something meaningful happens, not on a timer. Second, return <strong>interpreted quantities with uncertainty</strong> (&quot;0.42 kg, plus or minus 0.03&quot;) instead of raw data. In Arbor, an agent bidding in an auction shouldn&#39;t receive a raw stream of bids; it should get tools like &quot;watch this lot and return when the price moves more than 5% or a new bidder enters,&quot; reporting &quot;estimated clearing price $X, confidence range Y.&quot; Same pattern, different physics.</p>
+<p><strong>Standard Physics.</strong> Your app measures a space visually, but some ADA rules are about force, not geometry: the ADA Standards limit the force needed to open many interior doors and to operate hardware. A camera can&#39;t measure that. This paper is a sketch of how a future version could: a simple force reading (a handheld gauge or even a phone&#39;s sensors, which is a separate engineering question) turned into a physical quantity with an uncertainty, which an AI then checks against the rule and flags &quot;measure again&quot; when the error bar straddles the limit.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Harness</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The tools, inputs and safety rules wrapped around an unchanged AI model.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Frozen frontier model</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A top general-purpose AI used as-is through an API, with no retraining.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Force primitive</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A small built-in robot skill (press, wiggle, screw, lift) that runs its own fast control loop and stops itself when contact or a goal is reached.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Physics translation layer</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Code that turns raw force readings into named quantities like mass, friction or stiffness, each with an uncertainty.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Joint-torque force estimation</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Working out the push at the robot&#39;s hand from how hard each joint motor is straining, instead of using a wrist sensor.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">HiddenPhys</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The paper&#39;s seven-task simulated benchmark where the key physical fact is hidden, so you must feel to succeed.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Read the <strong>Introduction</strong>, which states the two problems (contact is faster than the model; the model can&#39;t read raw force) and the three-layer answer cleanly, then the <strong>method section on the physics translation layer</strong>, which is the transferable idea. Glance at the real-robot results table. Skip the impedance and admittance control equations and the calibration details unless you plan to run it on a robot.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>ForceHarness got its biggest gains by deciding what the model should <strong>not</strong> see (raw numbers) and what it should see instead (physics with error bars). For an AI agent you&#39;re building, what is the &quot;raw force stream&quot; it&#39;s currently being fed, and what would the translated, uncertainty-labeled version of it look like?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.21099">ForceHarness paper (arXiv 2611.21099)</a></li>
+<li><a href="https://hyper.ai/en/papers/2611.21099">ForceHarness on hyper.ai (abstract and paper text)</a></li>
+<li><a href="https://explainx.ai/blog/forceharness-frozen-frontier-models-force-robot-harness-2026">explainx.ai: ForceHarness explainer</a></li>
+<li><a href="https://aiweekly.co/editors-blog/found-first-nus-forceharness-lifts-frozen-gpt-6-astra-robot-success-from-3-3-to">AI Weekly: NUS ForceHarness lifts frozen GPT-6 Astra robot success from 3.3% to 90.0%</a></li>
+<li><a href="https://aiweekly.co/editors-blog/found-first-forceharness-takes-frozen-gpt-6-astra-from-3-3-to-90-0-on-a-real">AI Weekly: ForceHarness takes frozen GPT-6 Astra from 3.3% to 90.0% on a real robot arm</a></li>
+<li><a href="https://github.com/showlab/ForceHarness">ForceHarness code (Show Lab, GitHub)</a></li>
+<li><a href="https://blog.google/innovation-and-ai/models-and-research/google-deepmind/gemini-robotics-er-2/">Google: Introducing Gemini Robotics ER 2</a></li>
+<li><a href="https://franka.de/products/franka-research-3">Franka Research 3 product page</a></li>
+<li><a href="https://arxiv.org/pdf/2610.19604">ForceBench: Benchmarking Force Integration for Robotic Manipulation</a></li>
+<li><a href="https://arxiv.org/pdf/2606.12406">FACTR 2: Learning External Force Sensing for Commodity Robot Arms</a></li>
+<li><a href="https://arxiv.org/pdf/2608.07558">Learning Physical Interaction: A Survey of Tactile- and Force-aware Robot Learning</a></li>
+<li><a href="https://huggingface.co/papers/month/2026-11">Hugging Face Daily Papers, November 2026</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/59/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 59</span>
+<span class="mt-1 block font-semibold">Depth Pro 2 (real-world distances from one camera, steady across video)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
