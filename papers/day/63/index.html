@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117">
+<title>Day 63: Don&#39;t Sleep, Keep Watch: Proactive Perception for Computer-Use Agents</title>
+<meta name="description" content="AI agents that use a computer look at the screen like a flipbook, one screenshot, think for seconds, act, sleep, so they act on screens that have already changed and wait on screens that were ready long ago; NightWatch adds a tiny 0.8B-parameter watcher that keeps its eyes on the live screen and can cancel the big model&#39;s thinking, block a stale click, or wake it early, cutting wasted time on OSWorld by about half with success on par.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/papers/assets/fonts/hanken-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/papers/assets/papers.css">
+</head>
+<body class="min-h-dvh bg-surface font-sans text-text">
+<main class="mx-auto max-w-5xl px-4 pb-24 pt-8 sm:px-8">
+<a href="/papers/" class="inline-flex items-center gap-2 rounded-md py-2 text-meta font-semibold text-text-muted transition-colors hover:text-text">
+<span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span>All papers
+</a>
+<div class="mt-4">
+<div class="relative aspect-[16/10] overflow-hidden rounded-card bg-surface-sunken shadow-lift sm:aspect-[3/1]">
+  <div aria-hidden="true" class="grid-paper absolute inset-0 opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"></div>
+  <div class="absolute inset-x-0 top-[50%] sm:top-[56%]">
+    <span class="absolute h-px bg-text-muted/35" style="left:7%;width:18.02%"></span><span class="absolute h-px bg-text-muted/35" style="left:26.82%;width:66.18%"></span>
+    <span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:7%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:18.35%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:34.3%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:38.5%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:42.69%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:46.88%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:55.27%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:59.46%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:67.84%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:72.04%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:76.23%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:80.42%"></span><span class="absolute size-1.5 bg-text-muted/55 -translate-x-1/2 -translate-y-1/2 rounded-full" style="left:93%"></span>
+    <span class="absolute -translate-x-1/2 -translate-y-1/2 scale-[2.25]" style="left:93%"><span aria-hidden="true" class="relative inline-grid size-4 shrink-0 place-items-center "><span class="absolute inset-0 rounded-full bg-glow/20 blur-[3px]"></span><span class="size-1.5 rounded-full bg-glow shadow-[0_0_12px_2px] shadow-glow/60"></span></span></span>
+    <span class="absolute bottom-5 text-title tabular-nums -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-2" style="left:7%">1950</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-1/2" style="left:25.92%">2010</span>
+    <span class="absolute top-3 text-meta text-text-muted -translate-x-[calc(100%-0.5rem)]" style="left:93%">2026</span>
+  </div>
+  
+</div>
+</div>
+<article class="mx-auto mt-10 max-w-[68ch]">
+<h1 class="text-title">Don&#39;t Sleep, Keep Watch: Proactive Perception for Computer-Use Agents</h1>
+<dl class="mt-6 grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-4"><div><dt class="text-meta text-text-muted">Day</dt><dd class="text-meta font-semibold">63</dd></div><div><dt class="text-meta text-text-muted">Authors</dt><dd class="text-meta font-semibold">Jiaqi Su, Jie-Jing Shao, Yichen Liu, Long-Kai Huang and Haiyan Yin (NUS, A*STAR CFAR, SenseTime, HKBU)</dd></div><div><dt class="text-meta text-text-muted">Year</dt><dd class="text-meta font-semibold">2026</dd></div><div><dt class="text-meta text-text-muted">Track</dt><dd class="text-meta font-semibold">Frontier</dd></div></dl>
+<a href="https://arxiv.org/abs/2611.28947" class="mt-8 inline-flex items-center gap-2 rounded-lg bg-surface-raised px-4 py-2.5 font-semibold shadow-lift transition-colors hover:bg-line">
+<svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 text-accent"><path d="M204,64V168a12,12,0,0,1-24,0V93L72.49,200.49a12,12,0,0,1-17-17L163,76H88a12,12,0,0,1,0-24H192A12,12,0,0,1,204,64Z"/></svg>Read the paper
+</a>
+<p class="mt-10 text-lead text-accent">AI agents that use a computer look at the screen like a flipbook, one screenshot, think for seconds, act, sleep, so they act on screens that have already changed and wait on screens that were ready long ago; NightWatch adds a tiny 0.8B-parameter watcher that keeps its eyes on the live screen and can cancel the big model&#39;s thinking, block a stale click, or wake it early, cutting wasted time on OSWorld by about half with success on par.</p>
+<div class="notes mt-10">
+<h2 id="tl-dr">TL;DR</h2>
+<p>A computer-use agent is a big, slow AI that sees the screen in snapshots, so it keeps clicking on things that moved and sleeping through pages that already loaded; NightWatch pairs it with a tiny, fast &quot;watcher&quot; model that never chooses actions but decides <strong>when</strong> the big model should look again, and that alone cuts wasted time on the OSWorld benchmark by 53% and raises success on a dynamic web benchmark from 39.5% to 44.2%.</p>
+
+<h2 id="what-it-builds-on">What it builds on</h2>
+<p>From the foundations track: <strong>ReAct (Day 18)</strong> is the think, act, observe loop every computer-use agent runs, and this paper is about the &quot;observe&quot; part of that loop. <strong>CLIP (Day 15)</strong> and the vision-language models after it are what let an AI read a screenshot at all. From the frontier track: <strong>OpenGCUA (Day 25)</strong> was your introduction to computer-use agents, and <strong>Jeva (Day 24)</strong> introduced &quot;System 1&quot; decision models, small fast models that pick an answer instead of writing one. NightWatch&#39;s watcher is exactly that kind of model, used as the agent&#39;s reflexes. <strong>StreamVibe (Day 37)</strong> made video agents proactive about a user&#39;s changing intent; NightWatch makes a desktop agent proactive about a changing screen.</p>
+
+<h2 id="the-world-before-this-paper">The world before this paper</h2>
+<p>A computer-use agent controls a real computer the way you do: it looks at the screen, decides what to click or type, does it, and looks again. Today&#39;s agents run that loop on their own clock: take a screenshot, think (often for several seconds), act, then <strong>sleep for a fixed delay</strong> so the app has time to respond, then take the next screenshot. On a static page that works. On a real, live screen it fails in two opposite ways. First, while the model is thinking, the screen keeps changing: a pop-up appears, a page finishes loading, a button shifts down because an ad loaded above it. The model then acts on a picture that is already out of date. Second, the fixed sleep is a guess: often the page was ready in half a second and the agent sits idle for three, and sometimes the page isn&#39;t ready and the agent looks too early. The authors call this mismatch the <strong>perception-action gap</strong>. An earlier fix, AOI (June 2026), captured extra keyframes and audio between steps and fed them to the big model, which helped a lot on accuracy but made every call bigger and more expensive.</p>
+
+<h2 id="core-ideas">Core ideas</h2>
+<p><strong>Some terms first.</strong></p>
+<ul>
+<li>A <strong>computer-use agent</strong> is an AI that operates software through the screen, keyboard and mouse, like a person would, instead of through a programming interface.</li>
+<li>A <strong>VLM</strong> (vision-language model) is an AI that can read images and text together. The agent&#39;s &quot;brain&quot; is a large VLM.</li>
+<li><strong>Latency</strong> is delay: how long between asking a model something and getting its answer. Big VLMs have seconds of latency per step.</li>
+<li><strong>System 1 and System 2</strong> are borrowed from psychology: System 1 is fast, automatic reflexes; System 2 is slow, deliberate reasoning.</li>
+<li><strong>Parameters</strong> are the adjustable numbers inside a model; roughly, its size. 0.8B means 800 million, which is tiny by today&#39;s standards (frontier models are hundreds of billions or more).</li>
+</ul>
+
+<h3 id="1-split-the-agent-into-a-slow-thinker-and-a-fast-watcher">1. Split the agent into a slow thinker and a fast watcher</h3>
+<p><strong>What it is.</strong> NightWatch doesn&#39;t touch the big model at all. Same model, same prompt, same set of actions. Instead it adds a second, tiny model that watches the screen continuously, the way your peripheral vision does while you&#39;re concentrating on something else. The big model is System 2: it plans and chooses every action. The watcher is System 1: it <strong>never chooses an action</strong>. Its only job is to decide when the big model&#39;s view of the world has gone stale.</p>
+<p><strong>How it&#39;s wired.</strong> The only engineering change on the big model&#39;s side is that its response is <strong>streamed and cancellable</strong>: the harness (the software wrapped around the model that runs the loop) can stop it mid-thought. The watcher runs locally, with no API calls, and it doesn&#39;t look at every frame: a cheap pixel check fires it only when the screen changes noticeably, plus an occasional check during static loading screens so it can notice when loading is done.</p>
+<p><strong>Analogy.</strong> A film director and a script supervisor. The director (big model) is deep in thought about the next shot. The script supervisor (watcher) isn&#39;t making creative decisions, but they&#39;re watching the set, and they&#39;ll tap the director&#39;s shoulder: &quot;the actor just changed jackets,&quot; &quot;that prop got moved,&quot; &quot;lighting&#39;s ready, you can roll now.&quot;</p>
+
+<h3 id="2-three-interventions-interrupt-void-wake">2. Three interventions: interrupt, void, wake</h3>
+<p>The watcher turns what it sees into exactly three kinds of action, each tied to a moment in the loop.</p>
+<ol>
+<li><strong>Interrupt (while the big model is thinking).</strong> If something important appears (a dialog box, an error, a new page), the watcher cancels the big model&#39;s current reasoning and the step restarts from the fresh screen. No point finishing a plan for a screen that no longer exists.</li>
+<li><strong>Void (just before an action fires).</strong> The big model has decided &quot;click the Submit button at this spot.&quot; Right before the click is sent, the watcher checks: is the target still there, unchanged and uncovered? If the button moved or a pop-up is now on top of it, the pending action is <strong>thrown away</strong> instead of clicking the wrong thing.</li>
+<li><strong>Wake (after the action runs).</strong> Instead of a fixed sleep, the watcher estimates when the screen has truly <strong>settled</strong> and wakes the big model right then. Not just &quot;pixels stopped moving,&quot; which can be fooled by a page that pauses mid-load, but a learned judgment that this stillness is final.</li>
+</ol>
+<p><strong>Worked example.</strong> The paper&#39;s demo task (from the OSWorld benchmark): open a terminal, run the <code>ls</code> command in the home folder, and save a screenshot of the result to the Desktop. Partway through, a file window is still drawing while the vanilla agent is reasoning about the half-drawn screen. Without NightWatch, the agent plans around a picture that&#39;s already wrong. With it, the watcher sees the window finish opening, interrupts the stale reasoning, and the agent re-plans on the real screen. Across three runs each, NightWatch solved this task 3 out of 3 times, the plain agent 1 of 3, and the two competing methods (AOI and another baseline called PUSV) 0 of 3 and 1 of 3.</p>
+
+<h3 id="3-ask-the-screen-a-fixed-list-of-yes-or-no-questions">3. Ask the screen a fixed list of yes-or-no questions</h3>
+<p><strong>What it is.</strong> How does a 0.8B model make these calls reliably? It doesn&#39;t write text or reason in words. It answers a <strong>fixed question bank</strong> in one pass, giving a probability for each question. The questions fall into four groups: change and stability (&quot;has the screen settled?&quot;), unexpected events (&quot;did a dialog appear?&quot;), target validity (&quot;is the click target still present? has it changed?&quot;), and action effects (did the last action do something?).</p>
+<p><strong>How it works, step by step.</strong></p>
+<ol>
+<li>The watcher is given a short text description of what the agent is doing and what action is pending, plus up to four images: the screenshot the agent last saw, a recent frame, the current frame, and a close-up crop of the region that changed.</li>
+<li>It reads all of that once and outputs a probability for every question (for example: dialog appeared, 0.97; target present, 0.12).</li>
+<li>Simple <strong>fixed thresholds</strong> turn probabilities into actions. If &quot;dialog appeared&quot; is above the line during reasoning, interrupt. If &quot;target present&quot; falls below the line before a click, void. If &quot;settled&quot; crosses the line after an action, wake.</li>
+</ol>
+<p>Because the rules are fixed, the probabilities need to be <strong>calibrated</strong>, meaning a 0.9 should really mean &quot;right about 90% of the time.&quot; The authors train with a scoring term (the Brier score) that specifically rewards honest probabilities, then do a final calibration adjustment.</p>
+<p><strong>Analogy.</strong> A pilot&#39;s pre-flight checklist. You don&#39;t ask the co-pilot &quot;how do things look?&quot; and wait for an essay. You run down a fixed list and get a quick yes or no on each item. That&#39;s faster, and it makes the decision rule obvious.</p>
+<p>The watcher itself is a fine-tuned version of a small &quot;decision model&quot; built on Qwen3.5-0.8B (Alibaba&#39;s open model family), trained cheaply with a technique called LoRA that only adjusts a small slice of its weights. The authors describe it as a &quot;Jev-style&quot; System-1 model, which reads as a nod to the Jeva approach from Day 24.</p>
+
+<h3 id="4-train-the-watcher-on-fake-apps-and-hindsight-never-on-the-test">4. Train the watcher on fake apps and hindsight, never on the test</h3>
+<p><strong>What it is.</strong> To learn &quot;has this screen settled?&quot; you need lots of labeled examples of screens mid-change. The authors generated them:</p>
+<ul>
+<li><strong>360 generated desktop tasks</strong> across the same ten apps OSWorld uses, but with no shared tasks and no instructions close to OSWorld&#39;s (they checked text similarity), so the watcher can&#39;t have memorized the test.</li>
+<li><strong>SynthWeb</strong>, procedurally generated web pages where the truth is known exactly, because the generator itself put in the pop-up, the toast notification, the loading spinner, the layout shift or the button that enables after a delay.</li>
+<li><strong>Hindsight labels</strong> for settledness: record the screen, and afterward mark a moment as &quot;settled&quot; if nothing changed for the next second. You can&#39;t know that in the moment, but you can know it in the recording, which makes it a clean teaching signal.</li>
+<li><strong>Teacher labels</strong> from a larger decision model for the remaining questions.</li>
+</ul>
+<p>The decision points come from real runs of the unmodified agent: moments during reasoning, right before a click, and at various delays after an action. So the watcher learns on exactly the kinds of moments it will face.</p>
+<p><strong>Analogy.</strong> Teaching a lifeguard with video replays: you know, after the fact, which swimmers turned out fine and which needed help, so you can train their eye on clear examples before they ever sit in the chair.</p>
+
+<h2 id="what-they-showed">What they showed</h2>
+<p><strong>Benchmarks.</strong> <strong>OSWorld-Verified</strong>, the standard test of real desktop tasks inside a virtual machine (100 tasks, 3 runs each), and <strong>DynaCU-Bench</strong>, a benchmark of dynamic web tasks (pop-ups, loading, moving content) introduced by the AOI paper (49 tasks here, 3 runs each). Main agent: MiMo-V2.6-Flash, also tested with Qwen3.8-27B. Everyone got the same screenshot-only input, prompt, actions and step budget.</p>
+<p><strong>Headline results.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OSWorld non-reasoning time (time the loop spends not thinking)</td>
+<td>about <strong>33% less</strong></td>
+</tr>
+<tr>
+<td>OSWorld wasted time (idle, too-early looks, stale actions)</td>
+<td>about <strong>53% less</strong></td>
+</tr>
+<tr>
+<td>OSWorld task success</td>
+<td><strong>on par</strong> with the plain agent; matches the best pass@3</td>
+</tr>
+<tr>
+<td>DynaCU-Bench success (large agent)</td>
+<td><strong>39.5% to 44.2%</strong></td>
+</tr>
+<tr>
+<td>Agent API cost</td>
+<td>within a few percent of plain; AOI costs <strong>37% to 52% more</strong></td>
+</tr>
+</tbody></table>
+<p>(The exact OSWorld success percentages are in a table image I couldn&#39;t read, so I&#39;m reporting the authors&#39; wording.)</p>
+<p><strong>The ablations are the convincing part.</strong> Turn off any one of the three interventions and success drops and tasks slow down. Removing <strong>interrupt</strong> hurts most. Removing <strong>void</strong> makes mismatched actions (clicking something that&#39;s no longer what the agent thought it was) jump from <strong>3.6% to 15.9%</strong> of actions, more than four times as many. Wake fires on about half of all steps, and replacing it with a simple &quot;pixels stopped moving&quot; rule is slower.</p>
+<p><strong>The surprise.</strong> The 0.8B watcher beat both a hosted Jeva-style watcher API and a decision model <strong>more than 30 times its size</strong> on success, total time and non-reasoning time. Small and local wins because speed is the whole point: a watcher that takes a second to answer is already looking at the past.</p>
+<p><strong>Why it matters.</strong> Most agent research tries to make the big model smarter. This shows a meaningful chunk of failure and wasted time comes from <strong>timing</strong>, and you can fix it without touching the big model and without paying more for it.</p>
+
+<h2 id="limitations">Limitations</h2>
+<ul>
+<li><strong>Success didn&#39;t jump on OSWorld.</strong> The big win there is speed and fewer wasted steps; task success is &quot;on par.&quot; The accuracy gain shows up on the dynamic web benchmark, which is where the problem is sharpest.</li>
+<li><strong>AOI still wins on raw accuracy in its own setting.</strong> AOI reported gains of 17 to 48 percentage points on DynaCU-Bench by giving the big model much more to look at. NightWatch&#39;s trade is cheaper and faster, not strictly better at everything. The two ideas could be combined.</li>
+<li><strong>The watcher can&#39;t see what isn&#39;t on screen.</strong> No audio, no background state. It only knows pixels and the pending action.</li>
+<li><strong>Fixed thresholds.</strong> The cutoffs are hand-set, not learned per app. A weird app with constant animation could fool the settledness check (the training includes &quot;ambient motion&quot; to fight this, but it&#39;s a real risk).</li>
+<li><strong>Early release.</strong> The code repo has one commit; an integration with the Hermes agent framework is listed as coming. The paper&#39;s own limitations section was not in the text I could read, so this list is my assessment.</li>
+</ul>
+
+<h2 id="where-this-is-today">Where this is today</h2>
+<h3 id="how-it-is-used">How it IS used</h3>
+<ul>
+<li><strong>Computer-use agents are mainstream products, and they all run the flipbook loop.</strong> Anthropic&#39;s Claude computer use (in the API since October 2024, and in Claude&#39;s own apps and Chrome extension), Google&#39;s Gemini 2.5 Computer Use model (October 2025) and OpenAI&#39;s computer-using agents all work by taking screenshots and returning actions. An AI wiki tracking the field describes this &quot;flipbook&quot; character as the core perception limit and lists OSWorld scores climbing from about 15% in late 2024 to the high 70s in 2026, around the human baseline of 72%. In other words, the agents are now smart enough that <strong>timing and speed</strong>, not intelligence, is a big part of what&#39;s left. That&#39;s the gap NightWatch targets.</li>
+<li><strong>NightWatch itself is open.</strong> Code (Apache-2.0), the 0.8B watcher model and the training data are public on GitHub and Hugging Face. It&#39;s a research release, not yet in a named product.</li>
+<li><strong>AOI, its main rival, is also open</strong> (Pine AI and the University of Washington, MIT-licensed code), along with the DynaCU-Bench benchmark both papers use.</li>
+</ul>
+
+<h3 id="how-it-isn-t-used">How it ISN&#39;T used</h3>
+<ul>
+<li><strong>Fixed sleeps are still the default.</strong> I found no major product that publicly describes a learned watcher deciding when to re-look. Products typically rely on fixed waits, screenshot loops and, in browsers, page signals like &quot;page finished loading.&quot;</li>
+<li><strong>&quot;Use the page&#39;s code instead of pixels&quot; is the other road.</strong> Many browser agents read the page structure (the DOM) directly, which avoids some of this problem on the web but doesn&#39;t exist for arbitrary desktop apps. NightWatch works on pure pixels, so it applies anywhere.</li>
+<li><strong>Streaming video perception is emerging but not standard.</strong> Feeding a big model continuous video is expensive; NightWatch&#39;s bet is that you don&#39;t need the big model to watch, only a small one.</li>
+</ul>
+
+<h3 id="lineage">Lineage</h3>
+<p>ReAct&#39;s think, act, observe loop (2022) -&gt; screenshot-based computer-use agents (Claude computer use, 2024; OpenAI and Google, 2025) -&gt; richer observation between steps (AOI, June 2026) -&gt; a cheap System-1 watcher that controls the big model&#39;s timing (NightWatch, November 2026) -&gt; what you&#39;ll likely use: agents that feel like they&#39;re paying attention, reacting the moment a page loads instead of a few awkward seconds later.</p>
+
+<h2 id="why-it-matters-for-brendan">Why it matters for Brendan</h2>
+<p><strong>Unstall.</strong> A voice-first chief of staff for real estate agents will eventually have to operate software that has no clean API: an MLS portal, a transaction-management site, a showing scheduler. That&#39;s exactly the dynamic, pop-up-heavy web NightWatch targets. Two lessons carry over directly. First, <strong>speed is a product feature</strong>: a voice assistant that sits silent for ten seconds feels broken, and half of an agent&#39;s slowness can be timing, not thinking. Second, the <strong>void</strong> idea is a safety feature you&#39;d want for anything consequential: right before submitting an offer or sending a document, check that the button you&#39;re about to press is still the button you think it is.</p>
+<p><strong>Amelia.</strong> The architecture is the same shape as a live conversation-memory system: a big, slow model that understands, plus a small, fast, always-on model that only answers narrow questions (&quot;did a new speaker start?&quot;, &quot;did the topic just change?&quot;, &quot;is this a good moment to surface a memory?&quot;) and decides when to wake the big one. NightWatch is a clean, measured example of that pattern, including the trick of training the small model on <strong>hindsight labels</strong> from recordings, which you could do with conversation transcripts.</p>
+
+<h2 id="key-terms">Key terms</h2>
+<dl class="definitions grid gap-3"><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Computer-use agent</dt><dd class="mt-3 [&>*+*]:mt-3"><p>An AI that operates a computer through the screen, keyboard and mouse.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Perception-action gap</dt><dd class="mt-3 [&>*+*]:mt-3"><p>The screen changing between when the agent looked and when it acts.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">System 1 watcher</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A small, fast model that makes narrow decisions instead of writing text; here, it decides when the big model should look again.</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Interrupt, void, wake</dt><dd class="mt-3 [&>*+*]:mt-3"><p>Cancel stale thinking, discard a stale click, and replace fixed sleeps with &quot;the screen is ready now.&quot;</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Hindsight label</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A training label you can only know after the fact, like &quot;nothing changed for the next second, so this moment was settled.&quot;</p>
+</dd></div><div class="definition rounded-card bg-surface-raised p-6 shadow-lift sm:p-8"><dt class="text-section text-accent">Calibration</dt><dd class="mt-3 [&>*+*]:mt-3"><p>A model&#39;s probabilities matching reality, so 0.9 really means about 90%.</p>
+</dd></div></dl>
+<h2 id="if-you-only-have-10-more-minutes">If you only have 10 more minutes</h2>
+<p>Watch the four-agent comparison video on the <a href="https://sujq0722.github.io/NightWatch/">project page</a> (a minute, and it makes the whole idea obvious), then read the paper&#39;s <strong>method section on the three interventions</strong> and the <strong>ablation results on DynaCU-Bench</strong>, especially the void result. Skip the training-objective details and the control-scheme comparison tables.</p>
+
+<h2 id="one-question-to-think-about">One question to think about</h2>
+<p>NightWatch&#39;s watcher never decides what to do, only when to pay attention. In Unstall or Amelia, what is the &quot;when to pay attention&quot; decision, and what would be the cost of getting it wrong in each direction: interrupting too often, or sleeping through the moment that mattered?</p>
+
+<h2 id="sources">Sources</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2611.28947">Don&#39;t Sleep, Keep Watch (arXiv 2611.28947)</a></li>
+<li><a href="https://sujq0722.github.io/NightWatch/">NightWatch project page</a></li>
+<li><a href="https://github.com/SuJQ0722/NightWatch">NightWatch code on GitHub</a></li>
+<li><a href="https://huggingface.co/nullptr04/NightWatch-0.8B">NightWatch-0.8B model card</a></li>
+<li><a href="https://hyper.ai/en/papers/2611.28947">HyperAI summary of the paper</a></li>
+<li><a href="https://trendoday.com/hugging-face/papers/2026/11/25">Trendoday: Hugging Face Daily Papers, Nov 25, 2026</a></li>
+<li><a href="https://www.alphaxiv.org/overview/2606.29472">Agent-Computer Observation Interfaces (AOI) overview</a></li>
+<li><a href="https://github.com/19PINE-AI/aoi">AOI and DynaCU-Bench code</a></li>
+<li><a href="https://aiwiki.ai/wiki/computer-use_agent">AI Wiki: Computer-use agent</a></li>
+</ul>
+
+</div>
+</article>
+<nav aria-label="More papers" class="mt-20 grid gap-3 sm:grid-cols-2">
+<a href="/papers/day/62/" class="group rounded-card bg-surface-raised p-5 shadow-lift transition-colors hover:bg-line">
+<span class="inline-flex items-center gap-1.5 text-meta text-text-muted"><svg aria-hidden="true" viewBox="0 0 256 256" fill="currentColor" class="size-4 transition-transform group-hover:-translate-x-0.5"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg> Day 62</span>
+<span class="mt-1 block font-semibold">Leto (an AI memory judged by whether it helps next time, not how well it records the past)</span>
+</a>
+
+</nav>
+</main>
+</body>
+</html>
